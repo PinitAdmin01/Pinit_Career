@@ -2,85 +2,84 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 1,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why vectors",
       "codeHash": "87d488d7880524a36d48e35295576968e98281526f3c1a08bfa5e711433ae203",
       "spec": {
-        "template": "table",
-        "title": "Vector embedding geometry and semantic distance mapping",
-        "columns": [
-          "points",
-          "names",
-          "points"
-        ],
+        "template": "bars",
+        "title": "Why vectors",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Turning text into vectors allows searching for meaning via nearby points.",
-            "rows": [
+            "at": "say1",
+            "caption": "Computers cannot compare meanings directly, but they are very good.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "points"
-                  }
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "points"
-                  }
-                ],
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "The list of numbers that represents a text is called its embedding.",
-            "rows": [
+            "at": "say2",
+            "caption": "A vector is simply a list of numbers, such as [0.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "points"
-                  }
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "names"
-                  }
-                ],
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how will updates built during execution.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": {
+                  "var": "j",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,54 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vector embedding geometry and semantic distance mapping",
-        "columns": [
-          "points",
-          "names",
-          "points"
-        ],
+        "template": "bars",
+        "title": "Why vectors",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Turning text into vectors allows searching for meaning via nearby points.",
-            "rows": [
+            "at": "say1",
+            "caption": "Computers cannot compare meanings directly, but they are very good.",
+            "bars": [
               {
-                "cells": [
-                  "points",
-                  "names",
-                  "points"
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "points",
-                  "names",
-                  "points"
-                ],
+                "label": "j",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "The list of numbers that represents a text is called its embedding.",
-            "rows": [
+            "at": "say2",
+            "caption": "A vector is simply a list of numbers, such as [0.",
+            "bars": [
               {
-                "cells": [
-                  "points",
-                  "names",
-                  "points"
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "points",
-                  "names",
-                  "names"
-                ],
+                "label": "j",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how will updates built during execution.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "j",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -147,134 +145,111 @@
       "partTitle": "Bag-of-words vectors",
       "codeHash": "3a0d963e7ca6d703667f454ebee26628b1a69fd84c6bc9d13ee8f413cd8aea1e",
       "spec": {
-        "template": "table",
-        "title": "Bag of words token frequency counts over fixed vocabulary",
-        "columns": [
-          "vocab",
-          "tokens",
-          "vocab"
-        ],
+        "template": "cells",
+        "title": "Bag-of-words vectors",
         "steps": [
           {
-            "at": "say2",
-            "caption": "A vocabulary assigns each vocabulary word a distinct position in the vector.",
-            "rows": [
+            "at": "say1",
+            "caption": "The simplest embedding counts words.",
+            "items": {
+              "var": "vocab",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "vocab"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "vocab"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The value at each position records word frequencies in the text.",
-            "rows": [
+            "at": "say2",
+            "caption": "Choose a vocabulary, a fixed list of words, and give each word its own.",
+            "items": {
+              "var": "vocab",
+              "line": 6,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "vocab"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how using updates findall during execution.",
+            "items": {
+              "var": "vocab",
+              "line": 6,
+              "hit": 7
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bag of words token frequency counts over fixed vocabulary",
-        "columns": [
-          "vocab",
-          "tokens",
-          "vocab"
-        ],
+        "template": "cells",
+        "title": "Bag-of-words vectors",
         "steps": [
           {
-            "at": "say2",
-            "caption": "A vocabulary assigns each vocabulary word a distinct position in the vector.",
-            "rows": [
+            "at": "say1",
+            "caption": "The simplest embedding counts words.",
+            "items": [
+              "'vector'",
+              "'search'",
+              "'fast'",
+              "'database'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "vocab",
-                  "tokens",
-                  "vocab"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vocab",
-                  "tokens",
-                  "vocab"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The value at each position records word frequencies in the text.",
-            "rows": [
+            "at": "say2",
+            "caption": "Choose a vocabulary, a fixed list of words, and give each word its own.",
+            "items": [
+              "'vector'",
+              "'search'",
+              "'fast'",
+              "'database'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "vocab",
-                  "tokens",
-                  "vocab"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how using updates findall during execution.",
+            "items": [
+              "'vector'",
+              "'search'",
+              "'fast'",
+              "'database'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "vocab",
-                  "tokens",
-                  "tokens"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -285,135 +260,221 @@
       "partTitle": "The hashing trick",
       "codeHash": "9580f3bdb384756558ea5f3384980f1ad4a1d5f8e6b7358a90b9bd11e35fb21e",
       "spec": {
-        "template": "table",
-        "title": "Feature hashing trick mapping arbitrary tokens to buckets",
-        "columns": [
-          "dims",
-          "word",
-          "bucket"
+        "template": "flow",
+        "title": "The hashing trick",
+        "nodes": [
+          {
+            "id": "dims",
+            "label": "dims"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "bucket",
+            "label": "bucket"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The hashing trick maps tokens to vector positions using a hash function.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dims"
-                  },
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "bucket"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "A fixed vocabulary cannot handle new words, and a vocabulary of every word.",
+            "values": {
+              "dims": {
+                "var": "dims",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "dims"
-                  },
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "bucket"
-                  }
-                ],
-                "tone": "data"
+              "word": {
+                "var": "word",
+                "line": 4,
+                "hit": 1
+              },
+              "bucket": {
+                "var": "bucket",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "dims": "data",
+              "word": "data",
+              "bucket": "data"
+            },
+            "arrows": [
+              [
+                "dims",
+                "word"
+              ],
+              [
+                "word",
+                "bucket"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Collisions occur when different words share the same hashed position.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dims"
-                  },
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "bucket"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "The hashing trick removes the vocabulary.",
+            "values": {
+              "dims": {
+                "var": "dims",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "dims"
-                  },
-                  {
-                    "text": "word"
-                  },
-                  {
-                    "text": "dims"
-                  }
-                ],
-                "tone": "ok"
+              "word": {
+                "var": "word",
+                "line": 5,
+                "hit": 1
+              },
+              "bucket": {
+                "var": "bucket",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "dims": "data",
+              "word": "data",
+              "bucket": "data"
+            },
+            "arrows": [
+              [
+                "dims",
+                "word"
+              ],
+              [
+                "word",
+                "bucket"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The same idea appears in feature hashing for machine learning models.",
+            "values": {
+              "dims": {
+                "var": "dims",
+                "line": 5,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 6,
+                "hit": 1
+              },
+              "bucket": {
+                "var": "bucket",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "dims": "ok",
+              "word": "ok",
+              "bucket": "ok"
+            },
+            "arrows": [
+              [
+                "dims",
+                "word"
+              ],
+              [
+                "word",
+                "bucket"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Feature hashing trick mapping arbitrary tokens to buckets",
-        "columns": [
-          "dims",
-          "word",
-          "bucket"
+        "template": "flow",
+        "title": "The hashing trick",
+        "nodes": [
+          {
+            "id": "dims",
+            "label": "dims"
+          },
+          {
+            "id": "word",
+            "label": "word"
+          },
+          {
+            "id": "bucket",
+            "label": "bucket"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The hashing trick maps tokens to vector positions using a hash function.",
-            "rows": [
-              {
-                "cells": [
-                  "dims",
-                  "word",
-                  "bucket"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "dims",
-                  "word",
-                  "bucket"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "A fixed vocabulary cannot handle new words, and a vocabulary of every word.",
+            "values": {
+              "dims": "8",
+              "word": "'vector'",
+              "bucket": "7"
+            },
+            "tones": {
+              "dims": "data",
+              "word": "data",
+              "bucket": "data"
+            },
+            "arrows": [
+              [
+                "dims",
+                "word"
+              ],
+              [
+                "word",
+                "bucket"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Collisions occur when different words share the same hashed position.",
-            "rows": [
-              {
-                "cells": [
-                  "dims",
-                  "word",
-                  "bucket"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "dims",
-                  "word",
-                  "dims"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "The hashing trick removes the vocabulary.",
+            "values": {
+              "dims": "8",
+              "word": "'vector'",
+              "bucket": "7"
+            },
+            "tones": {
+              "dims": "data",
+              "word": "data",
+              "bucket": "data"
+            },
+            "arrows": [
+              [
+                "dims",
+                "word"
+              ],
+              [
+                "word",
+                "bucket"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The same idea appears in feature hashing for machine learning models.",
+            "values": {
+              "dims": "8",
+              "word": "'vector'",
+              "bucket": "7"
+            },
+            "tones": {
+              "dims": "ok",
+              "word": "ok",
+              "bucket": "ok"
+            },
+            "arrows": [
+              [
+                "dims",
+                "word"
+              ],
+              [
+                "word",
+                "bucket"
+              ]
             ]
           }
         ]
@@ -423,135 +484,277 @@
       "partTitle": "Unit-length vectors",
       "codeHash": "3cfd79a1eb0d2148ebac6ef1926ed4f064fec94c939ba55e32c0d725fdef95cb",
       "spec": {
-        "template": "table",
-        "title": "Vector normalization yielding unit length directional vectors",
-        "columns": [
-          "short",
-          "long",
-          "short"
+        "template": "flow",
+        "title": "Unit-length vectors",
+        "nodes": [
+          {
+            "id": "short",
+            "label": "short"
+          },
+          {
+            "id": "long",
+            "label": "long"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "To compare direction rather than size we scale each vector to unit length.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "short"
-                  },
-                  {
-                    "text": "long"
-                  },
-                  {
-                    "text": "short"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Long documents have bigger word counts than short ones, even when they are.",
+            "values": {
+              "short": {
+                "var": "short",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "short"
-                  },
-                  {
-                    "text": "long"
-                  },
-                  {
-                    "text": "short"
-                  }
-                ],
-                "tone": "data"
+              "long": {
+                "var": "long",
+                "line": 8,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 1
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "short": "data",
+              "long": "data",
+              ".0": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "short",
+                "long"
+              ],
+              [
+                "long",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Dividing every value by the norm yields a normalized unit vector.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "short"
-                  },
-                  {
-                    "text": "long"
-                  },
-                  {
-                    "text": "short"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "To compare direction rather than size, we scale each vector to length 1.",
+            "values": {
+              "short": {
+                "var": "short",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "short"
-                  },
-                  {
-                    "text": "long"
-                  },
-                  {
-                    "text": "long"
-                  }
-                ],
-                "tone": "ok"
+              "long": {
+                "var": "long",
+                "line": 9,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 2
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 2
               }
+            },
+            "tones": {
+              "short": "data",
+              "long": "data",
+              ".0": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "short",
+                "long"
+              ],
+              [
+                "long",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Rounding values for display is fine.",
+            "values": {
+              "short": {
+                "var": "short",
+                "line": 9,
+                "hit": 1
+              },
+              "long": {
+                "var": "long",
+                "line": 10,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 3
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 3
+              }
+            },
+            "tones": {
+              "short": "ok",
+              "long": "ok",
+              ".0": "ok",
+              "x": "ok"
+            },
+            "arrows": [
+              [
+                "short",
+                "long"
+              ],
+              [
+                "long",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vector normalization yielding unit length directional vectors",
-        "columns": [
-          "short",
-          "long",
-          "short"
+        "template": "flow",
+        "title": "Unit-length vectors",
+        "nodes": [
+          {
+            "id": "short",
+            "label": "short"
+          },
+          {
+            "id": "long",
+            "label": "long"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "To compare direction rather than size we scale each vector to unit length.",
-            "rows": [
-              {
-                "cells": [
-                  "short",
-                  "long",
-                  "short"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "short",
-                  "long",
-                  "short"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Long documents have bigger word counts than short ones, even when they are.",
+            "values": {
+              "short": "[1, 1, 0]",
+              "long": "[5, 4, 1]",
+              ".0": "{'__other__': 'list_iterator'}",
+              "x": "1"
+            },
+            "tones": {
+              "short": "data",
+              "long": "data",
+              ".0": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "short",
+                "long"
+              ],
+              [
+                "long",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Dividing every value by the norm yields a normalized unit vector.",
-            "rows": [
-              {
-                "cells": [
-                  "short",
-                  "long",
-                  "short"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "short",
-                  "long",
-                  "long"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "To compare direction rather than size, we scale each vector to length 1.",
+            "values": {
+              "short": "[1, 1, 0]",
+              "long": "[5, 4, 1]",
+              ".0": "{'__other__': 'list_iterator'}",
+              "x": "1"
+            },
+            "tones": {
+              "short": "data",
+              "long": "data",
+              ".0": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "short",
+                "long"
+              ],
+              [
+                "long",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Rounding values for display is fine.",
+            "values": {
+              "short": "[1, 1, 0]",
+              "long": "[5, 4, 1]",
+              ".0": "{'__other__': 'list_iterator'}",
+              "x": "0"
+            },
+            "tones": {
+              "short": "ok",
+              "long": "ok",
+              ".0": "ok",
+              "x": "ok"
+            },
+            "arrows": [
+              [
+                "short",
+                "long"
+              ],
+              [
+                "long",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
+              ]
             ]
           }
         ]
@@ -561,223 +764,133 @@
       "partTitle": "Learned embeddings",
       "codeHash": "86707d687cdd67d7299a2c030768bfbde3ab9d47d1eca2a62632ad9d2f866c98",
       "spec": {
-        "template": "flow",
-        "title": "Learned embeddings — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Learned embeddings",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Learned embeddings",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Learned embeddings [Done.Pfive.Sone].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Learned embeddings [Done.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Counting words cannot tell that \"car\" and \"automobile\" mean the same thing.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Learned embedding models, trained on huge amounts of text, place words.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Learned embeddings [Done.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Choosing an embedding model is usually the first design decision in.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Learned embeddings — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Learned embeddings",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Learned embeddings",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Learned embeddings [D1.P5.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Learned embeddings [D1.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Counting words cannot tell that \"car\" and \"automobile\" mean the same thing.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 0.9,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 0.88,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Learned embedding models, trained on huge amounts of text, place words.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0.12,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Learned embeddings [D1.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Choosing an embedding model is usually the first design decision in.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0.07,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -787,223 +900,217 @@
       "partTitle": "Practice time: making vectors",
       "codeHash": "017ec107ffe6a2e0b894b3efbbef2fed1e36b115bd5e1dd7c31b03dec28376bf",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: making vectors — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: maki...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: making vectors",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: making vectors [Done.Psix.Sone].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: maki... [Done.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Bow_vector(text, vocab).",
+            "bars": [
+              {
+                "label": "dims",
+                "value": {
+                  "var": "dims",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 7,
+                  "hit": 18
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include punctuation, capital letters, an empty text and words.",
+            "bars": [
+              {
+                "label": "dims",
+                "value": {
+                  "var": "dims",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: making vectors.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If your hashed vector is not unit length, check that you divide every.",
+            "bars": [
+              {
+                "label": "dims",
+                "value": {
+                  "var": "dims",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 11,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: making vectors — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: maki...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: making vectors",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: making vectors [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: maki... [D1.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Bow_vector(text, vocab).",
+            "bars": [
+              {
+                "label": "dims",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 1.7320508075688772,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include punctuation, capital letters, an empty text and words.",
+            "bars": [
+              {
+                "label": "dims",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 1.7320508075688772,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: making vectors [D1.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If your hashed vector is not unit length, check that you divide every.",
+            "bars": [
+              {
+                "label": "dims",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 1.7320508075688772,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]

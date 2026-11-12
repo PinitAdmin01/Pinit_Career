@@ -2,49 +2,53 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 2,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The dot product",
       "codeHash": "f4bd40bfef748579ebfa8546ce1cf48692538497c090b23d285411c49f860bd5",
       "spec": {
         "template": "table",
-        "title": "Dot product magnitude and directional alignment calculation",
+        "title": "The dot product",
         "columns": [
-          "docs",
-          "q",
-          "docs"
+          "Output",
+          "Printed Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The dot product multiplies matching positions of vectors and adds results.",
+            "caption": "The dot product multiplies matching positions of two vectors and adds.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "docs"
+                    "text": "Line 1"
                   },
                   {
-                    "text": "q"
-                  },
-                  {
-                    "text": "docs"
+                    "out": 1
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "cells": [
                   {
-                    "text": "docs"
+                    "text": "Line 2"
                   },
                   {
-                    "text": "q"
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Line 3"
                   },
                   {
-                    "text": "docs"
+                    "out": 3
                   }
                 ],
                 "tone": "data"
@@ -52,33 +56,38 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "A large positive dot product means vectors point in similar directions.",
+            "at": "example",
+            "caption": "Scoring how well two shopping lists overlap, where buying more of the same.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "docs"
+                    "text": "Line 1"
                   },
                   {
-                    "text": "q"
-                  },
-                  {
-                    "text": "docs"
+                    "out": 1
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
               },
               {
                 "cells": [
                   {
-                    "text": "docs"
+                    "text": "Line 2"
                   },
                   {
-                    "text": "q"
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Line 3"
                   },
                   {
-                    "text": "q"
+                    "out": 3
                   }
                 ],
                 "tone": "ok"
@@ -89,52 +98,61 @@
       },
       "filled": {
         "template": "table",
-        "title": "Dot product magnitude and directional alignment calculation",
+        "title": "The dot product",
         "columns": [
-          "docs",
-          "q",
-          "docs"
+          "Output",
+          "Printed Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The dot product multiplies matching positions of vectors and adds results.",
+            "caption": "The dot product multiplies matching positions of two vectors and adds.",
             "rows": [
               {
                 "cells": [
-                  "docs",
-                  "q",
-                  "docs"
+                  "Line 1",
+                  "A: dot = 11"
                 ],
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "cells": [
-                  "docs",
-                  "q",
-                  "docs"
+                  "Line 2",
+                  "B: dot = 0"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Line 3",
+                  "C: dot = -5"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "A large positive dot product means vectors point in similar directions.",
+            "at": "example",
+            "caption": "Scoring how well two shopping lists overlap, where buying more of the same.",
             "rows": [
               {
                 "cells": [
-                  "docs",
-                  "q",
-                  "docs"
+                  "Line 1",
+                  "A: dot = 11"
                 ],
-                "tone": "data"
+                "tone": "ok"
               },
               {
                 "cells": [
-                  "docs",
-                  "q",
-                  "q"
+                  "Line 2",
+                  "B: dot = 0"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Line 3",
+                  "C: dot = -5"
                 ],
                 "tone": "ok"
               }
@@ -147,134 +165,105 @@
       "partTitle": "Cosine similarity",
       "codeHash": "f7a8c3a945095f4473c290df4d91f57be91227a7e3632ebeddede8d27c36c0c0",
       "spec": {
-        "template": "table",
-        "title": "Cosine similarity metric isolating angle from vector scale",
-        "columns": [
-          "cosine",
-          "cosine",
-          "cosine"
-        ],
+        "template": "cells",
+        "title": "Cosine similarity",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine similarity divides the dot product by the product of vector lengths.",
-            "rows": [
+            "caption": "Cosine similarity divides the dot product by the product of the two lengths.",
+            "items": {
+              "var": "a",
+              "line": 4,
+              "hit": 7
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "cosine"
-                  },
-                  {
-                    "text": "cosine"
-                  },
-                  {
-                    "text": "cosine"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cosine"
-                  },
-                  {
-                    "text": "cosine"
-                  },
-                  {
-                    "text": "cosine"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Cosine similarity evaluates angle while ignoring overall document length.",
-            "rows": [
+            "at": "say2",
+            "caption": "The result is the cosine of the angle between the vectors.",
+            "items": {
+              "var": "a",
+              "line": 4,
+              "hit": 21
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "cosine"
-                  },
-                  {
-                    "text": "cosine"
-                  },
-                  {
-                    "text": "cosine"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Trace how adding updates rounded during execution.",
+            "items": {
+              "var": "a",
+              "line": 5,
+              "hit": 13
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "cosine"
-                  },
-                  {
-                    "text": "cosine"
-                  },
-                  {
-                    "text": "cosine"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cosine similarity metric isolating angle from vector scale",
-        "columns": [
-          "cosine",
-          "cosine",
-          "cosine"
-        ],
+        "template": "cells",
+        "title": "Cosine similarity",
         "steps": [
           {
             "at": "say1",
-            "caption": "Cosine similarity divides the dot product by the product of vector lengths.",
-            "rows": [
+            "caption": "Cosine similarity divides the dot product by the product of the two lengths.",
+            "items": [
+              "1",
+              "2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "cosine",
-                  "cosine",
-                  "cosine"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cosine",
-                  "cosine",
-                  "cosine"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Cosine similarity evaluates angle while ignoring overall document length.",
-            "rows": [
+            "at": "say2",
+            "caption": "The result is the cosine of the angle between the vectors.",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "cosine",
-                  "cosine",
-                  "cosine"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Trace how adding updates rounded during execution.",
+            "items": [
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "cosine",
-                  "cosine",
-                  "cosine"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -285,135 +274,277 @@
       "partTitle": "Euclidean distance",
       "codeHash": "95ef53fe5f724128b589e19d2b70f98c7952fa8c704093d1786ff2f0ca48b282",
       "spec": {
-        "template": "table",
-        "title": "Euclidean distance and monotonic relation to unit cosine",
-        "columns": [
-          "cos",
-          "dist_sq",
-          "cos"
+        "template": "flow",
+        "title": "Euclidean distance",
+        "nodes": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "y",
+            "label": "y"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Euclidean distance measures the geometric straight-line separation of points.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cos"
-                  },
-                  {
-                    "text": "dist_sq"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Euclidean distance is the straight-line distance between two points.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "cos"
-                  },
-                  {
-                    "text": "dist_sq"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
-                "tone": "data"
+              "b": {
+                "var": "b",
+                "line": 4,
+                "hit": 1
+              },
+              "x": {
+                "var": "x",
+                "line": 5,
+                "hit": 1
+              },
+              "y": {
+                "var": "y",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "x": "data",
+              "y": "data"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "x"
+              ],
+              [
+                "x",
+                "y"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "For unit vectors Euclidean distance and cosine similarity rank identically.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cos"
-                  },
-                  {
-                    "text": "dist_sq"
-                  },
-                  {
-                    "text": "cos"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Smaller means closer, the opposite direction from similarity scores.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "cos"
-                  },
-                  {
-                    "text": "dist_sq"
-                  },
-                  {
-                    "text": "dist_sq"
-                  }
-                ],
-                "tone": "ok"
+              "b": {
+                "var": "b",
+                "line": 5,
+                "hit": 4
+              },
+              "x": {
+                "var": "x",
+                "line": 5,
+                "hit": 2
+              },
+              "y": {
+                "var": "y",
+                "line": 5,
+                "hit": 2
               }
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "x": "data",
+              "y": "data"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "x"
+              ],
+              [
+                "x",
+                "y"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Being fluent in all three measures lets you use any vector library correctly.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 5,
+                "hit": 4
+              },
+              "b": {
+                "var": "b",
+                "line": 6,
+                "hit": 4
+              },
+              "x": {
+                "var": "x",
+                "line": 5,
+                "hit": 3
+              },
+              "y": {
+                "var": "y",
+                "line": 5,
+                "hit": 3
+              }
+            },
+            "tones": {
+              "a": "ok",
+              "b": "ok",
+              "x": "ok",
+              "y": "ok"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "x"
+              ],
+              [
+                "x",
+                "y"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Euclidean distance and monotonic relation to unit cosine",
-        "columns": [
-          "cos",
-          "dist_sq",
-          "cos"
+        "template": "flow",
+        "title": "Euclidean distance",
+        "nodes": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "y",
+            "label": "y"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Euclidean distance measures the geometric straight-line separation of points.",
-            "rows": [
-              {
-                "cells": [
-                  "cos",
-                  "dist_sq",
-                  "cos"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cos",
-                  "dist_sq",
-                  "cos"
-                ],
-                "tone": "data"
-              }
+            "caption": "Euclidean distance is the straight-line distance between two points.",
+            "values": {
+              "a": "[0.6, 0.8]",
+              "b": "[0.8, 0.6]",
+              "x": "0.6",
+              "y": "0.8"
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "x": "data",
+              "y": "data"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "x"
+              ],
+              [
+                "x",
+                "y"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "For unit vectors Euclidean distance and cosine similarity rank identically.",
-            "rows": [
-              {
-                "cells": [
-                  "cos",
-                  "dist_sq",
-                  "cos"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "cos",
-                  "dist_sq",
-                  "dist_sq"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Smaller means closer, the opposite direction from similarity scores.",
+            "values": {
+              "a": "[0.6, 0.8]",
+              "b": "[0.8, 0.6]",
+              "x": "0.8",
+              "y": "0.6"
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "x": "data",
+              "y": "data"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "x"
+              ],
+              [
+                "x",
+                "y"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Being fluent in all three measures lets you use any vector library correctly.",
+            "values": {
+              "a": "[0.6, 0.8]",
+              "b": "[0.8, 0.6]",
+              "x": "0.8",
+              "y": "0.6"
+            },
+            "tones": {
+              "a": "ok",
+              "b": "ok",
+              "x": "ok",
+              "y": "ok"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "x"
+              ],
+              [
+                "x",
+                "y"
+              ]
             ]
           }
         ]
@@ -423,78 +554,104 @@
       "partTitle": "Ranking by any metric",
       "codeHash": "ada217bb41bea86e7240f51e4f229f12247438f8e073bf00629dbdc646c5413b",
       "spec": {
-        "template": "table",
-        "title": "Unified candidate ranking across diverse similarity metrics",
-        "columns": [
-          "docs",
-          "q",
-          "docs"
-        ],
+        "template": "bars",
+        "title": "Ranking by any metric",
         "steps": [
           {
             "at": "say1",
-            "caption": "Search is ranking that orders documents by similarity relative to a query.",
-            "rows": [
+            "caption": "Search is ranking.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "q"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
-                "tone": "ok"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "q"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 12,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Sorting scores descending with index tie-breaking orders candidates cleanly.",
-            "rows": [
+            "at": "say2",
+            "caption": "A clean trick is to turn every metric into a score where bigger is better.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "q"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "q"
-                  },
-                  {
-                    "text": "q"
-                  }
-                ],
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 12,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow uses cosine ranking to build exact nearest-neighbour search.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 12,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +659,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Unified candidate ranking across diverse similarity metrics",
-        "columns": [
-          "docs",
-          "q",
-          "docs"
-        ],
+        "template": "bars",
+        "title": "Ranking by any metric",
         "steps": [
           {
             "at": "say1",
-            "caption": "Search is ranking that orders documents by similarity relative to a query.",
-            "rows": [
+            "caption": "Search is ranking.",
+            "bars": [
               {
-                "cells": [
-                  "docs",
-                  "q",
-                  "docs"
-                ],
-                "tone": "ok"
+                "label": "x",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "docs",
-                  "q",
-                  "docs"
-                ],
+                "label": "y",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Sorting scores descending with index tie-breaking orders candidates cleanly.",
-            "rows": [
+            "at": "say2",
+            "caption": "A clean trick is to turn every metric into a score where bigger is better.",
+            "bars": [
               {
-                "cells": [
-                  "docs",
-                  "q",
-                  "docs"
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "docs",
-                  "q",
-                  "q"
-                ],
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow uses cosine ranking to build exact nearest-neighbour search.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -561,223 +732,115 @@
       "partTitle": "Similarity in practice",
       "codeHash": "930c57dd8ac8e537b2daf21b74819a4b95d3f18de31d1300151385cf0e971830",
       "spec": {
-        "template": "flow",
-        "title": "Similarity in practice — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Similarity in practice",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Similarity in practice",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Similarity in practice [Dtwo.Pfive.Sone].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Similarity in practice [Dtwo.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Real embedding scores are not probabilities.",
+            "items": {
+              "var": "relevant",
+              "line": 1,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "So thresholds must be calibrated on your own data, for example by looking.",
+            "items": {
+              "var": "relevant",
+              "line": 3,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Similarity in practice.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say11",
+            "caption": "Writing down the metric next to every stored index avoids painful mix-ups.",
+            "items": {
+              "var": "relevant",
+              "line": 4,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Similarity in practice — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Similarity in practice",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Similarity in practice",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Similarity in practice [D2.P5.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Similarity in practice [D2.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Real embedding scores are not probabilities.",
+            "items": [
+              "0.82",
+              "0.79",
+              "0.88",
+              "0.75",
+              "0.91"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "So thresholds must be calibrated on your own data, for example by looking.",
+            "items": [
+              "0.82",
+              "0.79",
+              "0.88",
+              "0.75",
+              "0.91"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Similarity in practice [D2.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Writing down the metric next to every stored index avoids painful mix-ups.",
+            "items": [
+              "0.82",
+              "0.79",
+              "0.88",
+              "0.75",
+              "0.91"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -787,223 +850,133 @@
       "partTitle": "Practice time: similarity",
       "codeHash": "22b9e6d57f2565424a66de6de96a8fcd47a9b309da3a6826a6ae66874bb04930",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: similarity — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: simi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: similarity",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: similarity [Dtwo.Psix.Sone].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: simi... [Dtwo.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how practice updates cosine during execution.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: similarity.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If rank gives the wrong order for euclidean, check that you negate.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: similarity — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: simi...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: similarity",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: similarity [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: simi... [D2.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Trace how practice updates cosine during execution.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 0.9,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 0.25,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0.2,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: similarity [D2.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If rank gives the wrong order for euclidean, check that you negate.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0.1,
+                "tone": "ok"
+              }
             ]
           }
         ]

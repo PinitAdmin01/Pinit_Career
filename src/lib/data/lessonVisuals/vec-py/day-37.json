@@ -2,269 +2,181 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 37,
-  "promptSha": "488e03480f2af5eb984a167d8f2c9982cc897c8f9c33e1191777bbb2a3656b66",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Product Quantization (PQ) — Foundations & Mathematical Invariants",
-      "codeHash": "b5bdb2488e2555ebf74dc99340ada759884c3476121d5efceb246c447456dc2d",
+      "codeHash": "5f5d512954b724a20e9c11d56a3a5871d61361c5b4f9db31282d728bc394e084",
       "spec": {
-        "template": "flow",
-        "title": "Product Quantization (PQ) — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Product Quantization (PQ) — Foundations & Mathematical Invariant",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Storing millions of high-dimensional floating-point vectors in RAM creates.",
+            "bars": [
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sub_dim",
+                "value": {
+                  "var": "sub_dim",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Scalar quantization compresses each floating-point dimension.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "sub_dim",
+                "value": {
+                  "var": "sub_dim",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "sub_dim",
+                "value": {
+                  "var": "sub_dim",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Product Quantization (PQ) — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Product Quantization (PQ) — Foundations & Mathematical Invariant",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Storing millions of high-dimensional floating-point vectors in RAM creates.",
+            "bars": [
+              {
+                "label": "m",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "sub_dim",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Scalar quantization compresses each floating-point dimension.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "m",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "sub_dim",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "m",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "sub_dim",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +185,107 @@
     },
     {
       "partTitle": "Product Quantization (PQ) — Core Algorithm & State Representation",
-      "codeHash": "e7c26a3fed7e425d81ad2b2c5af881973ce63eae8d06a59941daac34c151f329",
+      "codeHash": "87f60f906c054816bd90011379be49dd63150a3989636df32da6cbb40f8baf75",
       "spec": {
-        "template": "flow",
-        "title": "Product Quantization (PQ) — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Product Quantization (PQ) — Core Algorithm & State Representatio",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantizing a subvector involves finding the nearest centroid in.",
+            "items": {
+              "var": "sub",
+              "line": 12,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how codebook updates each during execution.",
+            "items": {
+              "var": "sub",
+              "line": 13,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "items": {
+              "var": "sub",
+              "line": 13,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Product Quantization (PQ) — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Product Quantization (PQ) — Core Algorithm & State Representatio",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantizing a subvector involves finding the nearest centroid in.",
+            "items": [
+              "0.48",
+              "0.52"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Trace how codebook updates each during execution.",
+            "items": [
+              "0.48",
+              "0.52"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "items": [
+              "0.48",
+              "0.52"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -539,264 +294,107 @@
     },
     {
       "partTitle": "Product Quantization (PQ) — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "2f3a790f9df01baebe060e9ecde1bc7db195d1ee4402424b6666fdb1e5ea0b9b",
+      "codeHash": "458934d50f8a00cf60d0b8712067f8e46a03dd5da96cf7ff5eba7274edf831fd",
       "spec": {
-        "template": "flow",
-        "title": "Product Quantization (PQ) — Throughput Optimization & Edge-Case Handli",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Product Quantization (PQ) — Throughput Optimization & Edge-Case ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "During retrieval, decoding compressed byte codes back into full.",
+            "items": {
+              "var": "q_sub",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Asymmetric Distance Computation (ADC) avoids vector decompression entirely.",
+            "items": {
+              "var": "q_sub",
+              "line": 7,
+              "hit": 8
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "items": {
+              "var": "q_sub",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Product Quantization (PQ) — Throughput Optimization & Edge-Case Handli",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Product Quantization (PQ) — Throughput Optimization & Edge-Case ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "During retrieval, decoding compressed byte codes back into full.",
+            "items": [
+              "0.5",
+              "0.5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Asymmetric Distance Computation (ADC) avoids vector decompression entirely.",
+            "items": [
+              "0.5",
+              "0.5"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "items": [
+              "1",
+              "1"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -805,265 +403,279 @@
     },
     {
       "partTitle": "Product Quantization (PQ) — Resilience Guardrails & Failure Recovery",
-      "codeHash": "c323edcb2b382d5478ecde937d732b98b3c1157df32ef71f29bf3da52d7bcd67",
+      "codeHash": "5022adaa164afc32a753130796cf879c96f9d633bc98ddeb30607b459a58959d",
       "spec": {
         "template": "flow",
-        "title": "Product Quantization (PQ) — Resilience Guardrails & Failure Recovery",
+        "title": "Product Quantization (PQ) — Resilience Guardrails & Failure Reco",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_table",
+            "label": "sample_table"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "sample_codes",
+            "label": "sample_codes"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "m",
+            "label": "m"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "code",
+            "label": "code"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Distance evaluation in ADC computes approximate distances by summing.",
+            "values": {
+              "sample_table": {
+                "var": "sample_table",
+                "line": 5,
+                "hit": 1
+              },
+              "sample_codes": {
+                "var": "sample_codes",
+                "line": 6,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 2,
+                "hit": 1
+              },
+              "code": {
+                "var": "code",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "sample_table": "data",
+              "sample_codes": "data",
+              "m": "data",
+              "code": "data"
+            },
+            "arrows": [
+              [
+                "sample_table",
+                "sample_codes"
+              ],
+              [
+                "sample_codes",
+                "m"
+              ],
+              [
+                "m",
+                "code"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "For a database vector encoded as [c0, c1,.",
+            "values": {
+              "sample_table": {
+                "var": "sample_table",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "sample_codes": {
+                "var": "sample_codes",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "m": {
+                "var": "m",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "code": {
+                "var": "code",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "sample_table": "data",
+              "sample_codes": "data",
+              "m": "data",
+              "code": "data"
+            },
+            "arrows": [
+              [
+                "sample_table",
+                "sample_codes"
+              ],
+              [
+                "sample_codes",
+                "m"
+              ],
+              [
+                "m",
+                "code"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "sample_table": {
+                "var": "sample_table",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "sample_codes": {
+                "var": "sample_codes",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "m": {
+                "var": "m",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "code": {
+                "var": "code",
+                "line": 2,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "sample_table": "ok",
+              "sample_codes": "ok",
+              "m": "ok",
+              "code": "ok"
+            },
+            "arrows": [
+              [
+                "sample_table",
+                "sample_codes"
+              ],
+              [
+                "sample_codes",
+                "m"
+              ],
+              [
+                "m",
+                "code"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Product Quantization (PQ) — Resilience Guardrails & Failure Recovery",
+        "title": "Product Quantization (PQ) — Resilience Guardrails & Failure Reco",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_table",
+            "label": "sample_table"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "sample_codes",
+            "label": "sample_codes"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "m",
+            "label": "m"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "code",
+            "label": "code"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Distance evaluation in ADC computes approximate distances by summing.",
+            "values": {
+              "sample_table": "[[0.05, 0.15], [0.02, 0.08]]",
+              "sample_codes": "[0, 1]",
+              "m": "0",
+              "code": "0"
+            },
+            "tones": {
+              "sample_table": "data",
+              "sample_codes": "data",
+              "m": "data",
+              "code": "data"
+            },
+            "arrows": [
+              [
+                "sample_table",
+                "sample_codes"
+              ],
+              [
+                "sample_codes",
+                "m"
+              ],
+              [
+                "m",
+                "code"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "For a database vector encoded as [c0, c1,.",
+            "values": {
+              "sample_table": "[[0.05, 0.15], [0.02, 0.08]]",
+              "sample_codes": "[0, 1]",
+              "m": "1",
+              "code": "1"
+            },
+            "tones": {
+              "sample_table": "data",
+              "sample_codes": "data",
+              "m": "data",
+              "code": "data"
+            },
+            "arrows": [
+              [
+                "sample_table",
+                "sample_codes"
+              ],
+              [
+                "sample_codes",
+                "m"
+              ],
+              [
+                "m",
+                "code"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "sample_table": "[[0.05, 0.15], [0.02, 0.08]]",
+              "sample_codes": "[0, 1]",
+              "m": "1",
+              "code": "1"
+            },
+            "tones": {
+              "sample_table": "ok",
+              "sample_codes": "ok",
+              "m": "ok",
+              "code": "ok"
+            },
+            "arrows": [
+              [
+                "sample_table",
+                "sample_codes"
+              ],
+              [
+                "sample_codes",
+                "m"
+              ],
+              [
+                "m",
+                "code"
+              ]
             ]
           }
         ]
@@ -1071,264 +683,218 @@
     },
     {
       "partTitle": "Product Quantization (PQ) — Production Telemetry & Verification Audit",
-      "codeHash": "b8f5de100ede267d6dc29430ef956691b0cac47366da50ad89efe25616ff5686",
+      "codeHash": "e91e9c9c0caf5cceb1d4160f51931dacf40e6f3222c34ba4c1e82a97a2f86fac",
       "spec": {
-        "template": "flow",
-        "title": "Product Quantization (PQ) — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Product Quantization (PQ) — Production Telemetry & Verification ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production capacity audits measure the physical memory savings achieved.",
+            "bars": [
+              {
+                "label": "num_docs",
+                "value": {
+                  "var": "num_docs",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "orig_dim",
+                "value": {
+                  "var": "orig_dim",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "orig_bytes",
+                "value": {
+                  "var": "orig_bytes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how million updates dimensional during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_docs",
+                "value": {
+                  "var": "num_docs",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "orig_dim",
+                "value": {
+                  "var": "orig_dim",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "orig_bytes",
+                "value": {
+                  "var": "orig_bytes",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_docs",
+                "value": {
+                  "var": "num_docs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "orig_dim",
+                "value": {
+                  "var": "orig_dim",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "orig_bytes",
+                "value": {
+                  "var": "orig_bytes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Product Quantization (PQ) — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Product Quantization (PQ) — Production Telemetry & Verification ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production capacity audits measure the physical memory savings achieved.",
+            "bars": [
+              {
+                "label": "num_docs",
+                "value": 1000000,
+                "tone": "data"
+              },
+              {
+                "label": "orig_dim",
+                "value": 128,
+                "tone": "data"
+              },
+              {
+                "label": "m",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "orig_bytes",
+                "value": 512000000,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how million updates dimensional during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_docs",
+                "value": 1000000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "orig_dim",
+                "value": 128,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "m",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "orig_bytes",
+                "value": 512000000,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_docs",
+                "value": 1000000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "orig_dim",
+                "value": 128,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "m",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "orig_bytes",
+                "value": 512000000,
+                "tone": "ok"
               }
             ]
           }

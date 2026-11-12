@@ -2,269 +2,419 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 58,
-  "promptSha": "e83caad0070e3812c110bc93a466f2d7625db5074311edd933ec1a24c7c002db",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification — Foundations & Mathematical Invariants",
-      "codeHash": "1ce46c692f09f5fbfe612ca8604e2b394910d9f1b2c264996cb4673d8237c197",
+      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Foundations & Mathematical Invariants",
+      "codeHash": "93d22f965e5e3b01c000707b74e6996f87deebcc71aaa01afb9f434adc506dbb",
       "spec": {
         "template": "flow",
-        "title": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification",
+        "title": "Zero-Downtime Dual-Write Index Migrations — Foundations & Mathem",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "router",
+            "label": "router"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "doc_id",
+            "label": "doc_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "vec",
+            "label": "vec"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Upgrading a live vector database from HNSW to DiskANN or migrating to.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "router": {
+                "var": "router",
+                "line": 12,
+                "hit": 1
+              },
+              "doc_id": {
+                "var": "doc_id",
+                "line": 8,
+                "hit": 1
+              },
+              "vec": {
+                "var": "vec",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "router": "data",
+              "doc_id": "data",
+              "vec": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "router"
+              ],
+              [
+                "router",
+                "doc_id"
+              ],
+              [
+                "doc_id",
+                "vec"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Taking the database offline for hours to rebuild an index violates.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "router": {
+                "var": "router",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "doc_id": {
+                "var": "doc_id",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "vec": {
+                "var": "vec",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "router": "data",
+              "doc_id": "data",
+              "vec": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "router"
+              ],
+              [
+                "router",
+                "doc_id"
+              ],
+              [
+                "doc_id",
+                "vec"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "router": {
+                "var": "router",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "doc_id": {
+                "var": "doc_id",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "vec": {
+                "var": "vec",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "router": "ok",
+              "doc_id": "ok",
+              "vec": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "router"
+              ],
+              [
+                "router",
+                "doc_id"
+              ],
+              [
+                "doc_id",
+                "vec"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification",
+        "title": "Zero-Downtime Dual-Write Index Migrations — Foundations & Mathem",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "router",
+            "label": "router"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "doc_id",
+            "label": "doc_id"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "vec",
+            "label": "vec"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Upgrading a live vector database from HNSW to DiskANN or migrating to.",
+            "values": {
+              "self": "<DualWriteRouter>",
+              "router": "<DualWriteRouter>",
+              "doc_id": "101",
+              "vec": "[0.5, 0.5]"
+            },
+            "tones": {
+              "self": "data",
+              "router": "data",
+              "doc_id": "data",
+              "vec": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "router"
+              ],
+              [
+                "router",
+                "doc_id"
+              ],
+              [
+                "doc_id",
+                "vec"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Taking the database offline for hours to rebuild an index violates.",
+            "values": {
+              "self": "<DualWriteRouter>",
+              "router": "<DualWriteRouter>",
+              "doc_id": "101",
+              "vec": "[0.5, 0.5]"
+            },
+            "tones": {
+              "self": "data",
+              "router": "data",
+              "doc_id": "data",
+              "vec": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "router"
+              ],
+              [
+                "router",
+                "doc_id"
+              ],
+              [
+                "doc_id",
+                "vec"
+              ]
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "values": {
+              "self": "<DualWriteRouter>",
+              "router": "<DualWriteRouter>",
+              "doc_id": "101",
+              "vec": "[0.5, 0.5]"
+            },
+            "tones": {
+              "self": "ok",
+              "router": "ok",
+              "doc_id": "ok",
+              "vec": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "router"
+              ],
+              [
+                "router",
+                "doc_id"
+              ],
+              [
+                "doc_id",
+                "vec"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Core Algorithm & State Representation",
+      "codeHash": "e206d193cc83fabef52ad083f9b3c9a2b01983f0293ad031906bb7e6affd2569",
+      "spec": {
+        "template": "bars",
+        "title": "Zero-Downtime Dual-Write Index Migrations — Core Algorithm & Sta",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Before switching live customer read traffic to a new index, engineering.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "agreement",
+                "value": {
+                  "var": "agreement",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Shadow traffic routing forks a percentage of live production search.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "agreement",
+                "value": {
+                  "var": "agreement",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "agreement",
+                "value": {
+                  "var": "agreement",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "bars",
+        "title": "Zero-Downtime Dual-Write Index Migrations — Core Algorithm & Sta",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Before switching live customer read traffic to a new index, engineering.",
+            "bars": [
+              {
+                "label": "overlap",
+                "value": 4,
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "agreement",
+                "value": 0.8,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Shadow traffic routing forks a percentage of live production search.",
+            "bars": [
+              {
+                "label": "overlap",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "agreement",
+                "value": 0.8,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "bars": [
+              {
+                "label": "overlap",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "agreement",
+                "value": 0.8,
+                "tone": "ok"
               }
             ]
           }
@@ -272,265 +422,359 @@
       }
     },
     {
-      "partTitle": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification — Core Algorithm & State Representation",
-      "codeHash": "5ddd25a7113bcdda549dfc87c05d832e96bbda2d45af3a94070246b2454fd0f8",
+      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "e3d732b0f0d55a8f4a4036b6746ae81c950396e737a708c59a4744d99835262a",
       "spec": {
         "template": "flow",
-        "title": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification",
+        "title": "Zero-Downtime Dual-Write Index Migrations — Throughput Optimizat",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cutover",
+            "label": "cutover"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "shadow_agreement",
+            "label": "shadow_agreement"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once shadow recall agreement satisfies quality criteria, the traffic.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "cutover": {
+                "var": "cutover",
+                "line": 13,
+                "hit": 1
+              },
+              "shadow_agreement": {
+                "var": "shadow_agreement",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "cutover": "data",
+              "shadow_agreement": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "cutover"
+              ],
+              [
+                "cutover",
+                "shadow_agreement"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Cutover can execute progressively (canary rollouts.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cutover": {
+                "var": "cutover",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "shadow_agreement": {
+                "var": "shadow_agreement",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "cutover": "data",
+              "shadow_agreement": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "cutover"
+              ],
+              [
+                "cutover",
+                "shadow_agreement"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cutover": {
+                "var": "cutover",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "shadow_agreement": {
+                "var": "shadow_agreement",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "cutover": "ok",
+              "shadow_agreement": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "cutover"
+              ],
+              [
+                "cutover",
+                "shadow_agreement"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification",
+        "title": "Zero-Downtime Dual-Write Index Migrations — Throughput Optimizat",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cutover",
+            "label": "cutover"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "shadow_agreement",
+            "label": "shadow_agreement"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once shadow recall agreement satisfies quality criteria, the traffic.",
+            "values": {
+              "self": "<ZeroDowntimeTrafficCutover>",
+              "cutover": "<ZeroDowntimeTrafficCutover>",
+              "shadow_agreement": "0.98"
+            },
+            "tones": {
+              "self": "data",
+              "cutover": "data",
+              "shadow_agreement": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "cutover"
+              ],
+              [
+                "cutover",
+                "shadow_agreement"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Cutover can execute progressively (canary rollouts.",
+            "values": {
+              "self": "<ZeroDowntimeTrafficCutover>",
+              "cutover": "<ZeroDowntimeTrafficCutover>",
+              "shadow_agreement": "0.98"
+            },
+            "tones": {
+              "self": "data",
+              "cutover": "data",
+              "shadow_agreement": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "cutover"
+              ],
+              [
+                "cutover",
+                "shadow_agreement"
+              ]
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "self": "<ZeroDowntimeTrafficCutover>",
+              "cutover": "<ZeroDowntimeTrafficCutover>",
+              "shadow_agreement": "0.98"
+            },
+            "tones": {
+              "self": "ok",
+              "cutover": "ok",
+              "shadow_agreement": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "cutover"
+              ],
+              [
+                "cutover",
+                "shadow_agreement"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Resilience Guardrails & Failure Recovery",
+      "codeHash": "2ababdfc52afa0d7254501f1b3a93d22d826a2d6bab090d59817f9ef22f9ea6f",
+      "spec": {
+        "template": "bars",
+        "title": "Zero-Downtime Dual-Write Index Migrations — Resilience Guardrail",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Even with rigorous shadow testing, unforeseen edge cases or performance.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "error_rate",
+                "value": {
+                  "var": "error_rate",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "max_allowable_",
+                "value": {
+                  "var": "max_allowable_err",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "A resilient migration pipeline must possess an instantaneous, automated.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "error_rate",
+                "value": {
+                  "var": "error_rate",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "max_allowable_",
+                "value": {
+                  "var": "max_allowable_err",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "error_rate",
+                "value": {
+                  "var": "error_rate",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "max_allowable_",
+                "value": {
+                  "var": "max_allowable_err",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "bars",
+        "title": "Zero-Downtime Dual-Write Index Migrations — Resilience Guardrail",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Even with rigorous shadow testing, unforeseen edge cases or performance.",
+            "bars": [
+              {
+                "label": "error_rate",
+                "value": 0.05,
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "max_allowable_",
+                "value": 0.01,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "A resilient migration pipeline must possess an instantaneous, automated.",
+            "bars": [
+              {
+                "label": "error_rate",
+                "value": 0.002,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "max_allowable_",
+                "value": 0.01,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "bars": [
+              {
+                "label": "error_rate",
+                "value": 0.002,
+                "tone": "ok"
+              },
+              {
+                "label": "max_allowable_",
+                "value": 0.01,
+                "tone": "ok"
               }
             ]
           }
@@ -538,798 +782,280 @@
       }
     },
     {
-      "partTitle": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "f4a3f2d2ad7026ddc613d471c0b145e223971a47dd3f687a361ea5edf6afb501",
+      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Production Telemetry & Verification Audit",
+      "codeHash": "e3ef64e783c4c353fb426b617c3db9f3d59dcb78bc7aa1d17d57dbf4596b2846",
       "spec": {
         "template": "flow",
-        "title": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification",
+        "title": "Zero-Downtime Dual-Write Index Migrations — Production Telemetry",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "replicated_docs",
+            "label": "replicated_docs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "total_docs",
+            "label": "total_docs"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "shadow_queries",
+            "label": "shadow_queries"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "agreement",
+            "label": "agreement"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Migration telemetry tracks historical backfill progress, replicated.",
+            "values": {
+              "replicated_docs": {
+                "var": "replicated_docs",
+                "line": 2,
+                "hit": 1
+              },
+              "total_docs": {
+                "var": "total_docs",
+                "line": 2,
+                "hit": 1
+              },
+              "shadow_queries": {
+                "var": "shadow_queries",
+                "line": 2,
+                "hit": 1
+              },
+              "agreement": {
+                "var": "agreement",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "replicated_docs": "data",
+              "total_docs": "data",
+              "shadow_queries": "data",
+              "agreement": "data"
+            },
+            "arrows": [
+              [
+                "replicated_docs",
+                "total_docs"
+              ],
+              [
+                "total_docs",
+                "shadow_queries"
+              ],
+              [
+                "shadow_queries",
+                "agreement"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Trace how production updates migration during execution.",
+            "values": {
+              "replicated_docs": {
+                "var": "replicated_docs",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "total_docs": {
+                "var": "total_docs",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "shadow_queries": {
+                "var": "shadow_queries",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "agreement": {
+                "var": "agreement",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "replicated_docs": "data",
+              "total_docs": "data",
+              "shadow_queries": "data",
+              "agreement": "data"
+            },
+            "arrows": [
+              [
+                "replicated_docs",
+                "total_docs"
+              ],
+              [
+                "total_docs",
+                "shadow_queries"
+              ],
+              [
+                "shadow_queries",
+                "agreement"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "replicated_docs": {
+                "var": "replicated_docs",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "total_docs": {
+                "var": "total_docs",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "shadow_queries": {
+                "var": "shadow_queries",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "agreement": {
+                "var": "agreement",
+                "line": 3,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "replicated_docs": "ok",
+              "total_docs": "ok",
+              "shadow_queries": "ok",
+              "agreement": "ok"
+            },
+            "arrows": [
+              [
+                "replicated_docs",
+                "total_docs"
+              ],
+              [
+                "total_docs",
+                "shadow_queries"
+              ],
+              [
+                "shadow_queries",
+                "agreement"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification",
+        "title": "Zero-Downtime Dual-Write Index Migrations — Production Telemetry",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "replicated_docs",
+            "label": "replicated_docs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "total_docs",
+            "label": "total_docs"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "shadow_queries",
+            "label": "shadow_queries"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "agreement",
+            "label": "agreement"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "at": "say1",
+            "caption": "Migration telemetry tracks historical backfill progress, replicated.",
+            "values": {
+              "replicated_docs": "100000",
+              "total_docs": "100000",
+              "shadow_queries": "5000",
+              "agreement": "0.982"
+            },
+            "tones": {
+              "replicated_docs": "data",
+              "total_docs": "data",
+              "shadow_queries": "data",
+              "agreement": "data"
+            },
+            "arrows": [
+              [
+                "replicated_docs",
+                "total_docs"
+              ],
+              [
+                "total_docs",
+                "shadow_queries"
+              ],
+              [
+                "shadow_queries",
+                "agreement"
+              ]
             ]
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification — Resilience Guardrails & Failure Recovery",
-      "codeHash": "79c5362c392bf81c5d00967aa1bb60968fc9b4ea6816f08d523d6aa1d3bc68b6",
-      "spec": {
-        "template": "flow",
-        "title": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Trace how production updates migration during execution.",
+            "values": {
+              "replicated_docs": "100000",
+              "total_docs": "100000",
+              "shadow_queries": "5000",
+              "agreement": "0.982"
+            },
+            "tones": {
+              "replicated_docs": "data",
+              "total_docs": "data",
+              "shadow_queries": "data",
+              "agreement": "data"
+            },
+            "arrows": [
+              [
+                "replicated_docs",
+                "total_docs"
+              ],
+              [
+                "total_docs",
+                "shadow_queries"
+              ],
+              [
+                "shadow_queries",
+                "agreement"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification — Production Telemetry & Verification Audit",
-      "codeHash": "43e9d20867a289ce19599099d2578bcafe9ff789aeed90cf1a118ca322c6b0a0",
-      "spec": {
-        "template": "flow",
-        "title": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Zero-Downtime Dual-Write Index Migrations & Shadow Recall Verification",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "replicated_docs": "100000",
+              "total_docs": "100000",
+              "shadow_queries": "5000",
+              "agreement": "0.982"
+            },
+            "tones": {
+              "replicated_docs": "ok",
+              "total_docs": "ok",
+              "shadow_queries": "ok",
+              "agreement": "ok"
+            },
+            "arrows": [
+              [
+                "replicated_docs",
+                "total_docs"
+              ],
+              [
+                "total_docs",
+                "shadow_queries"
+              ],
+              [
+                "shadow_queries",
+                "agreement"
+              ]
             ]
           }
         ]

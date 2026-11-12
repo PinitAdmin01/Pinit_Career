@@ -2,143 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 3,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why validate input",
       "codeHash": "63de8f492eecc750a446cc6a34bea3725e711e4ace3efd78c598016a6b1e3f1a",
       "spec": {
-        "template": "table",
-        "title": "Pre-flight message payload validation rules",
-        "columns": [
-          "message",
-          "result",
-          "message"
+        "template": "states",
+        "title": "Why validate input",
+        "states": [
+          {
+            "id": "MAX_CHARS",
+            "label": "MAX_CHARS"
+          },
+          {
+            "id": "message",
+            "label": "message"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Input validation checks simple fixed rules before expensive operations happen.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "message"
-                  },
-                  {
-                    "text": "result"
-                  },
-                  {
-                    "text": "message"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "message"
-                  },
-                  {
-                    "text": "result"
-                  },
-                  {
-                    "text": "message"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Every message sent to a model costs money and time, and some messages are.",
+            "currentState": "MAX_CHARS",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Fast and predictable validation rules serve as an essential defense layer.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "message"
-                  },
-                  {
-                    "text": "result"
-                  },
-                  {
-                    "text": "message"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "message"
-                  },
-                  {
-                    "text": "result"
-                  },
-                  {
-                    "text": "message"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Input validation checks simple, fixed rules before anything expensive happens.",
+            "currentState": "message",
+            "transition": {
+              "from": "MAX_CHARS",
+              "to": "message",
+              "label": {
+                "var": "message",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Validation is the input-side part of the OWASP LLM10 control for unbounded.",
+            "currentState": "result",
+            "transition": {
+              "from": "message",
+              "to": "result",
+              "label": {
+                "var": "result",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Pre-flight message payload validation rules",
-        "columns": [
-          "message",
-          "result",
-          "message"
+        "template": "states",
+        "title": "Why validate input",
+        "states": [
+          {
+            "id": "MAX_CHARS",
+            "label": "MAX_CHARS"
+          },
+          {
+            "id": "message",
+            "label": "message"
+          },
+          {
+            "id": "result",
+            "label": "result"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Input validation checks simple fixed rules before expensive operations happen.",
-            "rows": [
-              {
-                "cells": [
-                  "message",
-                  "result",
-                  "message"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "message",
-                  "result",
-                  "message"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Every message sent to a model costs money and time, and some messages are.",
+            "currentState": "MAX_CHARS",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Fast and predictable validation rules serve as an essential defense layer.",
-            "rows": [
-              {
-                "cells": [
-                  "message",
-                  "result",
-                  "message"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "message",
-                  "result",
-                  "message"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Input validation checks simple, fixed rules before anything expensive happens.",
+            "currentState": "message",
+            "transition": {
+              "from": "MAX_CHARS",
+              "to": "message",
+              "label": "'How do I reset my password?'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Validation is the input-side part of the OWASP LLM10 control for unbounded.",
+            "currentState": "result",
+            "transition": {
+              "from": "message",
+              "to": "result",
+              "label": "'accepted'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -147,136 +117,106 @@
       "partTitle": "Checking rules in order",
       "codeHash": "cffe346ba418d7a03ef443139a4293123fe13c0c911a697d55215fa339d43fb2",
       "spec": {
-        "template": "table",
-        "title": "Ordered validation checks and structured return codes",
-        "columns": [
-          "text",
-          "max_chars",
-          "text"
+        "template": "states",
+        "title": "Checking rules in order",
+        "states": [
+          {
+            "id": "t",
+            "label": "t"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "max_chars",
+            "label": "max_chars"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A validator checks multiple constraints where the sequence of rules matters.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "max_chars"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "max_chars"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A validator usually checks several rules, and the order matters.",
+            "currentState": "t",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Returning a fixed code makes it easy for downstream services to track errors.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "max_chars"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "max_chars"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Checking for an empty message first gives the clearest reason when nothing.",
+            "currentState": "text",
+            "transition": {
+              "from": "t",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Tests should check every reason, and also that the order is respected when.",
+            "currentState": "max_chars",
+            "transition": {
+              "from": "text",
+              "to": "max_chars",
+              "label": {
+                "var": "max_chars",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Ordered validation checks and structured return codes",
-        "columns": [
-          "text",
-          "max_chars",
-          "text"
+        "template": "states",
+        "title": "Checking rules in order",
+        "states": [
+          {
+            "id": "t",
+            "label": "t"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "max_chars",
+            "label": "max_chars"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A validator checks multiple constraints where the sequence of rules matters.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "max_chars",
-                  "text"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "text",
-                  "max_chars",
-                  "text"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A validator usually checks several rules, and the order matters.",
+            "currentState": "t",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Returning a fixed code makes it easy for downstream services to track errors.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "max_chars",
-                  "text"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "text",
-                  "max_chars",
-                  "text"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Checking for an empty message first gives the clearest reason when nothing.",
+            "currentState": "text",
+            "transition": {
+              "from": "t",
+              "to": "text",
+              "label": "'hi'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Tests should check every reason, and also that the order is respected when.",
+            "currentState": "max_chars",
+            "transition": {
+              "from": "text",
+              "to": "max_chars",
+              "label": "30"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -285,135 +225,221 @@
       "partTitle": "Control characters",
       "codeHash": "8dc2ac7cb673e9ec02d2caa184c07d1c0f77c5e2a7c5c668bc670d840d5346e8",
       "spec": {
-        "template": "table",
-        "title": "Low-order control character detection and rejection",
-        "columns": [
-          "samples",
-          "bad",
-          "samples"
+        "template": "flow",
+        "title": "Control characters",
+        "nodes": [
+          {
+            "id": "samples",
+            "label": "samples"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "bad",
+            "label": "bad"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Incoming payload text can contain hidden control characters.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "samples"
-                  },
-                  {
-                    "text": "bad"
-                  },
-                  {
-                    "text": "samples"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Text can contain characters you cannot see, called control characters.",
+            "values": {
+              "samples": {
+                "var": "samples",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "samples"
-                  },
-                  {
-                    "text": "bad"
-                  },
-                  {
-                    "text": "samples"
-                  }
-                ],
-                "tone": "data"
+              "s": {
+                "var": "s",
+                "line": 2,
+                "hit": 1
+              },
+              "bad": {
+                "var": "bad",
+                "line": 3,
+                "hit": 11
               }
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "bad": "data"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "bad"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Rejecting suspicious payloads is safer than silently modifying inputs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "samples"
-                  },
-                  {
-                    "text": "bad"
-                  },
-                  {
-                    "text": "samples"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how codes updates below during execution.",
+            "values": {
+              "samples": {
+                "var": "samples",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "samples"
-                  },
-                  {
-                    "text": "bad"
-                  },
-                  {
-                    "text": "samples"
-                  }
-                ],
-                "tone": "ok"
+              "s": {
+                "var": "s",
+                "line": 3,
+                "hit": 1
+              },
+              "bad": {
+                "var": "bad",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "bad": "data"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "bad"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Invisible characters that are not control characters at all.",
+            "values": {
+              "samples": {
+                "var": "samples",
+                "line": 3,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 3,
+                "hit": 2
+              },
+              "bad": {
+                "var": "bad",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "samples": "ok",
+              "s": "ok",
+              "bad": "ok"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "bad"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Low-order control character detection and rejection",
-        "columns": [
-          "samples",
-          "bad",
-          "samples"
+        "template": "flow",
+        "title": "Control characters",
+        "nodes": [
+          {
+            "id": "samples",
+            "label": "samples"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "bad",
+            "label": "bad"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Incoming payload text can contain hidden control characters.",
-            "rows": [
-              {
-                "cells": [
-                  "samples",
-                  "bad",
-                  "samples"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "samples",
-                  "bad",
-                  "samples"
-                ],
-                "tone": "data"
-              }
+            "caption": "Text can contain characters you cannot see, called control characters.",
+            "values": {
+              "samples": "['plain text', 'tab\tand\nnewline', 'bell…",
+              "s": "'plain text'",
+              "bad": "[]"
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "bad": "data"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "bad"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Rejecting suspicious payloads is safer than silently modifying inputs.",
-            "rows": [
-              {
-                "cells": [
-                  "samples",
-                  "bad",
-                  "samples"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "samples",
-                  "bad",
-                  "samples"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how codes updates below during execution.",
+            "values": {
+              "samples": "['plain text', 'tab\tand\nnewline', 'bell…",
+              "s": "'plain text'",
+              "bad": "[]"
+            },
+            "tones": {
+              "samples": "data",
+              "s": "data",
+              "bad": "data"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "bad"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Invisible characters that are not control characters at all.",
+            "values": {
+              "samples": "['plain text', 'tab\tand\nnewline', 'bell…",
+              "s": "'plain text'",
+              "bad": "[]"
+            },
+            "tones": {
+              "samples": "ok",
+              "s": "ok",
+              "bad": "ok"
+            },
+            "arrows": [
+              [
+                "samples",
+                "s"
+              ],
+              [
+                "s",
+                "bad"
+              ]
             ]
           }
         ]
@@ -423,78 +449,77 @@
       "partTitle": "Tokens and budgets",
       "codeHash": "36e1625441aab1c7df240d21248f59301e3b667faa1dcd25bdb8509a13e61635",
       "spec": {
-        "template": "table",
-        "title": "Token budgeting and runaway consumption caps",
-        "columns": [
-          "text",
-          "tokens",
-          "text"
-        ],
+        "template": "bars",
+        "title": "Tokens and budgets",
         "steps": [
           {
-            "at": "say4",
-            "caption": "A token budget places a ceiling on how many input tokens an agent processes.",
-            "rows": [
+            "at": "say1",
+            "caption": "Models do not read characters.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+                "label": "PRICE_PER_1000",
+                "value": {
+                  "var": "PRICE_PER_1000",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
+                "label": "tokens",
+                "value": {
+                  "var": "tokens",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Strict budgets protect infrastructure from runaway bills and context limits.",
-            "rows": [
+            "at": "say2",
+            "caption": "Every model has a context window, a maximum number of tokens it can handle.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
+                "label": "PRICE_PER_1000",
+                "value": {
+                  "var": "PRICE_PER_1000",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
+                "label": "tokens",
+                "value": {
+                  "var": "tokens",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The next part shows what to do when input is over budget.",
+            "bars": [
+              {
+                "label": "PRICE_PER_1000",
+                "value": {
+                  "var": "PRICE_PER_1000",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tokens",
+                "value": {
+                  "var": "tokens",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +527,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Token budgeting and runaway consumption caps",
-        "columns": [
-          "text",
-          "tokens",
-          "text"
-        ],
+        "template": "bars",
+        "title": "Tokens and budgets",
         "steps": [
           {
-            "at": "say4",
-            "caption": "A token budget places a ceiling on how many input tokens an agent processes.",
-            "rows": [
+            "at": "say1",
+            "caption": "Models do not read characters.",
+            "bars": [
               {
-                "cells": [
-                  "text",
-                  "tokens",
-                  "text"
-                ],
-                "tone": "ok"
+                "label": "PRICE_PER_1000",
+                "value": 0.5,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "text",
-                  "tokens",
-                  "text"
-                ],
+                "label": "tokens",
+                "value": 2,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Strict budgets protect infrastructure from runaway bills and context limits.",
-            "rows": [
+            "at": "say2",
+            "caption": "Every model has a context window, a maximum number of tokens it can handle.",
+            "bars": [
               {
-                "cells": [
-                  "text",
-                  "tokens",
-                  "text"
-                ],
-                "tone": "data"
+                "label": "PRICE_PER_1000",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "text",
-                  "tokens",
-                  "text"
-                ],
+                "label": "tokens",
+                "value": 2,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The next part shows what to do when input is over budget.",
+            "bars": [
+              {
+                "label": "PRICE_PER_1000",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "tokens",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -561,224 +585,106 @@
       "partTitle": "Truncating to a budget",
       "codeHash": "a1134471fede25d0daa3e7ec80b4df8525fc09db423fe4bf8800d3d10b472c71",
       "spec": {
-        "template": "flow",
-        "title": "Truncating to a budget — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Truncating to a budget",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "sentence",
+            "label": "sentence"
           },
           {
-            "id": "proc",
-            "label": "2. Truncating to a budget",
-            "tappable": true
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Truncating to a budget [Dthree.Pfive.Sone].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Truncating to a budget [Dthree.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "When input is over budget, you can reject it or truncate it.",
+            "currentState": "sentence",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Truncating keeps the first part of the text and drops the rest.",
+            "currentState": "n",
+            "transition": {
+              "from": "sentence",
+              "to": "n",
+              "label": {
+                "var": "n",
+                "line": 2,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Truncating to a budget.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Whatever you choose, make it deliberate, tested and visible in logs.",
+            "currentState": "text",
+            "transition": {
+              "from": "n",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 2,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Truncating to a budget — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Truncating to a budget",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "sentence",
+            "label": "sentence"
           },
           {
-            "id": "proc",
-            "label": "2. Truncating to a budget",
-            "tappable": true
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Truncating to a budget [D3.P5.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Truncating to a budget [D3.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "When input is over budget, you can reject it or truncate it.",
+            "currentState": "sentence",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Truncating keeps the first part of the text and drops the rest.",
+            "currentState": "n",
+            "transition": {
+              "from": "sentence",
+              "to": "n",
+              "label": "3"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Truncating to a budget [D3.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Whatever you choose, make it deliberate, tested and visible in logs.",
+            "currentState": "text",
+            "transition": {
+              "from": "n",
+              "to": "text",
+              "label": "'please summarise the attached report i…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -787,224 +693,106 @@
       "partTitle": "Validation in a pipeline",
       "codeHash": "2e895fe0b685acbf1a71d524ffbd1c5c4398fe6de7db81097bcbd54ce3cb8aab",
       "spec": {
-        "template": "flow",
-        "title": "Validation in a pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Validation in a pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "t",
+            "label": "t"
           },
           {
-            "id": "proc",
-            "label": "2. Validation in a pip...",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "max_chars",
+            "label": "max_chars"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Validation in a pipeline [Dthree.Psix.Sone].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Validation in a pip... [Dthree.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "In a real system, validation runs before anything else touches the message.",
+            "currentState": "t",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Messages that fail are rejected with their reason code, and the reason.",
+            "currentState": "text",
+            "transition": {
+              "from": "t",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Validation in a pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add a validation step to your pipeline project today.",
+            "currentState": "max_chars",
+            "transition": {
+              "from": "text",
+              "to": "max_chars",
+              "label": {
+                "var": "max_chars",
+                "line": 2,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Validation in a pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Validation in a pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "t",
+            "label": "t"
           },
           {
-            "id": "proc",
-            "label": "2. Validation in a pip...",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "max_chars",
+            "label": "max_chars"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Validation in a pipeline [D3.P6.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Validation in a pip... [D3.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "In a real system, validation runs before anything else touches the message.",
+            "currentState": "t",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Messages that fail are rejected with their reason code, and the reason.",
+            "currentState": "text",
+            "transition": {
+              "from": "t",
+              "to": "text",
+              "label": "'   '"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Validation in a pipeline [D3.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add a validation step to your pipeline project today.",
+            "currentState": "max_chars",
+            "transition": {
+              "from": "text",
+              "to": "max_chars",
+              "label": "80"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

@@ -2,142 +2,284 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 4,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why not just sort?",
       "codeHash": "294a3d0c15890b3086da0768611e11f44f54d81d602ea638a64e3dd994b97a22",
       "spec": {
-        "template": "table",
-        "title": "Algorithmic complexity comparison: full sort versus bounded heap",
-        "columns": [
-          "sort_ops",
-          "heap_ops",
-          "k"
+        "template": "flow",
+        "title": "Why not just sort?",
+        "nodes": [
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "sort_ops",
+            "label": "sort_ops"
+          },
+          {
+            "id": "heap_ops",
+            "label": "heap_ops"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "A heap bounded to size k tracks the best candidates with fewer comparisons.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sort_ops"
-                  },
-                  {
-                    "text": "heap_ops"
-                  },
-                  {
-                    "text": "k"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Sorting n scores costs about n log2(n) comparisons.",
+            "values": {
+              "k": {
+                "var": "k",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sort_ops"
-                  },
-                  {
-                    "text": "heap_ops"
-                  },
-                  {
-                    "text": "k"
-                  }
-                ],
-                "tone": "data"
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 1
+              },
+              "sort_ops": {
+                "var": "sort_ops",
+                "line": 5,
+                "hit": 1
+              },
+              "heap_ops": {
+                "var": "heap_ops",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "k": "data",
+              "n": "data",
+              "sort_ops": "data",
+              "heap_ops": "data"
+            },
+            "arrows": [
+              [
+                "k",
+                "n"
+              ],
+              [
+                "n",
+                "sort_ops"
+              ],
+              [
+                "sort_ops",
+                "heap_ops"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The binary heap module provides an efficient priority queue structure.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sort_ops"
-                  },
-                  {
-                    "text": "heap_ops"
-                  },
-                  {
-                    "text": "k"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "But we only need the best k, and k is usually tiny compared with n, such.",
+            "values": {
+              "k": {
+                "var": "k",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sort_ops"
-                  },
-                  {
-                    "text": "heap_ops"
-                  },
-                  {
-                    "text": "sort_ops"
-                  }
-                ],
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
+              },
+              "sort_ops": {
+                "var": "sort_ops",
+                "line": 6,
+                "hit": 1
+              },
+              "heap_ops": {
+                "var": "heap_ops",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "k": "data",
+              "n": "data",
+              "sort_ops": "data",
+              "heap_ops": "data"
+            },
+            "arrows": [
+              [
+                "k",
+                "n"
+              ],
+              [
+                "n",
+                "sort_ops"
+              ],
+              [
+                "sort_ops",
+                "heap_ops"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Language models even use it when generating text, choosing among the k.",
+            "values": {
+              "k": {
+                "var": "k",
+                "line": 5,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 6,
+                "hit": 1
+              },
+              "sort_ops": {
+                "var": "sort_ops",
+                "line": 7,
+                "hit": 1
+              },
+              "heap_ops": {
+                "var": "heap_ops",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "k": "ok",
+              "n": "ok",
+              "sort_ops": "ok",
+              "heap_ops": "ok"
+            },
+            "arrows": [
+              [
+                "k",
+                "n"
+              ],
+              [
+                "n",
+                "sort_ops"
+              ],
+              [
+                "sort_ops",
+                "heap_ops"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Algorithmic complexity comparison: full sort versus bounded heap",
-        "columns": [
-          "sort_ops",
-          "heap_ops",
-          "k"
+        "template": "flow",
+        "title": "Why not just sort?",
+        "nodes": [
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "sort_ops",
+            "label": "sort_ops"
+          },
+          {
+            "id": "heap_ops",
+            "label": "heap_ops"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "A heap bounded to size k tracks the best candidates with fewer comparisons.",
-            "rows": [
-              {
-                "cells": [
-                  "sort_ops",
-                  "heap_ops",
-                  "k"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sort_ops",
-                  "heap_ops",
-                  "k"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Sorting n scores costs about n log2(n) comparisons.",
+            "values": {
+              "k": "10",
+              "n": "1000",
+              "sort_ops": "9965.784284662088",
+              "heap_ops": "3321.928094887362"
+            },
+            "tones": {
+              "k": "data",
+              "n": "data",
+              "sort_ops": "data",
+              "heap_ops": "data"
+            },
+            "arrows": [
+              [
+                "k",
+                "n"
+              ],
+              [
+                "n",
+                "sort_ops"
+              ],
+              [
+                "sort_ops",
+                "heap_ops"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "The binary heap module provides an efficient priority queue structure.",
-            "rows": [
-              {
-                "cells": [
-                  "sort_ops",
-                  "heap_ops",
-                  "k"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sort_ops",
-                  "heap_ops",
-                  "sort_ops"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "But we only need the best k, and k is usually tiny compared with n, such.",
+            "values": {
+              "k": "10",
+              "n": "1000",
+              "sort_ops": "9965.784284662088",
+              "heap_ops": "3321.928094887362"
+            },
+            "tones": {
+              "k": "data",
+              "n": "data",
+              "sort_ops": "data",
+              "heap_ops": "data"
+            },
+            "arrows": [
+              [
+                "k",
+                "n"
+              ],
+              [
+                "n",
+                "sort_ops"
+              ],
+              [
+                "sort_ops",
+                "heap_ops"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Language models even use it when generating text, choosing among the k.",
+            "values": {
+              "k": "10",
+              "n": "1000",
+              "sort_ops": "9965.784284662088",
+              "heap_ops": "3321.928094887362"
+            },
+            "tones": {
+              "k": "ok",
+              "n": "ok",
+              "sort_ops": "ok",
+              "heap_ops": "ok"
+            },
+            "arrows": [
+              [
+                "k",
+                "n"
+              ],
+              [
+                "n",
+                "sort_ops"
+              ],
+              [
+                "sort_ops",
+                "heap_ops"
+              ]
             ]
           }
         ]
@@ -147,78 +289,77 @@
       "partTitle": "Heaps in Python",
       "codeHash": "e975c268a496238ad3c82acf8f70904fd56b9d040bff10a5dc836c09f2556cff",
       "spec": {
-        "template": "table",
-        "title": "Min-heap streaming maintenance maintaining running top candidates",
-        "columns": [
-          "stream",
-          "heap",
-          "stream"
-        ],
+        "template": "bars",
+        "title": "Heaps in Python",
         "steps": [
           {
             "at": "say1",
-            "caption": "A binary heap keeps its smallest item at the root for rapid inspection.",
-            "rows": [
+            "caption": "A binary heap keeps its smallest item at position 0, and adding.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "stream"
-                  },
-                  {
-                    "text": "heap"
-                  },
-                  {
-                    "text": "stream"
-                  }
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "stream"
-                  },
-                  {
-                    "text": "heap"
-                  },
-                  {
-                    "text": "stream"
-                  }
-                ],
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "A min-heap replaces the smallest score whenever higher candidates arrive.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how heapq updates heappush during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "stream"
-                  },
-                  {
-                    "text": "heap"
-                  },
-                  {
-                    "text": "stream"
-                  }
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "stream"
-                  },
-                  {
-                    "text": "heap"
-                  },
-                  {
-                    "text": "heap"
-                  }
-                ],
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "These few lines of heapq usage appear in countless production systems.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +367,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Min-heap streaming maintenance maintaining running top candidates",
-        "columns": [
-          "stream",
-          "heap",
-          "stream"
-        ],
+        "template": "bars",
+        "title": "Heaps in Python",
         "steps": [
           {
             "at": "say1",
-            "caption": "A binary heap keeps its smallest item at the root for rapid inspection.",
-            "rows": [
+            "caption": "A binary heap keeps its smallest item at position 0, and adding.",
+            "bars": [
               {
-                "cells": [
-                  "stream",
-                  "heap",
-                  "stream"
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "stream",
-                  "heap",
-                  "stream"
-                ],
+                "label": "s",
+                "value": 0.42,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "A min-heap replaces the smallest score whenever higher candidates arrive.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how heapq updates heappush during execution.",
+            "bars": [
               {
-                "cells": [
-                  "stream",
-                  "heap",
-                  "stream"
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "stream",
-                  "heap",
-                  "heap"
-                ],
+                "label": "s",
+                "value": 0.42,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "These few lines of heapq usage appear in countless production systems.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": 0.42,
                 "tone": "ok"
               }
             ]
@@ -285,134 +425,114 @@
       "partTitle": "Tie-breaking and determinism",
       "codeHash": "76fa1beb7f61744c4bdd58f43b37c82918e81d4cfa4b67b06ba5002f36bce570",
       "spec": {
-        "template": "table",
-        "title": "Deterministic tie-breaking protocols across equivalent scores",
-        "columns": [
-          "scores",
-          "lower_index",
-          "higher_index"
-        ],
+        "template": "cells",
+        "title": "Tie-breaking and determinism",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Higher score ranks first while lower index resolves identical ties.",
-            "rows": [
+            "at": "say1",
+            "caption": "When two documents have the same score, which comes first.",
+            "items": {
+              "var": "scores",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "lower_index"
-                  },
-                  {
-                    "text": "higher_index"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "lower_index"
-                  },
-                  {
-                    "text": "higher_index"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Deterministic tie-breaking makes testing and debugging reproducible.",
-            "rows": [
+            "at": "say2",
+            "caption": "Without a rule, the answer can change between runs or between servers.",
+            "items": {
+              "var": "scores",
+              "line": 6,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "lower_index"
-                  },
-                  {
-                    "text": "higher_index"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Consistent tie-breaking is a small detail that separates reliable systems.",
+            "items": {
+              "var": "scores",
+              "line": 7,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "lower_index"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Deterministic tie-breaking protocols across equivalent scores",
-        "columns": [
-          "scores",
-          "lower_index",
-          "higher_index"
-        ],
+        "template": "cells",
+        "title": "Tie-breaking and determinism",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Higher score ranks first while lower index resolves identical ties.",
-            "rows": [
+            "at": "say1",
+            "caption": "When two documents have the same score, which comes first.",
+            "items": [
+              "0.2",
+              "0.9",
+              "0.5",
+              "0.9",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "scores",
-                  "lower_index",
-                  "higher_index"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "scores",
-                  "lower_index",
-                  "higher_index"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Deterministic tie-breaking makes testing and debugging reproducible.",
-            "rows": [
+            "at": "say2",
+            "caption": "Without a rule, the answer can change between runs or between servers.",
+            "items": [
+              "0.2",
+              "0.9",
+              "0.5",
+              "0.9",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "scores",
-                  "lower_index",
-                  "higher_index"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Consistent tie-breaking is a small detail that separates reliable systems.",
+            "items": [
+              "0.2",
+              "0.9",
+              "0.5",
+              "0.9",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "scores",
-                  "lower_index",
-                  "scores"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -423,134 +543,105 @@
       "partTitle": "Merging shard results",
       "codeHash": "d5807b7770182b68d181646df077d76e9384512769b2d803d7aa756c9729e306",
       "spec": {
-        "template": "table",
-        "title": "Distributed coordinator scatter-gather shard reduction",
-        "columns": [
-          "shards",
-          "best",
-          "merged"
-        ],
+        "template": "cells",
+        "title": "Merging shard results",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Each shard returns its candidate set which a coordinator merges globally.",
-            "rows": [
+            "at": "say1",
+            "caption": "Trace how large updates collections during execution.",
+            "items": {
+              "var": "p",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "shards"
-                  },
-                  {
-                    "text": "best"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "shards"
-                  },
-                  {
-                    "text": "best"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Deduplicating shard replicas ensures each document retains its best score.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each shard returns its own top k, and a coordinator merges them into.",
+            "items": {
+              "var": "p",
+              "line": 6,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "shards"
-                  },
-                  {
-                    "text": "best"
-                  },
-                  {
-                    "text": "merged"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "The coordinator itself can become a bottleneck with hundreds of shards, so.",
+            "items": {
+              "var": "p",
+              "line": 6,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "shards"
-                  },
-                  {
-                    "text": "best"
-                  },
-                  {
-                    "text": "shards"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distributed coordinator scatter-gather shard reduction",
-        "columns": [
-          "shards",
-          "best",
-          "merged"
-        ],
+        "template": "cells",
+        "title": "Merging shard results",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Each shard returns its candidate set which a coordinator merges globally.",
-            "rows": [
+            "at": "say1",
+            "caption": "Trace how large updates collections during execution.",
+            "items": [
+              "'d1'",
+              "0.91"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "shards",
-                  "best",
-                  "merged"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shards",
-                  "best",
-                  "merged"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Deduplicating shard replicas ensures each document retains its best score.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each shard returns its own top k, and a coordinator merges them into.",
+            "items": [
+              "'d3'",
+              "0.95"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "shards",
-                  "best",
-                  "merged"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "The coordinator itself can become a bottleneck with hundreds of shards, so.",
+            "items": [
+              "'d9'",
+              "0.8"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "shards",
-                  "best",
-                  "shards"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -562,110 +653,127 @@
       "codeHash": "80042fac0fa0b3885d1a9be6f5f58203120ae72e109c98e6ec0cd69ff35fc795",
       "spec": {
         "template": "flow",
-        "title": "Top-k in real systems — Execution Pipeline",
+        "title": "Top-k in real systems",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "page_size",
+            "label": "page_size"
           },
           {
-            "id": "proc",
-            "label": "2. Top-k in real systems",
-            "tappable": true
+            "id": "page",
+            "label": "page"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "k",
+            "label": "k"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Top-k in real systems [Dfour.Pfive.Sone].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Top-k in real systems [Dfour.Pfive.Stwo].",
+            "caption": "Vector databases expose k as a parameter, often called top_k or limit.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "page_size": {
+                "var": "page_size",
+                "line": 1,
+                "hit": 1
+              },
+              "page": {
+                "var": "page",
+                "line": 2,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "page_size": "data",
+              "page": "data",
+              "k": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "page_size",
+                "page"
               ],
               [
-                "proc",
-                "out"
+                "page",
+                "k"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Trace how very updates large during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "page_size": {
+                "var": "page_size",
+                "line": 2,
+                "hit": 1
+              },
+              "page": {
+                "var": "page",
+                "line": 3,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "page_size": "data",
+              "page": "data",
+              "k": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "page_size",
+                "page"
+              ],
+              [
+                "page",
+                "k"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Top-k in real systems.",
+            "at": "say11",
+            "caption": "Tomorrow introduces exactly those measurements.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "page_size": {
+                "var": "page_size",
+                "line": 3,
+                "hit": 1
+              },
+              "page": {
+                "var": "page",
+                "line": 4,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "page_size": "ok",
+              "page": "ok",
+              "k": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "page_size",
+                "page"
               ],
               [
-                "proc",
-                "out"
+                "page",
+                "k"
               ]
             ]
           }
@@ -673,110 +781,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Top-k in real systems — Execution Pipeline",
+        "title": "Top-k in real systems",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "page_size",
+            "label": "page_size"
           },
           {
-            "id": "proc",
-            "label": "2. Top-k in real systems",
-            "tappable": true
+            "id": "page",
+            "label": "page"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "k",
+            "label": "k"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Top-k in real systems [D4.P5.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Top-k in real systems [D4.P5.S2].",
+            "caption": "Vector databases expose k as a parameter, often called top_k or limit.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "page_size": "10",
+              "page": "1",
+              "k": "10"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "page_size": "data",
+              "page": "data",
+              "k": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "page_size",
+                "page"
               ],
               [
-                "proc",
-                "out"
+                "page",
+                "k"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P5.S3].",
+            "at": "say2",
+            "caption": "Trace how very updates large during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "page_size": "10",
+              "page": "1",
+              "k": "10"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "page_size": "data",
+              "page": "data",
+              "k": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "page_size",
+                "page"
+              ],
+              [
+                "page",
+                "k"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Top-k in real systems [D4.P5.S4].",
+            "at": "say11",
+            "caption": "Tomorrow introduces exactly those measurements.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "page_size": "10",
+              "page": "1",
+              "k": "10"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "page_size": "ok",
+              "page": "ok",
+              "k": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "page_size",
+                "page"
               ],
               [
-                "proc",
-                "out"
+                "page",
+                "k"
               ]
             ]
           }
@@ -787,223 +876,106 @@
       "partTitle": "Practice time: top-k",
       "codeHash": "4581a510a2775e5117e7b80691ac1a64df67a7d30101e7c3b88965debcd7a05c",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: top-k — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: top-k",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: top-k",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: top-k [Dfour.Psix.Sone].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: top-k [Dfour.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Top_k(scores, k).",
+            "items": {
+              "var": "p",
+              "line": 5,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfour.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include ties, k of 0, an empty list and a thousand scores.",
+            "items": {
+              "var": "p",
+              "line": 5,
+              "hit": 7
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: top-k [Dfour.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "If merged results contain duplicates, check that you keep one entry per doc_id.",
+            "items": {
+              "var": "p",
+              "line": 5,
+              "hit": 12
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: top-k — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: top-k",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: top-k",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: top-k [D4.P6.S1].",
-            "values": {
-              "in": "Day 4 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: top-k [D4.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Top_k(scores, k).",
+            "items": [
+              "'s0d0'",
+              "0.236"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D4.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include ties, k of 0, an empty list and a thousand scores.",
+            "items": [
+              "'s0d6'",
+              "0.918"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: top-k [D4.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If merged results contain duplicates, check that you keep one entry per doc_id.",
+            "items": [
+              "'s0d11'",
+              "0.277"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]

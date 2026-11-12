@@ -2,142 +2,284 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 15,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why limit usage",
       "codeHash": "59b1e3cfefdf8942288446ef7338ee60e6356ea2bbf8c6bc6793ad53ed801e76",
       "spec": {
-        "template": "table",
-        "title": "Resource exhaustion prevention and economic denial of service",
-        "columns": [
-          "cost_per_call",
-          "calls_per_minute",
-          "limit_per_minute"
+        "template": "flow",
+        "title": "Why limit usage",
+        "nodes": [
+          {
+            "id": "cost_per_call",
+            "label": "cost_per_call"
+          },
+          {
+            "id": "calls_per_minute",
+            "label": "calls_per_minute"
+          },
+          {
+            "id": "minutes",
+            "label": "minutes"
+          },
+          {
+            "id": "limit_per_minute",
+            "label": "limit_per_minute"
+          }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "A rate limit caps how many calls each user can make in a period of time.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cost_per_call"
-                  },
-                  {
-                    "text": "calls_per_minute"
-                  },
-                  {
-                    "text": "limit_per_minute"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Every model call uses computing power that costs money, often a lot of it.",
+            "values": {
+              "cost_per_call": {
+                "var": "cost_per_call",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "cost_per_call"
-                  },
-                  {
-                    "text": "calls_per_minute"
-                  },
-                  {
-                    "text": "limit_per_minute"
-                  }
-                ],
-                "tone": "data"
+              "calls_per_minute": {
+                "var": "calls_per_minute",
+                "line": 2,
+                "hit": 1
+              },
+              "minutes": {
+                "var": "minutes",
+                "line": 3,
+                "hit": 1
+              },
+              "limit_per_minute": {
+                "var": "limit_per_minute",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "cost_per_call": "data",
+              "calls_per_minute": "data",
+              "minutes": "data",
+              "limit_per_minute": "data"
+            },
+            "arrows": [
+              [
+                "cost_per_call",
+                "calls_per_minute"
+              ],
+              [
+                "calls_per_minute",
+                "minutes"
+              ],
+              [
+                "minutes",
+                "limit_per_minute"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Limits apply per user so one heavy client does not degrade shared services.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "cost_per_call"
-                  },
-                  {
-                    "text": "calls_per_minute"
-                  },
-                  {
-                    "text": "limit_per_minute"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Without limits, one user or one bug can run up a huge bill or slow.",
+            "values": {
+              "cost_per_call": {
+                "var": "cost_per_call",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "cost_per_call"
-                  },
-                  {
-                    "text": "calls_per_minute"
-                  },
-                  {
-                    "text": "limit_per_minute"
-                  }
-                ],
-                "tone": "ok"
+              "calls_per_minute": {
+                "var": "calls_per_minute",
+                "line": 3,
+                "hit": 1
+              },
+              "minutes": {
+                "var": "minutes",
+                "line": 4,
+                "hit": 1
+              },
+              "limit_per_minute": {
+                "var": "limit_per_minute",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "cost_per_call": "data",
+              "calls_per_minute": "data",
+              "minutes": "data",
+              "limit_per_minute": "data"
+            },
+            "arrows": [
+              [
+                "cost_per_call",
+                "calls_per_minute"
+              ],
+              [
+                "calls_per_minute",
+                "minutes"
+              ],
+              [
+                "minutes",
+                "limit_per_minute"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today builds a limiter and a simple abuse detector.",
+            "values": {
+              "cost_per_call": {
+                "var": "cost_per_call",
+                "line": 3,
+                "hit": 1
+              },
+              "calls_per_minute": {
+                "var": "calls_per_minute",
+                "line": 4,
+                "hit": 1
+              },
+              "minutes": {
+                "var": "minutes",
+                "line": 5,
+                "hit": 1
+              },
+              "limit_per_minute": {
+                "var": "limit_per_minute",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "cost_per_call": "ok",
+              "calls_per_minute": "ok",
+              "minutes": "ok",
+              "limit_per_minute": "ok"
+            },
+            "arrows": [
+              [
+                "cost_per_call",
+                "calls_per_minute"
+              ],
+              [
+                "calls_per_minute",
+                "minutes"
+              ],
+              [
+                "minutes",
+                "limit_per_minute"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Resource exhaustion prevention and economic denial of service",
-        "columns": [
-          "cost_per_call",
-          "calls_per_minute",
-          "limit_per_minute"
+        "template": "flow",
+        "title": "Why limit usage",
+        "nodes": [
+          {
+            "id": "cost_per_call",
+            "label": "cost_per_call"
+          },
+          {
+            "id": "calls_per_minute",
+            "label": "calls_per_minute"
+          },
+          {
+            "id": "minutes",
+            "label": "minutes"
+          },
+          {
+            "id": "limit_per_minute",
+            "label": "limit_per_minute"
+          }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "A rate limit caps how many calls each user can make in a period of time.",
-            "rows": [
-              {
-                "cells": [
-                  "cost_per_call",
-                  "calls_per_minute",
-                  "limit_per_minute"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "cost_per_call",
-                  "calls_per_minute",
-                  "limit_per_minute"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Every model call uses computing power that costs money, often a lot of it.",
+            "values": {
+              "cost_per_call": "0.02",
+              "calls_per_minute": "600",
+              "minutes": "480",
+              "limit_per_minute": "20"
+            },
+            "tones": {
+              "cost_per_call": "data",
+              "calls_per_minute": "data",
+              "minutes": "data",
+              "limit_per_minute": "data"
+            },
+            "arrows": [
+              [
+                "cost_per_call",
+                "calls_per_minute"
+              ],
+              [
+                "calls_per_minute",
+                "minutes"
+              ],
+              [
+                "minutes",
+                "limit_per_minute"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Limits apply per user so one heavy client does not degrade shared services.",
-            "rows": [
-              {
-                "cells": [
-                  "cost_per_call",
-                  "calls_per_minute",
-                  "limit_per_minute"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "cost_per_call",
-                  "calls_per_minute",
-                  "limit_per_minute"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Without limits, one user or one bug can run up a huge bill or slow.",
+            "values": {
+              "cost_per_call": "0.02",
+              "calls_per_minute": "600",
+              "minutes": "480",
+              "limit_per_minute": "20"
+            },
+            "tones": {
+              "cost_per_call": "data",
+              "calls_per_minute": "data",
+              "minutes": "data",
+              "limit_per_minute": "data"
+            },
+            "arrows": [
+              [
+                "cost_per_call",
+                "calls_per_minute"
+              ],
+              [
+                "calls_per_minute",
+                "minutes"
+              ],
+              [
+                "minutes",
+                "limit_per_minute"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today builds a limiter and a simple abuse detector.",
+            "values": {
+              "cost_per_call": "0.02",
+              "calls_per_minute": "600",
+              "minutes": "480",
+              "limit_per_minute": "20"
+            },
+            "tones": {
+              "cost_per_call": "ok",
+              "calls_per_minute": "ok",
+              "minutes": "ok",
+              "limit_per_minute": "ok"
+            },
+            "arrows": [
+              [
+                "cost_per_call",
+                "calls_per_minute"
+              ],
+              [
+                "calls_per_minute",
+                "minutes"
+              ],
+              [
+                "minutes",
+                "limit_per_minute"
+              ]
             ]
           }
         ]
@@ -147,78 +289,131 @@
       "partTitle": "Fixed windows and their flaw",
       "codeHash": "ede6e5fa2900873fceb0db76271990c6cbd2a79bb0589c15c065936354098513",
       "spec": {
-        "template": "table",
-        "title": "Fixed vs sliding window algorithms and burst boundary vulnerabilities",
-        "columns": [
-          "calls",
-          "counts",
-          "calls"
-        ],
+        "template": "bars",
+        "title": "Fixed windows and their flaw",
         "steps": [
           {
             "at": "say1",
-            "caption": "The simplest limiter counts calls in fixed windows across each minute.",
-            "rows": [
+            "caption": "The simplest limiter counts calls in fixed windows, for example each clock.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "calls"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "calls"
-                  }
-                ],
-                "tone": "ok"
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "calls"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "calls"
-                  }
-                ],
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "minute",
+                "value": {
+                  "var": "minute",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "A sliding window evaluates recent activity regardless of boundary resets.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how limit updates minute during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "calls"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "calls"
-                  }
-                ],
-                "tone": "data"
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "calls"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "calls"
-                  }
-                ],
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "minute",
+                "value": {
+                  "var": "minute",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The practice builds the sliding window version.",
+            "bars": [
+              {
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "minute",
+                "value": {
+                  "var": "minute",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 8,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +421,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Fixed vs sliding window algorithms and burst boundary vulnerabilities",
-        "columns": [
-          "calls",
-          "counts",
-          "calls"
-        ],
+        "template": "bars",
+        "title": "Fixed windows and their flaw",
         "steps": [
           {
             "at": "say1",
-            "caption": "The simplest limiter counts calls in fixed windows across each minute.",
-            "rows": [
+            "caption": "The simplest limiter counts calls in fixed windows, for example each clock.",
+            "bars": [
               {
-                "cells": [
-                  "calls",
-                  "counts",
-                  "calls"
-                ],
-                "tone": "ok"
+                "label": "limit",
+                "value": 5,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "calls",
-                  "counts",
-                  "calls"
-                ],
+                "label": "t",
+                "value": 59.1,
+                "tone": "data"
+              },
+              {
+                "label": "minute",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 5,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "A sliding window evaluates recent activity regardless of boundary resets.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how limit updates minute during execution.",
+            "bars": [
               {
-                "cells": [
-                  "calls",
-                  "counts",
-                  "calls"
-                ],
-                "tone": "data"
+                "label": "limit",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "calls",
-                  "counts",
-                  "calls"
-                ],
+                "label": "t",
+                "value": 59.1,
+                "tone": "ok"
+              },
+              {
+                "label": "minute",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 5,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The practice builds the sliding window version.",
+            "bars": [
+              {
+                "label": "limit",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "t",
+                "value": 59.1,
+                "tone": "ok"
+              },
+              {
+                "label": "minute",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 5,
                 "tone": "ok"
               }
             ]
@@ -285,78 +509,104 @@
       "partTitle": "A sliding-window limiter",
       "codeHash": "a9b6d8699f6bc73cc4ddb88d08349a205053f0e9a458d84482d0b12e1566c30c",
       "spec": {
-        "template": "table",
-        "title": "Sliding window timestamp queue eviction and capacity checks",
-        "columns": [
-          "history",
-          "history",
-          "history"
-        ],
+        "template": "bars",
+        "title": "A sliding-window limiter",
         "steps": [
           {
-            "at": "say4",
-            "caption": "If fewer than limit calls remain the request is allowed and recorded.",
-            "rows": [
+            "at": "say1",
+            "caption": "Practice 1 is a class, SlidingWindowLimiter(limit, window_seconds), with.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  }
-                ],
-                "tone": "ok"
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  }
-                ],
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "A deque container efficiently drops old times from the front of the window.",
-            "rows": [
+            "at": "say2",
+            "caption": "For each user it keeps a list of the times of their allowed calls.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  }
-                ],
-                "tone": "data"
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  }
-                ],
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "In production, t would come from the clock, and the histories would live.",
+            "bars": [
+              {
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 8,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +614,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sliding window timestamp queue eviction and capacity checks",
-        "columns": [
-          "history",
-          "history",
-          "history"
-        ],
+        "template": "bars",
+        "title": "A sliding-window limiter",
         "steps": [
           {
-            "at": "say4",
-            "caption": "If fewer than limit calls remain the request is allowed and recorded.",
-            "rows": [
+            "at": "say1",
+            "caption": "Practice 1 is a class, SlidingWindowLimiter(limit, window_seconds), with.",
+            "bars": [
               {
-                "cells": [
-                  "history",
-                  "history",
-                  "history"
-                ],
-                "tone": "ok"
+                "label": "limit",
+                "value": 3,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "history",
-                  "history",
-                  "history"
-                ],
+                "label": "window",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "A deque container efficiently drops old times from the front of the window.",
-            "rows": [
+            "at": "say2",
+            "caption": "For each user it keeps a list of the times of their allowed calls.",
+            "bars": [
               {
-                "cells": [
-                  "history",
-                  "history",
-                  "history"
-                ],
-                "tone": "data"
+                "label": "limit",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "history",
-                  "history",
-                  "history"
-                ],
+                "label": "window",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "t",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "In production, t would come from the clock, and the histories would live.",
+            "bars": [
+              {
+                "label": "limit",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "window",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "t",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -423,136 +687,106 @@
       "partTitle": "Per-user limits",
       "codeHash": "a01337cf78a9ea510c33d79f732f670c8bb8febe72b2eea0d6c3214b13b799a6",
       "spec": {
-        "template": "table",
-        "title": "Isolated tenant rate limiting and state isolation",
-        "columns": [
-          "history",
-          "history",
-          "history"
+        "template": "states",
+        "title": "Per-user limits",
+        "states": [
+          {
+            "id": "limit",
+            "label": "limit"
+          },
+          {
+            "id": "window",
+            "label": "window"
+          },
+          {
+            "id": "history",
+            "label": "history"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each user needs their own history so heavy usage does not impact others.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Each user needs their own history, or one heavy user would block everyone.",
+            "currentState": "limit",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "A dictionary mapping users to separate queues maintains isolated quotas.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  },
-                  {
-                    "text": "history"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A dictionary from user to deque gives each user a separate window.",
+            "currentState": "window",
+            "transition": {
+              "from": "limit",
+              "to": "window",
+              "label": {
+                "var": "window",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The next part looks beyond counting, at who is abusing the system.",
+            "currentState": "history",
+            "transition": {
+              "from": "window",
+              "to": "history",
+              "label": {
+                "var": "history",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Isolated tenant rate limiting and state isolation",
-        "columns": [
-          "history",
-          "history",
-          "history"
+        "template": "states",
+        "title": "Per-user limits",
+        "states": [
+          {
+            "id": "limit",
+            "label": "limit"
+          },
+          {
+            "id": "window",
+            "label": "window"
+          },
+          {
+            "id": "history",
+            "label": "history"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each user needs their own history so heavy usage does not impact others.",
-            "rows": [
-              {
-                "cells": [
-                  "history",
-                  "history",
-                  "history"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "history",
-                  "history",
-                  "history"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Each user needs their own history, or one heavy user would block everyone.",
+            "currentState": "limit",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "A dictionary mapping users to separate queues maintains isolated quotas.",
-            "rows": [
-              {
-                "cells": [
-                  "history",
-                  "history",
-                  "history"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "history",
-                  "history",
-                  "history"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "A dictionary from user to deque gives each user a separate window.",
+            "currentState": "window",
+            "transition": {
+              "from": "limit",
+              "to": "window",
+              "label": "60"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The next part looks beyond counting, at who is abusing the system.",
+            "currentState": "history",
+            "transition": {
+              "from": "window",
+              "to": "history",
+              "label": "{'ana': {'__other__': 'deque'}}"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -561,224 +795,106 @@
       "partTitle": "Detecting abuse",
       "codeHash": "17b91ed564c86ea8317cdd421321ea3b236cbd52d9859e5b4e5664780c70d372",
       "spec": {
-        "template": "flow",
-        "title": "Detecting abuse — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Detecting abuse",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "events",
+            "label": "events"
           },
           {
-            "id": "proc",
-            "label": "2. Detecting abuse",
-            "tappable": true
+            "id": "blocked",
+            "label": "blocked"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "per_minute",
+            "label": "per_minute"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Detecting abuse [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Detecting abuse [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Rate limits stop volume, but some users are abusive at low volume.",
+            "currentState": "events",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "A user whose messages are blocked again and again by the injection.",
+            "currentState": "blocked",
+            "transition": {
+              "from": "events",
+              "to": "blocked",
+              "label": {
+                "var": "blocked",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Detecting abuse [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Every automatic action against a user should be logged and appealable.",
+            "currentState": "per_minute",
+            "transition": {
+              "from": "blocked",
+              "to": "per_minute",
+              "label": {
+                "var": "per_minute",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Detecting abuse — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Detecting abuse",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "events",
+            "label": "events"
           },
           {
-            "id": "proc",
-            "label": "2. Detecting abuse",
-            "tappable": true
+            "id": "blocked",
+            "label": "blocked"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "per_minute",
+            "label": "per_minute"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Detecting abuse [D15.P5.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Detecting abuse [D15.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Rate limits stop volume, but some users are abusive at low volume.",
+            "currentState": "events",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "A user whose messages are blocked again and again by the injection.",
+            "currentState": "blocked",
+            "transition": {
+              "from": "events",
+              "to": "blocked",
+              "label": "{}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Detecting abuse [D15.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Every automatic action against a user should be logged and appealable.",
+            "currentState": "per_minute",
+            "transition": {
+              "from": "blocked",
+              "to": "per_minute",
+              "label": "{}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -788,110 +904,161 @@
       "codeHash": "3cae131259b86be32b9dac053dfbc4e0f31bb544925eea69cbdac15b62cc0b22",
       "spec": {
         "template": "flow",
-        "title": "Limits and abuse in the pipeline — Execution Pipeline",
+        "title": "Limits and abuse in the pipeline",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "limits",
+            "label": "limits"
           },
           {
-            "id": "proc",
-            "label": "2. Limits and abuse in...",
-            "tappable": true
+            "id": "tier",
+            "label": "tier"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "blocked",
+            "label": "blocked"
+          },
+          {
+            "id": "history",
+            "label": "history"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Limits and abuse in the pipeline [D.Psix.Sone].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Limits and abuse in... [D.Psix.Stwo].",
+            "caption": "The rate limiter runs first, before validation, because refusing a call.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "limits": {
+                "var": "limits",
+                "line": 3,
+                "hit": 1
+              },
+              "tier": {
+                "var": "tier",
+                "line": 4,
+                "hit": 1
+              },
+              "blocked": {
+                "var": "blocked",
+                "line": 5,
+                "hit": 1
+              },
+              "history": {
+                "var": "history",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "limits": "data",
+              "tier": "data",
+              "blocked": "data",
+              "history": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "limits",
+                "tier"
               ],
               [
-                "proc",
-                "out"
+                "tier",
+                "blocked"
+              ],
+              [
+                "blocked",
+                "history"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Blocked-message events from validation, injection detection and moderation.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "limits": {
+                "var": "limits",
+                "line": 4,
+                "hit": 1
+              },
+              "tier": {
+                "var": "tier",
+                "line": 5,
+                "hit": 1
+              },
+              "blocked": {
+                "var": "blocked",
+                "line": 6,
+                "hit": 1
+              },
+              "history": {
+                "var": "history",
+                "line": 8,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "limits": "data",
+              "tier": "data",
+              "blocked": "data",
+              "history": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "limits",
+                "tier"
+              ],
+              [
+                "tier",
+                "blocked"
+              ],
+              [
+                "blocked",
+                "history"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Limits and abuse in the pipeline.",
+            "at": "say10",
+            "caption": "Add the limiter and the abuse detector to your pipeline today.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "limits": {
+                "var": "limits",
+                "line": 5,
+                "hit": 1
+              },
+              "tier": {
+                "var": "tier",
+                "line": 6,
+                "hit": 1
+              },
+              "blocked": {
+                "var": "blocked",
+                "line": 8,
+                "hit": 1
+              },
+              "history": {
+                "var": "history",
+                "line": 22,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "limits": "ok",
+              "tier": "ok",
+              "blocked": "ok",
+              "history": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "limits",
+                "tier"
               ],
               [
-                "proc",
-                "out"
+                "tier",
+                "blocked"
+              ],
+              [
+                "blocked",
+                "history"
               ]
             ]
           }
@@ -899,110 +1066,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Limits and abuse in the pipeline — Execution Pipeline",
+        "title": "Limits and abuse in the pipeline",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "limits",
+            "label": "limits"
           },
           {
-            "id": "proc",
-            "label": "2. Limits and abuse in...",
-            "tappable": true
+            "id": "tier",
+            "label": "tier"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "blocked",
+            "label": "blocked"
+          },
+          {
+            "id": "history",
+            "label": "history"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Limits and abuse in the pipeline [D15.P6.S1].",
-            "values": {
-              "in": "Day 15 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Limits and abuse in... [D15.P6.S2].",
+            "caption": "The rate limiter runs first, before validation, because refusing a call.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "limits": "{'normal': 5, 'strict': 2}",
+              "tier": "{}",
+              "blocked": "{}",
+              "history": "{}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "limits": "data",
+              "tier": "data",
+              "blocked": "data",
+              "history": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "limits",
+                "tier"
               ],
               [
-                "proc",
-                "out"
+                "tier",
+                "blocked"
+              ],
+              [
+                "blocked",
+                "history"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D15.P6.S3].",
+            "at": "say2",
+            "caption": "Blocked-message events from validation, injection detection and moderation.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "limits": "{'normal': 5, 'strict': 2}",
+              "tier": "{}",
+              "blocked": "{}",
+              "history": "{}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "limits": "data",
+              "tier": "data",
+              "blocked": "data",
+              "history": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "limits",
+                "tier"
+              ],
+              [
+                "tier",
+                "blocked"
+              ],
+              [
+                "blocked",
+                "history"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Limits and abuse in the pipeline [D15.P6.S4].",
+            "at": "say10",
+            "caption": "Add the limiter and the abuse detector to your pipeline today.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "limits": "{'normal': 5, 'strict': 2}",
+              "tier": "{}",
+              "blocked": "{}",
+              "history": "{'eve': {'__other__': 'deque'}}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "limits": "ok",
+              "tier": "ok",
+              "blocked": "ok",
+              "history": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "limits",
+                "tier"
               ],
               [
-                "proc",
-                "out"
+                "tier",
+                "blocked"
+              ],
+              [
+                "blocked",
+                "history"
               ]
             ]
           }

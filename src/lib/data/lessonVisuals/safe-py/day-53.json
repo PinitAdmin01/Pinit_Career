@@ -2,1335 +2,683 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 53,
-  "promptSha": "3461032b523a68dedcae8d2320a45b27a79920382f94334c5785887c7a119f0c",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure, Manage) Compliance — Foundations & Mathematical Invariants",
-      "codeHash": "788011641722e83d3184c0d6f991a9a7f29650d0551806d9634c6aa867db937c",
+      "partTitle": "Regulatory Frameworks — Foundations & Mathematical Invariants",
+      "codeHash": "b8edbb1a7c8e3787452f58b5308afbc0e3058524faf862a1287517db30ae26c6",
       "spec": {
-        "template": "flow",
-        "title": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure",
-        "nodes": [
+        "template": "states",
+        "title": "Regulatory Frameworks — Foundations & Mathematical Invariants",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "intended_use",
+            "label": "intended_use"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "is_critical_infra",
+            "label": "is_critical_infra"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Navigating international regulatory frameworks is a mandatory prerequisite.",
+            "currentState": "intended_use",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The European Union AI Act establishes the world's first comprehensive.",
+            "currentState": "is_critical_infra",
+            "transition": {
+              "from": "intended_use",
+              "to": "is_critical_infra",
+              "label": {
+                "var": "is_critical_infra",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Regulatory Frameworks — Foundations & Mathematical Invariants",
+        "states": [
+          {
+            "id": "intended_use",
+            "label": "intended_use"
+          },
+          {
+            "id": "is_critical_infra",
+            "label": "is_critical_infra"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Navigating international regulatory frameworks is a mandatory prerequisite.",
+            "currentState": "intended_use",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "The European Union AI Act establishes the world's first comprehensive.",
+            "currentState": "is_critical_infra",
+            "transition": {
+              "from": "intended_use",
+              "to": "is_critical_infra",
+              "label": "False"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Regulatory Frameworks — Core Algorithm & State Representation",
+      "codeHash": "9c13e2525a53f7d42e0d1e3e15620e6bf334c606008f5cbcea1cb5705aabda8b",
+      "spec": {
+        "template": "states",
+        "title": "Regulatory Frameworks — Core Algorithm & State Representation",
+        "states": [
+          {
+            "id": "NIST_AI_RMF_FUNCTIONS",
+            "label": "NIST_AI_RMF_FUNCTIONS"
+          },
+          {
+            "id": "completed",
+            "label": "completed"
+          },
+          {
+            "id": "completed_functions",
+            "label": "completed_functions"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "In the United States, the National Institute of Standards and Technology.",
+            "currentState": "NIST_AI_RMF_FUNCTIONS",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "The NIST AI RMF organizes enterprise risk management into four continuous.",
+            "currentState": "completed",
+            "transition": {
+              "from": "NIST_AI_RMF_FUNCTIONS",
+              "to": "completed",
+              "label": {
+                "var": "completed",
+                "line": 10,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "completed_functions",
+            "transition": {
+              "from": "completed",
+              "to": "completed_functions",
+              "label": {
+                "var": "completed_functions",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Regulatory Frameworks — Core Algorithm & State Representation",
+        "states": [
+          {
+            "id": "NIST_AI_RMF_FUNCTIONS",
+            "label": "NIST_AI_RMF_FUNCTIONS"
+          },
+          {
+            "id": "completed",
+            "label": "completed"
+          },
+          {
+            "id": "completed_functions",
+            "label": "completed_functions"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "In the United States, the National Institute of Standards and Technology.",
+            "currentState": "NIST_AI_RMF_FUNCTIONS",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "The NIST AI RMF organizes enterprise risk management into four continuous.",
+            "currentState": "completed",
+            "transition": {
+              "from": "NIST_AI_RMF_FUNCTIONS",
+              "to": "completed",
+              "label": "{'GOVERN', 'MANAGE', 'MAP', 'MEASURE'}"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "completed_functions",
+            "transition": {
+              "from": "completed",
+              "to": "completed_functions",
+              "label": "{'GOVERN', 'MANAGE', 'MAP', 'MEASURE'}"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Regulatory Frameworks — Production Implementation & Boundary Mechanics",
+      "codeHash": "f139810b33ee933d69ad6d02e368e7a1e19a3b32b8678970c28240804402454c",
+      "spec": {
+        "template": "flow",
+        "title": "Regulatory Frameworks — Production Implementation & Boundary Mec",
+        "nodes": [
+          {
+            "id": "audit_checks",
+            "label": "audit_checks"
+          },
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "checks",
+            "label": "checks"
+          },
+          {
+            "id": "auditor",
+            "label": "auditor"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Deploying High Risk AI systems under the EU AI Act requires satisfying.",
+            "values": {
+              "audit_checks": {
+                "var": "audit_checks",
+                "line": 8,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "checks": {
+                "var": "checks",
+                "line": 3,
+                "hit": 1
+              },
+              "auditor": {
+                "var": "auditor",
+                "line": 15,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "audit_checks": "data",
+              "self": "data",
+              "checks": "data",
+              "auditor": "data"
+            },
+            "arrows": [
+              [
+                "audit_checks",
+                "self"
+              ],
+              [
+                "self",
+                "checks"
+              ],
+              [
+                "checks",
+                "auditor"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Mandatory requirements include risk management systems, high-quality.",
+            "values": {
+              "audit_checks": {
+                "var": "audit_checks",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "checks": {
+                "var": "checks",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "auditor": {
+                "var": "auditor",
+                "line": 16,
+                "hit": 1
               }
+            },
+            "tones": {
+              "audit_checks": "data",
+              "self": "data",
+              "checks": "data",
+              "auditor": "data"
+            },
+            "arrows": [
+              [
+                "audit_checks",
+                "self"
+              ],
+              [
+                "self",
+                "checks"
+              ],
+              [
+                "checks",
+                "auditor"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for regulatory ai.",
+            "values": {
+              "audit_checks": {
+                "var": "audit_checks",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "checks": {
+                "var": "checks",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "auditor": {
+                "var": "auditor",
+                "line": 16,
+                "hit": 1
               }
+            },
+            "tones": {
+              "audit_checks": "ok",
+              "self": "ok",
+              "checks": "ok",
+              "auditor": "ok"
+            },
+            "arrows": [
+              [
+                "audit_checks",
+                "self"
+              ],
+              [
+                "self",
+                "checks"
+              ],
+              [
+                "checks",
+                "auditor"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure",
+        "title": "Regulatory Frameworks — Production Implementation & Boundary Mec",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "audit_checks",
+            "label": "audit_checks"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "checks",
+            "label": "checks"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "auditor",
+            "label": "auditor"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deploying High Risk AI systems under the EU AI Act requires satisfying.",
+            "values": {
+              "audit_checks": "{'risk_management_system': True, 'high_…",
+              "self": "<HighRiskConformityAuditor>",
+              "checks": "{'risk_management_system': True, 'high_…",
+              "auditor": "<HighRiskConformityAuditor>"
+            },
+            "tones": {
+              "audit_checks": "data",
+              "self": "data",
+              "checks": "data",
+              "auditor": "data"
+            },
+            "arrows": [
+              [
+                "audit_checks",
+                "self"
+              ],
+              [
+                "self",
+                "checks"
+              ],
+              [
+                "checks",
+                "auditor"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Mandatory requirements include risk management systems, high-quality.",
+            "values": {
+              "audit_checks": "{'risk_management_system': True, 'high_…",
+              "self": "<HighRiskConformityAuditor>",
+              "checks": "{'risk_management_system': True, 'high_…",
+              "auditor": "<HighRiskConformityAuditor>"
+            },
+            "tones": {
+              "audit_checks": "data",
+              "self": "data",
+              "checks": "data",
+              "auditor": "data"
+            },
+            "arrows": [
+              [
+                "audit_checks",
+                "self"
+              ],
+              [
+                "self",
+                "checks"
+              ],
+              [
+                "checks",
+                "auditor"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for regulatory ai.",
+            "values": {
+              "audit_checks": "{'risk_management_system': True, 'high_…",
+              "self": "<HighRiskConformityAuditor>",
+              "checks": "{'risk_management_system': True, 'high_…",
+              "auditor": "<HighRiskConformityAuditor>"
+            },
+            "tones": {
+              "audit_checks": "ok",
+              "self": "ok",
+              "checks": "ok",
+              "auditor": "ok"
+            },
+            "arrows": [
+              [
+                "audit_checks",
+                "self"
+              ],
+              [
+                "self",
+                "checks"
+              ],
+              [
+                "checks",
+                "auditor"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure, Manage) Compliance — Core Algorithm & State Representation",
-      "codeHash": "3451d9147ea16cf0163084d2c943d0b922df0a65f2fcfcf2fb9d4515cb3ea6ce",
+      "partTitle": "Regulatory Frameworks — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "96a5b50a457a94794a64741c3127ab0273d5dd47ce59318e976cc6af7e64299e",
       "spec": {
-        "template": "flow",
-        "title": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure",
-        "nodes": [
+        "template": "states",
+        "title": "Regulatory Frameworks — Failure Modes, Hardware Bottlenecks & De",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "model_name",
+            "label": "model_name"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "has_synthetic_media",
+            "label": "has_synthetic_media"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "disclosure",
+            "label": "disclosure"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Under the EU AI Act transparency rules, users interacting with AI systems.",
+            "currentState": "model_name",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Similarly, synthetic audio, video, or image media (deepfakes) must be.",
+            "currentState": "has_synthetic_media",
+            "transition": {
+              "from": "model_name",
+              "to": "has_synthetic_media",
+              "label": {
+                "var": "has_synthetic_media",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "disclosure",
+            "transition": {
+              "from": "has_synthetic_media",
+              "to": "disclosure",
+              "label": {
+                "var": "disclosure",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure",
-        "nodes": [
+        "template": "states",
+        "title": "Regulatory Frameworks — Failure Modes, Hardware Bottlenecks & De",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "model_name",
+            "label": "model_name"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "has_synthetic_media",
+            "label": "has_synthetic_media"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "disclosure",
+            "label": "disclosure"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Under the EU AI Act transparency rules, users interacting with AI systems.",
+            "currentState": "model_name",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Similarly, synthetic audio, video, or image media (deepfakes) must be.",
+            "currentState": "has_synthetic_media",
+            "transition": {
+              "from": "model_name",
+              "to": "has_synthetic_media",
+              "label": "True"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "disclosure",
+            "transition": {
+              "from": "has_synthetic_media",
+              "to": "disclosure",
+              "label": "'Notice: You are interacting with an ar…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure, Manage) Compliance — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "be33f324c7d9abf852bfaf0f3cde01d02107898b64b25a2390fb23314acf6b77",
+      "partTitle": "Regulatory Frameworks — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "43acf4b934bd96ec6e3930c86827bb0c7219331b3ce2a7fbe81d52790146d6fb",
       "spec": {
-        "template": "flow",
-        "title": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure",
-        "nodes": [
+        "template": "states",
+        "title": "Regulatory Frameworks — Production Capstone & Enterprise SRE Int",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "system_name",
+            "label": "system_name"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tier",
+            "label": "tier"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "certified",
+            "label": "certified"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The export_eu_ai_act_compliance_declaration function packages regulatory.",
+            "currentState": "system_name",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "It specifies the system name, assigned risk tier, compliance status,.",
+            "currentState": "tier",
+            "transition": {
+              "from": "system_name",
+              "to": "tier",
+              "label": {
+                "var": "tier",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "certified",
+            "transition": {
+              "from": "tier",
+              "to": "certified",
+              "label": {
+                "var": "certified",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure",
-        "nodes": [
+        "template": "states",
+        "title": "Regulatory Frameworks — Production Capstone & Enterprise SRE Int",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "system_name",
+            "label": "system_name"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tier",
+            "label": "tier"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "certified",
+            "label": "certified"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "The export_eu_ai_act_compliance_declaration function packages regulatory.",
+            "currentState": "system_name",
+            "tone": "data"
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure, Manage) Compliance — Resilience Guardrails & Failure Recovery",
-      "codeHash": "06402887c883b511dbca45b6c3468a493aecfbf876029d74fb0eadbfbac29840",
-      "spec": {
-        "template": "flow",
-        "title": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "It specifies the system name, assigned risk tier, compliance status,.",
+            "currentState": "tier",
+            "transition": {
+              "from": "system_name",
+              "to": "tier",
+              "label": "'HIGH_RISK_MANDATORY_CONFORMITY'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure, Manage) Compliance — Production Telemetry & Verification Audit",
-      "codeHash": "44e4f2a3bb1a06e55d30a6d2685f84401d25b9327cabad34d6a3668f7ec7c176",
-      "spec": {
-        "template": "flow",
-        "title": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "EU AI Act Risk Tier Classification & NIST AI RMF (Govern, Map, Measure",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "certified",
+            "transition": {
+              "from": "tier",
+              "to": "certified",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }

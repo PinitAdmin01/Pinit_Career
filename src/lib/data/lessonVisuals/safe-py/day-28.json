@@ -2,125 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 28,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Learning from preferences",
       "codeHash": "0f0032ddb3cafa4f2b9f11c41cad56f22bc01db0f88fa8d91121cc2d95ec2d1a",
       "spec": {
-        "template": "table",
-        "title": "Human preference pair records for model alignment",
-        "columns": [
-          "record",
-          "prompt"
+        "template": "states",
+        "title": "Learning from preferences",
+        "states": [
+          {
+            "id": "record",
+            "label": "record"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Human feedback shapes model outputs to be safe and helpful.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "record"
-                  },
-                  {
-                    "text": "prompt"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "record"
-                  },
-                  {
-                    "text": "chosen"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "After pre-training, language models are shaped to be helpful and harmless.",
+            "currentState": "record",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Comparative evaluations show two answers to human raters.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "record"
-                  },
-                  {
-                    "text": "prompt"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "record"
-                  },
-                  {
-                    "text": "rejected"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "People are shown two answers to the same prompt and asked which is better.",
+            "currentState": "k",
+            "transition": {
+              "from": "record",
+              "to": "k",
+              "label": {
+                "var": "k",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today builds the core maths.",
+            "currentState": "v",
+            "transition": {
+              "from": "k",
+              "to": "v",
+              "label": {
+                "var": "v",
+                "line": 6,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Human preference pair records for model alignment",
-        "columns": [
-          "record",
-          "prompt"
+        "template": "states",
+        "title": "Learning from preferences",
+        "states": [
+          {
+            "id": "record",
+            "label": "record"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Human feedback shapes model outputs to be safe and helpful.",
-            "rows": [
-              {
-                "cells": [
-                  "record",
-                  "prompt"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "record",
-                  "chosen"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "After pre-training, language models are shaped to be helpful and harmless.",
+            "currentState": "record",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Comparative evaluations show two answers to human raters.",
-            "rows": [
-              {
-                "cells": [
-                  "record",
-                  "prompt"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "record",
-                  "rejected"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "People are shown two answers to the same prompt and asked which is better.",
+            "currentState": "k",
+            "transition": {
+              "from": "record",
+              "to": "k",
+              "label": "'prompt'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today builds the core maths.",
+            "currentState": "v",
+            "transition": {
+              "from": "k",
+              "to": "v",
+              "label": "\"I can't help with accessing someone el…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -129,118 +117,106 @@
       "partTitle": "The Bradley-Terry model",
       "codeHash": "17463395d7cfffafd2535eb91558537e16c9b3ff3b8cee9e460eb58f0fddb8bb",
       "spec": {
-        "template": "table",
-        "title": "Bradley-Terry preference probability curve mapping",
-        "columns": [
-          "r_a",
-          "r_b"
+        "template": "states",
+        "title": "The Bradley-Terry model",
+        "states": [
+          {
+            "id": "r_a",
+            "label": "r_a"
+          },
+          {
+            "id": "r_b",
+            "label": "r_b"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bradley Terry transforms scalar scores into preference probabilities.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "r_a"
-                  },
-                  {
-                    "text": "r_b"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "r_a"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Trace how bradley updates terry during execution.",
+            "currentState": "r_a",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Higher rewards increase the probability of choosing an option.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "r_a"
-                  },
-                  {
-                    "text": "r_b"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "exp"
-                  },
-                  {
-                    "text": "r_b"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "If answer A has reward r_a and answer B has reward r_b, the probability.",
+            "currentState": "r_b",
+            "transition": {
+              "from": "r_a",
+              "to": "r_b",
+              "label": {
+                "var": "r_b",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Reward numbers are therefore only meaningful relative to each other.",
+            "currentState": "p",
+            "transition": {
+              "from": "r_b",
+              "to": "p",
+              "label": {
+                "var": "p",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bradley-Terry preference probability curve mapping",
-        "columns": [
-          "r_a",
-          "r_b"
+        "template": "states",
+        "title": "The Bradley-Terry model",
+        "states": [
+          {
+            "id": "r_a",
+            "label": "r_a"
+          },
+          {
+            "id": "r_b",
+            "label": "r_b"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Bradley Terry transforms scalar scores into preference probabilities.",
-            "rows": [
-              {
-                "cells": [
-                  "r_a",
-                  "r_b"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "r_a",
-                  "math"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Trace how bradley updates terry during execution.",
+            "currentState": "r_a",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Higher rewards increase the probability of choosing an option.",
-            "rows": [
-              {
-                "cells": [
-                  "r_a",
-                  "r_b"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "exp",
-                  "r_b"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "If answer A has reward r_a and answer B has reward r_b, the probability.",
+            "currentState": "r_b",
+            "transition": {
+              "from": "r_a",
+              "to": "r_b",
+              "label": "0"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Reward numbers are therefore only meaningful relative to each other.",
+            "currentState": "p",
+            "transition": {
+              "from": "r_b",
+              "to": "p",
+              "label": "0.5"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -249,117 +225,277 @@
       "partTitle": "The pairwise loss",
       "codeHash": "527dfe7f48c6430bb2445e2b430054559c3a107f6daba91fe0744f857c8cd420",
       "spec": {
-        "template": "table",
-        "title": "Pairwise negative log likelihood loss calculation",
-        "columns": [
-          "rc",
-          "rr"
+        "template": "flow",
+        "title": "The pairwise loss",
+        "nodes": [
+          {
+            "id": "rc",
+            "label": "rc"
+          },
+          {
+            "id": "rr",
+            "label": "rr"
+          },
+          {
+            "id": "r_chosen",
+            "label": "r_chosen"
+          },
+          {
+            "id": "r_rejected",
+            "label": "r_rejected"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Pairwise loss penalizes model disagreement with human judgements.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rc"
-                  },
-                  {
-                    "text": "rr"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "To train a reward model, we need a loss.",
+            "values": {
+              "rc": {
+                "var": "rc",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "rc"
-                  },
-                  {
-                    "text": "loss"
-                  }
-                ],
-                "tone": "data"
+              "rr": {
+                "var": "rr",
+                "line": 7,
+                "hit": 1
+              },
+              "r_chosen": {
+                "var": "r_chosen",
+                "line": 4,
+                "hit": 1
+              },
+              "r_rejected": {
+                "var": "r_rejected",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "rc": "data",
+              "rr": "data",
+              "r_chosen": "data",
+              "r_rejected": "data"
+            },
+            "arrows": [
+              [
+                "rc",
+                "rr"
+              ],
+              [
+                "rr",
+                "r_chosen"
+              ],
+              [
+                "r_chosen",
+                "r_rejected"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Optimization lowers average loss across preference comparisons.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "rc"
-                  },
-                  {
-                    "text": "rr"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "For each comparison, the loss is ln of the probability the model gives.",
+            "values": {
+              "rc": {
+                "var": "rc",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "chosen"
-                  },
-                  {
-                    "text": "rejected"
-                  }
-                ],
-                "tone": "ok"
+              "rr": {
+                "var": "rr",
+                "line": 8,
+                "hit": 1
+              },
+              "r_chosen": {
+                "var": "r_chosen",
+                "line": 5,
+                "hit": 1
+              },
+              "r_rejected": {
+                "var": "r_rejected",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "rc": "data",
+              "rr": "data",
+              "r_chosen": "data",
+              "r_rejected": "data"
+            },
+            "arrows": [
+              [
+                "rc",
+                "rr"
+              ],
+              [
+                "rr",
+                "r_chosen"
+              ],
+              [
+                "r_chosen",
+                "r_rejected"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Measuring how often raters agree tells you the best accuracy a reward.",
+            "values": {
+              "rc": {
+                "var": "rc",
+                "line": 7,
+                "hit": 2
+              },
+              "rr": {
+                "var": "rr",
+                "line": 7,
+                "hit": 2
+              },
+              "r_chosen": {
+                "var": "r_chosen",
+                "line": 4,
+                "hit": 2
+              },
+              "r_rejected": {
+                "var": "r_rejected",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "rc": "ok",
+              "rr": "ok",
+              "r_chosen": "ok",
+              "r_rejected": "ok"
+            },
+            "arrows": [
+              [
+                "rc",
+                "rr"
+              ],
+              [
+                "rr",
+                "r_chosen"
+              ],
+              [
+                "r_chosen",
+                "r_rejected"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Pairwise negative log likelihood loss calculation",
-        "columns": [
-          "rc",
-          "rr"
+        "template": "flow",
+        "title": "The pairwise loss",
+        "nodes": [
+          {
+            "id": "rc",
+            "label": "rc"
+          },
+          {
+            "id": "rr",
+            "label": "rr"
+          },
+          {
+            "id": "r_chosen",
+            "label": "r_chosen"
+          },
+          {
+            "id": "r_rejected",
+            "label": "r_rejected"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Pairwise loss penalizes model disagreement with human judgements.",
-            "rows": [
-              {
-                "cells": [
-                  "rc",
-                  "rr"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "rc",
-                  "loss"
-                ],
-                "tone": "data"
-              }
+            "caption": "To train a reward model, we need a loss.",
+            "values": {
+              "rc": "3",
+              "rr": "0",
+              "r_chosen": "3",
+              "r_rejected": "0"
+            },
+            "tones": {
+              "rc": "data",
+              "rr": "data",
+              "r_chosen": "data",
+              "r_rejected": "data"
+            },
+            "arrows": [
+              [
+                "rc",
+                "rr"
+              ],
+              [
+                "rr",
+                "r_chosen"
+              ],
+              [
+                "r_chosen",
+                "r_rejected"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Optimization lowers average loss across preference comparisons.",
-            "rows": [
-              {
-                "cells": [
-                  "rc",
-                  "rr"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "chosen",
-                  "rejected"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "For each comparison, the loss is ln of the probability the model gives.",
+            "values": {
+              "rc": "3",
+              "rr": "0",
+              "r_chosen": "3",
+              "r_rejected": "0"
+            },
+            "tones": {
+              "rc": "data",
+              "rr": "data",
+              "r_chosen": "data",
+              "r_rejected": "data"
+            },
+            "arrows": [
+              [
+                "rc",
+                "rr"
+              ],
+              [
+                "rr",
+                "r_chosen"
+              ],
+              [
+                "r_chosen",
+                "r_rejected"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Measuring how often raters agree tells you the best accuracy a reward.",
+            "values": {
+              "rc": "1",
+              "rr": "0",
+              "r_chosen": "1",
+              "r_rejected": "0"
+            },
+            "tones": {
+              "rc": "ok",
+              "rr": "ok",
+              "r_chosen": "ok",
+              "r_rejected": "ok"
+            },
+            "arrows": [
+              [
+                "rc",
+                "rr"
+              ],
+              [
+                "rr",
+                "r_chosen"
+              ],
+              [
+                "r_chosen",
+                "r_rejected"
+              ]
             ]
           }
         ]
@@ -369,118 +505,106 @@
       "partTitle": "Fitting ratings from comparisons",
       "codeHash": "7ccd390d0cef17e42f07c1c89320326bcff67d21209b29e7ddd72a8863ff20cd",
       "spec": {
-        "template": "table",
-        "title": "Fitting item preference ratings via pairwise updates",
-        "columns": [
-          "items",
-          "comparisons"
+        "template": "states",
+        "title": "Fitting ratings from comparisons",
+        "states": [
+          {
+            "id": "items",
+            "label": "items"
+          },
+          {
+            "id": "comparisons",
+            "label": "comparisons"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Learning ratings from pairwise comparisons over training epochs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "comparisons"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "careful"
-                  },
-                  {
-                    "text": "vague"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "A full reward model is a neural network, but the same idea works with one.",
+            "currentState": "items",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Passing through all comparisons allows numerical ratings to settle.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "comparisons"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "unsafe"
-                  },
-                  {
-                    "text": "vague"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how practice updates items during execution.",
+            "currentState": "comparisons",
+            "transition": {
+              "from": "items",
+              "to": "comparisons",
+              "label": {
+                "var": "comparisons",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The ratings rank the items consistently with the comparisons, even when.",
+            "currentState": "r",
+            "transition": {
+              "from": "comparisons",
+              "to": "r",
+              "label": {
+                "var": "r",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Fitting item preference ratings via pairwise updates",
-        "columns": [
-          "items",
-          "comparisons"
+        "template": "states",
+        "title": "Fitting ratings from comparisons",
+        "states": [
+          {
+            "id": "items",
+            "label": "items"
+          },
+          {
+            "id": "comparisons",
+            "label": "comparisons"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Learning ratings from pairwise comparisons over training epochs.",
-            "rows": [
-              {
-                "cells": [
-                  "items",
-                  "comparisons"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "careful",
-                  "vague"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "A full reward model is a neural network, but the same idea works with one.",
+            "currentState": "items",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "Passing through all comparisons allows numerical ratings to settle.",
-            "rows": [
-              {
-                "cells": [
-                  "items",
-                  "comparisons"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "unsafe",
-                  "vague"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how practice updates items during execution.",
+            "currentState": "comparisons",
+            "transition": {
+              "from": "items",
+              "to": "comparisons",
+              "label": "[['careful', 'vague'], ['careful', 'uns…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The ratings rank the items consistently with the comparisons, even when.",
+            "currentState": "r",
+            "transition": {
+              "from": "comparisons",
+              "to": "r",
+              "label": "{'careful': 0, 'vague': 0, 'unsafe': 0}"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -489,224 +613,106 @@
       "partTitle": "Reward hacking",
       "codeHash": "1171b45b86d984179a2eac920f652e2a01282f3ff425fe549362ac215ab7d420",
       "spec": {
-        "template": "flow",
-        "title": "Reward hacking — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Reward hacking",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "answers",
+            "label": "answers"
           },
           {
-            "id": "proc",
-            "label": "2. Reward hacking",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Reward hacking [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Reward hacking [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A reward model is only an approximation of what people want.",
+            "currentState": "answers",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "When a language model is trained hard to maximise it, the model can find.",
+            "currentState": "name",
+            "transition": {
+              "from": "answers",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Reward hacking [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Goodhart's law sums it up.",
+            "currentState": "text",
+            "transition": {
+              "from": "name",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reward hacking — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Reward hacking",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "answers",
+            "label": "answers"
           },
           {
-            "id": "proc",
-            "label": "2. Reward hacking",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Reward hacking [D28.P5.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reward hacking [D28.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A reward model is only an approximation of what people want.",
+            "currentState": "answers",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "When a language model is trained hard to maximise it, the model can find.",
+            "currentState": "name",
+            "transition": {
+              "from": "answers",
+              "to": "name",
+              "label": "'short and correct'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reward hacking [D28.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Goodhart's law sums it up.",
+            "currentState": "text",
+            "transition": {
+              "from": "name",
+              "to": "text",
+              "label": "'Refunds take 30 days.'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -715,224 +721,106 @@
       "partTitle": "Preferences in the pipeline",
       "codeHash": "a3077120f3e1cf1c237e9554a04f51875eed72addf60f4dba98866cf88e95e4b",
       "spec": {
-        "template": "flow",
-        "title": "Preferences in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Preferences in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "prompts",
+            "label": "prompts"
           },
           {
-            "id": "proc",
-            "label": "2. Preferences in the ...",
-            "tappable": true
+            "id": "votes",
+            "label": "votes"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Preferences in the pipeline [D.Psix.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Preferences in the ... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Most product teams do not train their own reward models, but they still.",
+            "currentState": "prompts",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "User feedback buttons, such as thumbs up and down, and side-by-side.",
+            "currentState": "votes",
+            "transition": {
+              "from": "prompts",
+              "to": "votes",
+              "label": {
+                "var": "votes",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Preferences in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add bt_prob, pair_loss and fit_ratings to your pipeline tools today.",
+            "currentState": "r",
+            "transition": {
+              "from": "votes",
+              "to": "r",
+              "label": {
+                "var": "r",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Preferences in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Preferences in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "prompts",
+            "label": "prompts"
           },
           {
-            "id": "proc",
-            "label": "2. Preferences in the ...",
-            "tappable": true
+            "id": "votes",
+            "label": "votes"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "r",
+            "label": "r"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Preferences in the pipeline [D28.P6.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Preferences in the ... [D28.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Most product teams do not train their own reward models, but they still.",
+            "currentState": "prompts",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "User feedback buttons, such as thumbs up and down, and side-by-side.",
+            "currentState": "votes",
+            "transition": {
+              "from": "prompts",
+              "to": "votes",
+              "label": "[['v2', 'v1'], ['v2', 'v1'], ['v2', 'v1…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Preferences in the pipeline [D28.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add bt_prob, pair_loss and fit_ratings to your pipeline tools today.",
+            "currentState": "r",
+            "transition": {
+              "from": "votes",
+              "to": "r",
+              "label": "{'v1': 0, 'v2': 0, 'v3': 0}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

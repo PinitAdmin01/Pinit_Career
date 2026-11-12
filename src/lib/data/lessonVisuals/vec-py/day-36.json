@@ -2,269 +2,139 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 36,
-  "promptSha": "c009b9e7cb05165ae4b7f492e605d37600364d2d2a31ba095480700a84aaab6f",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Foundations & Mathematical Invariants",
-      "codeHash": "fded3b82e7e1decfb46992211144be32b6e134d1e3457bd7ead10cae43fdb48e",
+      "codeHash": "3b1d567841f788ad5759299d38cbdb49c3f31b0973f7c80fa9c70d1436f79ec4",
       "spec": {
-        "template": "flow",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprob",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Exhaustive flat vector search compares a query vector against every.",
+            "bars": [
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "At scales of millions or billions of vectors, brute-force linear scanning.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprob",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Exhaustive flat vector search compares a query vector against every.",
+            "bars": [
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "At scales of millions or billions of vectors, brute-force linear scanning.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "b",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "b",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +143,218 @@
     },
     {
       "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Core Algorithm & State Representation",
-      "codeHash": "208c990d706342a51aca95ca76f6e5ce1ba5001b8a84f7fc46db77ac7dff7fec",
+      "codeHash": "43a77d03f114fe9fa6035372d2232b01252b5b10d7df2a646fbd7b93d6c94b1b",
       "spec": {
-        "template": "flow",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprob",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Indexing a new vector into an IVF structure begins by identifying its.",
+            "bars": [
+              {
+                "label": "min_dist",
+                "value": {
+                  "var": "min_dist",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "best_c",
+                "value": {
+                  "var": "best_c",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "idx",
+                "value": {
+                  "var": "idx",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The assignment algorithm scans the trained centroid matrix and finds.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "min_dist",
+                "value": {
+                  "var": "min_dist",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "best_c",
+                "value": {
+                  "var": "best_c",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "idx",
+                "value": {
+                  "var": "idx",
+                  "line": 5,
+                  "hit": 4
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "min_dist",
+                "value": {
+                  "var": "min_dist",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "best_c",
+                "value": {
+                  "var": "best_c",
+                  "line": 5,
+                  "hit": 4
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "idx",
+                "value": {
+                  "var": "idx",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprob",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Indexing a new vector into an IVF structure begins by identifying its.",
+            "bars": [
+              {
+                "label": "min_dist",
+                "value": "inf",
+                "tone": "data"
+              },
+              {
+                "label": "best_c",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "idx",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 1.9,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The assignment algorithm scans the trained centroid matrix and finds.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "min_dist",
+                "value": "inf",
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "best_c",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "idx",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "a",
+                "value": 2.1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "min_dist",
+                "value": "inf",
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "best_c",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "idx",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "a",
+                "value": 2.1,
+                "tone": "ok"
               }
             ]
           }
@@ -539,264 +363,107 @@
     },
     {
       "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "8af28f8057c330a741ad6016369abd9d243d6a7041a244a8898360a6c8b2ffc6",
+      "codeHash": "78d4241d2d00b7b501bb1ece5032077c0d2a71588b28dcc11ca00d3443ed2db2",
       "spec": {
-        "template": "flow",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprob",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
         "steps": [
           {
+            "at": "say1",
+            "caption": "At query time, searching only the single closest centroid (nprobe=1) risks.",
+            "items": {
+              "var": "query",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A query vector positioned near the edge of a Voronoi cell may have true.",
+            "items": {
+              "var": "query",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "items": {
+              "var": "query",
+              "line": 6,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprob",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
         "steps": [
           {
+            "at": "say1",
+            "caption": "At query time, searching only the single closest centroid (nprobe=1) risks.",
+            "items": [
+              "1.8",
+              "1.9"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "A query vector positioned near the edge of a Voronoi cell may have true.",
+            "items": [
+              "1.8",
+              "1.9"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "items": [
+              "1.8",
+              "1.9"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -805,264 +472,107 @@
     },
     {
       "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Resilience Guardrails & Failure Recovery",
-      "codeHash": "01ac4ce3dc0497e6215974c13f13268c0c92fab387edcf4af2d355097d4d8841",
+      "codeHash": "b16b979edc6829d4b22652c59e0e511404b39ecdc625618a6927acfb994ff828",
       "spec": {
-        "template": "flow",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprob",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Resilience guardrails in IVF systems protect against uninitialized.",
+            "items": {
+              "var": "query",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If an index search is requested before k-means coarse training completes.",
+            "items": {
+              "var": "query",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "items": {
+              "var": "query",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprob",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Resilience guardrails in IVF systems protect against uninitialized.",
+            "items": [
+              "1",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "If an index search is requested before k-means coarse training completes.",
+            "items": [
+              "1",
+              "1"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "items": [
+              "1",
+              "1"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -1071,265 +581,279 @@
     },
     {
       "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Production Telemetry & Verification Audit",
-      "codeHash": "f6a1922cad2f89f2072a5d3881fbff8ebaf9a56f08fa5095affd8d7d2e99bb57",
+      "codeHash": "e813854a3ed58986ede797554cfc8d894a05212ddf749a13a3b15c76744b58d1",
       "spec": {
         "template": "flow",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprob",
+        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_vectors",
+            "label": "total_vectors"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "nlist",
+            "label": "nlist"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "nprobe",
+            "label": "nprobe"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "avg_per_cluster",
+            "label": "avg_per_cluster"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production IVF clusters rely on telemetry to quantify search speedup.",
+            "values": {
+              "total_vectors": {
+                "var": "total_vectors",
+                "line": 2,
+                "hit": 1
+              },
+              "nlist": {
+                "var": "nlist",
+                "line": 2,
+                "hit": 1
+              },
+              "nprobe": {
+                "var": "nprobe",
+                "line": 2,
+                "hit": 1
+              },
+              "avg_per_cluster": {
+                "var": "avg_per_cluster",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "total_vectors": "data",
+              "nlist": "data",
+              "nprobe": "data",
+              "avg_per_cluster": "data"
+            },
+            "arrows": [
+              [
+                "total_vectors",
+                "nlist"
+              ],
+              [
+                "nlist",
+                "nprobe"
+              ],
+              [
+                "nprobe",
+                "avg_per_cluster"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "In a flat index containing one million vectors, every query performs one.",
+            "values": {
+              "total_vectors": {
+                "var": "total_vectors",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "nlist": {
+                "var": "nlist",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "nprobe": {
+                "var": "nprobe",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "avg_per_cluster": {
+                "var": "avg_per_cluster",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "total_vectors": "data",
+              "nlist": "data",
+              "nprobe": "data",
+              "avg_per_cluster": "data"
+            },
+            "arrows": [
+              [
+                "total_vectors",
+                "nlist"
+              ],
+              [
+                "nlist",
+                "nprobe"
+              ],
+              [
+                "nprobe",
+                "avg_per_cluster"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "total_vectors": {
+                "var": "total_vectors",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "nlist": {
+                "var": "nlist",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "nprobe": {
+                "var": "nprobe",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "avg_per_cluster": {
+                "var": "avg_per_cluster",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "total_vectors": "ok",
+              "nlist": "ok",
+              "nprobe": "ok",
+              "avg_per_cluster": "ok"
+            },
+            "arrows": [
+              [
+                "total_vectors",
+                "nlist"
+              ],
+              [
+                "nlist",
+                "nprobe"
+              ],
+              [
+                "nprobe",
+                "avg_per_cluster"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprob",
+        "title": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_vectors",
+            "label": "total_vectors"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "nlist",
+            "label": "nlist"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "nprobe",
+            "label": "nprobe"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "avg_per_cluster",
+            "label": "avg_per_cluster"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production IVF clusters rely on telemetry to quantify search speedup.",
+            "values": {
+              "total_vectors": "1000000",
+              "nlist": "1024",
+              "nprobe": "8",
+              "avg_per_cluster": "976.5625"
+            },
+            "tones": {
+              "total_vectors": "data",
+              "nlist": "data",
+              "nprobe": "data",
+              "avg_per_cluster": "data"
+            },
+            "arrows": [
+              [
+                "total_vectors",
+                "nlist"
+              ],
+              [
+                "nlist",
+                "nprobe"
+              ],
+              [
+                "nprobe",
+                "avg_per_cluster"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "In a flat index containing one million vectors, every query performs one.",
+            "values": {
+              "total_vectors": "1000000",
+              "nlist": "1024",
+              "nprobe": "8",
+              "avg_per_cluster": "976.5625"
+            },
+            "tones": {
+              "total_vectors": "data",
+              "nlist": "data",
+              "nprobe": "data",
+              "avg_per_cluster": "data"
+            },
+            "arrows": [
+              [
+                "total_vectors",
+                "nlist"
+              ],
+              [
+                "nlist",
+                "nprobe"
+              ],
+              [
+                "nprobe",
+                "avg_per_cluster"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "total_vectors": "1000000",
+              "nlist": "1024",
+              "nprobe": "8",
+              "avg_per_cluster": "976.5625"
+            },
+            "tones": {
+              "total_vectors": "ok",
+              "nlist": "ok",
+              "nprobe": "ok",
+              "avg_per_cluster": "ok"
+            },
+            "arrows": [
+              [
+                "total_vectors",
+                "nlist"
+              ],
+              [
+                "nlist",
+                "nprobe"
+              ],
+              [
+                "nprobe",
+                "avg_per_cluster"
+              ]
             ]
           }
         ]

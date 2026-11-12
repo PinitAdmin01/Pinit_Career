@@ -2,269 +2,265 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 44,
-  "promptSha": "19e110f1c57b2f301e22a13c80cf3d6a2b1a94c883b50deff41bb730d80cb36d",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Safe Tool-Use Sandboxes — Foundations & Mathematical Invariants",
-      "codeHash": "ea24ff4834bd298f8bc8af3ac68a4646661b22db08d0059e2117310534d6e838",
+      "partTitle": "Safe Tool Sandboxes — Foundations & Mathematical Invariants",
+      "codeHash": "c2bec16e2244d013cb4122ed661fc656d51f4d875b7be0092e9b5c41ee54dd3e",
       "spec": {
-        "template": "flow",
-        "title": "Safe Tool-Use Sandboxes — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "states",
+        "title": "Safe Tool Sandboxes — Foundations & Mathematical Invariants",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "allowed",
+            "label": "allowed"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "requested_tool",
+            "label": "requested_tool"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "allowed_tools",
+            "label": "allowed_tools"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When generative models are granted tool-use capabilities, prompt injection.",
+            "currentState": "allowed",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "An adversary who successfully manipulates an agent's tool arguments can.",
+            "currentState": "requested_tool",
+            "transition": {
+              "from": "allowed",
+              "to": "requested_tool",
+              "label": {
+                "var": "requested_tool",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "allowed_tools",
+            "transition": {
+              "from": "requested_tool",
+              "to": "allowed_tools",
+              "label": {
+                "var": "allowed_tools",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Safe Tool Sandboxes — Foundations & Mathematical Invariants",
+        "states": [
+          {
+            "id": "allowed",
+            "label": "allowed"
+          },
+          {
+            "id": "requested_tool",
+            "label": "requested_tool"
+          },
+          {
+            "id": "allowed_tools",
+            "label": "allowed_tools"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "When generative models are granted tool-use capabilities, prompt injection.",
+            "currentState": "allowed",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "An adversary who successfully manipulates an agent's tool arguments can.",
+            "currentState": "requested_tool",
+            "transition": {
+              "from": "allowed",
+              "to": "requested_tool",
+              "label": "'execute_bash'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "allowed_tools",
+            "transition": {
+              "from": "requested_tool",
+              "to": "allowed_tools",
+              "label": "{'calculate_tax', 'fetch_user_profile',…"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Safe Tool Sandboxes — Core Algorithm & State Representation",
+      "codeHash": "ae296b80489e0e66056ac09c19014f786319bffb45191481e67588673884fdc0",
+      "spec": {
+        "template": "table",
+        "title": "Safe Tool Sandboxes — Core Algorithm & State Representation",
+        "columns": [
+          "Symbol",
+          "Executed Value"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Tools that accept file paths or directory targets represent a classic.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "path_arg"
+                  },
+                  {
+                    "var": "path_arg",
+                    "line": 5,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "In a directory traversal attack, the adversary provides sequences like '.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "path_arg"
+                  },
+                  {
+                    "var": "path_arg",
+                    "line": 7,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Safe Tool-Use Sandboxes — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Safe Tool Sandboxes — Core Algorithm & State Representation",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Tools that accept file paths or directory targets represent a classic.",
+            "rows": [
+              {
+                "cells": [
+                  "path_arg",
+                  "'reports/q3_summary.pdf'"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In a directory traversal attack, the adversary provides sequences like '.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "path_arg",
+                  "'reports/q3_summary.pdf'"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "cells": [
+                  "out 1",
+                  "Safe relative path traversal: False"
+                ],
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "cells": [
+                  "out 2",
+                  "Exploit path traversal: True"
+                ],
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 3",
+                  "Absolute path traversal: True"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -272,1065 +268,325 @@
       }
     },
     {
-      "partTitle": "Safe Tool-Use Sandboxes — Core Algorithm & State Representation",
-      "codeHash": "391f0aa7d841bba1893d9f617091c27256d892d4ed95a784e2a5a9f681befecb",
+      "partTitle": "Safe Tool Sandboxes — Production Implementation & Boundary Mechanics",
+      "codeHash": "e123c5ab91dee9b8d31b0362e49f7b85cfe6aefafb19fc1a98664a6883ea9901",
       "spec": {
-        "template": "flow",
-        "title": "Safe Tool-Use Sandboxes — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Safe Tool Sandboxes — Production Implementation & Boundary Mecha",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "schema",
+            "label": "schema"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "validator",
+            "label": "validator"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even when tool names and file paths are valid, tool arguments must conform.",
+            "currentState": "schema",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The SafeToolArgumentValidator class verifies that all required parameters.",
+            "currentState": "self",
+            "transition": {
+              "from": "schema",
+              "to": "self",
+              "label": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for safe tool-use.",
+            "currentState": "validator",
+            "transition": {
+              "from": "self",
+              "to": "validator",
+              "label": {
+                "var": "validator",
+                "line": 15,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Safe Tool-Use Sandboxes — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Safe Tool Sandboxes — Production Implementation & Boundary Mecha",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "schema",
+            "label": "schema"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "validator",
+            "label": "validator"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Even when tool names and file paths are valid, tool arguments must conform.",
+            "currentState": "schema",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The SafeToolArgumentValidator class verifies that all required parameters.",
+            "currentState": "self",
+            "transition": {
+              "from": "schema",
+              "to": "self",
+              "label": "<SafeToolArgumentValidator>"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for safe tool-use.",
+            "currentState": "validator",
+            "transition": {
+              "from": "self",
+              "to": "validator",
+              "label": "<SafeToolArgumentValidator>"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Safe Tool-Use Sandboxes — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "0a534648ed6018ac7559f05df32ad69f40c8c0eac1a4644f0fb5b9949de04bce",
+      "partTitle": "Safe Tool Sandboxes — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "9b731721bb773df283ab192e5e787b7aa1459fb60e9e74c1365f6dba0f5cd47d",
       "spec": {
-        "template": "flow",
-        "title": "Safe Tool-Use Sandboxes — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Safe Tool Sandboxes — Failure Modes, Hardware Bottlenecks & Debu",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "action_type",
+            "label": "action_type"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "params",
+            "label": "params"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "is_destructive",
+            "label": "is_destructive"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-consequence tools that perform mutationssuch as transferring funds.",
+            "currentState": "action_type",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The dry_run_tool_action function intercepts destructive actions.",
+            "currentState": "params",
+            "transition": {
+              "from": "action_type",
+              "to": "params",
+              "label": {
+                "var": "params",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "is_destructive",
+            "transition": {
+              "from": "params",
+              "to": "is_destructive",
+              "label": {
+                "var": "is_destructive",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Safe Tool-Use Sandboxes — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Safe Tool Sandboxes — Failure Modes, Hardware Bottlenecks & Debu",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "action_type",
+            "label": "action_type"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "params",
+            "label": "params"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "is_destructive",
+            "label": "is_destructive"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "High-consequence tools that perform mutationssuch as transferring funds.",
+            "currentState": "action_type",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The dry_run_tool_action function intercepts destructive actions.",
+            "currentState": "params",
+            "transition": {
+              "from": "action_type",
+              "to": "params",
+              "label": "{'id': 42}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "is_destructive",
+            "transition": {
+              "from": "params",
+              "to": "is_destructive",
+              "label": "False"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Safe Tool-Use Sandboxes — Resilience Guardrails & Failure Recovery",
-      "codeHash": "46032d67489f2af18f178ceb15049575a163bff920710a32df4310351d150cd6",
+      "partTitle": "Safe Tool Sandboxes — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "23eac1155ae716663a7ffbe9e9f320f7157fa2d62ad0d8554f89c78798ab0b23",
       "spec": {
-        "template": "flow",
-        "title": "Safe Tool-Use Sandboxes — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Safe Tool Sandboxes — Production Capstone & Enterprise SRE Integ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "allowed_tools",
+            "label": "allowed_tools"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sandbox",
+            "label": "sandbox"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The ZeroTrustToolSandbox class encapsulates tool execution, state.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Every invocation attempt is recorded in an immutable audit log, capturing.",
+            "currentState": "allowed_tools",
+            "transition": {
+              "from": "self",
+              "to": "allowed_tools",
+              "label": {
+                "var": "allowed_tools",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "sandbox",
+            "transition": {
+              "from": "allowed_tools",
+              "to": "sandbox",
+              "label": {
+                "var": "sandbox",
+                "line": 15,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Safe Tool-Use Sandboxes — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Safe Tool Sandboxes — Production Capstone & Enterprise SRE Integ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "allowed_tools",
+            "label": "allowed_tools"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sandbox",
+            "label": "sandbox"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "The ZeroTrustToolSandbox class encapsulates tool execution, state.",
+            "currentState": "self",
+            "tone": "data"
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Safe Tool-Use Sandboxes — Production Telemetry & Verification Audit",
-      "codeHash": "a4dfa041fbdef5406a893bea4cb825e700d3d4e7afa2f0d547c982baf065a1c4",
-      "spec": {
-        "template": "flow",
-        "title": "Safe Tool-Use Sandboxes — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Every invocation attempt is recorded in an immutable audit log, capturing.",
+            "currentState": "allowed_tools",
+            "transition": {
+              "from": "self",
+              "to": "allowed_tools",
+              "label": "{'query_inventory'}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Safe Tool-Use Sandboxes — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "sandbox",
+            "transition": {
+              "from": "allowed_tools",
+              "to": "sandbox",
+              "label": "<ZeroTrustToolSandbox>"
+            },
+            "tone": "ok"
           }
         ]
       }

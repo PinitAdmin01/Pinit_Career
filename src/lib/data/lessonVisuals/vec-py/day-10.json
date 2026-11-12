@@ -2,85 +2,84 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 10,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The idea of clustering",
       "codeHash": "1e8a0e4ae321cf358a6df3cf7794bad3440ea87155475981dac9ef35298b4f9f",
       "spec": {
-        "template": "table",
-        "title": "Vector spatial clustering and centroid partitioning",
-        "columns": [
-          "points",
-          "centroids",
-          "points"
-        ],
+        "template": "bars",
+        "title": "The idea of clustering",
         "steps": [
           {
             "at": "say1",
-            "caption": "Clustering groups vectors together so that nearby items share a cluster.",
-            "rows": [
+            "caption": "Clustering groups vectors so that vectors in the same group are close.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "centroids"
-                  },
-                  {
-                    "text": "points"
-                  }
-                ],
-                "tone": "ok"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "centroids"
-                  },
-                  {
-                    "text": "points"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Each group is represented by a central centroid average.",
-            "rows": [
+            "caption": "Each group is represented by a centroid, the average of its members.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "centroids"
-                  },
-                  {
-                    "text": "points"
-                  }
-                ],
-                "tone": "data"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "centroids"
-                  },
-                  {
-                    "text": "centroids"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Both steps are only a few lines of Python, yet together they power indexes.",
+            "bars": [
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -88,54 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vector spatial clustering and centroid partitioning",
-        "columns": [
-          "points",
-          "centroids",
-          "points"
-        ],
+        "template": "bars",
+        "title": "The idea of clustering",
         "steps": [
           {
             "at": "say1",
-            "caption": "Clustering groups vectors together so that nearby items share a cluster.",
-            "rows": [
+            "caption": "Clustering groups vectors so that vectors in the same group are close.",
+            "bars": [
               {
-                "cells": [
-                  "points",
-                  "centroids",
-                  "points"
-                ],
-                "tone": "ok"
+                "label": "a",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "points",
-                  "centroids",
-                  "points"
-                ],
+                "label": "b",
+                "value": 0.33,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Each group is represented by a central centroid average.",
-            "rows": [
+            "caption": "Each group is represented by a centroid, the average of its members.",
+            "bars": [
               {
-                "cells": [
-                  "points",
-                  "centroids",
-                  "points"
-                ],
-                "tone": "data"
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "points",
-                  "centroids",
-                  "centroids"
-                ],
+                "label": "b",
+                "value": 0.33,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Both steps are only a few lines of Python, yet together they power indexes.",
+            "bars": [
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 0.33,
                 "tone": "ok"
               }
             ]
@@ -147,78 +145,104 @@
       "partTitle": "Assigning points",
       "codeHash": "673a262a665bbd1c3bba28b2fa4c4939a8537a5e740d682a7b76338d0b68b569",
       "spec": {
-        "template": "table",
-        "title": "Nearest centroid assignment via Euclidean distance",
-        "columns": [
-          "points",
-          "centroids",
-          "assign"
-        ],
+        "template": "bars",
+        "title": "Assigning points",
         "steps": [
           {
             "at": "say1",
-            "caption": "The assignment step links every vector point to its nearest centroid.",
-            "rows": [
+            "caption": "The assignment step gives every point to its nearest centroid.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "centroids"
-                  },
-                  {
-                    "text": "assign"
-                  }
-                ],
-                "tone": "ok"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "centroids"
-                  },
-                  {
-                    "text": "assign"
-                  }
-                ],
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Squared Euclidean distance avoids square roots during distance ranking.",
-            "rows": [
+            "caption": "Squared Euclidean distance is used, because it ranks the same as Euclidean.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "centroids"
-                  },
-                  {
-                    "text": "assign"
-                  }
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "centroids"
-                  },
-                  {
-                    "text": "centroids"
-                  }
-                ],
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "When something goes wrong later, you can check the assignment step on its.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 2,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 2,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 3,
+                  "hit": 4
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +250,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Nearest centroid assignment via Euclidean distance",
-        "columns": [
-          "points",
-          "centroids",
-          "assign"
-        ],
+        "template": "bars",
+        "title": "Assigning points",
         "steps": [
           {
             "at": "say1",
-            "caption": "The assignment step links every vector point to its nearest centroid.",
-            "rows": [
+            "caption": "The assignment step gives every point to its nearest centroid.",
+            "bars": [
               {
-                "cells": [
-                  "points",
-                  "centroids",
-                  "assign"
-                ],
-                "tone": "ok"
+                "label": "x",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "points",
-                  "centroids",
-                  "assign"
-                ],
+                "label": "y",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Squared Euclidean distance avoids square roots during distance ranking.",
-            "rows": [
+            "caption": "Squared Euclidean distance is used, because it ranks the same as Euclidean.",
+            "bars": [
               {
-                "cells": [
-                  "points",
-                  "centroids",
-                  "assign"
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "points",
-                  "centroids",
-                  "centroids"
-                ],
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "When something goes wrong later, you can check the assignment step on its.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -285,78 +323,131 @@
       "partTitle": "The k-means loop",
       "codeHash": "def3d15cb8e217c0f04ae98bc6e23221ffea7a66f53e2441056cc96055bce50f",
       "spec": {
-        "template": "table",
-        "title": "Iterative k-means centroid updates and partition convergence",
-        "columns": [
-          "groups",
-          "points",
-          "cents"
-        ],
+        "template": "bars",
+        "title": "The k-means loop",
         "steps": [
           {
             "at": "say1",
-            "caption": "The algorithm alternates point assignment and moving each centroid.",
-            "rows": [
+            "caption": "K-means alternates two steps.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "cents"
-                  }
-                ],
-                "tone": "ok"
+                "label": "it",
+                "value": {
+                  "var": "it",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "cents"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Total squared distance decreases until the algorithm settles down.",
-            "rows": [
+            "caption": "Each round can only lower or keep the total squared distance, so.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "cents"
-                  }
-                ],
-                "tone": "data"
+                "label": "it",
+                "value": {
+                  "var": "it",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "points"
-                  },
-                  {
-                    "text": "points"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Libraries such as FAISS run k-means on GPUs for millions of vectors.",
+            "bars": [
+              {
+                "label": "it",
+                "value": {
+                  "var": "it",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 4
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +455,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Iterative k-means centroid updates and partition convergence",
-        "columns": [
-          "groups",
-          "points",
-          "cents"
-        ],
+        "template": "bars",
+        "title": "The k-means loop",
         "steps": [
           {
             "at": "say1",
-            "caption": "The algorithm alternates point assignment and moving each centroid.",
-            "rows": [
+            "caption": "K-means alternates two steps.",
+            "bars": [
               {
-                "cells": [
-                  "groups",
-                  "points",
-                  "cents"
-                ],
-                "tone": "ok"
+                "label": "it",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "groups",
-                  "points",
-                  "cents"
-                ],
+                "label": "x",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Total squared distance decreases until the algorithm settles down.",
-            "rows": [
+            "caption": "Each round can only lower or keep the total squared distance, so.",
+            "bars": [
               {
-                "cells": [
-                  "groups",
-                  "points",
-                  "cents"
-                ],
-                "tone": "data"
+                "label": "it",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "groups",
-                  "points",
-                  "points"
-                ],
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Libraries such as FAISS run k-means on GPUs for millions of vectors.",
+            "bars": [
+              {
+                "label": "it",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -423,78 +543,77 @@
       "partTitle": "Choosing k and training data",
       "codeHash": "6d5e950d547db525df0577a6f68eebbb64f7985ec03b29bbfbad82535f66d262",
       "spec": {
-        "template": "table",
-        "title": "Cluster partition sizing and vector space sampling",
-        "columns": [
-          "vectors",
-          "clusters",
-          "vectors"
-        ],
+        "template": "bars",
+        "title": "Choosing k and training data",
         "steps": [
           {
             "at": "say1",
-            "caption": "Setting cluster count near the square root of total vectors works well.",
-            "rows": [
+            "caption": "For clustering-based indexes, k is the number of lists, often around.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "vectors"
-                  },
-                  {
-                    "text": "clusters"
-                  },
-                  {
-                    "text": "vectors"
-                  }
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "vectors"
-                  },
-                  {
-                    "text": "clusters"
-                  },
-                  {
-                    "text": "vectors"
-                  }
-                ],
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "More clusters make search faster but neighbours might fall elsewhere.",
-            "rows": [
+            "at": "say2",
+            "caption": "For a million vectors, a few thousand clusters is typical.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "vectors"
-                  },
-                  {
-                    "text": "clusters"
-                  },
-                  {
-                    "text": "vectors"
-                  }
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "vectors"
-                  },
-                  {
-                    "text": "clusters"
-                  },
-                  {
-                    "text": "clusters"
-                  }
-                ],
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow uses the clusters to build the IVF index.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +621,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cluster partition sizing and vector space sampling",
-        "columns": [
-          "vectors",
-          "clusters",
-          "vectors"
-        ],
+        "template": "bars",
+        "title": "Choosing k and training data",
         "steps": [
           {
             "at": "say1",
-            "caption": "Setting cluster count near the square root of total vectors works well.",
-            "rows": [
+            "caption": "For clustering-based indexes, k is the number of lists, often around.",
+            "bars": [
               {
-                "cells": [
-                  "vectors",
-                  "clusters",
-                  "vectors"
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": 100000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "vectors",
-                  "clusters",
-                  "vectors"
-                ],
+                "label": "k",
+                "value": 316,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "More clusters make search faster but neighbours might fall elsewhere.",
-            "rows": [
+            "at": "say2",
+            "caption": "For a million vectors, a few thousand clusters is typical.",
+            "bars": [
               {
-                "cells": [
-                  "vectors",
-                  "clusters",
-                  "vectors"
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": 100000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "vectors",
-                  "clusters",
-                  "clusters"
-                ],
+                "label": "k",
+                "value": 316,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow uses the clusters to build the IVF index.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 100000,
+                "tone": "ok"
+              },
+              {
+                "label": "k",
+                "value": 316,
                 "tone": "ok"
               }
             ]
@@ -561,223 +679,106 @@
       "partTitle": "Evaluating a clustering",
       "codeHash": "54ea56de66928cc4a65e95e18f2968768e293b98dc61f87e0e591948e8ab0f29",
       "spec": {
-        "template": "flow",
-        "title": "Evaluating a clustering — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Evaluating a cluste...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Evaluating a clustering",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Evaluating a clustering [Dten.Pfive.Sone].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Evaluating a cluste... [Dten.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "A useful measure is the inertia.",
+            "items": {
+              "var": "a",
+              "line": 3,
+              "hit": 5
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Lower inertia means tighter clusters, but it always falls as k grows, so.",
+            "items": {
+              "var": "a",
+              "line": 3,
+              "hit": 29
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Evaluating a clustering.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say11",
+            "caption": "Keeping the clustering statistics with the index helps explain its.",
+            "items": {
+              "var": "a",
+              "line": 3,
+              "hit": 49
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Evaluating a clustering — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Evaluating a cluste...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Evaluating a clustering",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Evaluating a clustering [D10.P5.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Evaluating a cluste... [D10.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A useful measure is the inertia.",
+            "items": [
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Lower inertia means tighter clusters, but it always falls as k grows, so.",
+            "items": [
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Evaluating a clustering [D10.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Keeping the clustering statistics with the index helps explain its.",
+            "items": [
+              "0",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -787,223 +788,106 @@
       "partTitle": "Practice time: clustering",
       "codeHash": "c448141b1d52cd7e6d1e7bc775dbb44be1e85d1cdb54bb041936e9606a48b566",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: clustering — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: clus...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: clustering",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: clustering [Dten.Psix.Sone].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: clus... [Dten.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Assign(points, centroids).",
+            "items": {
+              "var": "p",
+              "line": 9,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include three points, a point closer to the second centroid.",
+            "items": {
+              "var": "p",
+              "line": 9,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: clustering.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "If your centroids differ, check that the final assignments are recomputed.",
+            "items": {
+              "var": "p",
+              "line": 10,
+              "hit": 18
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: clustering — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: clus...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: clustering",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: clustering [D10.P6.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: clus... [D10.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Assign(points, centroids).",
+            "items": [
+              "-0.9407568840284877",
+              "0.22268633975498442"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include three points, a point closer to the second centroid.",
+            "items": [
+              "0.32952635545456765",
+              "-0.24484149081526282"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: clustering [D10.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If your centroids differ, check that the final assignments are recomputed.",
+            "items": [
+              "0.9441223346172382",
+              "0.24808174161028296"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]

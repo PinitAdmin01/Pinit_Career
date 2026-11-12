@@ -2,270 +2,284 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 54,
-  "promptSha": "6cded28fc8b51849de4ee0b58822bf31e6e9d8f48ebd96ce19c7479d0bd9936f",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Foundations & Mathematical Invariants",
-      "codeHash": "ba204ae04e35089c54407f9feb39f091a49233151322092f1b69a3b10131d59c",
+      "codeHash": "0d33196d82a787f072e594f88b2e31602ac5a8587636599bf8d06c6462e83a89",
       "spec": {
         "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness ",
+        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "norm",
+            "label": "norm"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "c",
+            "label": "c"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "h",
+            "label": "h"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In enterprise LLM and RAG applications, users frequently ask queries.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 3,
+                "hit": 1
+              },
+              "norm": {
+                "var": "norm",
+                "line": 3,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 4,
+                "hit": 1
+              },
+              "h": {
+                "var": "h",
+                "line": 4,
+                "hit": 24
+              }
+            },
+            "tones": {
+              "text": "data",
+              "norm": "data",
+              "c": "data",
+              "h": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "norm"
+              ],
+              [
+                "norm",
+                "c"
+              ],
+              [
+                "c",
+                "h"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Executing full vector search and multi-turn LLM generation for every.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 24
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "norm": {
+                "var": "norm",
+                "line": 4,
+                "hit": 24
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "c": {
+                "var": "c",
+                "line": 4,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "h": {
+                "var": "h",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "text": "data",
+              "norm": "data",
+              "c": "data",
+              "h": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "norm"
+              ],
+              [
+                "norm",
+                "c"
+              ],
+              [
+                "c",
+                "h"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "norm": {
+                "var": "norm",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "c": {
+                "var": "c",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "h": {
+                "var": "h",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "text": "ok",
+              "norm": "ok",
+              "c": "ok",
+              "h": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "norm"
+              ],
+              [
+                "norm",
+                "c"
+              ],
+              [
+                "c",
+                "h"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness ",
+        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "norm",
+            "label": "norm"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "c",
+            "label": "c"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "h",
+            "label": "h"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In enterprise LLM and RAG applications, users frequently ask queries.",
+            "values": {
+              "text": "'What is vector search?'",
+              "norm": "'what is vector search?'",
+              "c": "'w'",
+              "h": "65224"
+            },
+            "tones": {
+              "text": "data",
+              "norm": "data",
+              "c": "data",
+              "h": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "norm"
+              ],
+              [
+                "norm",
+                "c"
+              ],
+              [
+                "c",
+                "h"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Executing full vector search and multi-turn LLM generation for every.",
+            "values": {
+              "text": "'What is vector search?'",
+              "norm": "'what is vector search?'",
+              "c": "'h'",
+              "h": "65224"
+            },
+            "tones": {
+              "text": "data",
+              "norm": "data",
+              "c": "data",
+              "h": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "norm"
+              ],
+              [
+                "norm",
+                "c"
+              ],
+              [
+                "c",
+                "h"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "values": {
+              "text": "'What is vector search?'",
+              "norm": "'what is vector search?'",
+              "c": "'a'",
+              "h": "65224"
+            },
+            "tones": {
+              "text": "ok",
+              "norm": "ok",
+              "c": "ok",
+              "h": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "norm"
+              ],
+              [
+                "norm",
+                "c"
+              ],
+              [
+                "c",
+                "h"
+              ]
             ]
           }
         ]
@@ -273,264 +287,218 @@
     },
     {
       "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Core Algorithm & State Representation",
-      "codeHash": "dedc9f0607c24bee00c56fb090e29170ea30f1ba3660df11a7fc46e09165c66b",
+      "codeHash": "bc9217b41d6cec5e0cf2123d739f6aa0b1305132a8b1ddb2f62be2cdc86e578e",
       "spec": {
-        "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
         "steps": [
           {
+            "at": "say1",
+            "caption": "When queries are rephrased ('What is vector search.",
+            "bars": [
+              {
+                "label": "similarity_thr",
+                "value": {
+                  "var": "similarity_threshold",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ttl_seconds",
+                "value": {
+                  "var": "ttl_seconds",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "current_ts",
+                "value": {
+                  "var": "current_ts",
+                  "line": 17,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Semantic caching embeds the incoming query and evaluates cosine similarity.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "similarity_thr",
+                "value": {
+                  "var": "similarity_threshold",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "ttl_seconds",
+                "value": {
+                  "var": "ttl_seconds",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "current_ts",
+                "value": {
+                  "var": "current_ts",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 11,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "similarity_thr",
+                "value": {
+                  "var": "similarity_threshold",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "ttl_seconds",
+                "value": {
+                  "var": "ttl_seconds",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "current_ts",
+                "value": {
+                  "var": "current_ts",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 11,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
         "steps": [
           {
+            "at": "say1",
+            "caption": "When queries are rephrased ('What is vector search.",
+            "bars": [
+              {
+                "label": "similarity_thr",
+                "value": 0.9,
+                "tone": "data"
+              },
+              {
+                "label": "ttl_seconds",
+                "value": 60,
+                "tone": "data"
+              },
+              {
+                "label": "current_ts",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 0.95,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Semantic caching embeds the incoming query and evaluates cosine similarity.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "similarity_thr",
+                "value": 0.9,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "ttl_seconds",
+                "value": 60,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "current_ts",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "a",
+                "value": 0.05,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "similarity_thr",
+                "value": 0.9,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "ttl_seconds",
+                "value": 60,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "current_ts",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "a",
+                "value": 0.05,
+                "tone": "ok"
               }
             ]
           }
@@ -539,265 +507,279 @@
     },
     {
       "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "8045303ea77ebc161770e66e0c48f5c9edf94342be440248eb125c5365848cb5",
+      "codeHash": "8a758755cfb5146b771dc6f6569c7a4505ddb55ede28d4e8f5a33b4434e1108a",
       "spec": {
         "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness ",
+        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "entries",
+            "label": "entries"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cache_entries",
+            "label": "cache_entries"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "current_ts",
+            "label": "current_ts"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_ttl",
+            "label": "max_ttl"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cached responses cannot be held indefinitely because real-world data.",
+            "values": {
+              "entries": {
+                "var": "entries",
+                "line": 4,
+                "hit": 1
+              },
+              "cache_entries": {
+                "var": "cache_entries",
+                "line": 2,
+                "hit": 1
+              },
+              "current_ts": {
+                "var": "current_ts",
+                "line": 2,
+                "hit": 1
+              },
+              "max_ttl": {
+                "var": "max_ttl",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "entries": "data",
+              "cache_entries": "data",
+              "current_ts": "data",
+              "max_ttl": "data"
+            },
+            "arrows": [
+              [
+                "entries",
+                "cache_entries"
+              ],
+              [
+                "cache_entries",
+                "current_ts"
+              ],
+              [
+                "current_ts",
+                "max_ttl"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Serving stale cached responses undermines application reliability.",
+            "values": {
+              "entries": {
+                "var": "entries",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cache_entries": {
+                "var": "cache_entries",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "current_ts": {
+                "var": "current_ts",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_ttl": {
+                "var": "max_ttl",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "entries": "data",
+              "cache_entries": "data",
+              "current_ts": "data",
+              "max_ttl": "data"
+            },
+            "arrows": [
+              [
+                "entries",
+                "cache_entries"
+              ],
+              [
+                "cache_entries",
+                "current_ts"
+              ],
+              [
+                "current_ts",
+                "max_ttl"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "entries": {
+                "var": "entries",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "cache_entries": {
+                "var": "cache_entries",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "current_ts": {
+                "var": "current_ts",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_ttl": {
+                "var": "max_ttl",
+                "line": 2,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "entries": "ok",
+              "cache_entries": "ok",
+              "current_ts": "ok",
+              "max_ttl": "ok"
+            },
+            "arrows": [
+              [
+                "entries",
+                "cache_entries"
+              ],
+              [
+                "cache_entries",
+                "current_ts"
+              ],
+              [
+                "current_ts",
+                "max_ttl"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness ",
+        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "entries",
+            "label": "entries"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cache_entries",
+            "label": "cache_entries"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "current_ts",
+            "label": "current_ts"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_ttl",
+            "label": "max_ttl"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cached responses cannot be held indefinitely because real-world data.",
+            "values": {
+              "entries": "[{'ts': 10, 'data': 'A'}, {'ts': 80, 'd…",
+              "cache_entries": "[{'ts': 10, 'data': 'A'}, {'ts': 80, 'd…",
+              "current_ts": "100",
+              "max_ttl": "60"
+            },
+            "tones": {
+              "entries": "data",
+              "cache_entries": "data",
+              "current_ts": "data",
+              "max_ttl": "data"
+            },
+            "arrows": [
+              [
+                "entries",
+                "cache_entries"
+              ],
+              [
+                "cache_entries",
+                "current_ts"
+              ],
+              [
+                "current_ts",
+                "max_ttl"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Serving stale cached responses undermines application reliability.",
+            "values": {
+              "entries": "[{'ts': 10, 'data': 'A'}, {'ts': 80, 'd…",
+              "cache_entries": "[{'ts': 10, 'data': 'A'}, {'ts': 80, 'd…",
+              "current_ts": "100",
+              "max_ttl": "60"
+            },
+            "tones": {
+              "entries": "data",
+              "cache_entries": "data",
+              "current_ts": "data",
+              "max_ttl": "data"
+            },
+            "arrows": [
+              [
+                "entries",
+                "cache_entries"
+              ],
+              [
+                "cache_entries",
+                "current_ts"
+              ],
+              [
+                "current_ts",
+                "max_ttl"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "entries": "[{'ts': 10, 'data': 'A'}, {'ts': 80, 'd…",
+              "cache_entries": "[{'ts': 10, 'data': 'A'}, {'ts': 80, 'd…",
+              "current_ts": "100",
+              "max_ttl": "60"
+            },
+            "tones": {
+              "entries": "ok",
+              "cache_entries": "ok",
+              "current_ts": "ok",
+              "max_ttl": "ok"
+            },
+            "arrows": [
+              [
+                "entries",
+                "cache_entries"
+              ],
+              [
+                "cache_entries",
+                "current_ts"
+              ],
+              [
+                "current_ts",
+                "max_ttl"
+              ]
             ]
           }
         ]
@@ -805,264 +787,116 @@
     },
     {
       "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Resilience Guardrails & Failure Recovery",
-      "codeHash": "b6393ee620f49c2c28b7a5a8b13cc06d8b26a58073ffae41d641e22d7d24d787",
+      "codeHash": "644ae6dcf29bfb197abe2e372fc70bb472f9e12b3d6ba8313e1cea8f521aeb82",
       "spec": {
-        "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Defensive threshold validation in semantic caches protects against overly.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "threshold"
+                  },
+                  {
+                    "var": "threshold",
+                    "line": 2,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how administrator updates configures during execution.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "threshold"
+                  },
+                  {
+                    "var": "threshold",
+                    "line": 2,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Defensive threshold validation in semantic caches protects against overly.",
+            "rows": [
+              {
+                "cells": [
+                  "threshold",
+                  "0.2"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how administrator updates configures during execution.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "threshold",
+                  "0.2"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "Clamped Threshold: 0.5"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -1071,265 +905,279 @@
     },
     {
       "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Production Telemetry & Verification Audit",
-      "codeHash": "0f0521e5faf18a853fd0c1bcbc83ee69994cd23de2f9fa37a9a6edd1ad24d952",
+      "codeHash": "466b2660dcbc055a063f95bc477e4d3f90303bd7b7eee5db07535291c6e8bf1f",
       "spec": {
         "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness ",
+        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_queries",
+            "label": "total_queries"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hits",
+            "label": "hits"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "avg_eval_ms",
+            "label": "avg_eval_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cache_hit_ms",
+            "label": "cache_hit_ms"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production cache telemetry measures hit rates, latency reductions,.",
+            "values": {
+              "total_queries": {
+                "var": "total_queries",
+                "line": 2,
+                "hit": 1
+              },
+              "hits": {
+                "var": "hits",
+                "line": 2,
+                "hit": 1
+              },
+              "avg_eval_ms": {
+                "var": "avg_eval_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "cache_hit_ms": {
+                "var": "cache_hit_ms",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "total_queries": "data",
+              "hits": "data",
+              "avg_eval_ms": "data",
+              "cache_hit_ms": "data"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "hits"
+              ],
+              [
+                "hits",
+                "avg_eval_ms"
+              ],
+              [
+                "avg_eval_ms",
+                "cache_hit_ms"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Trace how production updates validation during execution.",
+            "values": {
+              "total_queries": {
+                "var": "total_queries",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "hits": {
+                "var": "hits",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "avg_eval_ms": {
+                "var": "avg_eval_ms",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "cache_hit_ms": {
+                "var": "cache_hit_ms",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "total_queries": "data",
+              "hits": "data",
+              "avg_eval_ms": "data",
+              "cache_hit_ms": "data"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "hits"
+              ],
+              [
+                "hits",
+                "avg_eval_ms"
+              ],
+              [
+                "avg_eval_ms",
+                "cache_hit_ms"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "total_queries": {
+                "var": "total_queries",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "hits": {
+                "var": "hits",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "avg_eval_ms": {
+                "var": "avg_eval_ms",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "cache_hit_ms": {
+                "var": "cache_hit_ms",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "total_queries": "ok",
+              "hits": "ok",
+              "avg_eval_ms": "ok",
+              "cache_hit_ms": "ok"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "hits"
+              ],
+              [
+                "hits",
+                "avg_eval_ms"
+              ],
+              [
+                "avg_eval_ms",
+                "cache_hit_ms"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness ",
+        "title": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Stal",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_queries",
+            "label": "total_queries"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "hits",
+            "label": "hits"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "avg_eval_ms",
+            "label": "avg_eval_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cache_hit_ms",
+            "label": "cache_hit_ms"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production cache telemetry measures hit rates, latency reductions,.",
+            "values": {
+              "total_queries": "50000",
+              "hits": "17500",
+              "avg_eval_ms": "12",
+              "cache_hit_ms": "0.5"
+            },
+            "tones": {
+              "total_queries": "data",
+              "hits": "data",
+              "avg_eval_ms": "data",
+              "cache_hit_ms": "data"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "hits"
+              ],
+              [
+                "hits",
+                "avg_eval_ms"
+              ],
+              [
+                "avg_eval_ms",
+                "cache_hit_ms"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Trace how production updates validation during execution.",
+            "values": {
+              "total_queries": "50000",
+              "hits": "17500",
+              "avg_eval_ms": "12",
+              "cache_hit_ms": "0.5"
+            },
+            "tones": {
+              "total_queries": "data",
+              "hits": "data",
+              "avg_eval_ms": "data",
+              "cache_hit_ms": "data"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "hits"
+              ],
+              [
+                "hits",
+                "avg_eval_ms"
+              ],
+              [
+                "avg_eval_ms",
+                "cache_hit_ms"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "total_queries": "50000",
+              "hits": "17500",
+              "avg_eval_ms": "12",
+              "cache_hit_ms": "0.5"
+            },
+            "tones": {
+              "total_queries": "ok",
+              "hits": "ok",
+              "avg_eval_ms": "ok",
+              "cache_hit_ms": "ok"
+            },
+            "arrows": [
+              [
+                "total_queries",
+                "hits"
+              ],
+              [
+                "hits",
+                "avg_eval_ms"
+              ],
+              [
+                "avg_eval_ms",
+                "cache_hit_ms"
+              ]
             ]
           }
         ]

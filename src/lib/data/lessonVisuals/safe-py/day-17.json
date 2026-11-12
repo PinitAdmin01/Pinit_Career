@@ -2,125 +2,79 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 17,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "How attackers disguise text",
       "codeHash": "6cb4259f7f07031e13f3cbdeb03f49339b4fd4a6b2223aa5b8ee23a3ff82282f",
       "spec": {
-        "template": "table",
-        "title": "Disguised text variants bypassing keyword filters",
-        "columns": [
-          "banned",
-          "text"
+        "template": "states",
+        "title": "How attackers disguise text",
+        "states": [
+          {
+            "id": "banned",
+            "label": "banned"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Filters check patterns while attackers alter text.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "banned"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "banned"
-                  },
-                  {
-                    "text": "password"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Filters look for specific words or patterns, so attackers change the text.",
+            "currentState": "banned",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "Turning text into a standard form normalises input before checking.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "banned"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "password"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Leetspeak swaps letters for look-alike digits and symbols.",
+            "currentState": "text",
+            "transition": {
+              "from": "banned",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Disguised text variants bypassing keyword filters",
-        "columns": [
-          "banned",
-          "text"
+        "template": "states",
+        "title": "How attackers disguise text",
+        "states": [
+          {
+            "id": "banned",
+            "label": "banned"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Filters check patterns while attackers alter text.",
-            "rows": [
-              {
-                "cells": [
-                  "banned",
-                  "text"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "banned",
-                  "password"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Filters look for specific words or patterns, so attackers change the text.",
+            "currentState": "banned",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "Turning text into a standard form normalises input before checking.",
-            "rows": [
-              {
-                "cells": [
-                  "banned",
-                  "text"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "password",
-                  "text"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Leetspeak swaps letters for look-alike digits and symbols.",
+            "currentState": "text",
+            "transition": {
+              "from": "banned",
+              "to": "text",
+              "label": "'password'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -129,118 +83,72 @@
       "partTitle": "Unicode normalisation",
       "codeHash": "eb7220f67f1bee2df1277442af801e5d93bbf1299bbdf2c2002c3d2cea2c9bdb",
       "spec": {
-        "template": "table",
-        "title": "Unicode normalization with NFKC compatibility transform",
-        "columns": [
-          "text",
-          "unicodedata"
+        "template": "states",
+        "title": "Unicode normalisation",
+        "states": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Unicode normalisation converts text into standard form.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "unicodedata"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "unicodedata"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Unicode often has several ways to write what looks like the same character.",
+            "currentState": "text",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Full width letters become normal letters after conversion.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "unicodedata"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "NFKC"
-                  },
-                  {
-                    "text": "normalize"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how full updates width during execution.",
+            "currentState": "n",
+            "transition": {
+              "from": "text",
+              "to": "n",
+              "label": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Unicode normalization with NFKC compatibility transform",
-        "columns": [
-          "text",
-          "unicodedata"
+        "template": "states",
+        "title": "Unicode normalisation",
+        "states": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Unicode normalisation converts text into standard form.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "unicodedata"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "text",
-                  "unicodedata"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Unicode often has several ways to write what looks like the same character.",
+            "currentState": "text",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Full width letters become normal letters after conversion.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "unicodedata"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "NFKC",
-                  "normalize"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how full updates width during execution.",
+            "currentState": "n",
+            "transition": {
+              "from": "text",
+              "to": "n",
+              "label": "'password'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -249,118 +157,72 @@
       "partTitle": "Undoing leetspeak",
       "codeHash": "f0334409190e867f8c26b9ed6cc251c214624b5fc34197373262ceb4319376a9",
       "spec": {
-        "template": "table",
-        "title": "Translating leetspeak substitutions to standard characters",
-        "columns": [
-          "LEET",
-          "text"
+        "template": "states",
+        "title": "Undoing leetspeak",
+        "states": [
+          {
+            "id": "LEET",
+            "label": "LEET"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Leetspeak replaces letters with lookalike symbols.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "LEET"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "LEET"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Leetspeak replaces letters with symbols that look similar.",
+            "currentState": "LEET",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Translation tables apply character substitutions in one fast pass.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "LEET"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "translate"
-                  },
-                  {
-                    "text": "lower"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Common swaps are 0 for o, 1 for i, 3 for e, 4 for a, 5 for s, 7 for t, @.",
+            "currentState": "text",
+            "transition": {
+              "from": "LEET",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Translating leetspeak substitutions to standard characters",
-        "columns": [
-          "LEET",
-          "text"
+        "template": "states",
+        "title": "Undoing leetspeak",
+        "states": [
+          {
+            "id": "LEET",
+            "label": "LEET"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Leetspeak replaces letters with lookalike symbols.",
-            "rows": [
-              {
-                "cells": [
-                  "LEET",
-                  "text"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "LEET",
-                  "text"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Leetspeak replaces letters with symbols that look similar.",
+            "currentState": "LEET",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Translation tables apply character substitutions in one fast pass.",
-            "rows": [
-              {
-                "cells": [
-                  "LEET",
-                  "text"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "translate",
-                  "lower"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Common swaps are 0 for o, 1 for i, 3 for e, 4 for a, 5 for s, 7 for t, @.",
+            "currentState": "text",
+            "transition": {
+              "from": "LEET",
+              "to": "text",
+              "label": "'p@$$w0rd'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -369,117 +231,165 @@
       "partTitle": "Removing spacing tricks",
       "codeHash": "65a5d7d025b7771de20fb77e36f5dbce2db9a505885dd502bfeebdcf48bae24f",
       "spec": {
-        "template": "table",
-        "title": "Stripping non-letter characters to eliminate spacing tricks",
-        "columns": [
-          "text",
-          "letters"
+        "template": "flow",
+        "title": "Removing spacing tricks",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "letters",
+            "label": "letters"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Attackers break words with spaces and punctuation dots.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "letters"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "After normalising characters, attackers can still break words with spaces.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "letters"
-                  }
-                ],
-                "tone": "data"
+              "letters": {
+                "var": "letters",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "text": "data",
+              "letters": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "letters"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Removing every non letter character simplifies matching.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "letters"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how both updates avoid during execution.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "hack"
-                  },
-                  {
-                    "text": "lower"
-                  }
-                ],
-                "tone": "ok"
+              "letters": {
+                "var": "letters",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "text": "data",
+              "letters": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "letters"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The next part combines everything into the banned-word finder.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
+              },
+              "letters": {
+                "var": "letters",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "text": "ok",
+              "letters": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "letters"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Stripping non-letter characters to eliminate spacing tricks",
-        "columns": [
-          "text",
-          "letters"
+        "template": "flow",
+        "title": "Removing spacing tricks",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "letters",
+            "label": "letters"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Attackers break words with spaces and punctuation dots.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "letters"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "text",
-                  "letters"
-                ],
-                "tone": "data"
-              }
+            "caption": "After normalising characters, attackers can still break words with spaces.",
+            "values": {
+              "text": "'h.a.c.k'",
+              "letters": "'hack'"
+            },
+            "tones": {
+              "text": "data",
+              "letters": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "letters"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Removing every non letter character simplifies matching.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "letters"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "hack",
-                  "lower"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how both updates avoid during execution.",
+            "values": {
+              "text": "'h.a.c.k'",
+              "letters": "'hack'"
+            },
+            "tones": {
+              "text": "data",
+              "letters": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "letters"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The next part combines everything into the banned-word finder.",
+            "values": {
+              "text": "'h.a.c.k'",
+              "letters": "'hack'"
+            },
+            "tones": {
+              "text": "ok",
+              "letters": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "letters"
+              ]
             ]
           }
         ]
@@ -489,224 +399,106 @@
       "partTitle": "Finding banned words",
       "codeHash": "3349976cf6a6807d20c8de5a4396735bdfcc0f3ac41689c74fc94baf3c7a1591",
       "spec": {
-        "template": "flow",
-        "title": "Finding banned words — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Finding banned words",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "LEET",
+            "label": "LEET"
           },
           {
-            "id": "proc",
-            "label": "2. Finding banned words",
-            "tappable": true
+            "id": "HIDDEN",
+            "label": "HIDDEN"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "msg",
+            "label": "msg"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Finding banned words [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Finding banned words [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Trace how practice updates text during execution.",
+            "currentState": "LEET",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The banned words themselves are plain lower-case letters, so they can be.",
+            "currentState": "HIDDEN",
+            "transition": {
+              "from": "LEET",
+              "to": "HIDDEN",
+              "label": {
+                "var": "HIDDEN",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Finding banned words [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Normalisation helps both.",
+            "currentState": "msg",
+            "transition": {
+              "from": "HIDDEN",
+              "to": "msg",
+              "label": {
+                "var": "msg",
+                "line": 11,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Finding banned words — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Finding banned words",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "LEET",
+            "label": "LEET"
           },
           {
-            "id": "proc",
-            "label": "2. Finding banned words",
-            "tappable": true
+            "id": "HIDDEN",
+            "label": "HIDDEN"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "msg",
+            "label": "msg"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Finding banned words [D17.P5.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Finding banned words [D17.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Trace how practice updates text during execution.",
+            "currentState": "LEET",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The banned words themselves are plain lower-case letters, so they can be.",
+            "currentState": "HIDDEN",
+            "transition": {
+              "from": "LEET",
+              "to": "HIDDEN",
+              "label": "{8203: None, 8204: None, 8205: None, 82…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Finding banned words [D17.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Normalisation helps both.",
+            "currentState": "msg",
+            "transition": {
+              "from": "HIDDEN",
+              "to": "msg",
+              "label": "'pass​word'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -715,224 +507,106 @@
       "partTitle": "Normalisation in the pipeline",
       "codeHash": "77063e81d26dcc7de4e75aad23bc504f05134b6b469af3df26d0136534f30b27",
       "spec": {
-        "template": "flow",
-        "title": "Normalisation in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Normalisation in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "LEET",
+            "label": "LEET"
           },
           {
-            "id": "proc",
-            "label": "2. Normalisation in th...",
-            "tappable": true
+            "id": "msg",
+            "label": "msg"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "norm",
+            "label": "norm"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Normalisation in the pipeline [D.Psix.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Normalisation in th... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Normalisation belongs right after the rate limiter and basic validation.",
+            "currentState": "LEET",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Run the injection detector, banned words and moderation on the normalised text.",
+            "currentState": "msg",
+            "transition": {
+              "from": "LEET",
+              "to": "msg",
+              "label": {
+                "var": "msg",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Normalisation in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add normalize_text and find_banned to your pipeline today.",
+            "currentState": "norm",
+            "transition": {
+              "from": "msg",
+              "to": "norm",
+              "label": {
+                "var": "norm",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Normalisation in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Normalisation in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "LEET",
+            "label": "LEET"
           },
           {
-            "id": "proc",
-            "label": "2. Normalisation in th...",
-            "tappable": true
+            "id": "msg",
+            "label": "msg"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "norm",
+            "label": "norm"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Normalisation in the pipeline [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Normalisation in th... [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Normalisation belongs right after the rate limiter and basic validation.",
+            "currentState": "LEET",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Run the injection detector, banned words and moderation on the normalised text.",
+            "currentState": "msg",
+            "transition": {
+              "from": "LEET",
+              "to": "msg",
+              "label": "'please reset my password'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Normalisation in the pipeline [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add normalize_text and find_banned to your pipeline today.",
+            "currentState": "norm",
+            "transition": {
+              "from": "msg",
+              "to": "norm",
+              "label": "'please reset my password'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

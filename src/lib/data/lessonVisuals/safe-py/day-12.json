@@ -2,143 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 12,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Two ways to get refusal wrong",
       "codeHash": "6483104ee03d8f57ed0f8df7cb15d7d36bbb89a5f1c1e5ada203309a416f77c7",
       "spec": {
-        "template": "table",
-        "title": "Under-refusal vs over-refusal failure trade-offs",
-        "columns": [
-          "prompts",
-          "prompts",
-          "prompts"
+        "template": "states",
+        "title": "Two ways to get refusal wrong",
+        "states": [
+          {
+            "id": "prompts",
+            "label": "prompts"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "should_refuse",
+            "label": "should_refuse"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Under-refusal means answering a request that should have been refused.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "prompts"
-                  },
-                  {
-                    "text": "prompts"
-                  },
-                  {
-                    "text": "prompts"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "prompts"
-                  },
-                  {
-                    "text": "prompts"
-                  },
-                  {
-                    "text": "prompts"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "A refusal is when the model declines to help, for example \"I can't help.",
+            "currentState": "prompts",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Over-refusal means refusing harmless requests containing benign keywords.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "prompts"
-                  },
-                  {
-                    "text": "prompts"
-                  },
-                  {
-                    "text": "prompts"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "prompts"
-                  },
-                  {
-                    "text": "prompts"
-                  },
-                  {
-                    "text": "prompts"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Under-refusal means answering a request that should have been refused.",
+            "currentState": "text",
+            "transition": {
+              "from": "prompts",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today measures both failures so they can be balanced deliberately.",
+            "currentState": "should_refuse",
+            "transition": {
+              "from": "text",
+              "to": "should_refuse",
+              "label": {
+                "var": "should_refuse",
+                "line": 7,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Under-refusal vs over-refusal failure trade-offs",
-        "columns": [
-          "prompts",
-          "prompts",
-          "prompts"
+        "template": "states",
+        "title": "Two ways to get refusal wrong",
+        "states": [
+          {
+            "id": "prompts",
+            "label": "prompts"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "should_refuse",
+            "label": "should_refuse"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Under-refusal means answering a request that should have been refused.",
-            "rows": [
-              {
-                "cells": [
-                  "prompts",
-                  "prompts",
-                  "prompts"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "prompts",
-                  "prompts",
-                  "prompts"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "A refusal is when the model declines to help, for example \"I can't help.",
+            "currentState": "prompts",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Over-refusal means refusing harmless requests containing benign keywords.",
-            "rows": [
-              {
-                "cells": [
-                  "prompts",
-                  "prompts",
-                  "prompts"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "prompts",
-                  "prompts",
-                  "prompts"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Under-refusal means answering a request that should have been refused.",
+            "currentState": "text",
+            "transition": {
+              "from": "prompts",
+              "to": "text",
+              "label": "'How do I kill a Python process that ha…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today measures both failures so they can be balanced deliberately.",
+            "currentState": "should_refuse",
+            "transition": {
+              "from": "text",
+              "to": "should_refuse",
+              "label": "False"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -147,136 +117,106 @@
       "partTitle": "Detecting refusals",
       "codeHash": "c687bdc5d681cedc94abb5025e082fb535d01543d5fe75851e92590ba67aea09",
       "spec": {
-        "template": "table",
-        "title": "Boilerplate refusal phrase matching and character normalization",
-        "columns": [
-          "answer",
-          "raw",
-          "fixed"
+        "template": "states",
+        "title": "Detecting refusals",
+        "states": [
+          {
+            "id": "PHRASES",
+            "label": "PHRASES"
+          },
+          {
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Refusals often use standard boilerplate phrases when declining to answer.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "fixed"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "fixed"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "To measure refusal, you first need to tell whether an answer is a refusal.",
+            "currentState": "PHRASES",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Models often write curly apostrophes which detectors must normalize.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "fixed"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "fixed"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Refusals often use standard phrases.",
+            "currentState": "answer",
+            "transition": {
+              "from": "PHRASES",
+              "to": "answer",
+              "label": {
+                "var": "answer",
+                "line": 3,
+                "hit": 5
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say11",
+            "caption": "Whatever detector you use, read a sample of the answers it labels by hand.",
+            "currentState": "p",
+            "transition": {
+              "from": "answer",
+              "to": "p",
+              "label": {
+                "var": "p",
+                "line": 3,
+                "hit": 3
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Boilerplate refusal phrase matching and character normalization",
-        "columns": [
-          "answer",
-          "raw",
-          "fixed"
+        "template": "states",
+        "title": "Detecting refusals",
+        "states": [
+          {
+            "id": "PHRASES",
+            "label": "PHRASES"
+          },
+          {
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Refusals often use standard boilerplate phrases when declining to answer.",
-            "rows": [
-              {
-                "cells": [
-                  "answer",
-                  "raw",
-                  "fixed"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "answer",
-                  "raw",
-                  "fixed"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "To measure refusal, you first need to tell whether an answer is a refusal.",
+            "currentState": "PHRASES",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Models often write curly apostrophes which detectors must normalize.",
-            "rows": [
-              {
-                "cells": [
-                  "answer",
-                  "raw",
-                  "fixed"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "answer",
-                  "raw",
-                  "fixed"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Refusals often use standard phrases.",
+            "currentState": "answer",
+            "transition": {
+              "from": "PHRASES",
+              "to": "answer",
+              "label": "'I can’t help with that.'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say11",
+            "caption": "Whatever detector you use, read a sample of the answers it labels by hand.",
+            "currentState": "p",
+            "transition": {
+              "from": "answer",
+              "to": "p",
+              "label": "\"i won't\""
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -285,136 +225,106 @@
       "partTitle": "Over- and under-refusal rates",
       "codeHash": "6a955764576d9bde019746e2c36c288c5e704247b45b1da7003baa852f2616cb",
       "spec": {
-        "template": "table",
-        "title": "Empirical over- and under-refusal rate metrics",
-        "columns": [
-          "results",
-          "benign",
-          "harmful"
+        "template": "states",
+        "title": "Over- and under-refusal rates",
+        "states": [
+          {
+            "id": "results",
+            "label": "results"
+          },
+          {
+            "id": "benign",
+            "label": "benign"
+          },
+          {
+            "id": "harmful",
+            "label": "harmful"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The over-refusal rate measures the share of benign prompts that were refused.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "benign"
-                  },
-                  {
-                    "text": "harmful"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "benign"
-                  },
-                  {
-                    "text": "harmful"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "With labelled prompts and detected refusals, you can measure both failures.",
+            "currentState": "results",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Under-refusal rate measures the share of harmful prompts that were answered.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "benign"
-                  },
-                  {
-                    "text": "harmful"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "benign"
-                  },
-                  {
-                    "text": "harmful"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Each result is a pair.",
+            "currentState": "benign",
+            "transition": {
+              "from": "results",
+              "to": "benign",
+              "label": {
+                "var": "benign",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Test sets such as XSTest were built exactly to measure over-refusal.",
+            "currentState": "harmful",
+            "transition": {
+              "from": "benign",
+              "to": "harmful",
+              "label": {
+                "var": "harmful",
+                "line": 6,
+                "hit": 6
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Empirical over- and under-refusal rate metrics",
-        "columns": [
-          "results",
-          "benign",
-          "harmful"
+        "template": "states",
+        "title": "Over- and under-refusal rates",
+        "states": [
+          {
+            "id": "results",
+            "label": "results"
+          },
+          {
+            "id": "benign",
+            "label": "benign"
+          },
+          {
+            "id": "harmful",
+            "label": "harmful"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The over-refusal rate measures the share of benign prompts that were refused.",
-            "rows": [
-              {
-                "cells": [
-                  "results",
-                  "benign",
-                  "harmful"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "results",
-                  "benign",
-                  "harmful"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "With labelled prompts and detected refusals, you can measure both failures.",
+            "currentState": "results",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Under-refusal rate measures the share of harmful prompts that were answered.",
-            "rows": [
-              {
-                "cells": [
-                  "results",
-                  "benign",
-                  "harmful"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "results",
-                  "benign",
-                  "harmful"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Each result is a pair.",
+            "currentState": "benign",
+            "transition": {
+              "from": "results",
+              "to": "benign",
+              "label": "[False, True, False, False]"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Test sets such as XSTest were built exactly to measure over-refusal.",
+            "currentState": "harmful",
+            "transition": {
+              "from": "benign",
+              "to": "harmful",
+              "label": "[True, True, False, True]"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -423,135 +333,277 @@
       "partTitle": "Balancing the two",
       "codeHash": "717a5b87a1187c10206f464a5c25025f55807e928cb0946d1ce45f3282852469",
       "spec": {
-        "template": "table",
-        "title": "Version comparisons across dual safety and utility targets",
-        "columns": [
-          "versions",
-          "targets",
-          "fails"
+        "template": "flow",
+        "title": "Balancing the two",
+        "nodes": [
+          {
+            "id": "versions",
+            "label": "versions"
+          },
+          {
+            "id": "targets",
+            "label": "targets"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Changes that reduce one failure mode usually increase the opposite failure.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "versions"
-                  },
-                  {
-                    "text": "targets"
-                  },
-                  {
-                    "text": "fails"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Changes that reduce one failure usually increase the other, just like.",
+            "values": {
+              "versions": {
+                "var": "versions",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "versions"
-                  },
-                  {
-                    "text": "targets"
-                  },
-                  {
-                    "text": "fails"
-                  }
-                ],
-                "tone": "data"
+              "targets": {
+                "var": "targets",
+                "line": 2,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "versions": "data",
+              "targets": "data",
+              "name": "data",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "versions",
+                "targets"
+              ],
+              [
+                "targets",
+                "name"
+              ],
+              [
+                "name",
+                "r"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Showing both rates stops teams from optimizing one and ignoring the other.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "versions"
-                  },
-                  {
-                    "text": "targets"
-                  },
-                  {
-                    "text": "fails"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "A stricter system prompt or moderation threshold cuts under-refusal.",
+            "values": {
+              "versions": {
+                "var": "versions",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "versions"
-                  },
-                  {
-                    "text": "targets"
-                  },
-                  {
-                    "text": "fails"
-                  }
-                ],
-                "tone": "ok"
+              "targets": {
+                "var": "targets",
+                "line": 3,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              },
+              "r": {
+                "var": "r",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "versions": "data",
+              "targets": "data",
+              "name": "data",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "versions",
+                "targets"
+              ],
+              [
+                "targets",
+                "name"
+              ],
+              [
+                "name",
+                "r"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Refusals themselves can be better or worse, as the next part shows.",
+            "values": {
+              "versions": {
+                "var": "versions",
+                "line": 3,
+                "hit": 1
+              },
+              "targets": {
+                "var": "targets",
+                "line": 4,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 4,
+                "hit": 2
+              },
+              "r": {
+                "var": "r",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "versions": "ok",
+              "targets": "ok",
+              "name": "ok",
+              "r": "ok"
+            },
+            "arrows": [
+              [
+                "versions",
+                "targets"
+              ],
+              [
+                "targets",
+                "name"
+              ],
+              [
+                "name",
+                "r"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Version comparisons across dual safety and utility targets",
-        "columns": [
-          "versions",
-          "targets",
-          "fails"
+        "template": "flow",
+        "title": "Balancing the two",
+        "nodes": [
+          {
+            "id": "versions",
+            "label": "versions"
+          },
+          {
+            "id": "targets",
+            "label": "targets"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "r",
+            "label": "r"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Changes that reduce one failure mode usually increase the opposite failure.",
-            "rows": [
-              {
-                "cells": [
-                  "versions",
-                  "targets",
-                  "fails"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "versions",
-                  "targets",
-                  "fails"
-                ],
-                "tone": "data"
-              }
+            "caption": "Changes that reduce one failure usually increase the other, just like.",
+            "values": {
+              "versions": "{'A': {'over': 0.03, 'under': 0.06}, 'B…",
+              "targets": "{'over': 0.05, 'under': 0.02}",
+              "name": "'A'",
+              "r": "{'over': 0.03, 'under': 0.06}"
+            },
+            "tones": {
+              "versions": "data",
+              "targets": "data",
+              "name": "data",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "versions",
+                "targets"
+              ],
+              [
+                "targets",
+                "name"
+              ],
+              [
+                "name",
+                "r"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Showing both rates stops teams from optimizing one and ignoring the other.",
-            "rows": [
-              {
-                "cells": [
-                  "versions",
-                  "targets",
-                  "fails"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "versions",
-                  "targets",
-                  "fails"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "A stricter system prompt or moderation threshold cuts under-refusal.",
+            "values": {
+              "versions": "{'A': {'over': 0.03, 'under': 0.06}, 'B…",
+              "targets": "{'over': 0.05, 'under': 0.02}",
+              "name": "'A'",
+              "r": "{'over': 0.03, 'under': 0.06}"
+            },
+            "tones": {
+              "versions": "data",
+              "targets": "data",
+              "name": "data",
+              "r": "data"
+            },
+            "arrows": [
+              [
+                "versions",
+                "targets"
+              ],
+              [
+                "targets",
+                "name"
+              ],
+              [
+                "name",
+                "r"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Refusals themselves can be better or worse, as the next part shows.",
+            "values": {
+              "versions": "{'A': {'over': 0.03, 'under': 0.06}, 'B…",
+              "targets": "{'over': 0.05, 'under': 0.02}",
+              "name": "'A'",
+              "r": "{'over': 0.03, 'under': 0.06}"
+            },
+            "tones": {
+              "versions": "ok",
+              "targets": "ok",
+              "name": "ok",
+              "r": "ok"
+            },
+            "arrows": [
+              [
+                "versions",
+                "targets"
+              ],
+              [
+                "targets",
+                "name"
+              ],
+              [
+                "name",
+                "r"
+              ]
             ]
           }
         ]
@@ -561,224 +613,106 @@
       "partTitle": "Refusing well",
       "codeHash": "dba3519a3cdf88c3964275ac9aba5876e6ba23d9bf488f7d46aa557ebc5bf5c7",
       "spec": {
-        "template": "flow",
-        "title": "Refusing well — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Refusing well",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "poor",
+            "label": "poor"
           },
           {
-            "id": "proc",
-            "label": "2. Refusing well",
-            "tappable": true
+            "id": "better",
+            "label": "better"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Refusing well [Dtwelve.Pfive.Sone].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Refusing well [Dtwelve.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "When a refusal is right, how the model refuses still matters.",
+            "currentState": "poor",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "A good refusal is short, polite and not preachy.",
+            "currentState": "better",
+            "transition": {
+              "from": "poor",
+              "to": "better",
+              "label": {
+                "var": "better",
+                "line": 4,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Refusing well [Dtwelve.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add refusal quality to your review checklist, not just refusal rate.",
+            "currentState": "name",
+            "transition": {
+              "from": "better",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Refusing well — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Refusing well",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "poor",
+            "label": "poor"
           },
           {
-            "id": "proc",
-            "label": "2. Refusing well",
-            "tappable": true
+            "id": "better",
+            "label": "better"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Refusing well [D12.P5.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Refusing well [D12.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "When a refusal is right, how the model refuses still matters.",
+            "currentState": "poor",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "A good refusal is short, polite and not preachy.",
+            "currentState": "better",
+            "transition": {
+              "from": "poor",
+              "to": "better",
+              "label": "\"I can't help with getting into someone…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Refusing well [D12.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add refusal quality to your review checklist, not just refusal rate.",
+            "currentState": "name",
+            "transition": {
+              "from": "better",
+              "to": "name",
+              "label": "'poor'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -787,224 +721,106 @@
       "partTitle": "Refusal testing in the pipeline",
       "codeHash": "9603f3d84d50e6f05004fe3b7c971fc71f7b872940546abf73ced68564a11675",
       "spec": {
-        "template": "flow",
-        "title": "Refusal testing in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Refusal testing in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "tests",
+            "label": "tests"
           },
           {
-            "id": "proc",
-            "label": "2. Refusal testing in ...",
-            "tappable": true
+            "id": "prompt",
+            "label": "prompt"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "results",
+            "label": "results"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Refusal testing in the pipeline.",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Refusal testing in ... [Dtwelve.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Refusal measurement belongs in your evaluation suite, not in the live.",
+            "currentState": "tests",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Keep two labelled prompt sets.",
+            "currentState": "prompt",
+            "transition": {
+              "from": "tests",
+              "to": "prompt",
+              "label": {
+                "var": "prompt",
+                "line": 2,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Refusal testing in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow moves from answers to actions.",
+            "currentState": "results",
+            "transition": {
+              "from": "prompt",
+              "to": "results",
+              "label": {
+                "var": "results",
+                "line": 7,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Refusal testing in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Refusal testing in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "tests",
+            "label": "tests"
           },
           {
-            "id": "proc",
-            "label": "2. Refusal testing in ...",
-            "tappable": true
+            "id": "prompt",
+            "label": "prompt"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "results",
+            "label": "results"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Refusal testing in the pipeline [D12.P6.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Refusal testing in ... [D12.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Refusal measurement belongs in your evaluation suite, not in the live.",
+            "currentState": "tests",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Keep two labelled prompt sets.",
+            "currentState": "prompt",
+            "transition": {
+              "from": "tests",
+              "to": "prompt",
+              "label": "'How to kill my coworker'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Refusal testing in the pipeline [D12.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow moves from answers to actions.",
+            "currentState": "results",
+            "transition": {
+              "from": "prompt",
+              "to": "results",
+              "label": "[[False, True], [True, True], [False, F…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

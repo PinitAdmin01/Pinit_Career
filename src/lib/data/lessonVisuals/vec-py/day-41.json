@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 41,
-  "promptSha": "d12eb1904c2816c057af33ee4a1993d0f108ad63ce73e9d6b5be8cc2065e244a",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "HNSW Graph Construction — Foundations & Mathematical Invariants",
-      "codeHash": "2da075bab855ae6c28b9ce7db2636c8e3455726e2dbc7e2e0dab8333dbcd9f9d",
+      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Foundations & Mathematical Invariants",
+      "codeHash": "554610697b5cd4fa4f721158b9fa0c20d89eed51a5d850f3440263befebe5900",
       "spec": {
-        "template": "flow",
-        "title": "HNSW Graph Construction — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristi",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Navigable Small World graphs enable logarithmic search complexity.",
+            "bars": [
+              {
+                "label": "uniform_rand",
+                "value": {
+                  "var": "uniform_rand",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ml",
+                "value": {
+                  "var": "ml",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lvl_a",
+                "value": {
+                  "var": "lvl_a",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "lvl_b",
+                "value": {
+                  "var": "lvl_b",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "However, flat small-world graphs suffer from search path clustering when.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "uniform_rand",
+                "value": {
+                  "var": "uniform_rand",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "ml",
+                "value": {
+                  "var": "ml",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "lvl_a",
+                "value": {
+                  "var": "lvl_a",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "lvl_b",
+                "value": {
+                  "var": "lvl_b",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "uniform_rand",
+                "value": {
+                  "var": "uniform_rand",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "ml",
+                "value": {
+                  "var": "ml",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "lvl_a",
+                "value": {
+                  "var": "lvl_a",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "lvl_b",
+                "value": {
+                  "var": "lvl_b",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "HNSW Graph Construction — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristi",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Navigable Small World graphs enable logarithmic search complexity.",
+            "bars": [
+              {
+                "label": "uniform_rand",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "ml",
+                "value": 0.62,
+                "tone": "data"
+              },
+              {
+                "label": "lvl_a",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "lvl_b",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "However, flat small-world graphs suffer from search path clustering when.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "uniform_rand",
+                "value": 0.1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "ml",
+                "value": 0.62,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "lvl_a",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "lvl_b",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "uniform_rand",
+                "value": 0.9,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "ml",
+                "value": 0.62,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "lvl_a",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "lvl_b",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           }
@@ -272,265 +226,177 @@
       }
     },
     {
-      "partTitle": "HNSW Graph Construction — Core Algorithm & State Representation",
-      "codeHash": "57b731c5281031c72a564d490b4181d70b9d478c7d18d3e0287ae4d6cf5fc1e2",
+      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Core Algorithm & State Representation",
+      "codeHash": "51a5713d753d9f06ac95c603d51f8204eac7639fc1e6af5863e074af9ea4e0e6",
       "spec": {
-        "template": "flow",
-        "title": "HNSW Graph Construction — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristi",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Every node in an HNSW graph encapsulates its identifier, full-dimensional.",
+            "bars": [
+              {
+                "label": "node_id",
+                "value": {
+                  "var": "node_id",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "level",
+                "value": {
+                  "var": "level",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "l",
+                "value": {
+                  "var": "l",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Because a node exists at every layer from zero up to its maximum assigned.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "node_id",
+                "value": {
+                  "var": "node_id",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "level",
+                "value": {
+                  "var": "level",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "l",
+                "value": {
+                  "var": "l",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "node_id",
+                "value": {
+                  "var": "node_id",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "level",
+                "value": {
+                  "var": "level",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "l",
+                "value": {
+                  "var": "l",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "HNSW Graph Construction — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristi",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Every node in an HNSW graph encapsulates its identifier, full-dimensional.",
+            "bars": [
+              {
+                "label": "node_id",
+                "value": 42,
+                "tone": "data"
+              },
+              {
+                "label": "level",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "l",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Because a node exists at every layer from zero up to its maximum assigned.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "node_id",
+                "value": 42,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "level",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "l",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "node_id",
+                "value": 42,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "level",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "l",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           }
@@ -538,265 +404,177 @@
       }
     },
     {
-      "partTitle": "HNSW Graph Construction — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "973208b0ae2c080c92794e273fff17010cd9885e03a808bed92f876a172bddf5",
+      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "0e302a6887c91ad4e39ef6e5cf4eb7d3da57783cca6728dc6f4ca9294ee82892",
       "spec": {
-        "template": "flow",
-        "title": "HNSW Graph Construction — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristi",
         "steps": [
           {
+            "at": "say1",
+            "caption": "If nodes are allowed to accumulate unbounded connections, graph search.",
+            "bars": [
+              {
+                "label": "max_m",
+                "value": {
+                  "var": "max_m",
+                  "line": 3,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "dist",
+                "value": {
+                  "var": "dist",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "doc_id",
+                "value": {
+                  "var": "doc_id",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "HNSW enforces a strict degree constraint M on the maximum number.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_m",
+                "value": {
+                  "var": "max_m",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "dist",
+                "value": {
+                  "var": "dist",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "doc_id",
+                "value": {
+                  "var": "doc_id",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_m",
+                "value": {
+                  "var": "max_m",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "dist",
+                "value": {
+                  "var": "dist",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "doc_id",
+                "value": {
+                  "var": "doc_id",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "HNSW Graph Construction — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristi",
         "steps": [
           {
+            "at": "say1",
+            "caption": "If nodes are allowed to accumulate unbounded connections, graph search.",
+            "bars": [
+              {
+                "label": "max_m",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "dist",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "doc_id",
+                "value": 2,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "HNSW enforces a strict degree constraint M on the maximum number.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_m",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "dist",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "doc_id",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_m",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "dist",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "doc_id",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           }
@@ -804,531 +582,277 @@
       }
     },
     {
-      "partTitle": "HNSW Graph Construction — Resilience Guardrails & Failure Recovery",
-      "codeHash": "02ebf0d2a2f0eedfc6cb9eb1aff3af0c6b61e6998245508e0cc05472d05f45c0",
+      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Resilience Guardrails & Failure Recovery",
+      "codeHash": "026a916cd2665841c75136168a31329d0c6d0cf87535a9e67fadd16b17480dea",
       "spec": {
         "template": "flow",
-        "title": "HNSW Graph Construction — Resilience Guardrails & Failure Recovery",
+        "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristi",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "entry_id",
+            "label": "entry_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "total_nodes",
+            "label": "total_nodes"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Graph search navigation begins at a global entrypoint node residing at.",
+            "values": {
+              "entry_id": {
+                "var": "entry_id",
+                "line": 2,
+                "hit": 1
+              },
+              "total_nodes": {
+                "var": "total_nodes",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "entry_id": "data",
+              "total_nodes": "data"
+            },
+            "arrows": [
+              [
+                "entry_id",
+                "total_nodes"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If the graph is empty or has suffered node deletions, attempting.",
+            "values": {
+              "entry_id": {
+                "var": "entry_id",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "total_nodes": {
+                "var": "total_nodes",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "entry_id": "data",
+              "total_nodes": "data"
+            },
+            "arrows": [
+              [
+                "entry_id",
+                "total_nodes"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "entry_id": {
+                "var": "entry_id",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "total_nodes": {
+                "var": "total_nodes",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "entry_id": "ok",
+              "total_nodes": "ok"
+            },
+            "arrows": [
+              [
+                "entry_id",
+                "total_nodes"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "HNSW Graph Construction — Resilience Guardrails & Failure Recovery",
+        "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristi",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "entry_id",
+            "label": "entry_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "total_nodes",
+            "label": "total_nodes"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Graph search navigation begins at a global entrypoint node residing at.",
+            "values": {
+              "entry_id": "5",
+              "total_nodes": "10"
+            },
+            "tones": {
+              "entry_id": "data",
+              "total_nodes": "data"
+            },
+            "arrows": [
+              [
+                "entry_id",
+                "total_nodes"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If the graph is empty or has suffered node deletions, attempting.",
+            "values": {
+              "entry_id": "5",
+              "total_nodes": "10"
+            },
+            "tones": {
+              "entry_id": "data",
+              "total_nodes": "data"
+            },
+            "arrows": [
+              [
+                "entry_id",
+                "total_nodes"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "entry_id": "5",
+              "total_nodes": "10"
+            },
+            "tones": {
+              "entry_id": "ok",
+              "total_nodes": "ok"
+            },
+            "arrows": [
+              [
+                "entry_id",
+                "total_nodes"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "HNSW Graph Construction — Production Telemetry & Verification Audit",
-      "codeHash": "4b659a816d6a5d46dc78ccf43c826ba2ab221ca1dcce545da73a74df2d57078b",
+      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Production Telemetry & Verification Audit",
+      "codeHash": "0887e1df1aa4de6c0c00049035c4627015920a9641299cea614d48a25905530b",
       "spec": {
-        "template": "flow",
-        "title": "HNSW Graph Construction — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristi",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Auditing graph topology metrics is critical for detecting clustering.",
+            "items": {
+              "var": "nbrs",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In a properly constructed HNSW graph, average node degree should remain.",
+            "items": {
+              "var": "nbrs",
+              "line": 2,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "items": {
+              "var": "nbrs",
+              "line": 2,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "HNSW Graph Construction — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "HNSW Graph Construction: Exponential Layer Assignment & Heuristi",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Auditing graph topology metrics is critical for detecting clustering.",
+            "items": [
+              "2",
+              "3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "In a properly constructed HNSW graph, average node degree should remain.",
+            "items": [
+              "1",
+              "3",
+              "4"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "items": [
+              "1",
+              "2"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }

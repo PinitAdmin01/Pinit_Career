@@ -2,125 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 26,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Data is where behaviour comes from",
       "codeHash": "e678010f09c9e2727ced0e402fb2e2e487aa140fe14a41cc64f985fc1687b773",
       "spec": {
-        "template": "table",
-        "title": "Training data hygiene problem categories and remediation",
-        "columns": [
-          "problems",
-          "step"
+        "template": "states",
+        "title": "Data is where behaviour comes from",
+        "states": [
+          {
+            "id": "problems",
+            "label": "problems"
+          },
+          {
+            "id": "problem",
+            "label": "problem"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Training data issues directly influence model behaviour.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "problems"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "problems"
-                  },
-                  {
-                    "text": "deduplication"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A model learns its behaviour from its training data, so problems in.",
+            "currentState": "problems",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Data hygiene cleans inputs before model training begins.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "problems"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "problems"
-                  },
-                  {
-                    "text": "licence filtering"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Toxic or biased text teaches toxic or biased patterns.",
+            "currentState": "problem",
+            "transition": {
+              "from": "problems",
+              "to": "problem",
+              "label": {
+                "var": "problem",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today builds two of the most basic hygiene steps.",
+            "currentState": "step",
+            "transition": {
+              "from": "problem",
+              "to": "step",
+              "label": {
+                "var": "step",
+                "line": 5,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Training data hygiene problem categories and remediation",
-        "columns": [
-          "problems",
-          "step"
+        "template": "states",
+        "title": "Data is where behaviour comes from",
+        "states": [
+          {
+            "id": "problems",
+            "label": "problems"
+          },
+          {
+            "id": "problem",
+            "label": "problem"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Training data issues directly influence model behaviour.",
-            "rows": [
-              {
-                "cells": [
-                  "problems",
-                  "step"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "problems",
-                  "deduplication"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A model learns its behaviour from its training data, so problems in.",
+            "currentState": "problems",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Data hygiene cleans inputs before model training begins.",
-            "rows": [
-              {
-                "cells": [
-                  "problems",
-                  "step"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "problems",
-                  "licence filtering"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Toxic or biased text teaches toxic or biased patterns.",
+            "currentState": "problem",
+            "transition": {
+              "from": "problems",
+              "to": "problem",
+              "label": "'same web page copied 500 times'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today builds two of the most basic hygiene steps.",
+            "currentState": "step",
+            "transition": {
+              "from": "problem",
+              "to": "step",
+              "label": "'licence filtering'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -129,118 +117,106 @@
       "partTitle": "Why duplicates matter",
       "codeHash": "e83aca1b2a5f93ad1ba6df9b4a8e7f32d7205ec0de44538ff7be38e77d4fa592",
       "spec": {
-        "template": "table",
-        "title": "Tracking duplicate text frequency across document sets",
-        "columns": [
-          "docs",
-          "text"
+        "template": "states",
+        "title": "Why duplicates matter",
+        "states": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Web scale datasets contain huge numbers of duplicate documents.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "Counter"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Web-scale datasets contain huge numbers of duplicates.",
+            "currentState": "docs",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Frequent text occurrences cause models to memorise passages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Shipping is free."
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Duplicates waste training time, but they also cause safety problems.",
+            "currentState": "text",
+            "transition": {
+              "from": "docs",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The next part handles those with normalisation.",
+            "currentState": "n",
+            "transition": {
+              "from": "text",
+              "to": "n",
+              "label": {
+                "var": "n",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Tracking duplicate text frequency across document sets",
-        "columns": [
-          "docs",
-          "text"
+        "template": "states",
+        "title": "Why duplicates matter",
+        "states": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Web scale datasets contain huge numbers of duplicate documents.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "text"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "docs",
-                  "Counter"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Web-scale datasets contain huge numbers of duplicates.",
+            "currentState": "docs",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Frequent text occurrences cause models to memorise passages.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "text"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Shipping is free.",
-                  "text"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Duplicates waste training time, but they also cause safety problems.",
+            "currentState": "text",
+            "transition": {
+              "from": "docs",
+              "to": "text",
+              "label": "'Refund policy: 30 days.'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The next part handles those with normalisation.",
+            "currentState": "n",
+            "transition": {
+              "from": "text",
+              "to": "n",
+              "label": "1"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -249,118 +225,106 @@
       "partTitle": "Normalised deduplication",
       "codeHash": "cf133fa361b6e6b623dfec0ec3912315e2275d23af5b48b345d1cfcfd44aaea1",
       "spec": {
-        "template": "table",
-        "title": "Normalized deduplication index tracking and duplicate counts",
-        "columns": [
-          "docs",
-          "kept"
+        "template": "states",
+        "title": "Normalised deduplication",
+        "states": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "seen",
+            "label": "seen"
+          },
+          {
+            "id": "kept",
+            "label": "kept"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Near duplicates differ only in letter casing and spacing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "kept"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "seen"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Near duplicates often differ only in capitals and spacing.",
+            "currentState": "docs",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Deduplication retains the first unique normalised entry.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "kept"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "Shipping is free."
-                  },
-                  {
-                    "text": "kept"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Normalising before comparing catches them.",
+            "currentState": "seen",
+            "transition": {
+              "from": "docs",
+              "to": "seen",
+              "label": {
+                "var": "seen",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Deduplicate your evaluation sets against your training data too, to avoid.",
+            "currentState": "kept",
+            "transition": {
+              "from": "seen",
+              "to": "kept",
+              "label": {
+                "var": "kept",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Normalized deduplication index tracking and duplicate counts",
-        "columns": [
-          "docs",
-          "kept"
+        "template": "states",
+        "title": "Normalised deduplication",
+        "states": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "seen",
+            "label": "seen"
+          },
+          {
+            "id": "kept",
+            "label": "kept"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Near duplicates differ only in letter casing and spacing.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "kept"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "docs",
-                  "seen"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Near duplicates often differ only in capitals and spacing.",
+            "currentState": "docs",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Deduplication retains the first unique normalised entry.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "kept"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Shipping is free.",
-                  "kept"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Normalising before comparing catches them.",
+            "currentState": "seen",
+            "transition": {
+              "from": "docs",
+              "to": "seen",
+              "label": "set()"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Deduplicate your evaluation sets against your training data too, to avoid.",
+            "currentState": "kept",
+            "transition": {
+              "from": "seen",
+              "to": "kept",
+              "label": "[]"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -369,118 +333,72 @@
       "partTitle": "Licences and data rights",
       "codeHash": "96cbfc1165e9903af1e908d115c5d32dc4ed6d8cb31613d74b71c659fa6b421e",
       "spec": {
-        "template": "table",
-        "title": "Document licence categorization and permission metadata",
-        "columns": [
-          "docs",
-          "licence"
+        "template": "states",
+        "title": "Licences and data rights",
+        "states": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every document carries legal reuse terms and rights.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "licence"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "MIT"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Every document used for training or retrieval comes with rights attached.",
+            "currentState": "docs",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Documents with unknown licences present serious legal risks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "licence"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "d1"
-                  },
-                  {
-                    "text": "CC-BY"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how open updates licences during execution.",
+            "currentState": "d",
+            "transition": {
+              "from": "docs",
+              "to": "d",
+              "label": {
+                "var": "d",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Document licence categorization and permission metadata",
-        "columns": [
-          "docs",
-          "licence"
+        "template": "states",
+        "title": "Licences and data rights",
+        "states": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every document carries legal reuse terms and rights.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "licence"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "docs",
-                  "MIT"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Every document used for training or retrieval comes with rights attached.",
+            "currentState": "docs",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Documents with unknown licences present serious legal risks.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "licence"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "d1",
-                  "CC-BY"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how open updates licences during execution.",
+            "currentState": "d",
+            "transition": {
+              "from": "docs",
+              "to": "d",
+              "label": "{'id': 'd1', 'licence': 'CC-BY'}"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -490,110 +408,161 @@
       "codeHash": "549a43a714e88e6b481142730253377cf65d126149ab2a6b649b4ff2b310e7d4",
       "spec": {
         "template": "flow",
-        "title": "Filtering by licence — Execution Pipeline",
+        "title": "Filtering by licence",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "docs",
+            "label": "docs"
           },
           {
-            "id": "proc",
-            "label": "2. Filtering by licence",
-            "tappable": true
+            "id": "allowed",
+            "label": "allowed"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "kept",
+            "label": "kept"
+          },
+          {
+            "id": "excluded",
+            "label": "excluded"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Filtering by licence [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Filtering by licence [D.Pfive.Stwo].",
+            "caption": "Trace how practice updates docs during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "docs": {
+                "var": "docs",
+                "line": 1,
+                "hit": 2
+              },
+              "allowed": {
+                "var": "allowed",
+                "line": 3,
+                "hit": 4
+              },
+              "kept": {
+                "var": "kept",
+                "line": 4,
+                "hit": 1
+              },
+              "excluded": {
+                "var": "excluded",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "docs": "data",
+              "allowed": "data",
+              "kept": "data",
+              "excluded": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "docs",
+                "allowed"
               ],
               [
-                "proc",
-                "out"
+                "allowed",
+                "kept"
+              ],
+              [
+                "kept",
+                "excluded"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Licences are compared case-insensitively, by lower-casing both sides.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "docs": {
+                "var": "docs",
+                "line": 3,
+                "hit": 1
+              },
+              "allowed": {
+                "var": "allowed",
+                "line": 4,
+                "hit": 1
+              },
+              "kept": {
+                "var": "kept",
+                "line": 5,
+                "hit": 1
+              },
+              "excluded": {
+                "var": "excluded",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "docs": "data",
+              "allowed": "data",
+              "kept": "data",
+              "excluded": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "docs",
+                "allowed"
+              ],
+              [
+                "allowed",
+                "kept"
+              ],
+              [
+                "kept",
+                "excluded"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Filtering by licence [D.Pfive.Sfour].",
+            "at": "say10",
+            "caption": "Record the allowed list and its version in the model card's training data.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "docs": {
+                "var": "docs",
+                "line": 3,
+                "hit": 2
+              },
+              "allowed": {
+                "var": "allowed",
+                "line": 5,
+                "hit": 1
+              },
+              "kept": {
+                "var": "kept",
+                "line": 6,
+                "hit": 1
+              },
+              "excluded": {
+                "var": "excluded",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "docs": "ok",
+              "allowed": "ok",
+              "kept": "ok",
+              "excluded": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "docs",
+                "allowed"
               ],
               [
-                "proc",
-                "out"
+                "allowed",
+                "kept"
+              ],
+              [
+                "kept",
+                "excluded"
               ]
             ]
           }
@@ -601,110 +570,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Filtering by licence — Execution Pipeline",
+        "title": "Filtering by licence",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "docs",
+            "label": "docs"
           },
           {
-            "id": "proc",
-            "label": "2. Filtering by licence",
-            "tappable": true
+            "id": "allowed",
+            "label": "allowed"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "kept",
+            "label": "kept"
+          },
+          {
+            "id": "excluded",
+            "label": "excluded"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Filtering by licence [D26.P5.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Filtering by licence [D26.P5.S2].",
+            "caption": "Trace how practice updates docs during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "docs": "[{'id': 'd1', 'licence': 'CC-BY'}, {'id…",
+              "allowed": "{'cc-by', 'cc0', 'mit'}",
+              "kept": "[]",
+              "excluded": "{}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "docs": "data",
+              "allowed": "data",
+              "kept": "data",
+              "excluded": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "docs",
+                "allowed"
               ],
               [
-                "proc",
-                "out"
+                "allowed",
+                "kept"
+              ],
+              [
+                "kept",
+                "excluded"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P5.S3].",
+            "at": "say2",
+            "caption": "Licences are compared case-insensitively, by lower-casing both sides.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "docs": "[{'id': 'd1', 'licence': 'CC-BY'}, {'id…",
+              "allowed": "{'cc-by', 'cc0', 'mit'}",
+              "kept": "[]",
+              "excluded": "{}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "docs": "data",
+              "allowed": "data",
+              "kept": "data",
+              "excluded": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "docs",
+                "allowed"
+              ],
+              [
+                "allowed",
+                "kept"
+              ],
+              [
+                "kept",
+                "excluded"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Filtering by licence [D26.P5.S4].",
+            "at": "say10",
+            "caption": "Record the allowed list and its version in the model card's training data.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "docs": "[{'id': 'd1', 'licence': 'CC-BY'}, {'id…",
+              "allowed": "{'cc-by', 'cc0', 'mit'}",
+              "kept": "[]",
+              "excluded": "{}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "docs": "ok",
+              "allowed": "ok",
+              "kept": "ok",
+              "excluded": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "docs",
+                "allowed"
               ],
               [
-                "proc",
-                "out"
+                "allowed",
+                "kept"
+              ],
+              [
+                "kept",
+                "excluded"
               ]
             ]
           }
@@ -715,224 +687,106 @@
       "partTitle": "Data hygiene in the pipeline",
       "codeHash": "bd619298cabb401183971abadd1a37fb8814781c649ddf9e99c0510ddcbcef8f",
       "spec": {
-        "template": "flow",
-        "title": "Data hygiene in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Data hygiene in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "docs",
+            "label": "docs"
           },
           {
-            "id": "proc",
-            "label": "2. Data hygiene in the...",
-            "tappable": true
+            "id": "allowed",
+            "label": "allowed"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "step1",
+            "label": "step1"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Data hygiene in the pipeline [D.Psix.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Data hygiene in the... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Data hygiene runs as a pipeline of its own, before any training.",
+            "currentState": "docs",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "A typical order is.",
+            "currentState": "allowed",
+            "transition": {
+              "from": "docs",
+              "to": "allowed",
+              "label": {
+                "var": "allowed",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Data hygiene in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add dedupe and licence_filter to your pipeline tools today.",
+            "currentState": "step1",
+            "transition": {
+              "from": "allowed",
+              "to": "step1",
+              "label": {
+                "var": "step1",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Data hygiene in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Data hygiene in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "docs",
+            "label": "docs"
           },
           {
-            "id": "proc",
-            "label": "2. Data hygiene in the...",
-            "tappable": true
+            "id": "allowed",
+            "label": "allowed"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "step1",
+            "label": "step1"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Data hygiene in the pipeline [D26.P6.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Data hygiene in the... [D26.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Data hygiene runs as a pipeline of its own, before any training.",
+            "currentState": "docs",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "A typical order is.",
+            "currentState": "allowed",
+            "transition": {
+              "from": "docs",
+              "to": "allowed",
+              "label": "{'cc0', 'mit'}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Data hygiene in the pipeline [D26.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add dedupe and licence_filter to your pipeline tools today.",
+            "currentState": "step1",
+            "transition": {
+              "from": "allowed",
+              "to": "step1",
+              "label": "[{'id': 'a', 'licence': 'MIT', 'text': …"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

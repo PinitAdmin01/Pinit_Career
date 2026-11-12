@@ -2,142 +2,172 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 20,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Tenants and namespaces",
       "codeHash": "edb5288f1097ce91069bd37788dc986adcddf9c75cd16c66258a80eb0aab6ec7",
       "spec": {
-        "template": "table",
-        "title": "Tenant data namespace boundaries and isolation",
-        "columns": [
-          "records",
-          "tenant",
-          "records"
+        "template": "flow",
+        "title": "Tenants and namespaces",
+        "nodes": [
+          {
+            "id": "records",
+            "label": "records"
+          },
+          {
+            "id": "tenant",
+            "label": "tenant"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A tenant partition keeps customer data isolated from every other client.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "records"
-                  },
-                  {
-                    "text": "tenant"
-                  },
-                  {
-                    "text": "records"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A tenant is a customer organisation whose data must be kept separate.",
+            "values": {
+              "records": {
+                "var": "records",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "records"
-                  },
-                  {
-                    "text": "tenant"
-                  },
-                  {
-                    "text": "records"
-                  }
-                ],
-                "tone": "data"
+              "tenant": {
+                "var": "tenant",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "records": "data",
+              "tenant": "data"
+            },
+            "arrows": [
+              [
+                "records",
+                "tenant"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Every search query must enforce the authenticated tenant identity.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "records"
-                  },
-                  {
-                    "text": "tenant"
-                  },
-                  {
-                    "text": "records"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Multi-tenant systems serve many tenants from shared infrastructure.",
+            "values": {
+              "records": {
+                "var": "records",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "records"
-                  },
-                  {
-                    "text": "tenant"
-                  },
-                  {
-                    "text": "tenant"
-                  }
-                ],
-                "tone": "ok"
+              "tenant": {
+                "var": "tenant",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "records": "data",
+              "tenant": "data"
+            },
+            "arrows": [
+              [
+                "records",
+                "tenant"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today's practice enforces that a tenant is always present.",
+            "values": {
+              "records": {
+                "var": "records",
+                "line": 3,
+                "hit": 1
+              },
+              "tenant": {
+                "var": "tenant",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "records": "ok",
+              "tenant": "ok"
+            },
+            "arrows": [
+              [
+                "records",
+                "tenant"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Tenant data namespace boundaries and isolation",
-        "columns": [
-          "records",
-          "tenant",
-          "records"
+        "template": "flow",
+        "title": "Tenants and namespaces",
+        "nodes": [
+          {
+            "id": "records",
+            "label": "records"
+          },
+          {
+            "id": "tenant",
+            "label": "tenant"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A tenant partition keeps customer data isolated from every other client.",
-            "rows": [
-              {
-                "cells": [
-                  "records",
-                  "tenant",
-                  "records"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "records",
-                  "tenant",
-                  "records"
-                ],
-                "tone": "data"
-              }
+            "caption": "A tenant is a customer organisation whose data must be kept separate.",
+            "values": {
+              "records": "[['acme', 'q3-forecast'], ['acme', 'hr-…",
+              "tenant": "'acme'"
+            },
+            "tones": {
+              "records": "data",
+              "tenant": "data"
+            },
+            "arrows": [
+              [
+                "records",
+                "tenant"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Every search query must enforce the authenticated tenant identity.",
-            "rows": [
-              {
-                "cells": [
-                  "records",
-                  "tenant",
-                  "records"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "records",
-                  "tenant",
-                  "tenant"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Multi-tenant systems serve many tenants from shared infrastructure.",
+            "values": {
+              "records": "[['acme', 'q3-forecast'], ['acme', 'hr-…",
+              "tenant": "'acme'"
+            },
+            "tones": {
+              "records": "data",
+              "tenant": "data"
+            },
+            "arrows": [
+              [
+                "records",
+                "tenant"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today's practice enforces that a tenant is always present.",
+            "values": {
+              "records": "[['acme', 'q3-forecast'], ['acme', 'hr-…",
+              "tenant": "'acme'"
+            },
+            "tones": {
+              "records": "ok",
+              "tenant": "ok"
+            },
+            "arrows": [
+              [
+                "records",
+                "tenant"
+              ]
             ]
           }
         ]
@@ -147,135 +177,277 @@
       "partTitle": "Access control lists",
       "codeHash": "67515e136540776971c7fd90af7b4b21d192c6ea6a56107c6c17d21b031d081f",
       "spec": {
-        "template": "table",
-        "title": "Access control list evaluation and role permission checks",
-        "columns": [
-          "can_read",
-          "user",
-          "can_read"
+        "template": "flow",
+        "title": "Access control lists",
+        "nodes": [
+          {
+            "id": "asha",
+            "label": "asha"
+          },
+          {
+            "id": "acl",
+            "label": "acl"
+          },
+          {
+            "id": "user",
+            "label": "user"
+          },
+          {
+            "id": "g",
+            "label": "g"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "An access control list defines which users or groups may view documents.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "can_read"
-                  },
-                  {
-                    "text": "user"
-                  },
-                  {
-                    "text": "can_read"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Within a tenant, different users may see different documents.",
+            "values": {
+              "asha": {
+                "var": "asha",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "can_read"
-                  },
-                  {
-                    "text": "user"
-                  },
-                  {
-                    "text": "can_read"
-                  }
-                ],
-                "tone": "data"
+              "acl": {
+                "var": "acl",
+                "line": 6,
+                "hit": 1
+              },
+              "user": {
+                "var": "user",
+                "line": 2,
+                "hit": 1
+              },
+              "g": {
+                "var": "g",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "asha": "data",
+              "acl": "data",
+              "user": "data",
+              "g": "data"
+            },
+            "arrows": [
+              [
+                "asha",
+                "acl"
+              ],
+              [
+                "acl",
+                "user"
+              ],
+              [
+                "user",
+                "g"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Deny by default principles ensure an empty access list grants nothing.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "can_read"
-                  },
-                  {
-                    "text": "user"
-                  },
-                  {
-                    "text": "can_read"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "An access control list (ACL) on each document lists the users and groups.",
+            "values": {
+              "asha": {
+                "var": "asha",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "can_read"
-                  },
-                  {
-                    "text": "user"
-                  },
-                  {
-                    "text": "user"
-                  }
-                ],
-                "tone": "ok"
+              "acl": {
+                "var": "acl",
+                "line": 2,
+                "hit": 1
+              },
+              "user": {
+                "var": "user",
+                "line": 2,
+                "hit": 2
+              },
+              "g": {
+                "var": "g",
+                "line": 3,
+                "hit": 3
               }
+            },
+            "tones": {
+              "asha": "data",
+              "acl": "data",
+              "user": "data",
+              "g": "data"
+            },
+            "arrows": [
+              [
+                "asha",
+                "acl"
+              ],
+              [
+                "acl",
+                "user"
+              ],
+              [
+                "user",
+                "g"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Security teams often audit these rules, so keep them simple and well tested.",
+            "values": {
+              "asha": {
+                "var": "asha",
+                "line": 7,
+                "hit": 1
+              },
+              "acl": {
+                "var": "acl",
+                "line": 7,
+                "hit": 1
+              },
+              "user": {
+                "var": "user",
+                "line": 3,
+                "hit": 2
+              },
+              "g": {
+                "var": "g",
+                "line": 3,
+                "hit": 4
+              }
+            },
+            "tones": {
+              "asha": "ok",
+              "acl": "ok",
+              "user": "ok",
+              "g": "ok"
+            },
+            "arrows": [
+              [
+                "asha",
+                "acl"
+              ],
+              [
+                "acl",
+                "user"
+              ],
+              [
+                "user",
+                "g"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Access control list evaluation and role permission checks",
-        "columns": [
-          "can_read",
-          "user",
-          "can_read"
+        "template": "flow",
+        "title": "Access control lists",
+        "nodes": [
+          {
+            "id": "asha",
+            "label": "asha"
+          },
+          {
+            "id": "acl",
+            "label": "acl"
+          },
+          {
+            "id": "user",
+            "label": "user"
+          },
+          {
+            "id": "g",
+            "label": "g"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "An access control list defines which users or groups may view documents.",
-            "rows": [
-              {
-                "cells": [
-                  "can_read",
-                  "user",
-                  "can_read"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "can_read",
-                  "user",
-                  "can_read"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Within a tenant, different users may see different documents.",
+            "values": {
+              "asha": "{'id': 'asha', 'groups': ['finance', 's…",
+              "acl": "{'users': ['asha']}",
+              "user": "{'id': 'asha', 'groups': ['finance', 's…",
+              "g": "'finance'"
+            },
+            "tones": {
+              "asha": "data",
+              "acl": "data",
+              "user": "data",
+              "g": "data"
+            },
+            "arrows": [
+              [
+                "asha",
+                "acl"
+              ],
+              [
+                "acl",
+                "user"
+              ],
+              [
+                "user",
+                "g"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Deny by default principles ensure an empty access list grants nothing.",
-            "rows": [
-              {
-                "cells": [
-                  "can_read",
-                  "user",
-                  "can_read"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "can_read",
-                  "user",
-                  "user"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "An access control list (ACL) on each document lists the users and groups.",
+            "values": {
+              "asha": "{'id': 'asha', 'groups': ['finance', 's…",
+              "acl": "{'users': ['asha']}",
+              "user": "{'id': 'asha', 'groups': ['finance', 's…",
+              "g": "'finance'"
+            },
+            "tones": {
+              "asha": "data",
+              "acl": "data",
+              "user": "data",
+              "g": "data"
+            },
+            "arrows": [
+              [
+                "asha",
+                "acl"
+              ],
+              [
+                "acl",
+                "user"
+              ],
+              [
+                "user",
+                "g"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Security teams often audit these rules, so keep them simple and well tested.",
+            "values": {
+              "asha": "{'id': 'asha', 'groups': ['finance', 's…",
+              "acl": "{'users': ['asha']}",
+              "user": "{'id': 'asha', 'groups': ['finance', 's…",
+              "g": "'staff'"
+            },
+            "tones": {
+              "asha": "ok",
+              "acl": "ok",
+              "user": "ok",
+              "g": "ok"
+            },
+            "arrows": [
+              [
+                "asha",
+                "acl"
+              ],
+              [
+                "acl",
+                "user"
+              ],
+              [
+                "user",
+                "g"
+              ]
             ]
           }
         ]
@@ -285,78 +457,77 @@
       "partTitle": "Tenant-safe search",
       "codeHash": "6c18110d832b844e0197aa675d584ca4a557c3d26c87f093a72835728a275471",
       "spec": {
-        "template": "table",
-        "title": "Pre-ranking authorization filtering in search pipelines",
-        "columns": [
-          "items",
-          "allowed",
-          "hits"
-        ],
+        "template": "bars",
+        "title": "Tenant-safe search",
         "steps": [
           {
             "at": "say1",
-            "caption": "Tenant filters apply before ranking so forbidden items never appear.",
-            "rows": [
+            "caption": "Tenant-safe search applies two filters before ranking.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "allowed"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
-                "tone": "ok"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "allowed"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Filtering prevents forbidden documents from influencing retrieval results.",
-            "rows": [
+            "caption": "Trace how filtering updates before during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "allowed"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
-                "tone": "data"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "allowed"
-                  },
-                  {
-                    "text": "allowed"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Code reviews for any change touching filters should include someone who.",
+            "bars": [
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 9,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 9,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +535,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Pre-ranking authorization filtering in search pipelines",
-        "columns": [
-          "items",
-          "allowed",
-          "hits"
-        ],
+        "template": "bars",
+        "title": "Tenant-safe search",
         "steps": [
           {
             "at": "say1",
-            "caption": "Tenant filters apply before ranking so forbidden items never appear.",
-            "rows": [
+            "caption": "Tenant-safe search applies two filters before ranking.",
+            "bars": [
               {
-                "cells": [
-                  "items",
-                  "allowed",
-                  "hits"
-                ],
-                "tone": "ok"
+                "label": "a",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "items",
-                  "allowed",
-                  "hits"
-                ],
+                "label": "b",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Filtering prevents forbidden documents from influencing retrieval results.",
-            "rows": [
+            "caption": "Trace how filtering updates before during execution.",
+            "bars": [
               {
-                "cells": [
-                  "items",
-                  "allowed",
-                  "hits"
-                ],
-                "tone": "data"
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "items",
-                  "allowed",
-                  "allowed"
-                ],
+                "label": "b",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Code reviews for any change touching filters should include someone who.",
+            "bars": [
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -423,135 +593,221 @@
       "partTitle": "Leaks through AI answers",
       "codeHash": "08c871c476c38f2dd6b87f85c6e8d09e73cdf78ef504e27cd89af257017ab8b1",
       "spec": {
-        "template": "table",
-        "title": "Information leakage prevention in generative contexts",
-        "columns": [
-          "retrieved",
-          "safe",
-          "user_groups"
+        "template": "flow",
+        "title": "Leaks through AI answers",
+        "nodes": [
+          {
+            "id": "retrieved",
+            "label": "retrieved"
+          },
+          {
+            "id": "user_groups",
+            "label": "user_groups"
+          },
+          {
+            "id": "safe",
+            "label": "safe"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Retrieval must exclude restricted items before passing text to the model.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "retrieved"
-                  },
-                  {
-                    "text": "safe"
-                  },
-                  {
-                    "text": "user_groups"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "In retrieval-augmented generation, the language model sees the retrieved.",
+            "values": {
+              "retrieved": {
+                "var": "retrieved",
+                "line": 1,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "retrieved"
-                  },
-                  {
-                    "text": "safe"
-                  },
-                  {
-                    "text": "user_groups"
-                  }
-                ],
-                "tone": "data"
+              "user_groups": {
+                "var": "user_groups",
+                "line": 3,
+                "hit": 1
+              },
+              "safe": {
+                "var": "safe",
+                "line": 4,
+                "hit": 3
               }
+            },
+            "tones": {
+              "retrieved": "data",
+              "user_groups": "data",
+              "safe": "data"
+            },
+            "arrows": [
+              [
+                "retrieved",
+                "user_groups"
+              ],
+              [
+                "user_groups",
+                "safe"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "The security principle is simple: what is not retrieved cannot leak.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "retrieved"
-                  },
-                  {
-                    "text": "safe"
-                  },
-                  {
-                    "text": "user_groups"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "So retrieval must already exclude anything the user may not see.",
+            "values": {
+              "retrieved": {
+                "var": "retrieved",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "retrieved"
-                  },
-                  {
-                    "text": "safe"
-                  },
-                  {
-                    "text": "safe"
-                  }
-                ],
-                "tone": "ok"
+              "user_groups": {
+                "var": "user_groups",
+                "line": 4,
+                "hit": 1
+              },
+              "safe": {
+                "var": "safe",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "retrieved": "data",
+              "user_groups": "data",
+              "safe": "data"
+            },
+            "arrows": [
+              [
+                "retrieved",
+                "user_groups"
+              ],
+              [
+                "user_groups",
+                "safe"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow improves ranking quality once the right candidates are found.",
+            "values": {
+              "retrieved": {
+                "var": "retrieved",
+                "line": 4,
+                "hit": 1
+              },
+              "user_groups": {
+                "var": "user_groups",
+                "line": 4,
+                "hit": 2
+              },
+              "safe": {
+                "var": "safe",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "retrieved": "ok",
+              "user_groups": "ok",
+              "safe": "ok"
+            },
+            "arrows": [
+              [
+                "retrieved",
+                "user_groups"
+              ],
+              [
+                "user_groups",
+                "safe"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Information leakage prevention in generative contexts",
-        "columns": [
-          "retrieved",
-          "safe",
-          "user_groups"
+        "template": "flow",
+        "title": "Leaks through AI answers",
+        "nodes": [
+          {
+            "id": "retrieved",
+            "label": "retrieved"
+          },
+          {
+            "id": "user_groups",
+            "label": "user_groups"
+          },
+          {
+            "id": "safe",
+            "label": "safe"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Retrieval must exclude restricted items before passing text to the model.",
-            "rows": [
-              {
-                "cells": [
-                  "retrieved",
-                  "safe",
-                  "user_groups"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "retrieved",
-                  "safe",
-                  "user_groups"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "In retrieval-augmented generation, the language model sees the retrieved.",
+            "values": {
+              "retrieved": "[{'text': 'Salary bands for 2026...', '…",
+              "user_groups": "['staff']",
+              "safe": "['Holiday policy: 25 days...']"
+            },
+            "tones": {
+              "retrieved": "data",
+              "user_groups": "data",
+              "safe": "data"
+            },
+            "arrows": [
+              [
+                "retrieved",
+                "user_groups"
+              ],
+              [
+                "user_groups",
+                "safe"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "The security principle is simple: what is not retrieved cannot leak.",
-            "rows": [
-              {
-                "cells": [
-                  "retrieved",
-                  "safe",
-                  "user_groups"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "retrieved",
-                  "safe",
-                  "safe"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "So retrieval must already exclude anything the user may not see.",
+            "values": {
+              "retrieved": "[{'text': 'Salary bands for 2026...', '…",
+              "user_groups": "['staff']",
+              "safe": "['Holiday policy: 25 days...']"
+            },
+            "tones": {
+              "retrieved": "data",
+              "user_groups": "data",
+              "safe": "data"
+            },
+            "arrows": [
+              [
+                "retrieved",
+                "user_groups"
+              ],
+              [
+                "user_groups",
+                "safe"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow improves ranking quality once the right candidates are found.",
+            "values": {
+              "retrieved": "[{'text': 'Salary bands for 2026...', '…",
+              "user_groups": "['staff']",
+              "safe": "['Holiday policy: 25 days...']"
+            },
+            "tones": {
+              "retrieved": "ok",
+              "user_groups": "ok",
+              "safe": "ok"
+            },
+            "arrows": [
+              [
+                "retrieved",
+                "user_groups"
+              ],
+              [
+                "user_groups",
+                "safe"
+              ]
             ]
           }
         ]
@@ -562,110 +818,161 @@
       "codeHash": "a562c1b1d972382ea3e56fedd4def9c5e83829a6ceedba55ab82df3b1ba96aaa",
       "spec": {
         "template": "flow",
-        "title": "Testing isolation — Execution Pipeline",
+        "title": "Testing isolation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "index",
+            "label": "index"
           },
           {
-            "id": "proc",
-            "label": "2. Testing isolation",
-            "tappable": true
+            "id": "tests",
+            "label": "tests"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "tenant",
+            "label": "tenant"
+          },
+          {
+            "id": "word",
+            "label": "word"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Testing isolation [Dtwenty.Pfive.Sone].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Testing isolation [Dtwenty.Pfive.Stwo].",
+            "caption": "Isolation should be tested automatically, not just reviewed.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "index": {
+                "var": "index",
+                "line": 1,
+                "hit": 2
+              },
+              "tests": {
+                "var": "tests",
+                "line": 5,
+                "hit": 1
+              },
+              "tenant": {
+                "var": "tenant",
+                "line": 6,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "index": "data",
+              "tests": "data",
+              "tenant": "data",
+              "word": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "index",
+                "tests"
               ],
               [
-                "proc",
-                "out"
+                "tests",
+                "tenant"
+              ],
+              [
+                "tenant",
+                "word"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Search as user A for a document only user B may read.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "index": {
+                "var": "index",
+                "line": 3,
+                "hit": 1
+              },
+              "tests": {
+                "var": "tests",
+                "line": 6,
+                "hit": 1
+              },
+              "tenant": {
+                "var": "tenant",
+                "line": 4,
+                "hit": 1
+              },
+              "word": {
+                "var": "word",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "index": "data",
+              "tests": "data",
+              "tenant": "data",
+              "word": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "index",
+                "tests"
+              ],
+              [
+                "tests",
+                "tenant"
+              ],
+              [
+                "tenant",
+                "word"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Testing isolation [Dtwenty.Pfive.Sfour].",
+            "at": "say10",
+            "caption": "Good isolation testing is a strong selling point for business customers.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "index": {
+                "var": "index",
+                "line": 5,
+                "hit": 1
+              },
+              "tests": {
+                "var": "tests",
+                "line": 7,
+                "hit": 1
+              },
+              "tenant": {
+                "var": "tenant",
+                "line": 4,
+                "hit": 2
+              },
+              "word": {
+                "var": "word",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "index": "ok",
+              "tests": "ok",
+              "tenant": "ok",
+              "word": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "index",
+                "tests"
               ],
               [
-                "proc",
-                "out"
+                "tests",
+                "tenant"
+              ],
+              [
+                "tenant",
+                "word"
               ]
             ]
           }
@@ -673,110 +980,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Testing isolation — Execution Pipeline",
+        "title": "Testing isolation",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "index",
+            "label": "index"
           },
           {
-            "id": "proc",
-            "label": "2. Testing isolation",
-            "tappable": true
+            "id": "tests",
+            "label": "tests"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "tenant",
+            "label": "tenant"
+          },
+          {
+            "id": "word",
+            "label": "word"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Testing isolation [D20.P5.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Testing isolation [D20.P5.S2].",
+            "caption": "Isolation should be tested automatically, not just reviewed.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "index": "[{'tenant': 'acme', 'text': 'acme-canar…",
+              "tests": "[['acme', 'globex-canary-2294'], ['glob…",
+              "tenant": "'acme'",
+              "word": "'globex-canary-2294'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "index": "data",
+              "tests": "data",
+              "tenant": "data",
+              "word": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "index",
+                "tests"
               ],
               [
-                "proc",
-                "out"
+                "tests",
+                "tenant"
+              ],
+              [
+                "tenant",
+                "word"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P5.S3].",
+            "at": "say2",
+            "caption": "Search as user A for a document only user B may read.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "index": "[{'tenant': 'acme', 'text': 'acme-canar…",
+              "tests": "[['acme', 'globex-canary-2294'], ['glob…",
+              "tenant": "'acme'",
+              "word": "'globex-canary-2294'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "index": "data",
+              "tests": "data",
+              "tenant": "data",
+              "word": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "index",
+                "tests"
+              ],
+              [
+                "tests",
+                "tenant"
+              ],
+              [
+                "tenant",
+                "word"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Testing isolation [D20.P5.S4].",
+            "at": "say10",
+            "caption": "Good isolation testing is a strong selling point for business customers.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "index": "[{'tenant': 'acme', 'text': 'acme-canar…",
+              "tests": "[['acme', 'globex-canary-2294'], ['glob…",
+              "tenant": "'acme'",
+              "word": "'globex-canary-2294'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "index": "ok",
+              "tests": "ok",
+              "tenant": "ok",
+              "word": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "index",
+                "tests"
               ],
               [
-                "proc",
-                "out"
+                "tests",
+                "tenant"
+              ],
+              [
+                "tenant",
+                "word"
               ]
             ]
           }
@@ -787,223 +1097,175 @@
       "partTitle": "Practice time: access control",
       "codeHash": "de4f7df9c44ce1f642cf0ea0a0c92b0834100d85b2bc9d862b336d855c8f68f0",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: access control — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: acce...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: access control",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: access control.",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: acce... [Dtwenty.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Can_read(user, acl).",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a listed user, a group match, a denial, a public.",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: access control.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If can_read returns a set or list instead of True or False, wrap.",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 7,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 7,
+                  "hit": 4
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: access control — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: acce...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: access control",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: access control [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: acce... [D20.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Can_read(user, acl).",
+            "bars": [
+              {
+                "label": "k",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 0.6,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a listed user, a group match, a denial, a public.",
+            "bars": [
+              {
+                "label": "k",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 0.8,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: access control [D20.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If can_read returns a set or list instead of True or False, wrap.",
+            "bars": [
+              {
+                "label": "k",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 0.8,
+                "tone": "ok"
+              }
             ]
           }
         ]

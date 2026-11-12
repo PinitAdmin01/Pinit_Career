@@ -2,270 +2,284 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 39,
-  "promptSha": "df229f910db38dc0303425c74389f32ff0ffec76bae2a2543fd0cd33057ff689",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Foundations & Mathematical Invariants",
-      "codeHash": "87a5b3cccf48f3cf2dae95ad6edd571e3e27d1659b4178ba4971b83ccb3d821d",
+      "codeHash": "f58ac36a3ec1268a70ceda5795adc0a2346a62362059b3159f8192e79b1e855f",
       "spec": {
         "template": "flow",
-        "title": "Scalar Quantization (SQ/SQ) & RaBitQ Binary Quantization with Asymmetr",
+        "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "val_sample",
+            "label": "val_sample"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "val",
+            "label": "val"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "min_val",
+            "label": "min_val"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_val",
+            "label": "max_val"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Full-precision FP32 vector representations consume four bytes of memory.",
+            "values": {
+              "val_sample": {
+                "var": "val_sample",
+                "line": 9,
+                "hit": 1
+              },
+              "val": {
+                "var": "val",
+                "line": 3,
+                "hit": 1
+              },
+              "min_val": {
+                "var": "min_val",
+                "line": 3,
+                "hit": 1
+              },
+              "max_val": {
+                "var": "max_val",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "val_sample": "data",
+              "val": "data",
+              "min_val": "data",
+              "max_val": "data"
+            },
+            "arrows": [
+              [
+                "val_sample",
+                "val"
+              ],
+              [
+                "val",
+                "min_val"
+              ],
+              [
+                "min_val",
+                "max_val"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Scalar Quantization (SQ8) compresses vectors by establishing a uniform.",
+            "values": {
+              "val_sample": {
+                "var": "val_sample",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "val": {
+                "var": "val",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "min_val": {
+                "var": "min_val",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_val": {
+                "var": "max_val",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "val_sample": "data",
+              "val": "data",
+              "min_val": "data",
+              "max_val": "data"
+            },
+            "arrows": [
+              [
+                "val_sample",
+                "val"
+              ],
+              [
+                "val",
+                "min_val"
+              ],
+              [
+                "min_val",
+                "max_val"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "values": {
+              "val_sample": {
+                "var": "val_sample",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "val": {
+                "var": "val",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "min_val": {
+                "var": "min_val",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_val": {
+                "var": "max_val",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "val_sample": "ok",
+              "val": "ok",
+              "min_val": "ok",
+              "max_val": "ok"
+            },
+            "arrows": [
+              [
+                "val_sample",
+                "val"
+              ],
+              [
+                "val",
+                "min_val"
+              ],
+              [
+                "min_val",
+                "max_val"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Scalar Quantization (SQ/SQ) & RaBitQ Binary Quantization with Asymmetr",
+        "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "val_sample",
+            "label": "val_sample"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "val",
+            "label": "val"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "min_val",
+            "label": "min_val"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_val",
+            "label": "max_val"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Full-precision FP32 vector representations consume four bytes of memory.",
+            "values": {
+              "val_sample": "0.45",
+              "val": "0.45",
+              "min_val": "-1",
+              "max_val": "1"
+            },
+            "tones": {
+              "val_sample": "data",
+              "val": "data",
+              "min_val": "data",
+              "max_val": "data"
+            },
+            "arrows": [
+              [
+                "val_sample",
+                "val"
+              ],
+              [
+                "val",
+                "min_val"
+              ],
+              [
+                "min_val",
+                "max_val"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Scalar Quantization (SQ8) compresses vectors by establishing a uniform.",
+            "values": {
+              "val_sample": "0.45",
+              "val": "0.45",
+              "min_val": "-1",
+              "max_val": "1"
+            },
+            "tones": {
+              "val_sample": "data",
+              "val": "data",
+              "min_val": "data",
+              "max_val": "data"
+            },
+            "arrows": [
+              [
+                "val_sample",
+                "val"
+              ],
+              [
+                "val",
+                "min_val"
+              ],
+              [
+                "min_val",
+                "max_val"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "values": {
+              "val_sample": "0.45",
+              "val": "0.45",
+              "min_val": "-1",
+              "max_val": "1"
+            },
+            "tones": {
+              "val_sample": "ok",
+              "val": "ok",
+              "min_val": "ok",
+              "max_val": "ok"
+            },
+            "arrows": [
+              [
+                "val_sample",
+                "val"
+              ],
+              [
+                "val",
+                "min_val"
+              ],
+              [
+                "min_val",
+                "max_val"
+              ]
             ]
           }
         ]
@@ -273,265 +287,279 @@
     },
     {
       "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Core Algorithm & State Representation",
-      "codeHash": "4ef3e362c46cc67b4bb3f165b5615d019444a968b7844135ef8e8385a0680753",
+      "codeHash": "47c7d3bba8023c64f43b621b0217982bd44fb9741d329d4280dfe5816c3d27c6",
       "spec": {
         "template": "flow",
-        "title": "Scalar Quantization (SQ/SQ) & RaBitQ Binary Quantization with Asymmetr",
+        "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "orig_val",
+            "label": "orig_val"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "code",
+            "label": "code"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "min_val",
+            "label": "min_val"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_val",
+            "label": "max_val"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Dequantization reconstructs an approximate floating-point coordinate.",
+            "values": {
+              "orig_val": {
+                "var": "orig_val",
+                "line": 4,
+                "hit": 1
+              },
+              "code": {
+                "var": "code",
+                "line": 5,
+                "hit": 1
+              },
+              "min_val": {
+                "var": "min_val",
+                "line": 2,
+                "hit": 1
+              },
+              "max_val": {
+                "var": "max_val",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "orig_val": "data",
+              "code": "data",
+              "min_val": "data",
+              "max_val": "data"
+            },
+            "arrows": [
+              [
+                "orig_val",
+                "code"
+              ],
+              [
+                "code",
+                "min_val"
+              ],
+              [
+                "min_val",
+                "max_val"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The dequantization formula inverts the linear scaling transformation using.",
+            "values": {
+              "orig_val": {
+                "var": "orig_val",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "code": {
+                "var": "code",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "min_val": {
+                "var": "min_val",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_val": {
+                "var": "max_val",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "orig_val": "data",
+              "code": "data",
+              "min_val": "data",
+              "max_val": "data"
+            },
+            "arrows": [
+              [
+                "orig_val",
+                "code"
+              ],
+              [
+                "code",
+                "min_val"
+              ],
+              [
+                "min_val",
+                "max_val"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "orig_val": {
+                "var": "orig_val",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "code": {
+                "var": "code",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "min_val": {
+                "var": "min_val",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_val": {
+                "var": "max_val",
+                "line": 2,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "orig_val": "ok",
+              "code": "ok",
+              "min_val": "ok",
+              "max_val": "ok"
+            },
+            "arrows": [
+              [
+                "orig_val",
+                "code"
+              ],
+              [
+                "code",
+                "min_val"
+              ],
+              [
+                "min_val",
+                "max_val"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Scalar Quantization (SQ/SQ) & RaBitQ Binary Quantization with Asymmetr",
+        "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "orig_val",
+            "label": "orig_val"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "code",
+            "label": "code"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "min_val",
+            "label": "min_val"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_val",
+            "label": "max_val"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Dequantization reconstructs an approximate floating-point coordinate.",
+            "values": {
+              "orig_val": "0.45",
+              "code": "185",
+              "min_val": "-1",
+              "max_val": "1"
+            },
+            "tones": {
+              "orig_val": "data",
+              "code": "data",
+              "min_val": "data",
+              "max_val": "data"
+            },
+            "arrows": [
+              [
+                "orig_val",
+                "code"
+              ],
+              [
+                "code",
+                "min_val"
+              ],
+              [
+                "min_val",
+                "max_val"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The dequantization formula inverts the linear scaling transformation using.",
+            "values": {
+              "orig_val": "0.45",
+              "code": "185",
+              "min_val": "-1",
+              "max_val": "1"
+            },
+            "tones": {
+              "orig_val": "data",
+              "code": "data",
+              "min_val": "data",
+              "max_val": "data"
+            },
+            "arrows": [
+              [
+                "orig_val",
+                "code"
+              ],
+              [
+                "code",
+                "min_val"
+              ],
+              [
+                "min_val",
+                "max_val"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "orig_val": "0.45",
+              "code": "185",
+              "min_val": "-1",
+              "max_val": "1"
+            },
+            "tones": {
+              "orig_val": "ok",
+              "code": "ok",
+              "min_val": "ok",
+              "max_val": "ok"
+            },
+            "arrows": [
+              [
+                "orig_val",
+                "code"
+              ],
+              [
+                "code",
+                "min_val"
+              ],
+              [
+                "min_val",
+                "max_val"
+              ]
             ]
           }
         ]
@@ -539,264 +567,176 @@
     },
     {
       "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "12a3469a38372fecbbe91e7fec3900ff3fd08a2c16260afdca08b4c3bc77b538",
+      "codeHash": "f22e21ce76b12a2909386a971d30604f836932f30dcb8c46ee91ff264b47982a",
       "spec": {
-        "template": "flow",
-        "title": "Scalar Quantization (SQ/SQ) & RaBitQ Binary Quantization with Asymmetr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Binary Quantization (BQ / 1-bit) pushes compression to the theoretical.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "h_dist",
+                "value": {
+                  "var": "h_dist",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Coordinates greater than or equal to zero become binary 1, while negative.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "h_dist",
+                "value": {
+                  "var": "h_dist",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "h_dist",
+                "value": {
+                  "var": "h_dist",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Scalar Quantization (SQ/SQ) & RaBitQ Binary Quantization with Asymmetr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Binary Quantization (BQ / 1-bit) pushes compression to the theoretical.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 0.8,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "h_dist",
+                "value": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Coordinates greater than or equal to zero become binary 1, while negative.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "x",
+                "value": -0.5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "h_dist",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "x",
+                "value": 0.2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "h_dist",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }
@@ -805,264 +745,134 @@
     },
     {
       "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Resilience Guardrails & Failure Recovery",
-      "codeHash": "f5de5c93eaaa43e876946b0eb53c50a13021c226db1ae0b125c287f1dfab6f91",
+      "codeHash": "3f5a4625386a1a744be1e48f76aa3f5d3ec2d2b1c15be53faf030b7d9e240b29",
       "spec": {
-        "template": "flow",
-        "title": "Scalar Quantization (SQ/SQ) & RaBitQ Binary Quantization with Asymmetr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantization routines must defend against degenerate domain intervals.",
+            "bars": [
+              {
+                "label": "min_v",
+                "value": {
+                  "var": "min_v",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_v",
+                "value": {
+                  "var": "max_v",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If all elements in an indexed dimension have the same constant value,.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "min_v",
+                "value": {
+                  "var": "min_v",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "max_v",
+                "value": {
+                  "var": "max_v",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "min_v",
+                "value": {
+                  "var": "min_v",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "max_v",
+                "value": {
+                  "var": "max_v",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Scalar Quantization (SQ/SQ) & RaBitQ Binary Quantization with Asymmetr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantization routines must defend against degenerate domain intervals.",
+            "bars": [
+              {
+                "label": "min_v",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "max_v",
+                "value": 2,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If all elements in an indexed dimension have the same constant value,.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "min_v",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "max_v",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "min_v",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "max_v",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,264 +881,218 @@
     },
     {
       "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Production Telemetry & Verification Audit",
-      "codeHash": "c8fb0fc3f083b0f1916a23410c89246aea7d553b0d6959f65f5d14ee8eecab56",
+      "codeHash": "23f68efa77645f712e6e4ef09e517071a84bd6129ca6b5f4151f232343a58816",
       "spec": {
-        "template": "flow",
-        "title": "Scalar Quantization (SQ/SQ) & RaBitQ Binary Quantization with Asymmetr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Capacity planning in vector database infrastructure relies on accurate.",
+            "bars": [
+              {
+                "label": "num_docs",
+                "value": {
+                  "var": "num_docs",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "dim",
+                "value": {
+                  "var": "dim",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fp32_mb",
+                "value": {
+                  "var": "fp32_mb",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "sq8_mb",
+                "value": {
+                  "var": "sq8_mb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how million updates dimensional during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_docs",
+                "value": {
+                  "var": "num_docs",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "dim",
+                "value": {
+                  "var": "dim",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "fp32_mb",
+                "value": {
+                  "var": "fp32_mb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "sq8_mb",
+                "value": {
+                  "var": "sq8_mb",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_docs",
+                "value": {
+                  "var": "num_docs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "dim",
+                "value": {
+                  "var": "dim",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "fp32_mb",
+                "value": {
+                  "var": "fp32_mb",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "sq8_mb",
+                "value": {
+                  "var": "sq8_mb",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Scalar Quantization (SQ/SQ) & RaBitQ Binary Quantization with Asymmetr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Capacity planning in vector database infrastructure relies on accurate.",
+            "bars": [
+              {
+                "label": "num_docs",
+                "value": 1000000,
+                "tone": "data"
+              },
+              {
+                "label": "dim",
+                "value": 128,
+                "tone": "data"
+              },
+              {
+                "label": "fp32_mb",
+                "value": 488.28125,
+                "tone": "data"
+              },
+              {
+                "label": "sq8_mb",
+                "value": 122.0703125,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how million updates dimensional during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "num_docs",
+                "value": 1000000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "dim",
+                "value": 128,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "fp32_mb",
+                "value": 488.28125,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "sq8_mb",
+                "value": 122.0703125,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "num_docs",
+                "value": 1000000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "dim",
+                "value": 128,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "fp32_mb",
+                "value": 488.28125,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "sq8_mb",
+                "value": 122.0703125,
+                "tone": "ok"
               }
             ]
           }

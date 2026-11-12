@@ -2,269 +2,419 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 50,
-  "promptSha": "9afa36047c5f96ad534dfe64af99418cb28c6c16aaa8284088b21a238acb7caf",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Milestone 10 — Foundations & Mathematical Invariants",
-      "codeHash": "ac1b1c1df17bae79889e99b8c64c0f9434102081adf7f4e674b288cb27b370e0",
+      "partTitle": "Governance Control Plane — Foundations & Mathematical Invariants",
+      "codeHash": "6cf72407217943d4c2012bdd8a78b3333ef04f36cb60abb3bdeaad7ddc5ce337",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
+        "title": "Governance Control Plane — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "harness",
+            "label": "harness"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "attack_name",
+            "label": "attack_name"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "guardrail_active",
+            "label": "guardrail_active"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates establishes during execution.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "harness": {
+                "var": "harness",
+                "line": 11,
+                "hit": 1
+              },
+              "attack_name": {
+                "var": "attack_name",
+                "line": 6,
+                "hit": 1
+              },
+              "guardrail_active": {
+                "var": "guardrail_active",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "harness": "data",
+              "attack_name": "data",
+              "guardrail_active": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "harness"
+              ],
+              [
+                "harness",
+                "attack_name"
+              ],
+              [
+                "attack_name",
+                "guardrail_active"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Production models must simultaneously demonstrate high robustness against.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "harness": {
+                "var": "harness",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "attack_name": {
+                "var": "attack_name",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "guardrail_active": {
+                "var": "guardrail_active",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "harness": "data",
+              "attack_name": "data",
+              "guardrail_active": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "harness"
+              ],
+              [
+                "harness",
+                "attack_name"
+              ],
+              [
+                "attack_name",
+                "guardrail_active"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "harness": {
+                "var": "harness",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "attack_name": {
+                "var": "attack_name",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "guardrail_active": {
+                "var": "guardrail_active",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "harness": "ok",
+              "attack_name": "ok",
+              "guardrail_active": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "harness"
+              ],
+              [
+                "harness",
+                "attack_name"
+              ],
+              [
+                "attack_name",
+                "guardrail_active"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
+        "title": "Governance Control Plane — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "harness",
+            "label": "harness"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "attack_name",
+            "label": "attack_name"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "guardrail_active",
+            "label": "guardrail_active"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates establishes during execution.",
+            "values": {
+              "self": "<RedTeamHarnessM10>",
+              "harness": "<RedTeamHarnessM10>",
+              "attack_name": "'Jailbreak_ROT13'",
+              "guardrail_active": "True"
+            },
+            "tones": {
+              "self": "data",
+              "harness": "data",
+              "attack_name": "data",
+              "guardrail_active": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "harness"
+              ],
+              [
+                "harness",
+                "attack_name"
+              ],
+              [
+                "attack_name",
+                "guardrail_active"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Production models must simultaneously demonstrate high robustness against.",
+            "values": {
+              "self": "<RedTeamHarnessM10>",
+              "harness": "<RedTeamHarnessM10>",
+              "attack_name": "'Jailbreak_ROT13'",
+              "guardrail_active": "True"
+            },
+            "tones": {
+              "self": "data",
+              "harness": "data",
+              "attack_name": "data",
+              "guardrail_active": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "harness"
+              ],
+              [
+                "harness",
+                "attack_name"
+              ],
+              [
+                "attack_name",
+                "guardrail_active"
+              ]
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "values": {
+              "self": "<RedTeamHarnessM10>",
+              "harness": "<RedTeamHarnessM10>",
+              "attack_name": "'Jailbreak_ROT13'",
+              "guardrail_active": "True"
+            },
+            "tones": {
+              "self": "ok",
+              "harness": "ok",
+              "attack_name": "ok",
+              "guardrail_active": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "harness"
+              ],
+              [
+                "harness",
+                "attack_name"
+              ],
+              [
+                "attack_name",
+                "guardrail_active"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Governance Control Plane — Core Algorithm & State Representation",
+      "codeHash": "d0c8facfe5e1cc9ca06fb14199ab15c7d745387c2d77deda2a1dad4336a88726",
+      "spec": {
+        "template": "bars",
+        "title": "Governance Control Plane — Core Algorithm & State Representation",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Dual certification requires satisfying both security thresholds.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "asr",
+                "value": {
+                  "var": "asr",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "di_ratio",
+                "value": {
+                  "var": "di_ratio",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "The evaluate_dual_fairness_and_safety function evaluates whether ASR is.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "asr",
+                "value": {
+                  "var": "asr",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "di_ratio",
+                "value": {
+                  "var": "di_ratio",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "asr",
+                "value": {
+                  "var": "asr",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "di_ratio",
+                "value": {
+                  "var": "di_ratio",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "bars",
+        "title": "Governance Control Plane — Core Algorithm & State Representation",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Dual certification requires satisfying both security thresholds.",
+            "bars": [
+              {
+                "label": "asr",
+                "value": 1.2,
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "di_ratio",
+                "value": 0.85,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The evaluate_dual_fairness_and_safety function evaluates whether ASR is.",
+            "bars": [
+              {
+                "label": "asr",
+                "value": 1.2,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "di_ratio",
+                "value": 0.85,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "bars": [
+              {
+                "label": "asr",
+                "value": 1.2,
+                "tone": "ok"
+              },
+              {
+                "label": "di_ratio",
+                "value": 0.85,
+                "tone": "ok"
               }
             ]
           }
@@ -272,265 +422,219 @@
       }
     },
     {
-      "partTitle": "Milestone 10 — Core Algorithm & State Representation",
-      "codeHash": "e22d5c691000810fce8efe268ac67a0107932956c2e21c6ef035b1fd35af1819",
+      "partTitle": "Governance Control Plane — Production Implementation & Boundary Mechanics",
+      "codeHash": "79dde2254cda39282df46aeccf0e9e797accb908bd30e9d104a5fab8d75c285d",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Governance Control Plane — Production Implementation & Boundary ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Equalized Odds is a sophisticated fairness metric requiring that error.",
+            "bars": [
+              {
+                "label": "tpr_a",
+                "value": {
+                  "var": "tpr_a",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "tpr_b",
+                "value": {
+                  "var": "tpr_b",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fpr_a",
+                "value": {
+                  "var": "fpr_a",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fpr_b",
+                "value": {
+                  "var": "fpr_b",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Specifically, Equalized Odds mandates that both the True Positive Rate.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tpr_a",
+                "value": {
+                  "var": "tpr_a",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "tpr_b",
+                "value": {
+                  "var": "tpr_b",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "fpr_a",
+                "value": {
+                  "var": "fpr_a",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "fpr_b",
+                "value": {
+                  "var": "fpr_b",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for red-team harness.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tpr_a",
+                "value": {
+                  "var": "tpr_a",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "tpr_b",
+                "value": {
+                  "var": "tpr_b",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "fpr_a",
+                "value": {
+                  "var": "fpr_a",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "fpr_b",
+                "value": {
+                  "var": "fpr_b",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Governance Control Plane — Production Implementation & Boundary ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Equalized Odds is a sophisticated fairness metric requiring that error.",
+            "bars": [
+              {
+                "label": "tpr_a",
+                "value": 0.9,
+                "tone": "data"
+              },
+              {
+                "label": "tpr_b",
+                "value": 0.88,
+                "tone": "data"
+              },
+              {
+                "label": "fpr_a",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "fpr_b",
+                "value": 0.06,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Specifically, Equalized Odds mandates that both the True Positive Rate.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tpr_a",
+                "value": 0.9,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "tpr_b",
+                "value": 0.88,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "fpr_a",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "fpr_b",
+                "value": 0.06,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for red-team harness.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tpr_a",
+                "value": 0.9,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "tpr_b",
+                "value": 0.88,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "fpr_a",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "fpr_b",
+                "value": 0.06,
+                "tone": "ok"
               }
             ]
           }
@@ -538,799 +642,183 @@
       }
     },
     {
-      "partTitle": "Milestone 10 — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "51fe3a5fafdf59fc6fec86b3db778a1e462bad7dad5c5e7d2ce1acd6967cc6b2",
+      "partTitle": "Governance Control Plane — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "02d817a4e238ce848bcb78b418e166f8a64ff0365527bdd57801b0cae4d29b14",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Governance Control Plane — Failure Modes, Hardware Bottlenecks &",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "asr",
+            "label": "asr"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "di",
+            "label": "di"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "passes",
+            "label": "passes"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise governance requires immutable, tamper-evident records of all.",
+            "currentState": "asr",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The export_m10_governance_snapshot function captures ASR scores, Disparate.",
+            "currentState": "di",
+            "transition": {
+              "from": "asr",
+              "to": "di",
+              "label": {
+                "var": "di",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "passes",
+            "transition": {
+              "from": "di",
+              "to": "passes",
+              "label": {
+                "var": "passes",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Governance Control Plane — Failure Modes, Hardware Bottlenecks &",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "asr",
+            "label": "asr"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "di",
+            "label": "di"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "passes",
+            "label": "passes"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise governance requires immutable, tamper-evident records of all.",
+            "currentState": "asr",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The export_m10_governance_snapshot function captures ASR scores, Disparate.",
+            "currentState": "di",
+            "transition": {
+              "from": "asr",
+              "to": "di",
+              "label": "0.86"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "passes",
+            "transition": {
+              "from": "di",
+              "to": "passes",
+              "label": "450"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Milestone 10 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "6a95ee5df7fa068f62aa97028b686e86c7bf19265a0dcc7604b42c7e071c15dd",
+      "partTitle": "Governance Control Plane — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "666436c6f71e4c7c443a490608758e88bc7cc7d72e8b41c17fb28323061489e3",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Governance Control Plane — Production Capstone & Enterprise SRE ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "rep",
+            "label": "rep"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "report",
+            "label": "report"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The final stage of the governance pipeline is automated executive release.",
+            "currentState": "rep",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The generate_m10_executive_signoff function evaluates the governance.",
+            "currentState": "report",
+            "transition": {
+              "from": "rep",
+              "to": "report",
+              "label": {
+                "var": "report",
+                "line": 3,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Governance Control Plane — Production Capstone & Enterprise SRE ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "rep",
+            "label": "rep"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "report",
+            "label": "report"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "The final stage of the governance pipeline is automated executive release.",
+            "currentState": "rep",
+            "tone": "data"
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Milestone 10 — Production Telemetry & Verification Audit",
-      "codeHash": "193ab6f261492b90765831ffb0cf133ff3933a3b85abca734ddf194c15fd34d7",
-      "spec": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "The generate_m10_executive_signoff function evaluates the governance.",
+            "currentState": "report",
+            "transition": {
+              "from": "rep",
+              "to": "report",
+              "label": "{'asr_score': 1.1, 'disparate_impact': …"
+            },
+            "tone": "ok"
           }
         ]
       }

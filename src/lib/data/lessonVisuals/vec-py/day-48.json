@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 48,
-  "promptSha": "cd8edef8ee93c30bc6d0f6861e52d4a090a0264c05c73dd755bfe87707d7c44c",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Foundations & Mathematical Invariants",
-      "codeHash": "bcf48a7177e2961bc592870f893d1e5c4390d46cc7059e90e7fdf6224a0177d3",
+      "codeHash": "761c9b49e7bbcdfdfc93b51654b2b3f1ab7cf6397243fe03508419b1ae0ab262",
       "spec": {
-        "template": "flow",
-        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scaling a vector database beyond the capacity of a single physical server.",
+            "bars": [
+              {
+                "label": "total_shards",
+                "value": {
+                  "var": "total_shards",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "s1",
+                "value": {
+                  "var": "s1",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "s2",
+                "value": {
+                  "var": "s2",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The simplest partitioning strategy applies a deterministic cryptographic.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_shards",
+                "value": {
+                  "var": "total_shards",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "s1",
+                "value": {
+                  "var": "s1",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "s2",
+                "value": {
+                  "var": "s2",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_shards",
+                "value": {
+                  "var": "total_shards",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "s1",
+                "value": {
+                  "var": "s1",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "s2",
+                "value": {
+                  "var": "s2",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Scaling a vector database beyond the capacity of a single physical server.",
+            "bars": [
+              {
+                "label": "total_shards",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "h",
+                "value": 2166136261,
+                "tone": "data"
+              },
+              {
+                "label": "s1",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "s2",
+                "value": 3,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The simplest partitioning strategy applies a deterministic cryptographic.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_shards",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "h",
+                "value": 2166136261,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "s1",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "s2",
+                "value": 3,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_shards",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "h",
+                "value": 4044111267,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "s1",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "s2",
+                "value": 3,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +227,218 @@
     },
     {
       "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Core Algorithm & State Representation",
-      "codeHash": "f1f4caac99b642c1b5a8e170977ef447024cfd7cf2c9f8ff1f808b2bd73c1674",
+      "codeHash": "e12698911e06adff00d9c56b92c95eedfc98d30d210f250220a93bb65e64ee50",
       "spec": {
-        "template": "flow",
-        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Simple modulo hashing has a fatal flaw.",
+            "bars": [
+              {
+                "label": "vnodes",
+                "value": {
+                  "var": "vnodes",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 7,
+                  "hit": 10
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ring_key",
+                "value": {
+                  "var": "ring_key",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Consistent hashing solves this problem by arranging both nodes and keys.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "vnodes",
+                "value": {
+                  "var": "vnodes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 7,
+                  "hit": 10
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "ring_key",
+                "value": {
+                  "var": "ring_key",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "vnodes",
+                "value": {
+                  "var": "vnodes",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "v",
+                "value": {
+                  "var": "v",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "h",
+                "value": {
+                  "var": "h",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "ring_key",
+                "value": {
+                  "var": "ring_key",
+                  "line": 15,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Simple modulo hashing has a fatal flaw.",
+            "bars": [
+              {
+                "label": "vnodes",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "v",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "h",
+                "value": 22,
+                "tone": "data"
+              },
+              {
+                "label": "ring_key",
+                "value": 22,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Consistent hashing solves this problem by arranging both nodes and keys.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "vnodes",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "v",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "h",
+                "value": 22,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "ring_key",
+                "value": 22,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "vnodes",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "v",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "h",
+                "value": 22,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "ring_key",
+                "value": 22,
+                "tone": "ok"
               }
             ]
           }
@@ -539,264 +447,107 @@
     },
     {
       "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "687cce746e1d4b04e608910768eba0fb0922cd3ce1da037fad38a76e9fe63abe",
+      "codeHash": "983a3aaff03ae71d0587bc66be25680b0ce5571550ae2b833bb1cb19b54e6f76",
       "spec": {
-        "template": "flow",
-        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "While consistent hashing balances generic documents, multi-tenant.",
+            "items": {
+              "var": "shards",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Scattering a single tenant's vectors across dozens of cluster nodes forces.",
+            "items": {
+              "var": "shards",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "items": {
+              "var": "shards",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "While consistent hashing balances generic documents, multi-tenant.",
+            "items": [
+              "'node_us_east_1'",
+              "'node_us_east_2'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Scattering a single tenant's vectors across dozens of cluster nodes forces.",
+            "items": [
+              "'node_us_east_1'",
+              "'node_us_east_2'"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "items": [
+              "'node_us_east_1'",
+              "'node_us_east_2'"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -805,265 +556,167 @@
     },
     {
       "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Resilience Guardrails & Failure Recovery",
-      "codeHash": "02795c7d6ba3d212e362c3662b91edbfac87daebb587fb1758b07eb8e850fea2",
+      "codeHash": "59d387f21016a855edaa587859451fd317abaaaa0a24bff189b4d74dce475783",
       "spec": {
         "template": "flow",
-        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector",
+        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ring_nodes",
+            "label": "ring_nodes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "default_node",
+            "label": "default_node"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cluster routers must handle transient partition failures, network splits.",
+            "values": {
+              "ring_nodes": {
+                "var": "ring_nodes",
+                "line": 2,
+                "hit": 1
+              },
+              "default_node": {
+                "var": "default_node",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "ring_nodes": "data",
+              "default_node": "data"
+            },
+            "arrows": [
+              [
+                "ring_nodes",
+                "default_node"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If all primary cluster nodes become unreachable during a network.",
+            "values": {
+              "ring_nodes": {
+                "var": "ring_nodes",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "default_node": {
+                "var": "default_node",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "ring_nodes": "data",
+              "default_node": "data"
+            },
+            "arrows": [
+              [
+                "ring_nodes",
+                "default_node"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "ring_nodes": {
+                "var": "ring_nodes",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "default_node": {
+                "var": "default_node",
+                "line": 3,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "ring_nodes": "ok",
+              "default_node": "ok"
+            },
+            "arrows": [
+              [
+                "ring_nodes",
+                "default_node"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector",
+        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ring_nodes",
+            "label": "ring_nodes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "default_node",
+            "label": "default_node"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cluster routers must handle transient partition failures, network splits.",
+            "values": {
+              "ring_nodes": "[]",
+              "default_node": "'fallback_node'"
+            },
+            "tones": {
+              "ring_nodes": "data",
+              "default_node": "data"
+            },
+            "arrows": [
+              [
+                "ring_nodes",
+                "default_node"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If all primary cluster nodes become unreachable during a network.",
+            "values": {
+              "ring_nodes": "[]",
+              "default_node": "'fallback_node'"
+            },
+            "tones": {
+              "ring_nodes": "data",
+              "default_node": "data"
+            },
+            "arrows": [
+              [
+                "ring_nodes",
+                "default_node"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "ring_nodes": "[]",
+              "default_node": "'fallback_node'"
+            },
+            "tones": {
+              "ring_nodes": "ok",
+              "default_node": "ok"
+            },
+            "arrows": [
+              [
+                "ring_nodes",
+                "default_node"
+              ]
             ]
           }
         ]
@@ -1071,265 +724,279 @@
     },
     {
       "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Production Telemetry & Verification Audit",
-      "codeHash": "2f6c0f2c582c784b00d98fbd0bcf6e4ce20c0cecb2cb454ad323a8c4eef8800d",
+      "codeHash": "338d4103ff08bd815ed43dd11056163e839c9a2d0e43f549524202ae82442507",
       "spec": {
         "template": "flow",
-        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector",
+        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "shard_counts",
+            "label": "shard_counts"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "counts",
+            "label": "counts"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "avg_c",
+            "label": "avg_c"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_c",
+            "label": "max_c"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Load balance auditing is essential for verifying that hashing algorithms.",
+            "values": {
+              "shard_counts": {
+                "var": "shard_counts",
+                "line": 2,
+                "hit": 1
+              },
+              "counts": {
+                "var": "counts",
+                "line": 2,
+                "hit": 1
+              },
+              "avg_c": {
+                "var": "avg_c",
+                "line": 3,
+                "hit": 1
+              },
+              "max_c": {
+                "var": "max_c",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "shard_counts": "data",
+              "counts": "data",
+              "avg_c": "data",
+              "max_c": "data"
+            },
+            "arrows": [
+              [
+                "shard_counts",
+                "counts"
+              ],
+              [
+                "counts",
+                "avg_c"
+              ],
+              [
+                "avg_c",
+                "max_c"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If data skew causes one shard to hold disproportionately more vectors than.",
+            "values": {
+              "shard_counts": {
+                "var": "shard_counts",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "counts": {
+                "var": "counts",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "avg_c": {
+                "var": "avg_c",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_c": {
+                "var": "max_c",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "shard_counts": "data",
+              "counts": "data",
+              "avg_c": "data",
+              "max_c": "data"
+            },
+            "arrows": [
+              [
+                "shard_counts",
+                "counts"
+              ],
+              [
+                "counts",
+                "avg_c"
+              ],
+              [
+                "avg_c",
+                "max_c"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "shard_counts": {
+                "var": "shard_counts",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "counts": {
+                "var": "counts",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "avg_c": {
+                "var": "avg_c",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "max_c": {
+                "var": "max_c",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "shard_counts": "ok",
+              "counts": "ok",
+              "avg_c": "ok",
+              "max_c": "ok"
+            },
+            "arrows": [
+              [
+                "shard_counts",
+                "counts"
+              ],
+              [
+                "counts",
+                "avg_c"
+              ],
+              [
+                "avg_c",
+                "max_c"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector",
+        "title": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "shard_counts",
+            "label": "shard_counts"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "counts",
+            "label": "counts"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "avg_c",
+            "label": "avg_c"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_c",
+            "label": "max_c"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Load balance auditing is essential for verifying that hashing algorithms.",
+            "values": {
+              "shard_counts": "{0: 25000, 1: 27000, 2: 24000, 3: 24000}",
+              "counts": "[25000, 27000, 24000, 24000]",
+              "avg_c": "25000",
+              "max_c": "27000"
+            },
+            "tones": {
+              "shard_counts": "data",
+              "counts": "data",
+              "avg_c": "data",
+              "max_c": "data"
+            },
+            "arrows": [
+              [
+                "shard_counts",
+                "counts"
+              ],
+              [
+                "counts",
+                "avg_c"
+              ],
+              [
+                "avg_c",
+                "max_c"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If data skew causes one shard to hold disproportionately more vectors than.",
+            "values": {
+              "shard_counts": "{0: 25000, 1: 27000, 2: 24000, 3: 24000}",
+              "counts": "[25000, 27000, 24000, 24000]",
+              "avg_c": "25000",
+              "max_c": "27000"
+            },
+            "tones": {
+              "shard_counts": "data",
+              "counts": "data",
+              "avg_c": "data",
+              "max_c": "data"
+            },
+            "arrows": [
+              [
+                "shard_counts",
+                "counts"
+              ],
+              [
+                "counts",
+                "avg_c"
+              ],
+              [
+                "avg_c",
+                "max_c"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "shard_counts": "{0: 25000, 1: 27000, 2: 24000, 3: 24000}",
+              "counts": "[25000, 27000, 24000, 24000]",
+              "avg_c": "25000",
+              "max_c": "27000"
+            },
+            "tones": {
+              "shard_counts": "ok",
+              "counts": "ok",
+              "avg_c": "ok",
+              "max_c": "ok"
+            },
+            "arrows": [
+              [
+                "shard_counts",
+                "counts"
+              ],
+              [
+                "counts",
+                "avg_c"
+              ],
+              [
+                "avg_c",
+                "max_c"
+              ]
             ]
           }
         ]

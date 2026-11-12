@@ -2,143 +2,79 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 6,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Model output is untrusted",
       "codeHash": "03867fd2f90224262e2d054a790ec93a63269d6a4da1a736f20dded6ab7d5ec7",
       "spec": {
-        "template": "table",
-        "title": "Model output trustworthiness and parsing failure modes",
-        "columns": [
-          "answers",
-          "answers",
-          "answers"
+        "template": "states",
+        "title": "Model output is untrusted",
+        "states": [
+          {
+            "id": "answers",
+            "label": "answers"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Never trust a model answer simply because your system produced it.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "answers"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "answers"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "It is tempting to trust a model's answer because your own system produced it.",
+            "currentState": "answers",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "The rule is simple: treat model output like user input before using it.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "answers"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "answers"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "But the model's answer depends on its input, and the input can come.",
+            "currentState": "a",
+            "transition": {
+              "from": "answers",
+              "to": "a",
+              "label": {
+                "var": "a",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Model output trustworthiness and parsing failure modes",
-        "columns": [
-          "answers",
-          "answers",
-          "answers"
+        "template": "states",
+        "title": "Model output is untrusted",
+        "states": [
+          {
+            "id": "answers",
+            "label": "answers"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Never trust a model answer simply because your system produced it.",
-            "rows": [
-              {
-                "cells": [
-                  "answers",
-                  "answers",
-                  "answers"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "answers",
-                  "answers",
-                  "answers"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "It is tempting to trust a model's answer because your own system produced it.",
+            "currentState": "answers",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "The rule is simple: treat model output like user input before using it.",
-            "rows": [
-              {
-                "cells": [
-                  "answers",
-                  "answers",
-                  "answers"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "answers",
-                  "answers",
-                  "answers"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "But the model's answer depends on its input, and the input can come.",
+            "currentState": "a",
+            "transition": {
+              "from": "answers",
+              "to": "a",
+              "label": "'{\"intent\": \"refund\", \"amount\": 20}'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -147,136 +83,106 @@
       "partTitle": "Parsing JSON safely",
       "codeHash": "c8de22096d71740895182679c3c9c17c384e5d460554befbbe5c798f98e0575d",
       "spec": {
-        "template": "table",
-        "title": "Defensive JSON decoding and exception handling",
-        "columns": [
-          "text",
-          "status",
-          "text"
+        "template": "states",
+        "title": "Parsing JSON safely",
+        "states": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "obj",
+            "label": "obj"
+          },
+          {
+            "id": "status",
+            "label": "status"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The json module turns JSON text into python objects safely.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "status"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "status"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Python's json module turns JSON text into Python objects with json.",
+            "currentState": "text",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Parsing code must catch that error rather than crash on invalid payloads.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "status"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "status"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "If the text is not valid JSON, json.",
+            "currentState": "obj",
+            "transition": {
+              "from": "text",
+              "to": "obj",
+              "label": {
+                "var": "obj",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Returning a reason code, like yesterday's validator, makes failures easy.",
+            "currentState": "status",
+            "transition": {
+              "from": "obj",
+              "to": "status",
+              "label": {
+                "var": "status",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Defensive JSON decoding and exception handling",
-        "columns": [
-          "text",
-          "status",
-          "text"
+        "template": "states",
+        "title": "Parsing JSON safely",
+        "states": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "obj",
+            "label": "obj"
+          },
+          {
+            "id": "status",
+            "label": "status"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The json module turns JSON text into python objects safely.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "status",
-                  "text"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "text",
-                  "status",
-                  "text"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Python's json module turns JSON text into Python objects with json.",
+            "currentState": "text",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Parsing code must catch that error rather than crash on invalid payloads.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "status",
-                  "text"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "text",
-                  "status",
-                  "text"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "If the text is not valid JSON, json.",
+            "currentState": "obj",
+            "transition": {
+              "from": "text",
+              "to": "obj",
+              "label": "{'a': 1}"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Returning a reason code, like yesterday's validator, makes failures easy.",
+            "currentState": "status",
+            "transition": {
+              "from": "obj",
+              "to": "status",
+              "label": "'ok dict'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -285,136 +191,106 @@
       "partTitle": "Extracting JSON from chatter",
       "codeHash": "6a5b1377f76e05d24369a22ffc54709dbd540972f1ad3d6e2ec6b641648c6959",
       "spec": {
-        "template": "table",
-        "title": "Substring brace boundary extraction from conversational wrapper",
-        "columns": [
-          "text",
-          "start",
-          "text"
+        "template": "states",
+        "title": "Extracting JSON from chatter",
+        "states": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "start",
+            "label": "start"
+          },
+          {
+            "id": "end",
+            "label": "end"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Language models often add friendly conversational text around structured JSON.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Models often add friendly text around JSON, like \"Here you go:\" before it.",
+            "currentState": "text",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "A simple robust fix isolates text between the first and last curly brace.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A simple, robust fix is to take the text from the first opening brace.",
+            "currentState": "start",
+            "transition": {
+              "from": "text",
+              "to": "start",
+              "label": {
+                "var": "start",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Always put a limit on retries, or a stubborn model can burn money in a loop.",
+            "currentState": "end",
+            "transition": {
+              "from": "start",
+              "to": "end",
+              "label": {
+                "var": "end",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Substring brace boundary extraction from conversational wrapper",
-        "columns": [
-          "text",
-          "start",
-          "text"
+        "template": "states",
+        "title": "Extracting JSON from chatter",
+        "states": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "start",
+            "label": "start"
+          },
+          {
+            "id": "end",
+            "label": "end"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Language models often add friendly conversational text around structured JSON.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "start",
-                  "text"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "text",
-                  "start",
-                  "text"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Models often add friendly text around JSON, like \"Here you go:\" before it.",
+            "currentState": "text",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "A simple robust fix isolates text between the first and last curly brace.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "start",
-                  "text"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "text",
-                  "start",
-                  "text"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "A simple, robust fix is to take the text from the first opening brace.",
+            "currentState": "start",
+            "transition": {
+              "from": "text",
+              "to": "start",
+              "label": "6"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Always put a limit on retries, or a stubborn model can burn money in a loop.",
+            "currentState": "end",
+            "transition": {
+              "from": "start",
+              "to": "end",
+              "label": "40"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -423,136 +299,106 @@
       "partTitle": "Checking a schema",
       "codeHash": "3ffb810a090faeca58cd519ae0b6cb75bb9585aa5ec51c49464d2a3cf45c90ec",
       "spec": {
-        "template": "table",
-        "title": "Schema constraint validation and unauthorized field detection",
-        "columns": [
-          "schema",
-          "data",
-          "errors"
+        "template": "states",
+        "title": "Checking a schema",
+        "states": [
+          {
+            "id": "TYPES",
+            "label": "TYPES"
+          },
+          {
+            "id": "schema",
+            "label": "schema"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A schema verifies whether incoming data contains required fields and types.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "schema"
-                  },
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "errors"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "schema"
-                  },
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "errors"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Parsing tells you the text is JSON.",
+            "currentState": "TYPES",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Extra fields matter for safety and should not slip through unchecked.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "schema"
-                  },
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "errors"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "schema"
-                  },
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "errors"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "A schema here is a dictionary from field names to type names, such.",
+            "currentState": "schema",
+            "transition": {
+              "from": "TYPES",
+              "to": "schema",
+              "label": {
+                "var": "schema",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Writing a small checker yourself shows exactly what those libraries are doing.",
+            "currentState": "data",
+            "transition": {
+              "from": "schema",
+              "to": "data",
+              "label": {
+                "var": "data",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Schema constraint validation and unauthorized field detection",
-        "columns": [
-          "schema",
-          "data",
-          "errors"
+        "template": "states",
+        "title": "Checking a schema",
+        "states": [
+          {
+            "id": "TYPES",
+            "label": "TYPES"
+          },
+          {
+            "id": "schema",
+            "label": "schema"
+          },
+          {
+            "id": "data",
+            "label": "data"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A schema verifies whether incoming data contains required fields and types.",
-            "rows": [
-              {
-                "cells": [
-                  "schema",
-                  "data",
-                  "errors"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "schema",
-                  "data",
-                  "errors"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Parsing tells you the text is JSON.",
+            "currentState": "TYPES",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Extra fields matter for safety and should not slip through unchecked.",
-            "rows": [
-              {
-                "cells": [
-                  "schema",
-                  "data",
-                  "errors"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "schema",
-                  "data",
-                  "errors"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A schema here is a dictionary from field names to type names, such.",
+            "currentState": "schema",
+            "transition": {
+              "from": "TYPES",
+              "to": "schema",
+              "label": "{'intent': 'str', 'order': 'int', 'item…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Writing a small checker yourself shows exactly what those libraries are doing.",
+            "currentState": "data",
+            "transition": {
+              "from": "schema",
+              "to": "data",
+              "label": "{'intent': 'cancel', 'order': '1042', '…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -561,223 +407,151 @@
       "partTitle": "The boolean trap",
       "codeHash": "68751b6e0199b51da0edd96c97ae5ad7450c6c4dbdd0882f1ae56e51aee08b47",
       "spec": {
-        "template": "flow",
-        "title": "The boolean trap — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The boolean trap",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The boolean trap",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The boolean trap [Dsix.Pfive.Sone].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The boolean trap [Dsix.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Python has a surprise that matters for type checking.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "v"
+                  },
+                  {
+                    "var": "v",
+                    "line": 7,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Isinstance(True, int) returns True, because bool is a subclass of int.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "v"
+                  },
+                  {
+                    "var": "v",
+                    "line": 2,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The boolean trap [Dsix.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Keep these cases in your pipeline project tests.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The boolean trap — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The boolean trap",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "The boolean trap",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The boolean trap [D6.P5.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The boolean trap [D6.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Python has a surprise that matters for type checking.",
+            "rows": [
+              {
+                "cells": [
+                  "v",
+                  "3"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Isinstance(True, int) returns True, because bool is a subclass of int.",
+            "rows": [
+              {
+                "cells": [
+                  "v",
+                  "3"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The boolean trap [D6.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Keep these cases in your pipeline project tests.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "3     naive=True  strict=True"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "True  naive=True  strict=False"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "2.5   naive=False strict=False"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -787,223 +561,133 @@
       "partTitle": "Output validation in the pipeline",
       "codeHash": "47814a35dfa34d8f947670c85b760bff5f880cc1ca912eca5dbcab7cf7cc961f",
       "spec": {
-        "template": "flow",
-        "title": "Output validation in the pipeline — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Output validation i...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Output validation in the pipeline",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Output validation in the pipeline.",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Output validation i... [Dsix.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Output validation runs after the model answers and before any code uses.",
+            "bars": [
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Extract, parse, check the schema, then use the data.",
+            "bars": [
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Output validation in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Add extract_json and check_schema to your pipeline today.",
+            "bars": [
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": {
+                  "var": "e",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Output validation in the pipeline — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Output validation i...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Output validation in the pipeline",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Output validation in the pipeline [D6.P6.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Output validation i... [D6.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Output validation runs after the model answers and before any code uses.",
+            "bars": [
+              {
+                "label": "s",
+                "value": 6,
+                "tone": "data"
+              },
+              {
+                "label": "e",
+                "value": 37,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Extract, parse, check the schema, then use the data.",
+            "bars": [
+              {
+                "label": "s",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": 37,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Output validation in the pipeline [D6.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Add extract_json and check_schema to your pipeline today.",
+            "bars": [
+              {
+                "label": "s",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "e",
+                "value": 37,
+                "tone": "ok"
+              }
             ]
           }
         ]

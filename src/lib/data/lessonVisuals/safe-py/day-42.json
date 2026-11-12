@@ -2,269 +2,181 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 42,
-  "promptSha": "496146a03dd17afe549b8cae118d5e41eb9cd8dc43f482866041ff04af5c0225",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Selective Prediction & Abstention — Foundations & Mathematical Invariants",
-      "codeHash": "32e321abcea6c48b17bd5c4f0dbd9c54c77c7f7c82a0acd33954c675170f657c",
+      "partTitle": "Selective Prediction — Foundations & Mathematical Invariants",
+      "codeHash": "b2dd19a126508cb9fa6d7a07e005c8a7dd6a8afe0e3f4ee8276427143394d09a",
       "spec": {
-        "template": "flow",
-        "title": "Selective Prediction & Abstention — Foundations & Mathematical Invaria",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Selective Prediction — Foundations & Mathematical Invariants",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Foundation models are frequently overconfident, generating fluent.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "entropy",
+                "value": {
+                  "var": "entropy",
+                  "line": 5,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_entropy",
+                "value": {
+                  "var": "max_entropy",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In high-stakes domains such as clinical diagnosis or legal analysis,.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "entropy",
+                "value": {
+                  "var": "entropy",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "max_entropy",
+                "value": {
+                  "var": "max_entropy",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "entropy",
+                "value": {
+                  "var": "entropy",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "max_entropy",
+                "value": {
+                  "var": "max_entropy",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Selective Prediction & Abstention — Foundations & Mathematical Invaria",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Selective Prediction — Foundations & Mathematical Invariants",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Foundation models are frequently overconfident, generating fluent.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 0.95,
+                "tone": "data"
+              },
+              {
+                "label": "entropy",
+                "value": 0.3349444868386896,
+                "tone": "data"
+              },
+              {
+                "label": "max_entropy",
+                "value": 1.584962500721156,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In high-stakes domains such as clinical diagnosis or legal analysis,.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "p",
+                "value": 0.03,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "entropy",
+                "value": 0.3349444868386896,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "max_entropy",
+                "value": 1.584962500721156,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "p",
+                "value": 0.02,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "entropy",
+                "value": 0.3349444868386896,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "max_entropy",
+                "value": 1.584962500721156,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1063 +184,569 @@
       }
     },
     {
-      "partTitle": "Selective Prediction & Abstention — Core Algorithm & State Representation",
-      "codeHash": "bca51538447b026f35af9ffb9ac3242b2945e99d271be05ce130c16d9e6729ac",
+      "partTitle": "Selective Prediction — Core Algorithm & State Representation",
+      "codeHash": "e47e0f40c2a6d60e45051950851e02e218e68ca6b98bc8d59d8b80f6ae288bb2",
       "spec": {
-        "template": "flow",
-        "title": "Selective Prediction & Abstention — Core Algorithm & State Representat",
-        "nodes": [
+        "template": "states",
+        "title": "Selective Prediction — Core Algorithm & State Representation",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "probabilities",
+            "label": "probabilities"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sorted_p",
+            "label": "sorted_p"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Margin confidence evaluates the difference between the highest class.",
+            "currentState": "probabilities",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "If the top class has a probability of 0.",
+            "currentState": "sorted_p",
+            "transition": {
+              "from": "probabilities",
+              "to": "sorted_p",
+              "label": {
+                "var": "sorted_p",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Selective Prediction — Core Algorithm & State Representation",
+        "states": [
+          {
+            "id": "probabilities",
+            "label": "probabilities"
+          },
+          {
+            "id": "sorted_p",
+            "label": "sorted_p"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Margin confidence evaluates the difference between the highest class.",
+            "currentState": "probabilities",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "If the top class has a probability of 0.",
+            "currentState": "sorted_p",
+            "transition": {
+              "from": "probabilities",
+              "to": "sorted_p",
+              "label": "[0.88, 0.08, 0.04]"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Selective Prediction — Production Implementation & Boundary Mechanics",
+      "codeHash": "e9a6e46862b9adb02987c26b3530cfe6c320b257dd52d1d730661519612da0a7",
+      "spec": {
+        "template": "states",
+        "title": "Selective Prediction — Production Implementation & Boundary Mech",
+        "states": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "max_entropy",
+            "label": "max_entropy"
+          },
+          {
+            "id": "min_margin",
+            "label": "min_margin"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The SelectivePredictionGate class combines maximum entropy ceilings.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "If predictive entropy exceeds the ceiling or margin confidence falls below.",
+            "currentState": "max_entropy",
+            "transition": {
+              "from": "self",
+              "to": "max_entropy",
+              "label": {
+                "var": "max_entropy",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for selective.",
+            "currentState": "min_margin",
+            "transition": {
+              "from": "max_entropy",
+              "to": "min_margin",
+              "label": {
+                "var": "min_margin",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Selective Prediction — Production Implementation & Boundary Mech",
+        "states": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "max_entropy",
+            "label": "max_entropy"
+          },
+          {
+            "id": "min_margin",
+            "label": "min_margin"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The SelectivePredictionGate class combines maximum entropy ceilings.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "If predictive entropy exceeds the ceiling or margin confidence falls below.",
+            "currentState": "max_entropy",
+            "transition": {
+              "from": "self",
+              "to": "max_entropy",
+              "label": "0.45"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for selective.",
+            "currentState": "min_margin",
+            "transition": {
+              "from": "max_entropy",
+              "to": "min_margin",
+              "label": "0.4"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Selective Prediction — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "f117395c817b758a639517a9b33b34e4300812fbe8f213972822476e36040609",
+      "spec": {
+        "template": "flow",
+        "title": "Selective Prediction — Failure Modes, Hardware Bottlenecks & Deb",
+        "nodes": [
+          {
+            "id": "action",
+            "label": "action"
+          },
+          {
+            "id": "primary_response",
+            "label": "primary_response"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "When an abstention gate triggers, the orchestration layer must execute.",
+            "values": {
+              "action": {
+                "var": "action",
+                "line": 2,
+                "hit": 1
+              },
+              "primary_response": {
+                "var": "primary_response",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "action": "data",
+              "primary_response": "data"
+            },
+            "arrows": [
+              [
+                "action",
+                "primary_response"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "The routing_decision_for_abstention function replaces unverified primary.",
+            "values": {
+              "action": {
+                "var": "action",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "primary_response": {
+                "var": "primary_response",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "action": "data",
+              "primary_response": "data"
+            },
+            "arrows": [
+              [
+                "action",
+                "primary_response"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "values": {
+              "action": {
+                "var": "action",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "primary_response": {
+                "var": "primary_response",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "action": "ok",
+              "primary_response": "ok"
+            },
+            "arrows": [
+              [
+                "action",
+                "primary_response"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Selective Prediction & Abstention — Core Algorithm & State Representat",
+        "title": "Selective Prediction — Failure Modes, Hardware Bottlenecks & Deb",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "action",
+            "label": "action"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "primary_response",
+            "label": "primary_response"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When an abstention gate triggers, the orchestration layer must execute.",
+            "values": {
+              "action": "'PREDICT'",
+              "primary_response": "'The answer is 42.'"
+            },
+            "tones": {
+              "action": "data",
+              "primary_response": "data"
+            },
+            "arrows": [
+              [
+                "action",
+                "primary_response"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The routing_decision_for_abstention function replaces unverified primary.",
+            "values": {
+              "action": "'PREDICT'",
+              "primary_response": "'The answer is 42.'"
+            },
+            "tones": {
+              "action": "data",
+              "primary_response": "data"
+            },
+            "arrows": [
+              [
+                "action",
+                "primary_response"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "values": {
+              "action": "'ABSTAIN'",
+              "primary_response": "'Unused draft answer.'"
+            },
+            "tones": {
+              "action": "ok",
+              "primary_response": "ok"
+            },
+            "arrows": [
+              [
+                "action",
+                "primary_response"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Selective Prediction & Abstention — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "7443a0c57285d897bea4e5443f2cd5527bab9401b1f4f7ce6905b3569dbc6faf",
+      "partTitle": "Selective Prediction — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "da06d38c2091383a74d187eab097ecd8ee855dea3a696d0d80fd848dabdb75bb",
       "spec": {
-        "template": "flow",
-        "title": "Selective Prediction & Abstention — Throughput Optimization & Edge-Cas",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Selective Prediction — Production Capstone & Enterprise SRE Inte",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The coverage_accuracy_tradeoff function models the relationship between.",
+            "bars": [
+              {
+                "label": "abstain_thresh",
+                "value": {
+                  "var": "abstain_threshold",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "coverage",
+                "value": {
+                  "var": "coverage",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "correct",
+                "value": {
+                  "var": "correct",
+                  "line": 4,
+                  "hit": 6
+                },
+                "tone": "data"
+              },
+              {
+                "label": "accuracy",
+                "value": {
+                  "var": "accuracy",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Coverage represents the percentage of incoming queries the system chooses.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "abstain_thresh",
+                "value": {
+                  "var": "abstain_threshold",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "coverage",
+                "value": {
+                  "var": "coverage",
+                  "line": 4,
+                  "hit": 6
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "correct",
+                "value": {
+                  "var": "correct",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "accuracy",
+                "value": {
+                  "var": "accuracy",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say13",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "abstain_thresh",
+                "value": {
+                  "var": "abstain_threshold",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "coverage",
+                "value": {
+                  "var": "coverage",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "correct",
+                "value": {
+                  "var": "correct",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "accuracy",
+                "value": {
+                  "var": "accuracy",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Selective Prediction & Abstention — Throughput Optimization & Edge-Cas",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Selective Prediction — Production Capstone & Enterprise SRE Inte",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "The coverage_accuracy_tradeoff function models the relationship between.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "abstain_thresh",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "coverage",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "correct",
+                "value": 2,
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "accuracy",
+                "value": 0.5,
+                "tone": "data"
               }
             ]
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Selective Prediction & Abstention — Resilience Guardrails & Failure Recovery",
-      "codeHash": "aac63dc183d277e79236303272682ad71f282cca276f6883ac60fbc7dd3ea3c4",
-      "spec": {
-        "template": "flow",
-        "title": "Selective Prediction & Abstention — Resilience Guardrails & Failure Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Coverage represents the percentage of incoming queries the system chooses.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "abstain_thresh",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "coverage",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "correct",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "accuracy",
+                "value": 0.5,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say13",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "abstain_thresh",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "coverage",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "correct",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Selective Prediction & Abstention — Resilience Guardrails & Failure Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Selective Prediction & Abstention — Production Telemetry & Verification Audit",
-      "codeHash": "aa775b1af2bf46be1c43b05eda5f968d17aa7b6d9c925394a759b263307fb658",
-      "spec": {
-        "template": "flow",
-        "title": "Selective Prediction & Abstention — Production Telemetry & Verificatio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Selective Prediction & Abstention — Production Telemetry & Verificatio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "accuracy",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }

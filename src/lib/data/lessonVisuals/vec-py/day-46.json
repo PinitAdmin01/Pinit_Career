@@ -2,1334 +2,1292 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 46,
-  "promptSha": "0db453727a271b727bcf27acd96feb10ed43f54e20e610bc15031d407ccefb91",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "LSM-Vector Segment Architecture — Foundations & Mathematical Invariants",
-      "codeHash": "eb0526a60e6a3169053ee74586852e754692737e782f6961bddfd1cf2cb2b3c3",
+      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Foundations & Mathematical Invariants",
+      "codeHash": "f5c0bd37dfda3b4ddfef8b8105d6f9e6da86d7ff9cc86a62041daf2aea7678ae",
       "spec": {
         "template": "flow",
-        "title": "LSM-Vector Segment Architecture — Foundations & Mathematical Invariant",
+        "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombston",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "capacity",
+            "label": "capacity"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "mem",
+            "label": "mem"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "doc_id",
+            "label": "doc_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Rebuilding an entire HNSW or DiskANN proximity graph for every newly.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "capacity": {
+                "var": "capacity",
+                "line": 3,
+                "hit": 1
+              },
+              "mem": {
+                "var": "mem",
+                "line": 11,
+                "hit": 1
+              },
+              "doc_id": {
+                "var": "doc_id",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "capacity": "data",
+              "mem": "data",
+              "doc_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "mem"
+              ],
+              [
+                "mem",
+                "doc_id"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Real-time vector applications require high-throughput streaming upserts.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "capacity": {
+                "var": "capacity",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "mem": {
+                "var": "mem",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "doc_id": {
+                "var": "doc_id",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "capacity": "data",
+              "mem": "data",
+              "doc_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "mem"
+              ],
+              [
+                "mem",
+                "doc_id"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say13",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "capacity": {
+                "var": "capacity",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "mem": {
+                "var": "mem",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "doc_id": {
+                "var": "doc_id",
+                "line": 8,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "capacity": "ok",
+              "mem": "ok",
+              "doc_id": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "mem"
+              ],
+              [
+                "mem",
+                "doc_id"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "LSM-Vector Segment Architecture — Foundations & Mathematical Invariant",
+        "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombston",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "capacity",
+            "label": "capacity"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "mem",
+            "label": "mem"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "doc_id",
+            "label": "doc_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Rebuilding an entire HNSW or DiskANN proximity graph for every newly.",
+            "values": {
+              "self": "<VectorMemTable>",
+              "capacity": "2",
+              "mem": "<VectorMemTable>",
+              "doc_id": "101"
+            },
+            "tones": {
+              "self": "data",
+              "capacity": "data",
+              "mem": "data",
+              "doc_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "mem"
+              ],
+              [
+                "mem",
+                "doc_id"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Real-time vector applications require high-throughput streaming upserts.",
+            "values": {
+              "self": "<VectorMemTable>",
+              "capacity": "2",
+              "mem": "<VectorMemTable>",
+              "doc_id": "101"
+            },
+            "tones": {
+              "self": "data",
+              "capacity": "data",
+              "mem": "data",
+              "doc_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "mem"
+              ],
+              [
+                "mem",
+                "doc_id"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say13",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "values": {
+              "self": "<VectorMemTable>",
+              "capacity": "2",
+              "mem": "<VectorMemTable>",
+              "doc_id": "102"
+            },
+            "tones": {
+              "self": "ok",
+              "capacity": "ok",
+              "mem": "ok",
+              "doc_id": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "mem"
+              ],
+              [
+                "mem",
+                "doc_id"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "LSM-Vector Segment Architecture — Core Algorithm & State Representation",
-      "codeHash": "f30eeefffb0d517927cf0318181558c4f118aae3c235507dec58999c4ff13276",
+      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Core Algorithm & State Representation",
+      "codeHash": "ed10bcca87cd1289dcd476ebcf135c2bb92da71ac1de7ac79ede6a0bed924922",
       "spec": {
         "template": "flow",
-        "title": "LSM-Vector Segment Architecture — Core Algorithm & State Representatio",
+        "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombston",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tomb",
+            "label": "tomb"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "doc_id",
+            "label": "doc_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deleting a vector from an immutable on-disk proximity graph.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "tomb": {
+                "var": "tomb",
+                "line": 11,
+                "hit": 1
+              },
+              "doc_id": {
+                "var": "doc_id",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "tomb": "data",
+              "doc_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "tomb"
+              ],
+              [
+                "tomb",
+                "doc_id"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Instead of physically modifying immutable segments on disk, LSM systems.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tomb": {
+                "var": "tomb",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "doc_id": {
+                "var": "doc_id",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "tomb": "data",
+              "doc_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "tomb"
+              ],
+              [
+                "tomb",
+                "doc_id"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "tomb": {
+                "var": "tomb",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "doc_id": {
+                "var": "doc_id",
+                "line": 9,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "tomb": "ok",
+              "doc_id": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "tomb"
+              ],
+              [
+                "tomb",
+                "doc_id"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "LSM-Vector Segment Architecture — Core Algorithm & State Representatio",
+        "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombston",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tomb",
+            "label": "tomb"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "doc_id",
+            "label": "doc_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Deleting a vector from an immutable on-disk proximity graph.",
+            "values": {
+              "self": "<TombstoneBitmap>",
+              "tomb": "<TombstoneBitmap>",
+              "doc_id": "101"
+            },
+            "tones": {
+              "self": "data",
+              "tomb": "data",
+              "doc_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "tomb"
+              ],
+              [
+                "tomb",
+                "doc_id"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Instead of physically modifying immutable segments on disk, LSM systems.",
+            "values": {
+              "self": "<TombstoneBitmap>",
+              "tomb": "<TombstoneBitmap>",
+              "doc_id": "101"
+            },
+            "tones": {
+              "self": "data",
+              "tomb": "data",
+              "doc_id": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "tomb"
+              ],
+              [
+                "tomb",
+                "doc_id"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "self": "<TombstoneBitmap>",
+              "tomb": "<TombstoneBitmap>",
+              "doc_id": "102"
+            },
+            "tones": {
+              "self": "ok",
+              "tomb": "ok",
+              "doc_id": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "tomb"
+              ],
+              [
+                "tomb",
+                "doc_id"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "LSM-Vector Segment Architecture — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "a4e41084cfe6e4089166a198766a9a31e4dfc9e5b8fdd2562358181e751f9837",
+      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "31c4eb97ce1cb83f1d3ebc74ca7fa1c8804857baa2373e92be7c42a9a3742f80",
       "spec": {
         "template": "flow",
-        "title": "LSM-Vector Segment Architecture — Throughput Optimization & Edge-Case ",
+        "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombston",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "s1",
+            "label": "s1"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "s2",
+            "label": "s2"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "dead",
+            "label": "dead"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "seg_a",
+            "label": "seg_a"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Over time, accumulating tombstoned vectors wastes storage space.",
+            "values": {
+              "s1": {
+                "var": "s1",
+                "line": 11,
+                "hit": 1
+              },
+              "s2": {
+                "var": "s2",
+                "line": 12,
+                "hit": 1
+              },
+              "dead": {
+                "var": "dead",
+                "line": 13,
+                "hit": 1
+              },
+              "seg_a": {
+                "var": "seg_a",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "data",
+              "dead": "data",
+              "seg_a": "data"
+            },
+            "arrows": [
+              [
+                "s1",
+                "s2"
+              ],
+              [
+                "s2",
+                "dead"
+              ],
+              [
+                "dead",
+                "seg_a"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Background merge compaction resolves this by periodically reading older.",
+            "values": {
+              "s1": {
+                "var": "s1",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "s2": {
+                "var": "s2",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "dead": {
+                "var": "dead",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "seg_a": {
+                "var": "seg_a",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "data",
+              "dead": "data",
+              "seg_a": "data"
+            },
+            "arrows": [
+              [
+                "s1",
+                "s2"
+              ],
+              [
+                "s2",
+                "dead"
+              ],
+              [
+                "dead",
+                "seg_a"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "s1": {
+                "var": "s1",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "s2": {
+                "var": "s2",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "dead": {
+                "var": "dead",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "seg_a": {
+                "var": "seg_a",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "dead": "ok",
+              "seg_a": "ok"
+            },
+            "arrows": [
+              [
+                "s1",
+                "s2"
+              ],
+              [
+                "s2",
+                "dead"
+              ],
+              [
+                "dead",
+                "seg_a"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "LSM-Vector Segment Architecture — Throughput Optimization & Edge-Case ",
+        "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombston",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "s1",
+            "label": "s1"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "s2",
+            "label": "s2"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "dead",
+            "label": "dead"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "seg_a",
+            "label": "seg_a"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Over time, accumulating tombstoned vectors wastes storage space.",
+            "values": {
+              "s1": "{1: [0.1], 2: [0.2]}",
+              "s2": "{3: [0.3], 4: [0.4]}",
+              "dead": "{2, 3}",
+              "seg_a": "{1: [0.1], 2: [0.2]}"
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "data",
+              "dead": "data",
+              "seg_a": "data"
+            },
+            "arrows": [
+              [
+                "s1",
+                "s2"
+              ],
+              [
+                "s2",
+                "dead"
+              ],
+              [
+                "dead",
+                "seg_a"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Background merge compaction resolves this by periodically reading older.",
+            "values": {
+              "s1": "{1: [0.1], 2: [0.2]}",
+              "s2": "{3: [0.3], 4: [0.4]}",
+              "dead": "{2, 3}",
+              "seg_a": "{1: [0.1], 2: [0.2]}"
+            },
+            "tones": {
+              "s1": "data",
+              "s2": "data",
+              "dead": "data",
+              "seg_a": "data"
+            },
+            "arrows": [
+              [
+                "s1",
+                "s2"
+              ],
+              [
+                "s2",
+                "dead"
+              ],
+              [
+                "dead",
+                "seg_a"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "s1": "{1: [0.1], 2: [0.2]}",
+              "s2": "{3: [0.3], 4: [0.4]}",
+              "dead": "{2, 3}",
+              "seg_a": "{1: [0.1], 2: [0.2]}"
+            },
+            "tones": {
+              "s1": "ok",
+              "s2": "ok",
+              "dead": "ok",
+              "seg_a": "ok"
+            },
+            "arrows": [
+              [
+                "s1",
+                "s2"
+              ],
+              [
+                "s2",
+                "dead"
+              ],
+              [
+                "dead",
+                "seg_a"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "LSM-Vector Segment Architecture — Resilience Guardrails & Failure Recovery",
-      "codeHash": "9ff59f432abe74f066725020cff97814f14e903ff0c931496e8747b6c72b8386",
+      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Resilience Guardrails & Failure Recovery",
+      "codeHash": "fcb60e7d10a828cea4dd54cd1a431215a3f9a9128d96078c8b22d6a42da1556b",
       "spec": {
         "template": "flow",
-        "title": "LSM-Vector Segment Architecture — Resilience Guardrails & Failure Reco",
+        "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombston",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "doc_id",
+            "label": "doc_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "memtable",
+            "label": "memtable"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "tombstones",
+            "label": "tombstones"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production point-lookup queries must check tombstone state before.",
+            "values": {
+              "doc_id": {
+                "var": "doc_id",
+                "line": 2,
+                "hit": 1
+              },
+              "memtable": {
+                "var": "memtable",
+                "line": 2,
+                "hit": 1
+              },
+              "tombstones": {
+                "var": "tombstones",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "doc_id": "data",
+              "memtable": "data",
+              "tombstones": "data"
+            },
+            "arrows": [
+              [
+                "doc_id",
+                "memtable"
+              ],
+              [
+                "memtable",
+                "tombstones"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If a vector was deleted but still lingers in an unflushed MemTable.",
+            "values": {
+              "doc_id": {
+                "var": "doc_id",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "memtable": {
+                "var": "memtable",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "tombstones": {
+                "var": "tombstones",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "doc_id": "data",
+              "memtable": "data",
+              "tombstones": "data"
+            },
+            "arrows": [
+              [
+                "doc_id",
+                "memtable"
+              ],
+              [
+                "memtable",
+                "tombstones"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "doc_id": {
+                "var": "doc_id",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "memtable": {
+                "var": "memtable",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "tombstones": {
+                "var": "tombstones",
+                "line": 2,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "doc_id": "ok",
+              "memtable": "ok",
+              "tombstones": "ok"
+            },
+            "arrows": [
+              [
+                "doc_id",
+                "memtable"
+              ],
+              [
+                "memtable",
+                "tombstones"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "LSM-Vector Segment Architecture — Resilience Guardrails & Failure Reco",
+        "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombston",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "doc_id",
+            "label": "doc_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "memtable",
+            "label": "memtable"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "tombstones",
+            "label": "tombstones"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production point-lookup queries must check tombstone state before.",
+            "values": {
+              "doc_id": "1",
+              "memtable": "{1: [0.9]}",
+              "tombstones": "set()"
+            },
+            "tones": {
+              "doc_id": "data",
+              "memtable": "data",
+              "tombstones": "data"
+            },
+            "arrows": [
+              [
+                "doc_id",
+                "memtable"
+              ],
+              [
+                "memtable",
+                "tombstones"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If a vector was deleted but still lingers in an unflushed MemTable.",
+            "values": {
+              "doc_id": "1",
+              "memtable": "{1: [0.9]}",
+              "tombstones": "set()"
+            },
+            "tones": {
+              "doc_id": "data",
+              "memtable": "data",
+              "tombstones": "data"
+            },
+            "arrows": [
+              [
+                "doc_id",
+                "memtable"
+              ],
+              [
+                "memtable",
+                "tombstones"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "doc_id": "1",
+              "memtable": "{1: [0.9]}",
+              "tombstones": "{1}"
+            },
+            "tones": {
+              "doc_id": "ok",
+              "memtable": "ok",
+              "tombstones": "ok"
+            },
+            "arrows": [
+              [
+                "doc_id",
+                "memtable"
+              ],
+              [
+                "memtable",
+                "tombstones"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "LSM-Vector Segment Architecture — Production Telemetry & Verification Audit",
-      "codeHash": "f17e3540b791d68e3f135fc99f47d7398b99364c9f3a167053b794a026d76780",
+      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Production Telemetry & Verification Audit",
+      "codeHash": "3ce2bbd652d787d711dd8de8dc29e9d58b58415076f09e00046b011c9158f40c",
       "spec": {
         "template": "flow",
-        "title": "LSM-Vector Segment Architecture — Production Telemetry & Verification ",
+        "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombston",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "before_docs",
+            "label": "before_docs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "after_docs",
+            "label": "after_docs"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "dim",
+            "label": "dim"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "freed_docs",
+            "label": "freed_docs"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Compaction telemetry audits quantify storage reclamation and disk.",
+            "values": {
+              "before_docs": {
+                "var": "before_docs",
+                "line": 2,
+                "hit": 1
+              },
+              "after_docs": {
+                "var": "after_docs",
+                "line": 2,
+                "hit": 1
+              },
+              "dim": {
+                "var": "dim",
+                "line": 2,
+                "hit": 1
+              },
+              "freed_docs": {
+                "var": "freed_docs",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "before_docs": "data",
+              "after_docs": "data",
+              "dim": "data",
+              "freed_docs": "data"
+            },
+            "arrows": [
+              [
+                "before_docs",
+                "after_docs"
+              ],
+              [
+                "after_docs",
+                "dim"
+              ],
+              [
+                "dim",
+                "freed_docs"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "When high volumes of updates and deletes occur, tracking the megabytes.",
+            "values": {
+              "before_docs": {
+                "var": "before_docs",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "after_docs": {
+                "var": "after_docs",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "dim": {
+                "var": "dim",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "freed_docs": {
+                "var": "freed_docs",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "before_docs": "data",
+              "after_docs": "data",
+              "dim": "data",
+              "freed_docs": "data"
+            },
+            "arrows": [
+              [
+                "before_docs",
+                "after_docs"
+              ],
+              [
+                "after_docs",
+                "dim"
+              ],
+              [
+                "dim",
+                "freed_docs"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "before_docs": {
+                "var": "before_docs",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "after_docs": {
+                "var": "after_docs",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "dim": {
+                "var": "dim",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "freed_docs": {
+                "var": "freed_docs",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "before_docs": "ok",
+              "after_docs": "ok",
+              "dim": "ok",
+              "freed_docs": "ok"
+            },
+            "arrows": [
+              [
+                "before_docs",
+                "after_docs"
+              ],
+              [
+                "after_docs",
+                "dim"
+              ],
+              [
+                "dim",
+                "freed_docs"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "LSM-Vector Segment Architecture — Production Telemetry & Verification ",
+        "title": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombston",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "before_docs",
+            "label": "before_docs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "after_docs",
+            "label": "after_docs"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "dim",
+            "label": "dim"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "freed_docs",
+            "label": "freed_docs"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Compaction telemetry audits quantify storage reclamation and disk.",
+            "values": {
+              "before_docs": "100000",
+              "after_docs": "75000",
+              "dim": "128",
+              "freed_docs": "25000"
+            },
+            "tones": {
+              "before_docs": "data",
+              "after_docs": "data",
+              "dim": "data",
+              "freed_docs": "data"
+            },
+            "arrows": [
+              [
+                "before_docs",
+                "after_docs"
+              ],
+              [
+                "after_docs",
+                "dim"
+              ],
+              [
+                "dim",
+                "freed_docs"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "When high volumes of updates and deletes occur, tracking the megabytes.",
+            "values": {
+              "before_docs": "100000",
+              "after_docs": "75000",
+              "dim": "128",
+              "freed_docs": "25000"
+            },
+            "tones": {
+              "before_docs": "data",
+              "after_docs": "data",
+              "dim": "data",
+              "freed_docs": "data"
+            },
+            "arrows": [
+              [
+                "before_docs",
+                "after_docs"
+              ],
+              [
+                "after_docs",
+                "dim"
+              ],
+              [
+                "dim",
+                "freed_docs"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "before_docs": "100000",
+              "after_docs": "75000",
+              "dim": "128",
+              "freed_docs": "25000"
+            },
+            "tones": {
+              "before_docs": "ok",
+              "after_docs": "ok",
+              "dim": "ok",
+              "freed_docs": "ok"
+            },
+            "arrows": [
+              [
+                "before_docs",
+                "after_docs"
+              ],
+              [
+                "after_docs",
+                "dim"
+              ],
+              [
+                "dim",
+                "freed_docs"
+              ]
             ]
           }
         ]

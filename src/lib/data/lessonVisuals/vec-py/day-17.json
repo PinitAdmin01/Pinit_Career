@@ -2,85 +2,84 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 17,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Benchmarking a configuration",
       "codeHash": "f2bed5305b16f8598f95341e9ddc172d9b1996f0d9cb3dd750cd3abff5dd14ca",
       "spec": {
-        "template": "table",
-        "title": "Empirical benchmark recall and latency evaluation",
-        "columns": [
-          "configs",
-          "recall",
-          "configs"
-        ],
+        "template": "bars",
+        "title": "Benchmarking a configuration",
         "steps": [
           {
             "at": "say1",
-            "caption": "A benchmark measures recall and query latency for each index configuration.",
-            "rows": [
+            "caption": "A benchmark runs a set of realistic queries against an index configuration.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "configs"
-                  },
-                  {
-                    "text": "recall"
-                  },
-                  {
-                    "text": "configs"
-                  }
-                ],
-                "tone": "ok"
+                "label": "recall",
+                "value": {
+                  "var": "recall",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "configs"
-                  },
-                  {
-                    "text": "recall"
-                  },
-                  {
-                    "text": "configs"
-                  }
-                ],
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Good benchmarks make index configuration choices objective and repeatable.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how recall updates comes during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "configs"
-                  },
-                  {
-                    "text": "recall"
-                  },
-                  {
-                    "text": "configs"
-                  }
-                ],
-                "tone": "data"
+                "label": "recall",
+                "value": {
+                  "var": "recall",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "configs"
-                  },
-                  {
-                    "text": "recall"
-                  },
-                  {
-                    "text": "recall"
-                  }
-                ],
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Running each benchmark a few times and reporting the median protects.",
+            "bars": [
+              {
+                "label": "recall",
+                "value": {
+                  "var": "recall",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -88,54 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Empirical benchmark recall and latency evaluation",
-        "columns": [
-          "configs",
-          "recall",
-          "configs"
-        ],
+        "template": "bars",
+        "title": "Benchmarking a configuration",
         "steps": [
           {
             "at": "say1",
-            "caption": "A benchmark measures recall and query latency for each index configuration.",
-            "rows": [
+            "caption": "A benchmark runs a set of realistic queries against an index configuration.",
+            "bars": [
               {
-                "cells": [
-                  "configs",
-                  "recall",
-                  "configs"
-                ],
-                "tone": "ok"
+                "label": "recall",
+                "value": 0.82,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "configs",
-                  "recall",
-                  "configs"
-                ],
+                "label": "ms",
+                "value": 1.2,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Good benchmarks make index configuration choices objective and repeatable.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how recall updates comes during execution.",
+            "bars": [
               {
-                "cells": [
-                  "configs",
-                  "recall",
-                  "configs"
-                ],
-                "tone": "data"
+                "label": "recall",
+                "value": 0.82,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "configs",
-                  "recall",
-                  "recall"
-                ],
+                "label": "ms",
+                "value": 1.2,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Running each benchmark a few times and reporting the median protects.",
+            "bars": [
+              {
+                "label": "recall",
+                "value": 0.91,
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": 1.9,
                 "tone": "ok"
               }
             ]
@@ -147,78 +145,77 @@
       "partTitle": "Dominated configurations",
       "codeHash": "21dd0134c8355f1126a806a44f24fbdaae287e198025940d4be1f06f398660d2",
       "spec": {
-        "template": "table",
-        "title": "Pareto frontier identification across configurations",
-        "columns": [
-          "configs",
-          "beaten_by",
-          "configs"
-        ],
+        "template": "bars",
+        "title": "Dominated configurations",
         "steps": [
           {
             "at": "say1",
-            "caption": "A configuration is dominated if another option is strictly better.",
-            "rows": [
+            "caption": "A configuration is dominated if another one is at least as good on both.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "configs"
-                  },
-                  {
-                    "text": "beaten_by"
-                  },
-                  {
-                    "text": "configs"
-                  }
-                ],
-                "tone": "ok"
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "configs"
-                  },
-                  {
-                    "text": "beaten_by"
-                  },
-                  {
-                    "text": "configs"
-                  }
-                ],
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The remaining configurations form the optimal Pareto front curve.",
-            "rows": [
+            "at": "say2",
+            "caption": "Dominated configurations are never worth choosing.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "configs"
-                  },
-                  {
-                    "text": "beaten_by"
-                  },
-                  {
-                    "text": "configs"
-                  }
-                ],
-                "tone": "data"
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "configs"
-                  },
-                  {
-                    "text": "beaten_by"
-                  },
-                  {
-                    "text": "beaten_by"
-                  }
-                ],
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A simple chart with recall on one axis and latency on the other makes.",
+            "bars": [
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +223,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Pareto frontier identification across configurations",
-        "columns": [
-          "configs",
-          "beaten_by",
-          "configs"
-        ],
+        "template": "bars",
+        "title": "Dominated configurations",
         "steps": [
           {
             "at": "say1",
-            "caption": "A configuration is dominated if another option is strictly better.",
-            "rows": [
+            "caption": "A configuration is dominated if another one is at least as good on both.",
+            "bars": [
               {
-                "cells": [
-                  "configs",
-                  "beaten_by",
-                  "configs"
-                ],
-                "tone": "ok"
+                "label": "r",
+                "value": 0.91,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "configs",
-                  "beaten_by",
-                  "configs"
-                ],
+                "label": "ms",
+                "value": 1.9,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The remaining configurations form the optimal Pareto front curve.",
-            "rows": [
+            "at": "say2",
+            "caption": "Dominated configurations are never worth choosing.",
+            "bars": [
               {
-                "cells": [
-                  "configs",
-                  "beaten_by",
-                  "configs"
-                ],
-                "tone": "data"
+                "label": "r",
+                "value": 0.91,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "configs",
-                  "beaten_by",
-                  "beaten_by"
-                ],
+                "label": "ms",
+                "value": 1.9,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A simple chart with recall on one axis and latency on the other makes.",
+            "bars": [
+              {
+                "label": "r",
+                "value": 0.91,
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": 1.9,
                 "tone": "ok"
               }
             ]
@@ -285,134 +281,105 @@
       "partTitle": "Choosing with requirements",
       "codeHash": "be5ad8420e7db97a8003c616dac9c4651a2c3037ea9af855a5cad225c672c42f",
       "spec": {
-        "template": "table",
-        "title": "Constrained configuration selection under SLA targets",
-        "columns": [
-          "configs",
-          "min_recall",
-          "max_ms"
-        ],
+        "template": "cells",
+        "title": "Choosing with requirements",
         "steps": [
           {
-            "at": "say2",
-            "caption": "The best choice is the fastest configuration meeting target requirements.",
-            "rows": [
+            "at": "say1",
+            "caption": "Product requirements usually set a minimum recall, such as 0.",
+            "items": {
+              "var": "req",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "configs"
-                  },
-                  {
-                    "text": "min_recall"
-                  },
-                  {
-                    "text": "max_ms"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "configs"
-                  },
-                  {
-                    "text": "min_recall"
-                  },
-                  {
-                    "text": "max_ms"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "If several candidates are equally fast, select the one with higher recall.",
-            "rows": [
+            "at": "say2",
+            "caption": "The best choice is the fastest configuration that meets the recall target.",
+            "items": {
+              "var": "req",
+              "line": 5,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "configs"
-                  },
-                  {
-                    "text": "min_recall"
-                  },
-                  {
-                    "text": "max_ms"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "It also makes decisions repeatable.",
+            "items": {
+              "var": "req",
+              "line": 5,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "configs"
-                  },
-                  {
-                    "text": "min_recall"
-                  },
-                  {
-                    "text": "min_recall"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Constrained configuration selection under SLA targets",
-        "columns": [
-          "configs",
-          "min_recall",
-          "max_ms"
-        ],
+        "template": "cells",
+        "title": "Choosing with requirements",
         "steps": [
           {
-            "at": "say2",
-            "caption": "The best choice is the fastest configuration meeting target requirements.",
-            "rows": [
+            "at": "say1",
+            "caption": "Product requirements usually set a minimum recall, such as 0.",
+            "items": [
+              "0.9",
+              "None"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "configs",
-                  "min_recall",
-                  "max_ms"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "configs",
-                  "min_recall",
-                  "max_ms"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "If several candidates are equally fast, select the one with higher recall.",
-            "rows": [
+            "at": "say2",
+            "caption": "The best choice is the fastest configuration that meets the recall target.",
+            "items": [
+              "0.99",
+              "10"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "configs",
-                  "min_recall",
-                  "max_ms"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "It also makes decisions repeatable.",
+            "items": [
+              "0.99",
+              "None"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "configs",
-                  "min_recall",
-                  "min_recall"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -423,135 +390,277 @@
       "partTitle": "Tuning in practice",
       "codeHash": "c15cbc096581374aaebc1307a83ef484f3688f43e05ed057f8a04650b849513a",
       "spec": {
-        "template": "table",
-        "title": "Iterative parameter sweep and convergence stops",
-        "columns": [
-          "measured",
-          "target",
-          "measured"
+        "template": "flow",
+        "title": "Tuning in practice",
+        "nodes": [
+          {
+            "id": "measured",
+            "label": "measured"
+          },
+          {
+            "id": "target",
+            "label": "target"
+          },
+          {
+            "id": "ef",
+            "label": "ef"
+          },
+          {
+            "id": "recall",
+            "label": "recall"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tune one parameter setting at a time starting from sensible defaults.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "measured"
-                  },
-                  {
-                    "text": "target"
-                  },
-                  {
-                    "text": "measured"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Tune one setting at a time, starting from sensible defaults.",
+            "values": {
+              "measured": {
+                "var": "measured",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "measured"
-                  },
-                  {
-                    "text": "target"
-                  },
-                  {
-                    "text": "measured"
-                  }
-                ],
-                "tone": "data"
+              "target": {
+                "var": "target",
+                "line": 2,
+                "hit": 1
+              },
+              "ef": {
+                "var": "ef",
+                "line": 3,
+                "hit": 1
+              },
+              "recall": {
+                "var": "recall",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "measured": "data",
+              "target": "data",
+              "ef": "data",
+              "recall": "data"
+            },
+            "arrows": [
+              [
+                "measured",
+                "target"
+              ],
+              [
+                "target",
+                "ef"
+              ],
+              [
+                "ef",
+                "recall"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Recall exhibits diminishing returns, making parameter doubling effective.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "measured"
-                  },
-                  {
-                    "text": "target"
-                  },
-                  {
-                    "text": "measured"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "For HNSW, fix M and efConstruction, then sweep ef.",
+            "values": {
+              "measured": {
+                "var": "measured",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "measured"
-                  },
-                  {
-                    "text": "target"
-                  },
-                  {
-                    "text": "target"
-                  }
-                ],
-                "tone": "ok"
+              "target": {
+                "var": "target",
+                "line": 3,
+                "hit": 1
+              },
+              "ef": {
+                "var": "ef",
+                "line": 4,
+                "hit": 1
+              },
+              "recall": {
+                "var": "recall",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "measured": "data",
+              "target": "data",
+              "ef": "data",
+              "recall": "data"
+            },
+            "arrows": [
+              [
+                "measured",
+                "target"
+              ],
+              [
+                "target",
+                "ef"
+              ],
+              [
+                "ef",
+                "recall"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Keeping a short note of each tuning session, with the date and data size.",
+            "values": {
+              "measured": {
+                "var": "measured",
+                "line": 3,
+                "hit": 1
+              },
+              "target": {
+                "var": "target",
+                "line": 4,
+                "hit": 1
+              },
+              "ef": {
+                "var": "ef",
+                "line": 5,
+                "hit": 1
+              },
+              "recall": {
+                "var": "recall",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "measured": "ok",
+              "target": "ok",
+              "ef": "ok",
+              "recall": "ok"
+            },
+            "arrows": [
+              [
+                "measured",
+                "target"
+              ],
+              [
+                "target",
+                "ef"
+              ],
+              [
+                "ef",
+                "recall"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Iterative parameter sweep and convergence stops",
-        "columns": [
-          "measured",
-          "target",
-          "measured"
+        "template": "flow",
+        "title": "Tuning in practice",
+        "nodes": [
+          {
+            "id": "measured",
+            "label": "measured"
+          },
+          {
+            "id": "target",
+            "label": "target"
+          },
+          {
+            "id": "ef",
+            "label": "ef"
+          },
+          {
+            "id": "recall",
+            "label": "recall"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Tune one parameter setting at a time starting from sensible defaults.",
-            "rows": [
-              {
-                "cells": [
-                  "measured",
-                  "target",
-                  "measured"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "measured",
-                  "target",
-                  "measured"
-                ],
-                "tone": "data"
-              }
+            "caption": "Tune one setting at a time, starting from sensible defaults.",
+            "values": {
+              "measured": "{16: [0.82, 1.2], 32: [0.91, 1.9], 64: …",
+              "target": "0.95",
+              "ef": "16",
+              "recall": "0.82"
+            },
+            "tones": {
+              "measured": "data",
+              "target": "data",
+              "ef": "data",
+              "recall": "data"
+            },
+            "arrows": [
+              [
+                "measured",
+                "target"
+              ],
+              [
+                "target",
+                "ef"
+              ],
+              [
+                "ef",
+                "recall"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Recall exhibits diminishing returns, making parameter doubling effective.",
-            "rows": [
-              {
-                "cells": [
-                  "measured",
-                  "target",
-                  "measured"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "measured",
-                  "target",
-                  "target"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "For HNSW, fix M and efConstruction, then sweep ef.",
+            "values": {
+              "measured": "{16: [0.82, 1.2], 32: [0.91, 1.9], 64: …",
+              "target": "0.95",
+              "ef": "16",
+              "recall": "0.82"
+            },
+            "tones": {
+              "measured": "data",
+              "target": "data",
+              "ef": "data",
+              "recall": "data"
+            },
+            "arrows": [
+              [
+                "measured",
+                "target"
+              ],
+              [
+                "target",
+                "ef"
+              ],
+              [
+                "ef",
+                "recall"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Keeping a short note of each tuning session, with the date and data size.",
+            "values": {
+              "measured": "{16: [0.82, 1.2], 32: [0.91, 1.9], 64: …",
+              "target": "0.95",
+              "ef": "16",
+              "recall": "0.82"
+            },
+            "tones": {
+              "measured": "ok",
+              "target": "ok",
+              "ef": "ok",
+              "recall": "ok"
+            },
+            "arrows": [
+              [
+                "measured",
+                "target"
+              ],
+              [
+                "target",
+                "ef"
+              ],
+              [
+                "ef",
+                "recall"
+              ]
             ]
           }
         ]
@@ -562,110 +671,161 @@
       "codeHash": "39501f6ede3efdcb2e52127bd1780c6b113518334ae1f3787f333c2fc5f13108",
       "spec": {
         "template": "flow",
-        "title": "Beyond recall and latency — Execution Pipeline",
+        "title": "Beyond recall and latency",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "options",
+            "label": "options"
           },
           {
-            "id": "proc",
-            "label": "2. Beyond recall and l...",
-            "tappable": true
+            "id": "weights",
+            "label": "weights"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "o",
+            "label": "o"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Beyond recall and latency [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Beyond recall and l... [D.Pfive.Stwo].",
+            "caption": "Real decisions also weigh memory, build time, update speed and cost.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "options": {
+                "var": "options",
+                "line": 1,
+                "hit": 2
+              },
+              "weights": {
+                "var": "weights",
+                "line": 4,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
+              },
+              "o": {
+                "var": "o",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "options": "data",
+              "weights": "data",
+              "name": "data",
+              "o": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "options",
+                "weights"
               ],
               [
-                "proc",
-                "out"
+                "weights",
+                "name"
+              ],
+              [
+                "name",
+                "o"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "A configuration with slightly lower recall may be much cheaper if it fits.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "options": {
+                "var": "options",
+                "line": 4,
+                "hit": 1
+              },
+              "weights": {
+                "var": "weights",
+                "line": 5,
+                "hit": 1
+              },
+              "name": {
+                "var": "name",
+                "line": 6,
+                "hit": 5
+              },
+              "o": {
+                "var": "o",
+                "line": 6,
+                "hit": 5
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "options": "data",
+              "weights": "data",
+              "name": "data",
+              "o": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "options",
+                "weights"
+              ],
+              [
+                "weights",
+                "name"
+              ],
+              [
+                "name",
+                "o"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Beyond recall and latency.",
+            "at": "say10",
+            "caption": "Tomorrow turns to the operational side.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "options": {
+                "var": "options",
+                "line": 5,
+                "hit": 1
+              },
+              "weights": {
+                "var": "weights",
+                "line": 6,
+                "hit": 5
+              },
+              "name": {
+                "var": "name",
+                "line": 7,
+                "hit": 1
+              },
+              "o": {
+                "var": "o",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "options": "ok",
+              "weights": "ok",
+              "name": "ok",
+              "o": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "options",
+                "weights"
               ],
               [
-                "proc",
-                "out"
+                "weights",
+                "name"
+              ],
+              [
+                "name",
+                "o"
               ]
             ]
           }
@@ -673,110 +833,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Beyond recall and latency — Execution Pipeline",
+        "title": "Beyond recall and latency",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "options",
+            "label": "options"
           },
           {
-            "id": "proc",
-            "label": "2. Beyond recall and l...",
-            "tappable": true
+            "id": "weights",
+            "label": "weights"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "o",
+            "label": "o"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Beyond recall and latency [D17.P5.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Beyond recall and l... [D17.P5.S2].",
+            "caption": "Real decisions also weigh memory, build time, update speed and cost.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "options": "{'hnsw-M16': {'recall': 0.96, 'ms': 3.1…",
+              "weights": "{'recall': 100, 'ms': -2, 'gb': -0.5}",
+              "name": "'hnsw-M16'",
+              "o": "{'recall': 0.96, 'ms': 3.1, 'gb': 34}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "options": "data",
+              "weights": "data",
+              "name": "data",
+              "o": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "options",
+                "weights"
               ],
               [
-                "proc",
-                "out"
+                "weights",
+                "name"
+              ],
+              [
+                "name",
+                "o"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P5.S3].",
+            "at": "say2",
+            "caption": "A configuration with slightly lower recall may be much cheaper if it fits.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "options": "{'hnsw-M16': {'recall': 0.96, 'ms': 3.1…",
+              "weights": "{'recall': 100, 'ms': -2, 'gb': -0.5}",
+              "name": "'hnsw-M16'",
+              "o": "{'recall': 0.96, 'ms': 3.1, 'gb': 34}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "options": "data",
+              "weights": "data",
+              "name": "data",
+              "o": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "options",
+                "weights"
+              ],
+              [
+                "weights",
+                "name"
+              ],
+              [
+                "name",
+                "o"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Beyond recall and latency [D17.P5.S4].",
+            "at": "say10",
+            "caption": "Tomorrow turns to the operational side.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "options": "{'hnsw-M16': {'recall': 0.96, 'ms': 3.1…",
+              "weights": "{'recall': 100, 'ms': -2, 'gb': -0.5}",
+              "name": "'hnsw-M16'",
+              "o": "{'recall': 0.96, 'ms': 3.1, 'gb': 34}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "options": "ok",
+              "weights": "ok",
+              "name": "ok",
+              "o": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "options",
+                "weights"
               ],
               [
-                "proc",
-                "out"
+                "weights",
+                "name"
+              ],
+              [
+                "name",
+                "o"
               ]
             ]
           }
@@ -787,223 +950,213 @@
       "partTitle": "Practice time: tuning",
       "codeHash": "239ff65f7474b1eb21f77d3d99da1761edc0173ef0e39382f6e6ae4810ecf681",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: tuning — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: tuning",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Practice time: tuning",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: tuning [D.Psix.Sone].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: tuning [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Pareto_front(configs).",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "configs"
+                  },
+                  {
+                    "var": "configs",
+                    "line": 1,
+                    "hit": 2
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": ".0"
+                  },
+                  {
+                    "var": ".0",
+                    "line": 3,
+                    "hit": 2
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "o"
+                  },
+                  {
+                    "var": "o",
+                    "line": 4,
+                    "hit": 2
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include five configurations with one dominated and a.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "configs"
+                  },
+                  {
+                    "var": "configs",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": ".0"
+                  },
+                  {
+                    "var": ".0",
+                    "line": 4,
+                    "hit": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "o"
+                  },
+                  {
+                    "var": "o",
+                    "line": 3,
+                    "hit": 3
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: tuning [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If pareto_front keeps a dominated option, check the strictly-better condition.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: tuning — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: tuning",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Practice time: tuning",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: tuning [D17.P6.S1].",
-            "values": {
-              "in": "Day 17 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: tuning [D17.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Pareto_front(configs).",
+            "rows": [
+              {
+                "cells": [
+                  "configs",
+                  "[{'name': 'ef16', 'recall': 0.82, 'late…"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  ".0",
+                  "{'__other__': 'list_iterator'}"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "o",
+                  "{'name': 'ef16', 'recall': 0.82, 'laten…"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D17.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include five configurations with one dominated and a.",
+            "rows": [
+              {
+                "cells": [
+                  "configs",
+                  "[{'name': 'ef16', 'recall': 0.82, 'late…"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  ".0",
+                  "{'__other__': 'list_iterator'}"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "o",
+                  "{'name': 'ef16', 'recall': 0.82, 'laten…"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: tuning [D17.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If pareto_front keeps a dominated option, check the strictly-better condition.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "front: ['ef16', 'ef32', 'ef64']"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "choice for recall 0.9: ef32"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

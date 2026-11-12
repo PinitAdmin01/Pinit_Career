@@ -2,125 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 24,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why document AI systems",
       "codeHash": "f8e2b93dbb7ac6878b78f7d5df4e2f10041eea67bfc25ccffeea081f27f49665",
       "spec": {
-        "template": "table",
-        "title": "Standard model card section schema and organization",
-        "columns": [
-          "sections",
-          "sections"
+        "template": "states",
+        "title": "Why document AI systems",
+        "states": [
+          {
+            "id": "sections",
+            "label": "sections"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Model cards document intended behaviour and known limitations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sections"
-                  },
-                  {
-                    "text": "sections"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "intended_use"
-                  },
-                  {
-                    "text": "limitations"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A model card is a short document describing a model.",
+            "currentState": "sections",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Cards guide users on appropriate applications and warnings.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sections"
-                  },
-                  {
-                    "text": "sections"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "evaluation"
-                  },
-                  {
-                    "text": "contact"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how idea updates proposed during execution.",
+            "currentState": "i",
+            "transition": {
+              "from": "sections",
+              "to": "i",
+              "label": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say11",
+            "caption": "Think of a card as a promise to its readers.",
+            "currentState": "s",
+            "transition": {
+              "from": "i",
+              "to": "s",
+              "label": {
+                "var": "s",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Standard model card section schema and organization",
-        "columns": [
-          "sections",
-          "sections"
+        "template": "states",
+        "title": "Why document AI systems",
+        "states": [
+          {
+            "id": "sections",
+            "label": "sections"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Model cards document intended behaviour and known limitations.",
-            "rows": [
-              {
-                "cells": [
-                  "sections",
-                  "sections"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "intended_use",
-                  "limitations"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A model card is a short document describing a model.",
+            "currentState": "sections",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Cards guide users on appropriate applications and warnings.",
-            "rows": [
-              {
-                "cells": [
-                  "sections",
-                  "sections"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "evaluation",
-                  "contact"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how idea updates proposed during execution.",
+            "currentState": "i",
+            "transition": {
+              "from": "sections",
+              "to": "i",
+              "label": "1"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say11",
+            "caption": "Think of a card as a promise to its readers.",
+            "currentState": "s",
+            "transition": {
+              "from": "i",
+              "to": "s",
+              "label": "'out_of_scope_use'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -129,117 +117,221 @@
       "partTitle": "What goes in each section",
       "codeHash": "5cadc416c9592ebc5ce4872e490f48e5a6f259a6b5fa8c6d465b5e7c7adaf747",
       "spec": {
-        "template": "table",
-        "title": "Card section fields and factual descriptions",
-        "columns": [
-          "card",
-          "card"
+        "template": "flow",
+        "title": "What goes in each section",
+        "nodes": [
+          {
+            "id": "card",
+            "label": "card"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Intended use defines target users and intended system tasks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "card"
-                  },
-                  {
-                    "text": "card"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Intended use says what the system is for and who it is for,.",
+            "values": {
+              "card": {
+                "var": "card",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "intended_use"
-                  },
-                  {
-                    "text": "limitations"
-                  }
-                ],
-                "tone": "data"
+              "k": {
+                "var": "k",
+                "line": 7,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "card": "data",
+              "k": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "card",
+                "k"
+              ],
+              [
+                "k",
+                "v"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Evaluation metrics report empirical safety results from the harness.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "card"
-                  },
-                  {
-                    "text": "card"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Out-of-scope use lists uses the system is not designed for, such.",
+            "values": {
+              "card": {
+                "var": "card",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "out_of_scope_use"
-                  },
-                  {
-                    "text": "evaluation"
-                  }
-                ],
-                "tone": "ok"
+              "k": {
+                "var": "k",
+                "line": 8,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "card": "data",
+              "k": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "card",
+                "k"
+              ],
+              [
+                "k",
+                "v"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "That keeps the card in step with the system as it changes.",
+            "values": {
+              "card": {
+                "var": "card",
+                "line": 8,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 7,
+                "hit": 2
+              },
+              "v": {
+                "var": "v",
+                "line": 7,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "card": "ok",
+              "k": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "card",
+                "k"
+              ],
+              [
+                "k",
+                "v"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Card section fields and factual descriptions",
-        "columns": [
-          "card",
-          "card"
+        "template": "flow",
+        "title": "What goes in each section",
+        "nodes": [
+          {
+            "id": "card",
+            "label": "card"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Intended use defines target users and intended system tasks.",
-            "rows": [
-              {
-                "cells": [
-                  "card",
-                  "card"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "intended_use",
-                  "limitations"
-                ],
-                "tone": "data"
-              }
+            "caption": "Intended use says what the system is for and who it is for,.",
+            "values": {
+              "card": "{'intended_use': 'Answer customer quest…",
+              "k": "'intended_use'",
+              "v": "'Answer customer questions about orders…"
+            },
+            "tones": {
+              "card": "data",
+              "k": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "card",
+                "k"
+              ],
+              [
+                "k",
+                "v"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Evaluation metrics report empirical safety results from the harness.",
-            "rows": [
-              {
-                "cells": [
-                  "card",
-                  "card"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "out_of_scope_use",
-                  "evaluation"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Out-of-scope use lists uses the system is not designed for, such.",
+            "values": {
+              "card": "{'intended_use': 'Answer customer quest…",
+              "k": "'intended_use'",
+              "v": "'Answer customer questions about orders…"
+            },
+            "tones": {
+              "card": "data",
+              "k": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "card",
+                "k"
+              ],
+              [
+                "k",
+                "v"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "That keeps the card in step with the system as it changes.",
+            "values": {
+              "card": "{'intended_use': 'Answer customer quest…",
+              "k": "'out_of_scope_use'",
+              "v": "'Legal, medical or financial advice.'"
+            },
+            "tones": {
+              "card": "ok",
+              "k": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "card",
+                "k"
+              ],
+              [
+                "k",
+                "v"
+              ]
             ]
           }
         ]
@@ -249,118 +341,106 @@
       "partTitle": "Checking completeness",
       "codeHash": "d73c723c32f56c5c916682a1df007b26ea43bc480fb1c1a8daa11381f1d83a4f",
       "spec": {
-        "template": "table",
-        "title": "Documentation completeness checking and missing section detection",
-        "columns": [
-          "required",
-          "missing"
+        "template": "states",
+        "title": "Checking completeness",
+        "states": [
+          {
+            "id": "required",
+            "label": "required"
+          },
+          {
+            "id": "card",
+            "label": "card"
+          },
+          {
+            "id": "missing",
+            "label": "missing"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Required sections verify documentation is non empty before shipping.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "required"
-                  },
-                  {
-                    "text": "missing"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "intended_use"
-                  },
-                  {
-                    "text": "limitations"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Cards are often written in a hurry, with sections missing or left blank.",
+            "currentState": "required",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Completeness checks run alongside the regression gate in CI.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "required"
-                  },
-                  {
-                    "text": "missing"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "evaluation"
-                  },
-                  {
-                    "text": "contact"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how practice updates card during execution.",
+            "currentState": "card",
+            "transition": {
+              "from": "required",
+              "to": "card",
+              "label": {
+                "var": "card",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Automated checks make sure the review never starts from an empty page.",
+            "currentState": "missing",
+            "transition": {
+              "from": "card",
+              "to": "missing",
+              "label": {
+                "var": "missing",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Documentation completeness checking and missing section detection",
-        "columns": [
-          "required",
-          "missing"
+        "template": "states",
+        "title": "Checking completeness",
+        "states": [
+          {
+            "id": "required",
+            "label": "required"
+          },
+          {
+            "id": "card",
+            "label": "card"
+          },
+          {
+            "id": "missing",
+            "label": "missing"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Required sections verify documentation is non empty before shipping.",
-            "rows": [
-              {
-                "cells": [
-                  "required",
-                  "missing"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "intended_use",
-                  "limitations"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Cards are often written in a hurry, with sections missing or left blank.",
+            "currentState": "required",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Completeness checks run alongside the regression gate in CI.",
-            "rows": [
-              {
-                "cells": [
-                  "required",
-                  "missing"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "evaluation",
-                  "contact"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how practice updates card during execution.",
+            "currentState": "card",
+            "transition": {
+              "from": "required",
+              "to": "card",
+              "label": "{'intended_use': 'Order support.', 'eva…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Automated checks make sure the review never starts from an empty page.",
+            "currentState": "missing",
+            "transition": {
+              "from": "card",
+              "to": "missing",
+              "label": "['out_of_scope_use', 'limitations', 'co…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -369,118 +449,106 @@
       "partTitle": "Rendering Markdown",
       "codeHash": "00ce3f5cae12ea1d73295ba318dc5c34df2d2ac54887c02d87d8e7bfd6d969b5",
       "spec": {
-        "template": "table",
-        "title": "Rendering structured card data into markdown blocks",
-        "columns": [
-          "card",
-          "order"
+        "template": "states",
+        "title": "Rendering Markdown",
+        "states": [
+          {
+            "id": "card",
+            "label": "card"
+          },
+          {
+            "id": "order",
+            "label": "order"
+          },
+          {
+            "id": "blocks",
+            "label": "blocks"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "System cards are rendered into clean Markdown documents.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "card"
-                  },
-                  {
-                    "text": "order"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "intended_use"
-                  },
-                  {
-                    "text": "limitations"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Cards are usually published as Markdown or HTML so people can read them easily.",
+            "currentState": "card",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Headings format each section with clear hierarchical tags.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "card"
-                  },
-                  {
-                    "text": "order"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "blocks"
-                  },
-                  {
-                    "text": "contact"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Markdown uses # for a top heading and ## for section headings, with plain.",
+            "currentState": "order",
+            "transition": {
+              "from": "card",
+              "to": "order",
+              "label": {
+                "var": "order",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Tests should compare the whole rendered string, because small formatting.",
+            "currentState": "blocks",
+            "transition": {
+              "from": "order",
+              "to": "blocks",
+              "label": {
+                "var": "blocks",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Rendering structured card data into markdown blocks",
-        "columns": [
-          "card",
-          "order"
+        "template": "states",
+        "title": "Rendering Markdown",
+        "states": [
+          {
+            "id": "card",
+            "label": "card"
+          },
+          {
+            "id": "order",
+            "label": "order"
+          },
+          {
+            "id": "blocks",
+            "label": "blocks"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "System cards are rendered into clean Markdown documents.",
-            "rows": [
-              {
-                "cells": [
-                  "card",
-                  "order"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "intended_use",
-                  "limitations"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Cards are usually published as Markdown or HTML so people can read them easily.",
+            "currentState": "card",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Headings format each section with clear hierarchical tags.",
-            "rows": [
-              {
-                "cells": [
-                  "card",
-                  "order"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "blocks",
-                  "contact"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Markdown uses # for a top heading and ## for section headings, with plain.",
+            "currentState": "order",
+            "transition": {
+              "from": "card",
+              "to": "order",
+              "label": "['intended_use', 'limitations', 'contac…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Tests should compare the whole rendered string, because small formatting.",
+            "currentState": "blocks",
+            "transition": {
+              "from": "order",
+              "to": "blocks",
+              "label": "['# ShopBot']"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -489,224 +557,106 @@
       "partTitle": "Keeping cards up to date",
       "codeHash": "62579d22d5f906903285bd6b6844a7502c0bc198d4211a565a3a73359bc5452f",
       "spec": {
-        "template": "flow",
-        "title": "Keeping cards up to date — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Keeping cards up to date",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "written",
+            "label": "written"
           },
           {
-            "id": "proc",
-            "label": "2. Keeping cards up to...",
-            "tappable": true
+            "id": "harness",
+            "label": "harness"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "k",
+            "label": "k"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Keeping cards up to date [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Keeping cards up to... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A card written once and never updated becomes misleading as the system changes.",
+            "currentState": "written",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The fix is to generate the card as part of every release, from the same.",
+            "currentState": "harness",
+            "transition": {
+              "from": "written",
+              "to": "harness",
+              "label": {
+                "var": "harness",
+                "line": 3,
+                "hit": 5
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Keeping cards up to date [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow looks at the laws and frameworks that make this documentation.",
+            "currentState": "k",
+            "transition": {
+              "from": "harness",
+              "to": "k",
+              "label": {
+                "var": "k",
+                "line": 3,
+                "hit": 3
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Keeping cards up to date — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Keeping cards up to date",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "written",
+            "label": "written"
           },
           {
-            "id": "proc",
-            "label": "2. Keeping cards up to...",
-            "tappable": true
+            "id": "harness",
+            "label": "harness"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "k",
+            "label": "k"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Keeping cards up to date [D24.P5.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Keeping cards up to... [D24.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A card written once and never updated becomes misleading as the system changes.",
+            "currentState": "written",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The fix is to generate the card as part of every release, from the same.",
+            "currentState": "harness",
+            "transition": {
+              "from": "written",
+              "to": "harness",
+              "label": "{'injection_block_rate': 0.97, 'over_re…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Keeping cards up to date [D24.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow looks at the laws and frameworks that make this documentation.",
+            "currentState": "k",
+            "transition": {
+              "from": "harness",
+              "to": "k",
+              "label": "'release'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -715,224 +665,106 @@
       "partTitle": "Cards in the pipeline",
       "codeHash": "2912a63d47fc9e8c16bbd93ff734457d316ce027c45abd46ff6637ba696875d5",
       "spec": {
-        "template": "flow",
-        "title": "Cards in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Cards in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "required",
+            "label": "required"
           },
           {
-            "id": "proc",
-            "label": "2. Cards in the pipeline",
-            "tappable": true
+            "id": "card",
+            "label": "card"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "missing",
+            "label": "missing"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Cards in the pipeline [D.Psix.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Cards in the pipeline [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "The card becomes one more output of the release pipeline.",
+            "currentState": "required",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "After the regression gate passes, the pipeline checks the card for missing.",
+            "currentState": "card",
+            "transition": {
+              "from": "required",
+              "to": "card",
+              "label": {
+                "var": "card",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Cards in the pipeline [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add missing_sections and render_card to your pipeline today.",
+            "currentState": "missing",
+            "transition": {
+              "from": "card",
+              "to": "missing",
+              "label": {
+                "var": "missing",
+                "line": 7,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Cards in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Cards in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "required",
+            "label": "required"
           },
           {
-            "id": "proc",
-            "label": "2. Cards in the pipeline",
-            "tappable": true
+            "id": "card",
+            "label": "card"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "missing",
+            "label": "missing"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Cards in the pipeline [D24.P6.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Cards in the pipeline [D24.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "The card becomes one more output of the release pipeline.",
+            "currentState": "required",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "After the regression gate passes, the pipeline checks the card for missing.",
+            "currentState": "card",
+            "transition": {
+              "from": "required",
+              "to": "card",
+              "label": "{'intended_use': 'Order support.', 'lim…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Cards in the pipeline [D24.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add missing_sections and render_card to your pipeline today.",
+            "currentState": "missing",
+            "transition": {
+              "from": "card",
+              "to": "missing",
+              "label": "[]"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

@@ -2,143 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 11,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why citations can mislead",
       "codeHash": "5aabeb12950c174b858f9968e17931a511e0950a2e39a52ff850f7d38d9ae7b2",
       "spec": {
-        "template": "table",
-        "title": "Citation integrity risks and hallucinated references",
-        "columns": [
-          "sources",
-          "answer",
-          "sources"
+        "template": "states",
+        "title": "Why citations can mislead",
+        "states": [
+          {
+            "id": "sources",
+            "label": "sources"
+          },
+          {
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Citations make answers trustworthy because readers can check source evidence.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Citations make answers more trustworthy, because readers can check the source.",
+            "currentState": "sources",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "A citation can point to a real source that says nothing about the claim.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "But a citation is only useful if it is right, and models can get citations.",
+            "currentState": "answer",
+            "transition": {
+              "from": "sources",
+              "to": "answer",
+              "label": {
+                "var": "answer",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how both updates reuse during execution.",
+            "currentState": "text",
+            "transition": {
+              "from": "answer",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 5,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Citation integrity risks and hallucinated references",
-        "columns": [
-          "sources",
-          "answer",
-          "sources"
+        "template": "states",
+        "title": "Why citations can mislead",
+        "states": [
+          {
+            "id": "sources",
+            "label": "sources"
+          },
+          {
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Citations make answers trustworthy because readers can check source evidence.",
-            "rows": [
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "sources"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "sources"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Citations make answers more trustworthy, because readers can check the source.",
+            "currentState": "sources",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "A citation can point to a real source that says nothing about the claim.",
-            "rows": [
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "sources"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "sources"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "But a citation is only useful if it is right, and models can get citations.",
+            "currentState": "answer",
+            "transition": {
+              "from": "sources",
+              "to": "answer",
+              "label": "[['You can return items within 30 days.…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how both updates reuse during execution.",
+            "currentState": "text",
+            "transition": {
+              "from": "answer",
+              "to": "text",
+              "label": "'You can return items within 30 days.'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -147,136 +117,106 @@
       "partTitle": "Does the cited source support the sentence?",
       "codeHash": "7e313f11a0cc0008cf67179bc87516731baaf14894d0efd703ea2f23eacc34ab",
       "spec": {
-        "template": "table",
-        "title": "Targeted support verification against cited source documents",
-        "columns": [
-          "sources",
-          "text",
-          "sources"
+        "template": "states",
+        "title": "Does the cited source support the sentence?",
+        "states": [
+          {
+            "id": "sources",
+            "label": "sources"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "ids",
+            "label": "ids"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A citation should point to a source that supports the sentence it references.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A citation should point to a source that supports the sentence it.",
+            "currentState": "sources",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "When a sentence cites several sources it suffices for one source to support it.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The sentence is supported by a source if at least half of its content.",
+            "currentState": "text",
+            "transition": {
+              "from": "sources",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The next part turns this into Practice 1.",
+            "currentState": "ids",
+            "transition": {
+              "from": "text",
+              "to": "ids",
+              "label": {
+                "var": "ids",
+                "line": 9,
+                "hit": 3
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Targeted support verification against cited source documents",
-        "columns": [
-          "sources",
-          "text",
-          "sources"
+        "template": "states",
+        "title": "Does the cited source support the sentence?",
+        "states": [
+          {
+            "id": "sources",
+            "label": "sources"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "ids",
+            "label": "ids"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A citation should point to a source that supports the sentence it references.",
-            "rows": [
-              {
-                "cells": [
-                  "sources",
-                  "text",
-                  "sources"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sources",
-                  "text",
-                  "sources"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A citation should point to a source that supports the sentence it.",
+            "currentState": "sources",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "When a sentence cites several sources it suffices for one source to support it.",
-            "rows": [
-              {
-                "cells": [
-                  "sources",
-                  "text",
-                  "sources"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sources",
-                  "text",
-                  "sources"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The sentence is supported by a source if at least half of its content.",
+            "currentState": "text",
+            "transition": {
+              "from": "sources",
+              "to": "text",
+              "label": "'Returns are accepted within 30 days.'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The next part turns this into Practice 1.",
+            "currentState": "ids",
+            "transition": {
+              "from": "text",
+              "to": "ids",
+              "label": "[2]"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -285,136 +225,106 @@
       "partTitle": "Finding bad citations",
       "codeHash": "b4d864b0743615bbe8b9364a5e785fdb2ee122888b987f1b381a1fd4ae2c4256",
       "spec": {
-        "template": "table",
-        "title": "Bad citation index detection and diagnostic reporting",
-        "columns": [
-          "sources",
-          "answer",
-          "bad"
+        "template": "states",
+        "title": "Finding bad citations",
+        "states": [
+          {
+            "id": "sources",
+            "label": "sources"
+          },
+          {
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "bad",
+            "label": "bad"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "A sentence is bad if any cited id does not exist or lacks supporting content.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "bad"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "bad"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Practice 1 is bad_citations(sentences, sources), which returns the indices.",
+            "currentState": "sources",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Returning indices rather than texts lets the interface highlight sentences.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "bad"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "bad"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Each sentence is a pair of its text and a list of cited ids, and sources.",
+            "currentState": "answer",
+            "transition": {
+              "from": "sources",
+              "to": "answer",
+              "label": {
+                "var": "answer",
+                "line": 10,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Some products remove bad citations before showing the answer.",
+            "currentState": "bad",
+            "transition": {
+              "from": "answer",
+              "to": "bad",
+              "label": {
+                "var": "bad",
+                "line": 12,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Bad citation index detection and diagnostic reporting",
-        "columns": [
-          "sources",
-          "answer",
-          "bad"
+        "template": "states",
+        "title": "Finding bad citations",
+        "states": [
+          {
+            "id": "sources",
+            "label": "sources"
+          },
+          {
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "bad",
+            "label": "bad"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "A sentence is bad if any cited id does not exist or lacks supporting content.",
-            "rows": [
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "bad"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "bad"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Practice 1 is bad_citations(sentences, sources), which returns the indices.",
+            "currentState": "sources",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Returning indices rather than texts lets the interface highlight sentences.",
-            "rows": [
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "bad"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "bad"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Each sentence is a pair of its text and a list of cited ids, and sources.",
+            "currentState": "answer",
+            "transition": {
+              "from": "sources",
+              "to": "answer",
+              "label": "[['Returns are accepted within 30 days.…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Some products remove bad citations before showing the answer.",
+            "currentState": "bad",
+            "transition": {
+              "from": "answer",
+              "to": "bad",
+              "label": "[]"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -423,136 +333,106 @@
       "partTitle": "Which sentences need a citation?",
       "codeHash": "e2d37c55217659a0e16922d04cd3fbb12bfdf76d4ea9682b83574df614b3c787",
       "spec": {
-        "template": "table",
-        "title": "Factual claim sentence classification heuristics",
-        "columns": [
-          "sentences",
-          "sentences",
-          "sentences"
+        "template": "states",
+        "title": "Which sentences need a citation?",
+        "states": [
+          {
+            "id": "sentences",
+            "label": "sentences"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Conversational phrases like greetings or sign-offs make no factual claim.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "sentences"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "sentences"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Not every sentence needs a citation.",
+            "currentState": "sentences",
+            "tone": "data"
           },
           {
             "at": "say2",
             "caption": "A simple rule treats longer sentences as factual claims that need a citation.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "sentences"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "sentences"
-                  }
-                ],
-                "tone": "ok"
+            "currentState": "s",
+            "transition": {
+              "from": "sentences",
+              "to": "s",
+              "label": {
+                "var": "s",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "As always, check the rule against labelled examples before trusting it.",
+            "currentState": "n",
+            "transition": {
+              "from": "s",
+              "to": "n",
+              "label": {
+                "var": "n",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Factual claim sentence classification heuristics",
-        "columns": [
-          "sentences",
-          "sentences",
-          "sentences"
+        "template": "states",
+        "title": "Which sentences need a citation?",
+        "states": [
+          {
+            "id": "sentences",
+            "label": "sentences"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Conversational phrases like greetings or sign-offs make no factual claim.",
-            "rows": [
-              {
-                "cells": [
-                  "sentences",
-                  "sentences",
-                  "sentences"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sentences",
-                  "sentences",
-                  "sentences"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Not every sentence needs a citation.",
+            "currentState": "sentences",
+            "tone": "data"
           },
           {
             "at": "say2",
             "caption": "A simple rule treats longer sentences as factual claims that need a citation.",
-            "rows": [
-              {
-                "cells": [
-                  "sentences",
-                  "sentences",
-                  "sentences"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sentences",
-                  "sentences",
-                  "sentences"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "currentState": "s",
+            "transition": {
+              "from": "sentences",
+              "to": "s",
+              "label": "'Sure!'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "As always, check the rule against labelled examples before trusting it.",
+            "currentState": "n",
+            "transition": {
+              "from": "s",
+              "to": "n",
+              "label": "1"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -561,223 +441,81 @@
       "partTitle": "Measuring citation coverage",
       "codeHash": "11eef0bf4ef53195b8f2859f8a2749d2427ccf10766b875cfa02c4edb4878a33",
       "spec": {
-        "template": "flow",
-        "title": "Measuring citation coverage — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Measuring citation ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Measuring citation coverage",
+        "columns": [
+          "Output",
+          "Printed Result"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Measuring citation coverage.",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Measuring citation ... [Deleven.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Coverage is the share of sentences that need a citation and actually have one.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Line 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Measuring citation coverage.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A delivery service measures what share of parcels had a tracking number.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "Line 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Measuring citation coverage — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Measuring citation ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Measuring citation coverage",
+        "columns": [
+          "Output",
+          "Printed Result"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Measuring citation coverage [D11.P5.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Measuring citation ... [D11.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Coverage is the share of sentences that need a citation and actually have one.",
+            "rows": [
+              {
+                "cells": [
+                  "Line 1",
+                  "need citations: [0, 1, 2] uncited: [0, 2] coverage: 0.333"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
             "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Measuring citation coverage [D11.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A delivery service measures what share of parcels had a tracking number.",
+            "rows": [
+              {
+                "cells": [
+                  "Line 1",
+                  "need citations: [0, 1, 2] uncited: [0, 2] coverage: 0.333"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -787,224 +525,106 @@
       "partTitle": "Citations in the pipeline",
       "codeHash": "52a43d633c879ae791b4dc4547153e8414b6ca3ccb7d5a0af05e57ba5e912afc",
       "spec": {
-        "template": "flow",
-        "title": "Citations in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Citations in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "answer",
+            "label": "answer"
           },
           {
-            "id": "proc",
-            "label": "2. Citations in the pi...",
-            "tappable": true
+            "id": "parsed",
+            "label": "parsed"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "sentence",
+            "label": "sentence"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Citations in the pipeline [Deleven.Psix.Sone].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Citations in the pi... [Deleven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Citation checks run after the answer is generated, alongside.",
+            "currentState": "answer",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "First parse the citations out of the answer, often written as [1] or [2].",
+            "currentState": "parsed",
+            "transition": {
+              "from": "answer",
+              "to": "parsed",
+              "label": {
+                "var": "parsed",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Citations in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add both checks to your pipeline today.",
+            "currentState": "sentence",
+            "transition": {
+              "from": "parsed",
+              "to": "sentence",
+              "label": {
+                "var": "sentence",
+                "line": 6,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Citations in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Citations in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "answer",
+            "label": "answer"
           },
           {
-            "id": "proc",
-            "label": "2. Citations in the pi...",
-            "tappable": true
+            "id": "parsed",
+            "label": "parsed"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "sentence",
+            "label": "sentence"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Citations in the pipeline [D11.P6.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Citations in the pi... [D11.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Citation checks run after the answer is generated, alongside.",
+            "currentState": "answer",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "First parse the citations out of the answer, often written as [1] or [2].",
+            "currentState": "parsed",
+            "transition": {
+              "from": "answer",
+              "to": "parsed",
+              "label": "[]"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Citations in the pipeline [D11.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add both checks to your pipeline today.",
+            "currentState": "sentence",
+            "transition": {
+              "from": "parsed",
+              "to": "sentence",
+              "label": "'Returns are accepted within 30 days [1…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

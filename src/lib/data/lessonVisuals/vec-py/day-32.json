@@ -2,269 +2,115 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 32,
-  "promptSha": "a05b724d8e30182dc1613d5dbb7593c846d7931f49439537b4633086cc7b8445",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Sparse-Dense Hybrid Scoring — Foundations & Mathematical Invariants",
-      "codeHash": "af1be045072f4522cd70d829db226fb4f09b03fba5fc47650ed51f195d8a44c4",
+      "codeHash": "b15f48bcee47ce3caae9eaa34a0390c5959673b35a65b9110617a48e4c9754b3",
       "spec": {
-        "template": "flow",
-        "title": "Sparse-Dense Hybrid Scoring — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Sparse-Dense Hybrid Scoring — Foundations & Mathematical Invaria",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Sparse lexical search excels at finding exact keywords, technical terms.",
+            "items": {
+              "var": "vals",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Dense embedding search excels at understanding semantic synonyms.",
+            "items": {
+              "var": "vals",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": {
+              "var": "vals",
+              "line": 8,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sparse-Dense Hybrid Scoring — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Sparse-Dense Hybrid Scoring — Foundations & Mathematical Invaria",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Sparse lexical search excels at finding exact keywords, technical terms.",
+            "items": [
+              "12.5",
+              "4",
+              "20"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Dense embedding search excels at understanding semantic synonyms.",
+            "items": [
+              "12.5",
+              "4",
+              "20"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": [
+              "12.5",
+              "4",
+              "20"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -273,264 +119,107 @@
     },
     {
       "partTitle": "Sparse-Dense Hybrid Scoring — Core Algorithm & State Representation",
-      "codeHash": "62f48ba25a9684e83d02715da9b8022ff7dfddac5864097b0ac43ce435afbfc7",
+      "codeHash": "76eab2cbd498491be7dcea4f67b2584a1076d0e5c73b9e12a1601973aade7150",
       "spec": {
-        "template": "flow",
-        "title": "Sparse-Dense Hybrid Scoring — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Sparse-Dense Hybrid Scoring — Core Algorithm & State Representat",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Convex score combination computes a weighted linear sum of normalized.",
+            "items": {
+              "var": "x",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "When alpha equals 1.",
+            "items": {
+              "var": "x",
+              "line": 9,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "items": {
+              "var": "x",
+              "line": 9,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sparse-Dense Hybrid Scoring — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Sparse-Dense Hybrid Scoring — Core Algorithm & State Representat",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Convex score combination computes a weighted linear sum of normalized.",
+            "items": [
+              "101",
+              "0.65"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "When alpha equals 1.",
+            "items": [
+              "102",
+              "0.6"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "items": [
+              "103",
+              "0.77"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -539,265 +228,279 @@
     },
     {
       "partTitle": "Sparse-Dense Hybrid Scoring — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "0b0b944b9c353a49afeba447511db5bafa38361e7b1b988a63d92a4f0a1ac5d0",
+      "codeHash": "8b045df889ba7e43feede21b1045b4aa8739a4859ed31eba09a98a1ff8990c99",
       "spec": {
         "template": "flow",
-        "title": "Sparse-Dense Hybrid Scoring — Throughput Optimization & Edge-Case Hand",
+        "title": "Sparse-Dense Hybrid Scoring — Throughput Optimization & Edge-Cas",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "dense_top",
+            "label": "dense_top"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "sparse_top",
+            "label": "sparse_top"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "dense_rank",
+            "label": "dense_rank"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sparse_rank",
+            "label": "sparse_rank"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While convex combination works well, score calibration across disparate.",
+            "values": {
+              "dense_top": {
+                "var": "dense_top",
+                "line": 10,
+                "hit": 1
+              },
+              "sparse_top": {
+                "var": "sparse_top",
+                "line": 11,
+                "hit": 1
+              },
+              "dense_rank": {
+                "var": "dense_rank",
+                "line": 2,
+                "hit": 1
+              },
+              "sparse_rank": {
+                "var": "sparse_rank",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "dense_top": "data",
+              "sparse_top": "data",
+              "dense_rank": "data",
+              "sparse_rank": "data"
+            },
+            "arrows": [
+              [
+                "dense_top",
+                "sparse_top"
+              ],
+              [
+                "sparse_top",
+                "dense_rank"
+              ],
+              [
+                "dense_rank",
+                "sparse_rank"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Reciprocal Rank Fusion (RRF) resolves score calibration fragility.",
+            "values": {
+              "dense_top": {
+                "var": "dense_top",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "sparse_top": {
+                "var": "sparse_top",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "dense_rank": {
+                "var": "dense_rank",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sparse_rank": {
+                "var": "sparse_rank",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "dense_top": "data",
+              "sparse_top": "data",
+              "dense_rank": "data",
+              "sparse_rank": "data"
+            },
+            "arrows": [
+              [
+                "dense_top",
+                "sparse_top"
+              ],
+              [
+                "sparse_top",
+                "dense_rank"
+              ],
+              [
+                "dense_rank",
+                "sparse_rank"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "dense_top": {
+                "var": "dense_top",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "sparse_top": {
+                "var": "sparse_top",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "dense_rank": {
+                "var": "dense_rank",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sparse_rank": {
+                "var": "sparse_rank",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "dense_top": "ok",
+              "sparse_top": "ok",
+              "dense_rank": "ok",
+              "sparse_rank": "ok"
+            },
+            "arrows": [
+              [
+                "dense_top",
+                "sparse_top"
+              ],
+              [
+                "sparse_top",
+                "dense_rank"
+              ],
+              [
+                "dense_rank",
+                "sparse_rank"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Sparse-Dense Hybrid Scoring — Throughput Optimization & Edge-Case Hand",
+        "title": "Sparse-Dense Hybrid Scoring — Throughput Optimization & Edge-Cas",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "dense_top",
+            "label": "dense_top"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "sparse_top",
+            "label": "sparse_top"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "dense_rank",
+            "label": "dense_rank"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sparse_rank",
+            "label": "sparse_rank"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While convex combination works well, score calibration across disparate.",
+            "values": {
+              "dense_top": "[101, 102, 103, 104]",
+              "sparse_top": "[103, 101, 105, 102]",
+              "dense_rank": "[101, 102, 103, 104]",
+              "sparse_rank": "[103, 101, 105, 102]"
+            },
+            "tones": {
+              "dense_top": "data",
+              "sparse_top": "data",
+              "dense_rank": "data",
+              "sparse_rank": "data"
+            },
+            "arrows": [
+              [
+                "dense_top",
+                "sparse_top"
+              ],
+              [
+                "sparse_top",
+                "dense_rank"
+              ],
+              [
+                "dense_rank",
+                "sparse_rank"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Reciprocal Rank Fusion (RRF) resolves score calibration fragility.",
+            "values": {
+              "dense_top": "[101, 102, 103, 104]",
+              "sparse_top": "[103, 101, 105, 102]",
+              "dense_rank": "[101, 102, 103, 104]",
+              "sparse_rank": "[103, 101, 105, 102]"
+            },
+            "tones": {
+              "dense_top": "data",
+              "sparse_top": "data",
+              "dense_rank": "data",
+              "sparse_rank": "data"
+            },
+            "arrows": [
+              [
+                "dense_top",
+                "sparse_top"
+              ],
+              [
+                "sparse_top",
+                "dense_rank"
+              ],
+              [
+                "dense_rank",
+                "sparse_rank"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "dense_top": "[101, 102, 103, 104]",
+              "sparse_top": "[103, 101, 105, 102]",
+              "dense_rank": "[101, 102, 103, 104]",
+              "sparse_rank": "[103, 101, 105, 102]"
+            },
+            "tones": {
+              "dense_top": "ok",
+              "sparse_top": "ok",
+              "dense_rank": "ok",
+              "sparse_rank": "ok"
+            },
+            "arrows": [
+              [
+                "dense_top",
+                "sparse_top"
+              ],
+              [
+                "sparse_top",
+                "dense_rank"
+              ],
+              [
+                "dense_rank",
+                "sparse_rank"
+              ]
             ]
           }
         ]
@@ -805,264 +508,134 @@
     },
     {
       "partTitle": "Sparse-Dense Hybrid Scoring — Resilience Guardrails & Failure Recovery",
-      "codeHash": "a605a659a1ebd6554ece7f967335054ec82a0511e608eefec231f3686b1a4a14",
+      "codeHash": "a58a3078e74abc1387d4800697f4cc4a6f44620fad5fd973ffb1625db9456b5d",
       "spec": {
-        "template": "flow",
-        "title": "Sparse-Dense Hybrid Scoring — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Sparse-Dense Hybrid Scoring — Resilience Guardrails & Failure Re",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In distributed production environments, network timeouts or index.",
+            "bars": [
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If the dense vector search service encounters an out-of-memory crash,.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sparse-Dense Hybrid Scoring — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Sparse-Dense Hybrid Scoring — Resilience Guardrails & Failure Re",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In distributed production environments, network timeouts or index.",
+            "bars": [
+              {
+                "label": "d",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": 2,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If the dense vector search service encounters an out-of-memory crash,.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "d",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "s",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "d",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "s",
+                "value": 2,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,264 +644,116 @@
     },
     {
       "partTitle": "Sparse-Dense Hybrid Scoring — Production Telemetry & Verification Audit",
-      "codeHash": "4bdad41b64deda2e78ddeb0f4f00ed66857a5d61523ba44f6120fcae562dbcfa",
+      "codeHash": "7ca7b68d147124f0b72baaffa55e5a0ce5f0dfcb4b82ed04652683ab8a85903b",
       "spec": {
-        "template": "flow",
-        "title": "Sparse-Dense Hybrid Scoring — Production Telemetry & Verification Audi",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Sparse-Dense Hybrid Scoring — Production Telemetry & Verificatio",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Telemetry audits in hybrid retrieval measure candidate overlap, agreement.",
+            "items": {
+              "var": "dense_ids",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If dense and sparse search retrieve completely disjoint sets of documents.",
+            "items": {
+              "var": "dense_ids",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "items": {
+              "var": "dense_ids",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Sparse-Dense Hybrid Scoring — Production Telemetry & Verification Audi",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Sparse-Dense Hybrid Scoring — Production Telemetry & Verificatio",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Telemetry audits in hybrid retrieval measure candidate overlap, agreement.",
+            "items": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "If dense and sparse search retrieve completely disjoint sets of documents.",
+            "items": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "items": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }

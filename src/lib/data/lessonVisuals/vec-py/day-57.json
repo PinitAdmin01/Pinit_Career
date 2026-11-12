@@ -2,269 +2,115 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 57,
-  "promptSha": "28f5123e973cf51f2e6db9d9c20825d3444325c7aa39f776748537dad36c9d1e",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Embedding Drift Detection — Foundations & Mathematical Invariants",
-      "codeHash": "9700ecae2e43583018ce8337a1a3ea338cffe80ddfc6e1ca27c0b9e553f8fc0f",
+      "codeHash": "44320b8441df09d6ea2a6bc19c18a4ea8a82bc88d9edc0d6c840013880371d8e",
       "spec": {
-        "template": "flow",
-        "title": "Embedding Drift Detection — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Embedding Drift Detection — Foundations & Mathematical Invariant",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Over months of production operation, the semantic distribution of ingested.",
+            "items": {
+              "var": "base_c",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If an IVF or HNSW index was trained on historical data, newly ingested.",
+            "items": {
+              "var": "base_c",
+              "line": 11,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": {
+              "var": "base_c",
+              "line": 12,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Embedding Drift Detection — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Embedding Drift Detection — Foundations & Mathematical Invariant",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Over months of production operation, the semantic distribution of ingested.",
+            "items": [
+              "1",
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "If an IVF or HNSW index was trained on historical data, newly ingested.",
+            "items": [
+              "1",
+              "0",
+              "0"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": [
+              "1",
+              "0",
+              "0"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -273,265 +119,279 @@
     },
     {
       "partTitle": "Embedding Drift Detection — Core Algorithm & State Representation",
-      "codeHash": "d3dbf0f496b5af41c5ccb9e2c3910cc57cded0588010c454c4718abe734de79a",
+      "codeHash": "08bc6353c7834c7f9237e5bc636fe2c026e46c61903a5d410c4fe8e134478934",
       "spec": {
         "template": "flow",
-        "title": "Embedding Drift Detection — Core Algorithm & State Representation",
+        "title": "Embedding Drift Detection — Core Algorithm & State Representatio",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "base_bins",
+            "label": "base_bins"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "curr_bins",
+            "label": "curr_bins"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "baseline_counts",
+            "label": "baseline_counts"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "current_counts",
+            "label": "current_counts"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While centroid shift tracks mean displacement, it fails to detect changes.",
+            "values": {
+              "base_bins": {
+                "var": "base_bins",
+                "line": 14,
+                "hit": 1
+              },
+              "curr_bins": {
+                "var": "curr_bins",
+                "line": 15,
+                "hit": 1
+              },
+              "baseline_counts": {
+                "var": "baseline_counts",
+                "line": 5,
+                "hit": 1
+              },
+              "current_counts": {
+                "var": "current_counts",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "base_bins": "data",
+              "curr_bins": "data",
+              "baseline_counts": "data",
+              "current_counts": "data"
+            },
+            "arrows": [
+              [
+                "base_bins",
+                "curr_bins"
+              ],
+              [
+                "curr_bins",
+                "baseline_counts"
+              ],
+              [
+                "baseline_counts",
+                "current_counts"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The Population Stability Index (PSI) measures the divergence between.",
+            "values": {
+              "base_bins": {
+                "var": "base_bins",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "curr_bins": {
+                "var": "curr_bins",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "baseline_counts": {
+                "var": "baseline_counts",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "current_counts": {
+                "var": "current_counts",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "base_bins": "data",
+              "curr_bins": "data",
+              "baseline_counts": "data",
+              "current_counts": "data"
+            },
+            "arrows": [
+              [
+                "base_bins",
+                "curr_bins"
+              ],
+              [
+                "curr_bins",
+                "baseline_counts"
+              ],
+              [
+                "baseline_counts",
+                "current_counts"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "base_bins": {
+                "var": "base_bins",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "curr_bins": {
+                "var": "curr_bins",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "baseline_counts": {
+                "var": "baseline_counts",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "current_counts": {
+                "var": "current_counts",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "base_bins": "ok",
+              "curr_bins": "ok",
+              "baseline_counts": "ok",
+              "current_counts": "ok"
+            },
+            "arrows": [
+              [
+                "base_bins",
+                "curr_bins"
+              ],
+              [
+                "curr_bins",
+                "baseline_counts"
+              ],
+              [
+                "baseline_counts",
+                "current_counts"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Embedding Drift Detection — Core Algorithm & State Representation",
+        "title": "Embedding Drift Detection — Core Algorithm & State Representatio",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "base_bins",
+            "label": "base_bins"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "curr_bins",
+            "label": "curr_bins"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "baseline_counts",
+            "label": "baseline_counts"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "current_counts",
+            "label": "current_counts"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "While centroid shift tracks mean displacement, it fails to detect changes.",
+            "values": {
+              "base_bins": "[200, 300, 500]",
+              "curr_bins": "[220, 290, 490]",
+              "baseline_counts": "[200, 300, 500]",
+              "current_counts": "[220, 290, 490]"
+            },
+            "tones": {
+              "base_bins": "data",
+              "curr_bins": "data",
+              "baseline_counts": "data",
+              "current_counts": "data"
+            },
+            "arrows": [
+              [
+                "base_bins",
+                "curr_bins"
+              ],
+              [
+                "curr_bins",
+                "baseline_counts"
+              ],
+              [
+                "baseline_counts",
+                "current_counts"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The Population Stability Index (PSI) measures the divergence between.",
+            "values": {
+              "base_bins": "[200, 300, 500]",
+              "curr_bins": "[220, 290, 490]",
+              "baseline_counts": "[200, 300, 500]",
+              "current_counts": "[220, 290, 490]"
+            },
+            "tones": {
+              "base_bins": "data",
+              "curr_bins": "data",
+              "baseline_counts": "data",
+              "current_counts": "data"
+            },
+            "arrows": [
+              [
+                "base_bins",
+                "curr_bins"
+              ],
+              [
+                "curr_bins",
+                "baseline_counts"
+              ],
+              [
+                "baseline_counts",
+                "current_counts"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "base_bins": "[200, 300, 500]",
+              "curr_bins": "[220, 290, 490]",
+              "baseline_counts": "[200, 300, 500]",
+              "current_counts": "[220, 290, 490]"
+            },
+            "tones": {
+              "base_bins": "ok",
+              "curr_bins": "ok",
+              "baseline_counts": "ok",
+              "current_counts": "ok"
+            },
+            "arrows": [
+              [
+                "base_bins",
+                "curr_bins"
+              ],
+              [
+                "curr_bins",
+                "baseline_counts"
+              ],
+              [
+                "baseline_counts",
+                "current_counts"
+              ]
             ]
           }
         ]
@@ -539,264 +399,218 @@
     },
     {
       "partTitle": "Embedding Drift Detection — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "58522549c1cce3a979a01ec3eeb8a1a97bb388fe9ce26ce70ae27e2dc10f688a",
+      "codeHash": "cb366640c4e149cf3f38c153f3b24d67b11fffd40e3dea28c51881fc585eaacd",
       "spec": {
-        "template": "flow",
-        "title": "Embedding Drift Detection — Throughput Optimization & Edge-Case Handli",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Embedding Drift Detection — Throughput Optimization & Edge-Case ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Drift detection algorithms must automatically trigger proactive.",
+            "bars": [
+              {
+                "label": "centroid_drift",
+                "value": {
+                  "var": "centroid_drift",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "psi",
+                "value": {
+                  "var": "psi",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "drift_thresh",
+                "value": {
+                  "var": "drift_thresh",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "psi_thresh",
+                "value": {
+                  "var": "psi_thresh",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Our evaluate_reindexing_trigger function evaluates both centroid drift.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "centroid_drift",
+                "value": {
+                  "var": "centroid_drift",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "psi",
+                "value": {
+                  "var": "psi",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "drift_thresh",
+                "value": {
+                  "var": "drift_thresh",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "psi_thresh",
+                "value": {
+                  "var": "psi_thresh",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "centroid_drift",
+                "value": {
+                  "var": "centroid_drift",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "psi",
+                "value": {
+                  "var": "psi",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "drift_thresh",
+                "value": {
+                  "var": "drift_thresh",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "psi_thresh",
+                "value": {
+                  "var": "psi_thresh",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Embedding Drift Detection — Throughput Optimization & Edge-Case Handli",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Embedding Drift Detection — Throughput Optimization & Edge-Case ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Drift detection algorithms must automatically trigger proactive.",
+            "bars": [
+              {
+                "label": "centroid_drift",
+                "value": 0.06,
+                "tone": "data"
+              },
+              {
+                "label": "psi",
+                "value": 0.02,
+                "tone": "data"
+              },
+              {
+                "label": "drift_thresh",
+                "value": 0.05,
+                "tone": "data"
+              },
+              {
+                "label": "psi_thresh",
+                "value": 0.1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Our evaluate_reindexing_trigger function evaluates both centroid drift.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "centroid_drift",
+                "value": 0.06,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "psi",
+                "value": 0.02,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "drift_thresh",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "psi_thresh",
+                "value": 0.1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "centroid_drift",
+                "value": 0.06,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "psi",
+                "value": 0.02,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "drift_thresh",
+                "value": 0.05,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "psi_thresh",
+                "value": 0.1,
+                "tone": "ok"
               }
             ]
           }
@@ -805,264 +619,116 @@
     },
     {
       "partTitle": "Embedding Drift Detection — Resilience Guardrails & Failure Recovery",
-      "codeHash": "bde958825c00ad06d12384f6a807307476c8dc37f547e465ecd6a0a1df4b67b9",
+      "codeHash": "7cd95bada16e166c7f1d1f89757e718858204ff832e7018063b0f1bfb8bf8ea8",
       "spec": {
-        "template": "flow",
-        "title": "Embedding Drift Detection — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Embedding Drift Detection — Resilience Guardrails & Failure Reco",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Defensive boundary clamping in drift calculations protects against.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "drift_val"
+                  },
+                  {
+                    "var": "drift_val",
+                    "line": 2,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Floating-point roundoff errors during cosine distance computation can.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "drift_val"
+                  },
+                  {
+                    "var": "drift_val",
+                    "line": 2,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Embedding Drift Detection — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Embedding Drift Detection — Resilience Guardrails & Failure Reco",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Defensive boundary clamping in drift calculations protects against.",
+            "rows": [
+              {
+                "cells": [
+                  "drift_val",
+                  "-0.1"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Floating-point roundoff errors during cosine distance computation can.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "drift_val",
+                  "-0.1"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "Clamped Drift: 0.0"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -1071,264 +737,176 @@
     },
     {
       "partTitle": "Embedding Drift Detection — Production Telemetry & Verification Audit",
-      "codeHash": "9b04f7e46b82e9ca43a60b444601b3aba0478195d7cd80ca87eae2a49c729900",
+      "codeHash": "db65a200217818c9a137cd70814cfe8473d3d501de4da8dfaa252da68a573542",
       "spec": {
-        "template": "flow",
-        "title": "Embedding Drift Detection — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Embedding Drift Detection — Production Telemetry & Verification ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Drift telemetry audits track the health and stability of vector namespaces.",
+            "bars": [
+              {
+                "label": "monitored_name",
+                "value": {
+                  "var": "monitored_namespaces",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "drifting_count",
+                "value": {
+                  "var": "drifting_count",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "drift_pct",
+                "value": {
+                  "var": "drift_pct",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Our audit_drift_monitoring function monitors drift across multiple.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "monitored_name",
+                "value": {
+                  "var": "monitored_namespaces",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "drifting_count",
+                "value": {
+                  "var": "drifting_count",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "drift_pct",
+                "value": {
+                  "var": "drift_pct",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "monitored_name",
+                "value": {
+                  "var": "monitored_namespaces",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "drifting_count",
+                "value": {
+                  "var": "drifting_count",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "drift_pct",
+                "value": {
+                  "var": "drift_pct",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Embedding Drift Detection — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Embedding Drift Detection — Production Telemetry & Verification ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Drift telemetry audits track the health and stability of vector namespaces.",
+            "bars": [
+              {
+                "label": "monitored_name",
+                "value": 20,
+                "tone": "data"
+              },
+              {
+                "label": "drifting_count",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "drift_pct",
+                "value": 5,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Our audit_drift_monitoring function monitors drift across multiple.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "monitored_name",
+                "value": 20,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "drifting_count",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "drift_pct",
+                "value": 5,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "monitored_name",
+                "value": 20,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "drifting_count",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "drift_pct",
+                "value": 5,
+                "tone": "ok"
               }
             ]
           }

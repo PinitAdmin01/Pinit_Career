@@ -2,125 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 18,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why fairness is a safety issue",
       "codeHash": "24f1d6246940142253e98ccd63ce98ddc9010b061fa7c5878ba8c2f7f344f106",
       "spec": {
-        "template": "table",
-        "title": "Shortlisting decisions across demographic groups",
-        "columns": [
-          "group",
-          "shortlisted"
+        "template": "states",
+        "title": "Why fairness is a safety issue",
+        "states": [
+          {
+            "id": "results",
+            "label": "results"
+          },
+          {
+            "id": "group",
+            "label": "group"
+          },
+          {
+            "id": "shortlisted",
+            "label": "shortlisted"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Systems decide who gets shortlisted for review.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "group"
-                  },
-                  {
-                    "text": "shortlisted"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "group"
-                  },
-                  {
-                    "text": "shortlisted"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "AI systems increasingly help decide who gets shortlisted for a job.",
+            "currentState": "results",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Biased training decisions cause models to learn unfair patterns.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "group"
-                  },
-                  {
-                    "text": "shortlisted"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "shortlisted"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "If the system works worse for some groups of people, those people are.",
+            "currentState": "group",
+            "transition": {
+              "from": "results",
+              "to": "group",
+              "label": {
+                "var": "group",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today builds two standard fairness measures.",
+            "currentState": "shortlisted",
+            "transition": {
+              "from": "group",
+              "to": "shortlisted",
+              "label": {
+                "var": "shortlisted",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Shortlisting decisions across demographic groups",
-        "columns": [
-          "group",
-          "shortlisted"
+        "template": "states",
+        "title": "Why fairness is a safety issue",
+        "states": [
+          {
+            "id": "results",
+            "label": "results"
+          },
+          {
+            "id": "group",
+            "label": "group"
+          },
+          {
+            "id": "shortlisted",
+            "label": "shortlisted"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Systems decide who gets shortlisted for review.",
-            "rows": [
-              {
-                "cells": [
-                  "group",
-                  "shortlisted"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "group",
-                  "shortlisted"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "AI systems increasingly help decide who gets shortlisted for a job.",
+            "currentState": "results",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Biased training decisions cause models to learn unfair patterns.",
-            "rows": [
-              {
-                "cells": [
-                  "group",
-                  "shortlisted"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "results",
-                  "shortlisted"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "If the system works worse for some groups of people, those people are.",
+            "currentState": "group",
+            "transition": {
+              "from": "results",
+              "to": "group",
+              "label": "'group A'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today builds two standard fairness measures.",
+            "currentState": "shortlisted",
+            "transition": {
+              "from": "group",
+              "to": "shortlisted",
+              "label": "[False, True, False, False, True, False…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -129,118 +117,106 @@
       "partTitle": "Demographic parity",
       "codeHash": "f18848085ffe485bd799986b3ee40b950dce754eab2c9aebe1ffed1d1add90b9",
       "spec": {
-        "template": "table",
-        "title": "Measuring demographic parity positive rates and gaps",
-        "columns": [
-          "groups",
-          "rates"
+        "template": "states",
+        "title": "Demographic parity",
+        "states": [
+          {
+            "id": "preds",
+            "label": "preds"
+          },
+          {
+            "id": "groups",
+            "label": "groups"
+          },
+          {
+            "id": "rates",
+            "label": "rates"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Demographic parity measures group positive outcome rates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "rates"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "rates"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Demographic parity asks whether each group receives the positive outcome.",
+            "currentState": "preds",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "The parity gap subtracts the lowest rate from the highest rate.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "rates"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "preds"
-                  },
-                  {
-                    "text": "groups"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The positive rate of a group is the share of its members who got.",
+            "currentState": "groups",
+            "transition": {
+              "from": "preds",
+              "to": "groups",
+              "label": {
+                "var": "groups",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "If the groups genuinely differ in qualifications, perfect parity may be.",
+            "currentState": "rates",
+            "transition": {
+              "from": "groups",
+              "to": "rates",
+              "label": {
+                "var": "rates",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Measuring demographic parity positive rates and gaps",
-        "columns": [
-          "groups",
-          "rates"
+        "template": "states",
+        "title": "Demographic parity",
+        "states": [
+          {
+            "id": "preds",
+            "label": "preds"
+          },
+          {
+            "id": "groups",
+            "label": "groups"
+          },
+          {
+            "id": "rates",
+            "label": "rates"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Demographic parity measures group positive outcome rates.",
-            "rows": [
-              {
-                "cells": [
-                  "groups",
-                  "rates"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "groups",
-                  "rates"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Demographic parity asks whether each group receives the positive outcome.",
+            "currentState": "preds",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "The parity gap subtracts the lowest rate from the highest rate.",
-            "rows": [
-              {
-                "cells": [
-                  "groups",
-                  "rates"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "preds",
-                  "groups"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The positive rate of a group is the share of its members who got.",
+            "currentState": "groups",
+            "transition": {
+              "from": "preds",
+              "to": "groups",
+              "label": "['A', 'A', 'A', 'A', 'A', 'B', 'B', 'B'…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "If the groups genuinely differ in qualifications, perfect parity may be.",
+            "currentState": "rates",
+            "transition": {
+              "from": "groups",
+              "to": "rates",
+              "label": "{}"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -249,117 +225,277 @@
       "partTitle": "Equal opportunity",
       "codeHash": "14933f7a20ea0765cb7b8fe789e3e71ed09d8ef912f1a64c6f25ca43b9d89c87",
       "spec": {
-        "template": "table",
-        "title": "Equal opportunity true positive rates per group",
-        "columns": [
-          "groups",
-          "qualified"
+        "template": "flow",
+        "title": "Equal opportunity",
+        "nodes": [
+          {
+            "id": "y_true",
+            "label": "y_true"
+          },
+          {
+            "id": "y_pred",
+            "label": "y_pred"
+          },
+          {
+            "id": "groups",
+            "label": "groups"
+          },
+          {
+            "id": "g",
+            "label": "g"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "True positive rate is computed separately per group.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "qualified"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Equal opportunity asks a different question.",
+            "values": {
+              "y_true": {
+                "var": "y_true",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "qualified"
-                  }
-                ],
-                "tone": "data"
+              "y_pred": {
+                "var": "y_pred",
+                "line": 2,
+                "hit": 1
+              },
+              "groups": {
+                "var": "groups",
+                "line": 3,
+                "hit": 1
+              },
+              "g": {
+                "var": "g",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "y_true": "data",
+              "y_pred": "data",
+              "groups": "data",
+              "g": "data"
+            },
+            "arrows": [
+              [
+                "y_true",
+                "y_pred"
+              ],
+              [
+                "y_pred",
+                "groups"
+              ],
+              [
+                "groups",
+                "g"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "True labels indicate which applicants were actually qualified.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "qualified"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how rate updates true during execution.",
+            "values": {
+              "y_true": {
+                "var": "y_true",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "y_true"
-                  },
-                  {
-                    "text": "y_pred"
-                  }
-                ],
-                "tone": "ok"
+              "y_pred": {
+                "var": "y_pred",
+                "line": 3,
+                "hit": 1
+              },
+              "groups": {
+                "var": "groups",
+                "line": 4,
+                "hit": 1
+              },
+              "g": {
+                "var": "g",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "y_true": "data",
+              "y_pred": "data",
+              "groups": "data",
+              "g": "data"
+            },
+            "arrows": [
+              [
+                "y_true",
+                "y_pred"
+              ],
+              [
+                "y_pred",
+                "groups"
+              ],
+              [
+                "groups",
+                "g"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Its weakness is that it trusts the true labels, which may themselves.",
+            "values": {
+              "y_true": {
+                "var": "y_true",
+                "line": 3,
+                "hit": 1
+              },
+              "y_pred": {
+                "var": "y_pred",
+                "line": 4,
+                "hit": 1
+              },
+              "groups": {
+                "var": "groups",
+                "line": 5,
+                "hit": 1
+              },
+              "g": {
+                "var": "g",
+                "line": 5,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "y_true": "ok",
+              "y_pred": "ok",
+              "groups": "ok",
+              "g": "ok"
+            },
+            "arrows": [
+              [
+                "y_true",
+                "y_pred"
+              ],
+              [
+                "y_pred",
+                "groups"
+              ],
+              [
+                "groups",
+                "g"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Equal opportunity true positive rates per group",
-        "columns": [
-          "groups",
-          "qualified"
+        "template": "flow",
+        "title": "Equal opportunity",
+        "nodes": [
+          {
+            "id": "y_true",
+            "label": "y_true"
+          },
+          {
+            "id": "y_pred",
+            "label": "y_pred"
+          },
+          {
+            "id": "groups",
+            "label": "groups"
+          },
+          {
+            "id": "g",
+            "label": "g"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "True positive rate is computed separately per group.",
-            "rows": [
-              {
-                "cells": [
-                  "groups",
-                  "qualified"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "groups",
-                  "qualified"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Equal opportunity asks a different question.",
+            "values": {
+              "y_true": "[True, True, False, True, True, True, F…",
+              "y_pred": "[True, True, False, False, True, False,…",
+              "groups": "['A', 'A', 'A', 'A', 'B', 'B', 'B', 'B']",
+              "g": "'A'"
+            },
+            "tones": {
+              "y_true": "data",
+              "y_pred": "data",
+              "groups": "data",
+              "g": "data"
+            },
+            "arrows": [
+              [
+                "y_true",
+                "y_pred"
+              ],
+              [
+                "y_pred",
+                "groups"
+              ],
+              [
+                "groups",
+                "g"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "True labels indicate which applicants were actually qualified.",
-            "rows": [
-              {
-                "cells": [
-                  "groups",
-                  "qualified"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "y_true",
-                  "y_pred"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how rate updates true during execution.",
+            "values": {
+              "y_true": "[True, True, False, True, True, True, F…",
+              "y_pred": "[True, True, False, False, True, False,…",
+              "groups": "['A', 'A', 'A', 'A', 'B', 'B', 'B', 'B']",
+              "g": "'A'"
+            },
+            "tones": {
+              "y_true": "data",
+              "y_pred": "data",
+              "groups": "data",
+              "g": "data"
+            },
+            "arrows": [
+              [
+                "y_true",
+                "y_pred"
+              ],
+              [
+                "y_pred",
+                "groups"
+              ],
+              [
+                "groups",
+                "g"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Its weakness is that it trusts the true labels, which may themselves.",
+            "values": {
+              "y_true": "[True, True, False, True, True, True, F…",
+              "y_pred": "[True, True, False, False, True, False,…",
+              "groups": "['A', 'A', 'A', 'A', 'B', 'B', 'B', 'B']",
+              "g": "'A'"
+            },
+            "tones": {
+              "y_true": "ok",
+              "y_pred": "ok",
+              "groups": "ok",
+              "g": "ok"
+            },
+            "arrows": [
+              [
+                "y_true",
+                "y_pred"
+              ],
+              [
+                "y_pred",
+                "groups"
+              ],
+              [
+                "groups",
+                "g"
+              ]
             ]
           }
         ]
@@ -369,65 +505,77 @@
       "partTitle": "Fairness measures can conflict",
       "codeHash": "ffce07c949c28af2df0fa979503f0d03d8efe1a50de76b8cc75a72aafc104435",
       "spec": {
-        "template": "table",
-        "title": "Comparing positive rates and true positive rates across groups",
-        "columns": [
-          "groups",
-          "rate"
-        ],
+        "template": "bars",
+        "title": "Fairness measures can conflict",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Different fairness measures cannot always be satisfied.",
-            "rows": [
+            "at": "say1",
+            "caption": "It would be convenient if one number captured fairness, but it does not.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "rate"
-                  }
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "rate"
-                  }
-                ],
+                "label": "rate",
+                "value": {
+                  "var": "rate",
+                  "line": 6,
+                  "hit": 6
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Both groups are shortlisted while qualified members differ in recall.",
-            "rows": [
+            "at": "say2",
+            "caption": "Researchers have shown that, when groups differ in their base rates.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "groups"
-                  },
-                  {
-                    "text": "rate"
-                  }
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "y_pred"
-                  },
-                  {
-                    "text": "qual"
-                  }
-                ],
+                "label": "rate",
+                "value": {
+                  "var": "rate",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Checking intersections, such as age and gender together, can reveal gaps.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rate",
+                "value": {
+                  "var": "rate",
+                  "line": 7,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -435,49 +583,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Comparing positive rates and true positive rates across groups",
-        "columns": [
-          "groups",
-          "rate"
-        ],
+        "template": "bars",
+        "title": "Fairness measures can conflict",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Different fairness measures cannot always be satisfied.",
-            "rows": [
+            "at": "say1",
+            "caption": "It would be convenient if one number captured fairness, but it does not.",
+            "bars": [
               {
-                "cells": [
-                  "groups",
-                  "rate"
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "groups",
-                  "rate"
-                ],
+                "label": "rate",
+                "value": 0.5,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say7",
-            "caption": "Both groups are shortlisted while qualified members differ in recall.",
-            "rows": [
+            "at": "say2",
+            "caption": "Researchers have shown that, when groups differ in their base rates.",
+            "bars": [
               {
-                "cells": [
-                  "groups",
-                  "rate"
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "y_pred",
-                  "qual"
-                ],
+                "label": "rate",
+                "value": 0.5,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Checking intersections, such as age and gender together, can reveal gaps.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "rate",
+                "value": 0.5,
                 "tone": "ok"
               }
             ]
@@ -489,224 +641,106 @@
       "partTitle": "Fairness for language models",
       "codeHash": "e561431753eed33fa18500f9c3d165769b2e09aa950c9e5cc61fd577b40a4563",
       "spec": {
-        "template": "flow",
-        "title": "Fairness for language models — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Fairness for language models",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "template",
+            "label": "template"
           },
           {
-            "id": "proc",
-            "label": "2. Fairness for langua...",
-            "tappable": true
+            "id": "names",
+            "label": "names"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "group",
+            "label": "group"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Fairness for language models [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Fairness for langua... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Fairness is not only about yes-or-no decisions.",
+            "currentState": "template",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "A model might describe some groups with more negative words, or assume.",
+            "currentState": "names",
+            "transition": {
+              "from": "template",
+              "to": "names",
+              "label": {
+                "var": "names",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Fairness for language models.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Treat large gaps as findings in the red-team sense.",
+            "currentState": "group",
+            "transition": {
+              "from": "names",
+              "to": "group",
+              "label": {
+                "var": "group",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Fairness for language models — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Fairness for language models",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "template",
+            "label": "template"
           },
           {
-            "id": "proc",
-            "label": "2. Fairness for langua...",
-            "tappable": true
+            "id": "names",
+            "label": "names"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "group",
+            "label": "group"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Fairness for language models [D18.P5.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Fairness for langua... [D18.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Fairness is not only about yes-or-no decisions.",
+            "currentState": "template",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "A model might describe some groups with more negative words, or assume.",
+            "currentState": "names",
+            "transition": {
+              "from": "template",
+              "to": "names",
+              "label": "{'female': ['Maria', 'Aisha'], 'male': …"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Fairness for language models [D18.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Treat large gaps as findings in the red-team sense.",
+            "currentState": "group",
+            "transition": {
+              "from": "names",
+              "to": "group",
+              "label": "'female'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -715,224 +749,106 @@
       "partTitle": "Fairness checks in the pipeline",
       "codeHash": "2ae56139eee018ea0922cd7cbfcabd4954b5ce17eb85c65769a1990a21e43309",
       "spec": {
-        "template": "flow",
-        "title": "Fairness checks in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Fairness checks in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "report",
+            "label": "report"
           },
           {
-            "id": "proc",
-            "label": "2. Fairness checks in ...",
-            "tappable": true
+            "id": "limits",
+            "label": "limits"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Fairness checks in the pipeline [D.Psix.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Fairness checks in ... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Fairness checks belong in evaluation, run on every release like.",
+            "currentState": "report",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Keep a labelled evaluation set that includes group information, collected.",
+            "currentState": "limits",
+            "transition": {
+              "from": "report",
+              "to": "limits",
+              "label": {
+                "var": "limits",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Fairness checks in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add demographic_parity and equal_opportunity to your evaluation tools today.",
+            "currentState": "name",
+            "transition": {
+              "from": "limits",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Fairness checks in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Fairness checks in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "report",
+            "label": "report"
           },
           {
-            "id": "proc",
-            "label": "2. Fairness checks in ...",
-            "tappable": true
+            "id": "limits",
+            "label": "limits"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Fairness checks in the pipeline [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Fairness checks in ... [D18.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Fairness checks belong in evaluation, run on every release like.",
+            "currentState": "report",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Keep a labelled evaluation set that includes group information, collected.",
+            "currentState": "limits",
+            "transition": {
+              "from": "report",
+              "to": "limits",
+              "label": "{'parity_gap': 0.1, 'opportunity_gap': …"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Fairness checks in the pipeline [D18.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add demographic_parity and equal_opportunity to your evaluation tools today.",
+            "currentState": "name",
+            "transition": {
+              "from": "limits",
+              "to": "name",
+              "label": "'parity_gap'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

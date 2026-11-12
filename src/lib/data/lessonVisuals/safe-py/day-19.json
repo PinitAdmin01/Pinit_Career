@@ -2,125 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 19,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What calibration means",
       "codeHash": "fd02713b956d63755cbae315fb2dcce967977ce7d7436da685a99ac364e5aff9",
       "spec": {
-        "template": "table",
-        "title": "Confidence scores versus empirical correctness",
-        "columns": [
-          "answers",
-          "hits"
+        "template": "states",
+        "title": "What calibration means",
+        "states": [
+          {
+            "id": "answers",
+            "label": "answers"
+          },
+          {
+            "id": "level",
+            "label": "level"
+          },
+          {
+            "id": "hits",
+            "label": "hits"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Calibrated confidence matches actual accuracy.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A confidence score is calibrated if it matches how often the system.",
+            "currentState": "answers",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Decisions use confidence when deciding whether to escalate or answer.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "conf"
-                  },
-                  {
-                    "text": "level"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how among updates answers during execution.",
+            "currentState": "level",
+            "transition": {
+              "from": "answers",
+              "to": "level",
+              "label": {
+                "var": "level",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today measures calibration with two tools.",
+            "currentState": "hits",
+            "transition": {
+              "from": "level",
+              "to": "hits",
+              "label": {
+                "var": "hits",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Confidence scores versus empirical correctness",
-        "columns": [
-          "answers",
-          "hits"
+        "template": "states",
+        "title": "What calibration means",
+        "states": [
+          {
+            "id": "answers",
+            "label": "answers"
+          },
+          {
+            "id": "level",
+            "label": "level"
+          },
+          {
+            "id": "hits",
+            "label": "hits"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Calibrated confidence matches actual accuracy.",
-            "rows": [
-              {
-                "cells": [
-                  "answers",
-                  "hits"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "answers",
-                  "hits"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A confidence score is calibrated if it matches how often the system.",
+            "currentState": "answers",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Decisions use confidence when deciding whether to escalate or answer.",
-            "rows": [
-              {
-                "cells": [
-                  "answers",
-                  "hits"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "conf",
-                  "level"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how among updates answers during execution.",
+            "currentState": "level",
+            "transition": {
+              "from": "answers",
+              "to": "level",
+              "label": "0.9"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today measures calibration with two tools.",
+            "currentState": "hits",
+            "transition": {
+              "from": "level",
+              "to": "hits",
+              "label": "[True, False, True, False]"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -129,117 +117,221 @@
       "partTitle": "Confidence bins",
       "codeHash": "68a3b7658e484e04cf9420ffdeebfe5df009ef0ba37b4429b25883369c9878d1",
       "spec": {
-        "template": "table",
-        "title": "Grouping confidence predictions into discrete bins",
-        "columns": [
-          "bins",
-          "conf"
+        "template": "flow",
+        "title": "Confidence bins",
+        "nodes": [
+          {
+            "id": "bins",
+            "label": "bins"
+          },
+          {
+            "id": "conf",
+            "label": "conf"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Group varied confidence values into discrete bins.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bins"
-                  },
-                  {
-                    "text": "conf"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Real confidences are all different, like 0.",
+            "values": {
+              "bins": {
+                "var": "bins",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "bins"
-                  },
-                  {
-                    "text": "conf"
-                  }
-                ],
-                "tone": "data"
+              "conf": {
+                "var": "conf",
+                "line": 2,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "bins": "data",
+              "conf": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "bins",
+                "conf"
+              ],
+              [
+                "conf",
+                "b"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Each bin tracks average confidence alongside actual accuracy.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "bins"
-                  },
-                  {
-                    "text": "conf"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "With 5 bins, the bins cover 0 to 0.",
+            "values": {
+              "bins": {
+                "var": "bins",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "confidence"
-                  },
-                  {
-                    "text": "bin"
-                  }
-                ],
-                "tone": "ok"
+              "conf": {
+                "var": "conf",
+                "line": 3,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "bins": "data",
+              "conf": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "bins",
+                "conf"
+              ],
+              [
+                "conf",
+                "b"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Empty bins are simply skipped.",
+            "values": {
+              "bins": {
+                "var": "bins",
+                "line": 3,
+                "hit": 1
+              },
+              "conf": {
+                "var": "conf",
+                "line": 4,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "bins": "ok",
+              "conf": "ok",
+              "b": "ok"
+            },
+            "arrows": [
+              [
+                "bins",
+                "conf"
+              ],
+              [
+                "conf",
+                "b"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Grouping confidence predictions into discrete bins",
-        "columns": [
-          "bins",
-          "conf"
+        "template": "flow",
+        "title": "Confidence bins",
+        "nodes": [
+          {
+            "id": "bins",
+            "label": "bins"
+          },
+          {
+            "id": "conf",
+            "label": "conf"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Group varied confidence values into discrete bins.",
-            "rows": [
-              {
-                "cells": [
-                  "bins",
-                  "conf"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "bins",
-                  "conf"
-                ],
-                "tone": "data"
-              }
+            "caption": "Real confidences are all different, like 0.",
+            "values": {
+              "bins": "5",
+              "conf": "0.05",
+              "b": "0"
+            },
+            "tones": {
+              "bins": "data",
+              "conf": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "bins",
+                "conf"
+              ],
+              [
+                "conf",
+                "b"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Each bin tracks average confidence alongside actual accuracy.",
-            "rows": [
-              {
-                "cells": [
-                  "bins",
-                  "conf"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "confidence",
-                  "bin"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "With 5 bins, the bins cover 0 to 0.",
+            "values": {
+              "bins": "5",
+              "conf": "0.05",
+              "b": "0"
+            },
+            "tones": {
+              "bins": "data",
+              "conf": "data",
+              "b": "data"
+            },
+            "arrows": [
+              [
+                "bins",
+                "conf"
+              ],
+              [
+                "conf",
+                "b"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Empty bins are simply skipped.",
+            "values": {
+              "bins": "5",
+              "conf": "0.05",
+              "b": "0"
+            },
+            "tones": {
+              "bins": "ok",
+              "conf": "ok",
+              "b": "ok"
+            },
+            "arrows": [
+              [
+                "bins",
+                "conf"
+              ],
+              [
+                "conf",
+                "b"
+              ]
             ]
           }
         ]
@@ -249,65 +341,131 @@
       "partTitle": "Expected calibration error",
       "codeHash": "1a0fd081704a544e9815becb0132a65580bf3cfaedb39c8681ff075c281374c5",
       "spec": {
-        "template": "table",
-        "title": "Expected calibration error computation components",
-        "columns": [
-          "correct",
-          "conf"
-        ],
+        "template": "bars",
+        "title": "Expected calibration error",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Each bin compares average confidence with accuracy.",
-            "rows": [
+            "at": "say1",
+            "caption": "Expected calibration error, ECE, summarises calibration in one number.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "correct"
-                  },
-                  {
-                    "text": "conf"
-                  }
-                ],
-                "tone": "ok"
+                "label": "bins",
+                "value": {
+                  "var": "bins",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "correct"
-                  },
-                  {
-                    "text": "conf"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ece",
+                "value": {
+                  "var": "ece",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Predictions are weighted by the share of observations in that bin.",
-            "rows": [
+            "at": "say2",
+            "caption": "For each non-empty bin, take the gap between its accuracy and its average.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "correct"
-                  },
-                  {
-                    "text": "conf"
-                  }
-                ],
-                "tone": "data"
+                "label": "bins",
+                "value": {
+                  "var": "bins",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "accuracy"
-                  },
-                  {
-                    "text": "confidence"
-                  }
-                ],
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ece",
+                "value": {
+                  "var": "ece",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Compare ECE between versions using the same bins and the same evaluation set.",
+            "bars": [
+              {
+                "label": "bins",
+                "value": {
+                  "var": "bins",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ece",
+                "value": {
+                  "var": "ece",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -315,49 +473,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Expected calibration error computation components",
-        "columns": [
-          "correct",
-          "conf"
-        ],
+        "template": "bars",
+        "title": "Expected calibration error",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Each bin compares average confidence with accuracy.",
-            "rows": [
+            "at": "say1",
+            "caption": "Expected calibration error, ECE, summarises calibration in one number.",
+            "bars": [
               {
-                "cells": [
-                  "correct",
-                  "conf"
-                ],
-                "tone": "ok"
+                "label": "bins",
+                "value": 5,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "correct",
-                  "conf"
-                ],
+                "label": "total",
+                "value": 6,
+                "tone": "data"
+              },
+              {
+                "label": "ece",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Predictions are weighted by the share of observations in that bin.",
-            "rows": [
+            "at": "say2",
+            "caption": "For each non-empty bin, take the gap between its accuracy and its average.",
+            "bars": [
               {
-                "cells": [
-                  "correct",
-                  "conf"
-                ],
-                "tone": "data"
+                "label": "bins",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "accuracy",
-                  "confidence"
-                ],
+                "label": "total",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "ece",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Compare ECE between versions using the same bins and the same evaluation set.",
+            "bars": [
+              {
+                "label": "bins",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "total",
+                "value": 6,
+                "tone": "ok"
+              },
+              {
+                "label": "ece",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -369,65 +561,131 @@
       "partTitle": "Reliability tables",
       "codeHash": "c4dfbb1ee5218aab4da03e6eb7e0f1cccdd7cd9c6fb09b66b28d8ea225fc7ce7",
       "spec": {
-        "template": "table",
-        "title": "Reliability table entries across confidence bins",
-        "columns": [
-          "data",
-          "rows"
-        ],
+        "template": "bars",
+        "title": "Reliability tables",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Reliability table rows show predictions and accuracy.",
-            "rows": [
+            "at": "say1",
+            "caption": "One number hides where the problem is, so teams also look at a reliability.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "rows"
-                  }
-                ],
-                "tone": "ok"
+                "label": "bins",
+                "value": {
+                  "var": "bins",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "rows"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg",
+                "value": {
+                  "var": "avg",
+                  "line": 7,
+                  "hit": 3
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Bins where accuracy falls below confidence indicate overconfidence.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each row is a bin, with its range, the number of predictions, the average.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "data"
-                  },
-                  {
-                    "text": "rows"
-                  }
-                ],
-                "tone": "data"
+                "label": "bins",
+                "value": {
+                  "var": "bins",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "bins"
-                  },
-                  {
-                    "text": "conf"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "avg",
+                "value": {
+                  "var": "avg",
+                  "line": 8,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Together, ECE and the table give a summary and the detail.",
+            "bars": [
+              {
+                "label": "bins",
+                "value": {
+                  "var": "bins",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "avg",
+                "value": {
+                  "var": "avg",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -435,49 +693,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Reliability table entries across confidence bins",
-        "columns": [
-          "data",
-          "rows"
-        ],
+        "template": "bars",
+        "title": "Reliability tables",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Reliability table rows show predictions and accuracy.",
-            "rows": [
+            "at": "say1",
+            "caption": "One number hides where the problem is, so teams also look at a reliability.",
+            "bars": [
               {
-                "cells": [
-                  "data",
-                  "rows"
-                ],
-                "tone": "ok"
+                "label": "bins",
+                "value": 5,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "data",
-                  "rows"
-                ],
+                "label": "b",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 0.15,
+                "tone": "data"
+              },
+              {
+                "label": "avg",
+                "value": 0.15,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Bins where accuracy falls below confidence indicate overconfidence.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each row is a bin, with its range, the number of predictions, the average.",
+            "bars": [
               {
-                "cells": [
-                  "data",
-                  "rows"
-                ],
-                "tone": "data"
+                "label": "bins",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "bins",
-                  "conf"
-                ],
+                "label": "b",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 0.15,
+                "tone": "ok"
+              },
+              {
+                "label": "avg",
+                "value": 0.15,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Together, ECE and the table give a summary and the detail.",
+            "bars": [
+              {
+                "label": "bins",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 0.25,
+                "tone": "ok"
+              },
+              {
+                "label": "avg",
+                "value": 0.15,
                 "tone": "ok"
               }
             ]
@@ -489,224 +781,106 @@
       "partTitle": "Fixing calibration",
       "codeHash": "d8f3b5cfc4fccaac90aa4abd0c234beea018f3438160a3837237fa506b09066b",
       "spec": {
-        "template": "flow",
-        "title": "Fixing calibration — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Fixing calibration",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "scores",
+            "label": "scores"
           },
           {
-            "id": "proc",
-            "label": "2. Fixing calibration",
-            "tappable": true
+            "id": "t",
+            "label": "t"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "temperature",
+            "label": "temperature"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Fixing calibration [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Fixing calibration [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Poor calibration can often be improved without retraining the model.",
+            "currentState": "scores",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Temperature scaling divides a model's raw scores by a number called.",
+            "currentState": "t",
+            "transition": {
+              "from": "scores",
+              "to": "t",
+              "label": {
+                "var": "t",
+                "line": 9,
+                "hit": 5
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Fixing calibration [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow uses calibrated confidence to decide when the system should.",
+            "currentState": "temperature",
+            "transition": {
+              "from": "t",
+              "to": "temperature",
+              "label": {
+                "var": "temperature",
+                "line": 4,
+                "hit": 3
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Fixing calibration — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Fixing calibration",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "scores",
+            "label": "scores"
           },
           {
-            "id": "proc",
-            "label": "2. Fixing calibration",
-            "tappable": true
+            "id": "t",
+            "label": "t"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "temperature",
+            "label": "temperature"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Fixing calibration [D19.P5.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Fixing calibration [D19.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Poor calibration can often be improved without retraining the model.",
+            "currentState": "scores",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Temperature scaling divides a model's raw scores by a number called.",
+            "currentState": "t",
+            "transition": {
+              "from": "scores",
+              "to": "t",
+              "label": "1"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Fixing calibration [D19.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow uses calibrated confidence to decide when the system should.",
+            "currentState": "temperature",
+            "transition": {
+              "from": "t",
+              "to": "temperature",
+              "label": "1"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -715,224 +889,106 @@
       "partTitle": "Calibration in the pipeline",
       "codeHash": "f112b7f6f546885dca4bd5651d383805ce1f8c610320bbdd74eab1ebd1f007fa",
       "spec": {
-        "template": "flow",
-        "title": "Calibration in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Calibration in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rows",
+            "label": "rows"
           },
           {
-            "id": "proc",
-            "label": "2. Calibration in the ...",
-            "tappable": true
+            "id": "threshold",
+            "label": "threshold"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "lo",
+            "label": "lo"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Calibration in the pipeline [D.Psix.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Calibration in the ... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Every confidence score used for a decision in your pipeline should be.",
+            "currentState": "rows",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "That includes moderation scores, injection classifier scores, judge scores.",
+            "currentState": "threshold",
+            "transition": {
+              "from": "rows",
+              "to": "threshold",
+              "label": {
+                "var": "threshold",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Calibration in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add ece and reliability_table to your evaluation tools today.",
+            "currentState": "lo",
+            "transition": {
+              "from": "threshold",
+              "to": "lo",
+              "label": {
+                "var": "lo",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Calibration in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Calibration in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rows",
+            "label": "rows"
           },
           {
-            "id": "proc",
-            "label": "2. Calibration in the ...",
-            "tappable": true
+            "id": "threshold",
+            "label": "threshold"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "lo",
+            "label": "lo"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Calibration in the pipeline [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Calibration in the ... [D19.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Every confidence score used for a decision in your pipeline should be.",
+            "currentState": "rows",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "That includes moderation scores, injection classifier scores, judge scores.",
+            "currentState": "threshold",
+            "transition": {
+              "from": "rows",
+              "to": "threshold",
+              "label": "0.85"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Calibration in the pipeline [D19.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add ece and reliability_table to your evaluation tools today.",
+            "currentState": "lo",
+            "transition": {
+              "from": "threshold",
+              "to": "lo",
+              "label": "0.6"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

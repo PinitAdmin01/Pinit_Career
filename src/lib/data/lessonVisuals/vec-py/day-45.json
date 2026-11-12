@@ -2,269 +2,112 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 45,
-  "promptSha": "da8c06efe3365cdd38fd9d53b33a35dec7ba65fedec91b0d4668c4e77d939421",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Milestone 9 — Foundations & Mathematical Invariants",
-      "codeHash": "0775b9fa7df5334e1804f7d239db9a09109b28c6c1734c7d549d92494c814c56",
+      "codeHash": "760c205656fc3fe251ae2bf01948bcdd683f87c938887f075284c3a2b514655c",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Milestone 9 — Foundations & Mathematical Invariants",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise software architectures require strict multi-tenant data.",
+            "items": {
+              "var": "query",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A query issued by Tenant A must never be allowed to observe, traverse,.",
+            "items": {
+              "var": "query",
+              "line": 4,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": {
+              "var": "query",
+              "line": 3,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Milestone 9 — Foundations & Mathematical Invariants",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise software architectures require strict multi-tenant data.",
+            "items": [
+              "0.85",
+              "0.85"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "A query issued by Tenant A must never be allowed to observe, traverse,.",
+            "items": [
+              "0.85",
+              "0.85"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": [
+              "0.85",
+              "0.85"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -273,265 +116,279 @@
     },
     {
       "partTitle": "Milestone 9 — Core Algorithm & State Representation",
-      "codeHash": "d13db71d34827ca451100bc322439e7d63cb8a986f8de9885e7282b63735f41e",
+      "codeHash": "780df5fd3184b1453464d2e842cb79dcebe839490b12d67628e5376865024ebd",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
+        "title": "Milestone 9 — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "survivor_ids",
+            "label": "survivor_ids"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "page_size",
+            "label": "page_size"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "bytes_per_node",
+            "label": "bytes_per_node"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pages_accessed",
+            "label": "pages_accessed"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Simulating disk I/O characteristics is essential for verifying DiskANN.",
+            "values": {
+              "survivor_ids": {
+                "var": "survivor_ids",
+                "line": 2,
+                "hit": 1
+              },
+              "page_size": {
+                "var": "page_size",
+                "line": 2,
+                "hit": 1
+              },
+              "bytes_per_node": {
+                "var": "bytes_per_node",
+                "line": 2,
+                "hit": 1
+              },
+              "pages_accessed": {
+                "var": "pages_accessed",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "survivor_ids": "data",
+              "page_size": "data",
+              "bytes_per_node": "data",
+              "pages_accessed": "data"
+            },
+            "arrows": [
+              [
+                "survivor_ids",
+                "page_size"
+              ],
+              [
+                "page_size",
+                "bytes_per_node"
+              ],
+              [
+                "bytes_per_node",
+                "pages_accessed"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "In a page-aligned SSD architecture, multiple vector nodes reside within.",
+            "values": {
+              "survivor_ids": {
+                "var": "survivor_ids",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "page_size": {
+                "var": "page_size",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "bytes_per_node": {
+                "var": "bytes_per_node",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "pages_accessed": {
+                "var": "pages_accessed",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "survivor_ids": "data",
+              "page_size": "data",
+              "bytes_per_node": "data",
+              "pages_accessed": "data"
+            },
+            "arrows": [
+              [
+                "survivor_ids",
+                "page_size"
+              ],
+              [
+                "page_size",
+                "bytes_per_node"
+              ],
+              [
+                "bytes_per_node",
+                "pages_accessed"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "survivor_ids": {
+                "var": "survivor_ids",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "page_size": {
+                "var": "page_size",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "bytes_per_node": {
+                "var": "bytes_per_node",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "pages_accessed": {
+                "var": "pages_accessed",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "survivor_ids": "ok",
+              "page_size": "ok",
+              "bytes_per_node": "ok",
+              "pages_accessed": "ok"
+            },
+            "arrows": [
+              [
+                "survivor_ids",
+                "page_size"
+              ],
+              [
+                "page_size",
+                "bytes_per_node"
+              ],
+              [
+                "bytes_per_node",
+                "pages_accessed"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
+        "title": "Milestone 9 — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "survivor_ids",
+            "label": "survivor_ids"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "page_size",
+            "label": "page_size"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "bytes_per_node",
+            "label": "bytes_per_node"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pages_accessed",
+            "label": "pages_accessed"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Simulating disk I/O characteristics is essential for verifying DiskANN.",
+            "values": {
+              "survivor_ids": "[1, 3, 17]",
+              "page_size": "4096",
+              "bytes_per_node": "256",
+              "pages_accessed": "set()"
+            },
+            "tones": {
+              "survivor_ids": "data",
+              "page_size": "data",
+              "bytes_per_node": "data",
+              "pages_accessed": "data"
+            },
+            "arrows": [
+              [
+                "survivor_ids",
+                "page_size"
+              ],
+              [
+                "page_size",
+                "bytes_per_node"
+              ],
+              [
+                "bytes_per_node",
+                "pages_accessed"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "In a page-aligned SSD architecture, multiple vector nodes reside within.",
+            "values": {
+              "survivor_ids": "[1, 3, 17]",
+              "page_size": "4096",
+              "bytes_per_node": "256",
+              "pages_accessed": "set()"
+            },
+            "tones": {
+              "survivor_ids": "data",
+              "page_size": "data",
+              "bytes_per_node": "data",
+              "pages_accessed": "data"
+            },
+            "arrows": [
+              [
+                "survivor_ids",
+                "page_size"
+              ],
+              [
+                "page_size",
+                "bytes_per_node"
+              ],
+              [
+                "bytes_per_node",
+                "pages_accessed"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "survivor_ids": "[1, 3, 17]",
+              "page_size": "4096",
+              "bytes_per_node": "256",
+              "pages_accessed": "set()"
+            },
+            "tones": {
+              "survivor_ids": "ok",
+              "page_size": "ok",
+              "bytes_per_node": "ok",
+              "pages_accessed": "ok"
+            },
+            "arrows": [
+              [
+                "survivor_ids",
+                "page_size"
+              ],
+              [
+                "page_size",
+                "bytes_per_node"
+              ],
+              [
+                "bytes_per_node",
+                "pages_accessed"
+              ]
             ]
           }
         ]
@@ -539,264 +396,218 @@
     },
     {
       "partTitle": "Milestone 9 — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "c77176e5d2c739941863cdd68c0769e09f3576e30b35f689030319a9672e8dba",
+      "codeHash": "5ec14a72569f34d71d5ff618502653784d06e712ad25a5b1ba3beee350e34a42",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 9 — Throughput Optimization & Edge-Case Handling",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The complete Milestone 9 pipeline integrates tenant predicate filtering.",
+            "bars": [
+              {
+                "label": "tenant",
+                "value": {
+                  "var": "tenant",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "top_k",
+                "value": {
+                  "var": "top_k",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n_id",
+                "value": {
+                  "var": "n_id",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Our milestone9_pipeline function accepts incoming query vectors, metadata.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tenant",
+                "value": {
+                  "var": "tenant",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "top_k",
+                "value": {
+                  "var": "top_k",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "n_id",
+                "value": {
+                  "var": "n_id",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tenant",
+                "value": {
+                  "var": "tenant",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "top_k",
+                "value": {
+                  "var": "top_k",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "n_id",
+                "value": {
+                  "var": "n_id",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 9 — Throughput Optimization & Edge-Case Handling",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The complete Milestone 9 pipeline integrates tenant predicate filtering.",
+            "bars": [
+              {
+                "label": "tenant",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "top_k",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "n_id",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 0.95,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Our milestone9_pipeline function accepts incoming query vectors, metadata.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tenant",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "top_k",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "n_id",
+                "value": 20,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "a",
+                "value": 0.95,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tenant",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "top_k",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "n_id",
+                "value": 30,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "a",
+                "value": 0.95,
+                "tone": "ok"
               }
             ]
           }
@@ -805,265 +616,167 @@
     },
     {
       "partTitle": "Milestone 9 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "722de7aff1c24c80ffed0ed0e313ed74b89820994bf6cb8e3ed23806e5adcad5",
+      "codeHash": "f1d82d38a6fd1b55b6e8d23461dde62f6045d337659cea2ae8d17d49dd8dafc7",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
+        "title": "Milestone 9 — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "query",
+            "label": "query"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "top_k",
+            "label": "top_k"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Defensive input validation in Milestone 9 ensures that malformed queries.",
+            "values": {
+              "query": {
+                "var": "query",
+                "line": 2,
+                "hit": 1
+              },
+              "top_k": {
+                "var": "top_k",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "query": "data",
+              "top_k": "data"
+            },
+            "arrows": [
+              [
+                "query",
+                "top_k"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "A query with an empty vector or a non-positive top_k parameter violates.",
+            "values": {
+              "query": {
+                "var": "query",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "top_k": {
+                "var": "top_k",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "query": "data",
+              "top_k": "data"
+            },
+            "arrows": [
+              [
+                "query",
+                "top_k"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "query": {
+                "var": "query",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "top_k": {
+                "var": "top_k",
+                "line": 2,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "query": "ok",
+              "top_k": "ok"
+            },
+            "arrows": [
+              [
+                "query",
+                "top_k"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
+        "title": "Milestone 9 — Resilience Guardrails & Failure Recovery",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "query",
+            "label": "query"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "top_k",
+            "label": "top_k"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Defensive input validation in Milestone 9 ensures that malformed queries.",
+            "values": {
+              "query": "[1]",
+              "top_k": "5"
+            },
+            "tones": {
+              "query": "data",
+              "top_k": "data"
+            },
+            "arrows": [
+              [
+                "query",
+                "top_k"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "A query with an empty vector or a non-positive top_k parameter violates.",
+            "values": {
+              "query": "[1]",
+              "top_k": "5"
+            },
+            "tones": {
+              "query": "data",
+              "top_k": "data"
+            },
+            "arrows": [
+              [
+                "query",
+                "top_k"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "query": "[1]",
+              "top_k": "5"
+            },
+            "tones": {
+              "query": "ok",
+              "top_k": "ok"
+            },
+            "arrows": [
+              [
+                "query",
+                "top_k"
+              ]
             ]
           }
         ]
@@ -1071,264 +784,134 @@
     },
     {
       "partTitle": "Milestone 9 — Production Telemetry & Verification Audit",
-      "codeHash": "47d0d266b068e4c4f61c9b0b96ab9f69e892d3e0c7c7f0b10048384bbaf6180d",
+      "codeHash": "b545a623f61350764f7789f339ec31e57903eb1a240c6d1dd94d1ed32b0ba8f3",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 9 — Production Telemetry & Verification Audit",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Verification auditing in Milestone 9 assesses whether retrieval recall.",
+            "bars": [
+              {
+                "label": "recall",
+                "value": {
+                  "var": "recall",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ssd_reads",
+                "value": {
+                  "var": "ssd_reads",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how production updates criteria during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "recall",
+                "value": {
+                  "var": "recall",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "ssd_reads",
+                "value": {
+                  "var": "ssd_reads",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "recall",
+                "value": {
+                  "var": "recall",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "ssd_reads",
+                "value": {
+                  "var": "ssd_reads",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Milestone 9 — Production Telemetry & Verification Audit",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Verification auditing in Milestone 9 assesses whether retrieval recall.",
+            "bars": [
+              {
+                "label": "recall",
+                "value": 0.965,
+                "tone": "data"
+              },
+              {
+                "label": "ssd_reads",
+                "value": 12,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how production updates criteria during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "recall",
+                "value": 0.965,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "ssd_reads",
+                "value": 12,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "recall",
+                "value": 0.965,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "ssd_reads",
+                "value": 12,
+                "tone": "ok"
               }
             ]
           }

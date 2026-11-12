@@ -2,125 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 23,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What an AI incident looks like",
       "codeHash": "9ccec96d02d911b1b8c3790b0a13aa3cb5c69efea5b30eb24abe9b81ee229e50",
       "spec": {
-        "template": "table",
-        "title": "AI safety incident manifestations and detection channels",
-        "columns": [
-          "incidents",
-          "how"
+        "template": "states",
+        "title": "What an AI incident looks like",
+        "states": [
+          {
+            "id": "incidents",
+            "label": "incidents"
+          },
+          {
+            "id": "what",
+            "label": "what"
+          },
+          {
+            "id": "how",
+            "label": "how"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An incident occurs when a system causes or risks harm.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "incidents"
-                  },
-                  {
-                    "text": "how"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "incidents"
-                  },
-                  {
-                    "text": "jailbreak"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "An incident is an event where the system causes, or nearly causes, harm.",
+            "currentState": "incidents",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Incident response contains and triages unfolding safety issues.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "incidents"
-                  },
-                  {
-                    "text": "how"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "incidents"
-                  },
-                  {
-                    "text": "fairness"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "For AI systems, typical incidents include a jailbreak that spreads.",
+            "currentState": "what",
+            "transition": {
+              "from": "incidents",
+              "to": "what",
+              "label": {
+                "var": "what",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say11",
+            "caption": "Practising incidents in advance, with a mock scenario and a timer, is.",
+            "currentState": "how",
+            "transition": {
+              "from": "what",
+              "to": "how",
+              "label": {
+                "var": "how",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "AI safety incident manifestations and detection channels",
-        "columns": [
-          "incidents",
-          "how"
+        "template": "states",
+        "title": "What an AI incident looks like",
+        "states": [
+          {
+            "id": "incidents",
+            "label": "incidents"
+          },
+          {
+            "id": "what",
+            "label": "what"
+          },
+          {
+            "id": "how",
+            "label": "how"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "An incident occurs when a system causes or risks harm.",
-            "rows": [
-              {
-                "cells": [
-                  "incidents",
-                  "how"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "incidents",
-                  "jailbreak"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "An incident is an event where the system causes, or nearly causes, harm.",
+            "currentState": "incidents",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Incident response contains and triages unfolding safety issues.",
-            "rows": [
-              {
-                "cells": [
-                  "incidents",
-                  "how"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "incidents",
-                  "fairness"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "For AI systems, typical incidents include a jailbreak that spreads.",
+            "currentState": "what",
+            "transition": {
+              "from": "incidents",
+              "to": "what",
+              "label": "'jailbreak shared online'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say11",
+            "caption": "Practising incidents in advance, with a mock scenario and a timer, is.",
+            "currentState": "how",
+            "transition": {
+              "from": "what",
+              "to": "how",
+              "label": "'user report'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -129,118 +117,106 @@
       "partTitle": "Severity levels",
       "codeHash": "d982bddbdc6cb6ff1ffdcba20e3bb3898aadd4660b669ef71e76ab8431d8115b",
       "spec": {
-        "template": "table",
-        "title": "Incident severity classification criteria",
-        "columns": [
-          "users",
-          "severity"
+        "template": "states",
+        "title": "Severity levels",
+        "states": [
+          {
+            "id": "case",
+            "label": "case"
+          },
+          {
+            "id": "users",
+            "label": "users"
+          },
+          {
+            "id": "data_exposed",
+            "label": "data_exposed"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Teams classify severity to organize emergency response.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "users"
-                  },
-                  {
-                    "text": "severity"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "SEV1"
-                  },
-                  {
-                    "text": "SEV2"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Not every incident needs everyone out of bed at 3 a.",
+            "currentState": "case",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Severity determines response speed and executive escalation.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "users"
-                  },
-                  {
-                    "text": "severity"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "SEV3"
-                  },
-                  {
-                    "text": "SEV4"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "A common scale runs from SEV1, the most serious, to SEV4, the least.",
+            "currentState": "users",
+            "transition": {
+              "from": "case",
+              "to": "users",
+              "label": {
+                "var": "users",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Writing the policy down in advance avoids arguments during the incident.",
+            "currentState": "data_exposed",
+            "transition": {
+              "from": "users",
+              "to": "data_exposed",
+              "label": {
+                "var": "data_exposed",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Incident severity classification criteria",
-        "columns": [
-          "users",
-          "severity"
+        "template": "states",
+        "title": "Severity levels",
+        "states": [
+          {
+            "id": "case",
+            "label": "case"
+          },
+          {
+            "id": "users",
+            "label": "users"
+          },
+          {
+            "id": "data_exposed",
+            "label": "data_exposed"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Teams classify severity to organize emergency response.",
-            "rows": [
-              {
-                "cells": [
-                  "users",
-                  "severity"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "SEV1",
-                  "SEV2"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Not every incident needs everyone out of bed at 3 a.",
+            "currentState": "case",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "Severity determines response speed and executive escalation.",
-            "rows": [
-              {
-                "cells": [
-                  "users",
-                  "severity"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "SEV3",
-                  "SEV4"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A common scale runs from SEV1, the most serious, to SEV4, the least.",
+            "currentState": "users",
+            "transition": {
+              "from": "case",
+              "to": "users",
+              "label": "3"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Writing the policy down in advance avoids arguments during the incident.",
+            "currentState": "data_exposed",
+            "transition": {
+              "from": "users",
+              "to": "data_exposed",
+              "label": "False"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -250,15 +226,15 @@
       "codeHash": "c95d360630817d75293f6f65f6582ee78739b06823c4ee91a2b574f35fcf86c7",
       "spec": {
         "template": "table",
-        "title": "Containment switch configuration state before and after",
+        "title": "Containment first",
         "columns": [
-          "switches",
-          "switches"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Containment stops harm from spreading before finding root causes.",
+            "caption": "The first goal in an incident is to stop the harm spreading, even before.",
             "rows": [
               {
                 "cells": [
@@ -266,18 +242,9 @@
                     "text": "switches"
                   },
                   {
-                    "text": "switches"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "switches"
-                  },
-                  {
-                    "text": "switches"
+                    "var": "switches",
+                    "line": 1,
+                    "hit": 1
                   }
                 ],
                 "tone": "data"
@@ -286,7 +253,7 @@
           },
           {
             "at": "say2",
-            "caption": "Prebuilt containment switches can be flipped in seconds.",
+            "caption": "For AI systems, containment tools should be built in advance, as switches.",
             "rows": [
               {
                 "cells": [
@@ -294,18 +261,37 @@
                     "text": "switches"
                   },
                   {
-                    "text": "switches"
+                    "var": "switches",
+                    "line": 2,
+                    "hit": 1
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "After containment, the team can investigate the root cause calmly.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               },
               {
                 "cells": [
                   {
-                    "text": "switches"
+                    "text": "out 2"
                   },
                   {
-                    "text": "switches"
+                    "out": 2
                   }
                 ],
                 "tone": "ok"
@@ -316,27 +302,20 @@
       },
       "filled": {
         "template": "table",
-        "title": "Containment switch configuration state before and after",
+        "title": "Containment first",
         "columns": [
-          "switches",
-          "switches"
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Containment stops harm from spreading before finding root causes.",
+            "caption": "The first goal in an incident is to stop the harm spreading, even before.",
             "rows": [
               {
                 "cells": [
                   "switches",
-                  "switches"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "switches",
-                  "switches"
+                  "{'refund_tool_enabled': True, 'moderati…"
                 ],
                 "tone": "data"
               }
@@ -344,19 +323,32 @@
           },
           {
             "at": "say2",
-            "caption": "Prebuilt containment switches can be flipped in seconds.",
+            "caption": "For AI systems, containment tools should be built in advance, as switches.",
             "rows": [
               {
                 "cells": [
                   "switches",
-                  "switches"
+                  "{'refund_tool_enabled': True, 'moderati…"
                 ],
-                "tone": "data"
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "After containment, the team can investigate the root cause calmly.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "before: {'refund_tool_enabled': True, 'moderation_strict': False, 'model_version': 'v7'}"
+                ],
+                "tone": "ok"
               },
               {
                 "cells": [
-                  "switches",
-                  "switches"
+                  "out 2",
+                  "contained: {'refund_tool_enabled': False, 'moderation_strict': True, 'model_version': 'v6'}"
                 ],
                 "tone": "ok"
               }
@@ -369,65 +361,77 @@
       "partTitle": "Measuring response times",
       "codeHash": "4863beffae356b18265caadc2ee6b2e8cedc8837352790874c6cc418ce75523d",
       "spec": {
-        "template": "table",
-        "title": "Measuring detection and mitigation response durations",
-        "columns": [
-          "detect",
-          "mitigate"
-        ],
+        "template": "bars",
+        "title": "Measuring response times",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Time to detect measures elapsed duration before noticing issues.",
-            "rows": [
+            "at": "say1",
+            "caption": "Two times summarise how well an incident was handled.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "detect"
-                  },
-                  {
-                    "text": "mitigate"
-                  }
-                ],
-                "tone": "ok"
+                "label": "detect",
+                "value": {
+                  "var": "detect",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "datetime"
-                  },
-                  {
-                    "text": "detected"
-                  }
-                ],
+                "label": "mitigate",
+                "value": {
+                  "var": "mitigate",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Time to mitigate tracks the period required to halt harm.",
-            "rows": [
+            "at": "say2",
+            "caption": "Time to detect is from when the problem started to when the team noticed it.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "detect"
-                  },
-                  {
-                    "text": "mitigate"
-                  }
-                ],
-                "tone": "data"
+                "label": "detect",
+                "value": {
+                  "var": "detect",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "started"
-                  },
-                  {
-                    "text": "mitigated"
-                  }
-                ],
+                "label": "mitigate",
+                "value": {
+                  "var": "mitigate",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Long detection times usually mean monitoring is missing.",
+            "bars": [
+              {
+                "label": "detect",
+                "value": {
+                  "var": "detect",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "mitigate",
+                "value": {
+                  "var": "mitigate",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -435,49 +439,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Measuring detection and mitigation response durations",
-        "columns": [
-          "detect",
-          "mitigate"
-        ],
+        "template": "bars",
+        "title": "Measuring response times",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Time to detect measures elapsed duration before noticing issues.",
-            "rows": [
+            "at": "say1",
+            "caption": "Two times summarise how well an incident was handled.",
+            "bars": [
               {
-                "cells": [
-                  "detect",
-                  "mitigate"
-                ],
-                "tone": "ok"
+                "label": "detect",
+                "value": 25,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "datetime",
-                  "detected"
-                ],
+                "label": "mitigate",
+                "value": 75,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Time to mitigate tracks the period required to halt harm.",
-            "rows": [
+            "at": "say2",
+            "caption": "Time to detect is from when the problem started to when the team noticed it.",
+            "bars": [
               {
-                "cells": [
-                  "detect",
-                  "mitigate"
-                ],
-                "tone": "data"
+                "label": "detect",
+                "value": 25,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "started",
-                  "mitigated"
-                ],
+                "label": "mitigate",
+                "value": 75,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Long detection times usually mean monitoring is missing.",
+            "bars": [
+              {
+                "label": "detect",
+                "value": 25,
+                "tone": "ok"
+              },
+              {
+                "label": "mitigate",
+                "value": 75,
                 "tone": "ok"
               }
             ]
@@ -489,223 +497,151 @@
       "partTitle": "Communicating during an incident",
       "codeHash": "cd205e4e8d9824a5900b261171c57287df2f1ea080799d37e67aa7a7e7572cc9",
       "spec": {
-        "template": "flow",
-        "title": "Communicating during an incident — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Communicating durin...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Communicating during an incident",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Communicating during an incident [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Communicating durin... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Incidents affect people outside the engineering team, so communication.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "inc"
+                  },
+                  {
+                    "var": "inc",
+                    "line": 1,
+                    "hit": 2
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Inside the company, one person usually acts as incident commander.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "inc"
+                  },
+                  {
+                    "var": "inc",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Communicating during an incident.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Templates prepared in advance save time and reduce mistakes.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Communicating during an incident — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Communicating durin...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Communicating during an incident",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Communicating during an incident [D23.P5.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Communicating durin... [D23.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Incidents affect people outside the engineering team, so communication.",
+            "rows": [
+              {
+                "cells": [
+                  "inc",
+                  "{'id': 'INC-042', 'sev': 'SEV2', 'statu…"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Inside the company, one person usually acts as incident commander.",
+            "rows": [
+              {
+                "cells": [
+                  "inc",
+                  "{'id': 'INC-042', 'sev': 'SEV2', 'statu…"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Communicating during an incident [D23.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Templates prepared in advance save time and reduce mistakes.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "[INC-042] SEV2 - CONTAINED"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "Refund tool issued incorrect amounts."
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "Next update in 30 minutes."
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -715,224 +651,106 @@
       "partTitle": "Blameless post-mortems",
       "codeHash": "fe1e580e4daf99fa3d84bf2b5f0a965f099e8e33481d296dea46df35c5e5fb07",
       "spec": {
-        "template": "flow",
-        "title": "Blameless post-mortems — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Blameless post-mortems",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "pm",
+            "label": "pm"
           },
           {
-            "id": "proc",
-            "label": "2. Blameless post-mortems",
-            "tappable": true
+            "id": "what",
+            "label": "what"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "owner",
+            "label": "owner"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Blameless post-mortems [D.Psix.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Blameless post-mortems [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "After the incident is resolved, the team writes a post-mortem.",
+            "currentState": "pm",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Good post-mortems are blameless.",
+            "currentState": "what",
+            "transition": {
+              "from": "pm",
+              "to": "what",
+              "label": {
+                "var": "what",
+                "line": 9,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Blameless post-mortems [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add incident_severity and incident_times to your pipeline tools today.",
+            "currentState": "owner",
+            "transition": {
+              "from": "what",
+              "to": "owner",
+              "label": {
+                "var": "owner",
+                "line": 8,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Blameless post-mortems — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Blameless post-mortems",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "pm",
+            "label": "pm"
           },
           {
-            "id": "proc",
-            "label": "2. Blameless post-mortems",
-            "tappable": true
+            "id": "what",
+            "label": "what"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "owner",
+            "label": "owner"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Blameless post-mortems [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Blameless post-mortems [D23.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "After the incident is resolved, the team writes a post-mortem.",
+            "currentState": "pm",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Good post-mortems are blameless.",
+            "currentState": "what",
+            "transition": {
+              "from": "pm",
+              "to": "what",
+              "label": "'add schema test for amount units'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Blameless post-mortems [D23.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add incident_severity and incident_times to your pipeline tools today.",
+            "currentState": "owner",
+            "transition": {
+              "from": "what",
+              "to": "owner",
+              "label": "'ben'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

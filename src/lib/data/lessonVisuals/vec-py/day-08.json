@@ -2,142 +2,228 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 8,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why chunk",
       "codeHash": "51d8312872e1ecdad69718771f4645ca7af6975431cea9d65c1a027bf6056325",
       "spec": {
-        "template": "table",
-        "title": "Document chunking trade-offs and passage retrieval",
-        "columns": [
-          "words",
-          "chunks",
-          "words"
+        "template": "flow",
+        "title": "Why chunk",
+        "nodes": [
+          {
+            "id": "words",
+            "label": "words"
+          },
+          {
+            "id": "chunk_size",
+            "label": "chunk_size"
+          },
+          {
+            "id": "chunks",
+            "label": "chunks"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A single vector for a whole report blurs distinct topics together.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Trace how embedding updates models during execution.",
+            "values": {
+              "words": {
+                "var": "words",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "data"
+              "chunk_size": {
+                "var": "chunk_size",
+                "line": 2,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 3,
+                "hit": 5
               }
+            },
+            "tones": {
+              "words": "data",
+              "chunk_size": "data",
+              "chunks": "data"
+            },
+            "arrows": [
+              [
+                "words",
+                "chunk_size"
+              ],
+              [
+                "chunk_size",
+                "chunks"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Smaller chunks yield sharper vectors that isolate relevant passages.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "words"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Even when a document fits, one vector for a whole report blurs many topics.",
+            "values": {
+              "words": {
+                "var": "words",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "ok"
+              "chunk_size": {
+                "var": "chunk_size",
+                "line": 3,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "words": "data",
+              "chunk_size": "data",
+              "chunks": "data"
+            },
+            "arrows": [
+              [
+                "words",
+                "chunk_size"
+              ],
+              [
+                "chunk_size",
+                "chunks"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we build the two most common chunkers and learn how to choose.",
+            "values": {
+              "words": {
+                "var": "words",
+                "line": 3,
+                "hit": 1
+              },
+              "chunk_size": {
+                "var": "chunk_size",
+                "line": 3,
+                "hit": 2
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "words": "ok",
+              "chunk_size": "ok",
+              "chunks": "ok"
+            },
+            "arrows": [
+              [
+                "words",
+                "chunk_size"
+              ],
+              [
+                "chunk_size",
+                "chunks"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Document chunking trade-offs and passage retrieval",
-        "columns": [
-          "words",
-          "chunks",
-          "words"
+        "template": "flow",
+        "title": "Why chunk",
+        "nodes": [
+          {
+            "id": "words",
+            "label": "words"
+          },
+          {
+            "id": "chunk_size",
+            "label": "chunk_size"
+          },
+          {
+            "id": "chunks",
+            "label": "chunks"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A single vector for a whole report blurs distinct topics together.",
-            "rows": [
-              {
-                "cells": [
-                  "words",
-                  "chunks",
-                  "words"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "words",
-                  "chunks",
-                  "words"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Trace how embedding updates models during execution.",
+            "values": {
+              "words": "['Our', 'refund', 'policy', 'allows', '…",
+              "chunk_size": "50",
+              "chunks": "[['Our', 'refund', 'policy', 'allows', …"
+            },
+            "tones": {
+              "words": "data",
+              "chunk_size": "data",
+              "chunks": "data"
+            },
+            "arrows": [
+              [
+                "words",
+                "chunk_size"
+              ],
+              [
+                "chunk_size",
+                "chunks"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Smaller chunks yield sharper vectors that isolate relevant passages.",
-            "rows": [
-              {
-                "cells": [
-                  "words",
-                  "chunks",
-                  "words"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "words",
-                  "chunks",
-                  "chunks"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Even when a document fits, one vector for a whole report blurs many topics.",
+            "values": {
+              "words": "['Our', 'refund', 'policy', 'allows', '…",
+              "chunk_size": "50",
+              "chunks": "[['Our', 'refund', 'policy', 'allows', …"
+            },
+            "tones": {
+              "words": "data",
+              "chunk_size": "data",
+              "chunks": "data"
+            },
+            "arrows": [
+              [
+                "words",
+                "chunk_size"
+              ],
+              [
+                "chunk_size",
+                "chunks"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we build the two most common chunkers and learn how to choose.",
+            "values": {
+              "words": "['Our', 'refund', 'policy', 'allows', '…",
+              "chunk_size": "50",
+              "chunks": "[['Our', 'refund', 'policy', 'allows', …"
+            },
+            "tones": {
+              "words": "ok",
+              "chunk_size": "ok",
+              "chunks": "ok"
+            },
+            "arrows": [
+              [
+                "words",
+                "chunk_size"
+              ],
+              [
+                "chunk_size",
+                "chunks"
+              ]
             ]
           }
         ]
@@ -147,134 +233,120 @@
       "partTitle": "Fixed-size chunks with overlap",
       "codeHash": "a26f13eb321c9e844b3ee677d7671cdc2166af595ef383b415f4f54b21eb8be4",
       "spec": {
-        "template": "table",
-        "title": "Fixed window text chunking with sliding overlap",
-        "columns": [
-          "words",
-          "start",
-          "step"
-        ],
+        "template": "cells",
+        "title": "Fixed-size chunks with overlap",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Sliding overlap preserves each sentence across a chunk boundary.",
-            "rows": [
+            "at": "say1",
+            "caption": "The simplest chunker takes a fixed number of words (or tokens) per chunk.",
+            "items": {
+              "var": "words",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Fixed chunking provides predictable partitions across input text.",
-            "rows": [
+            "at": "say2",
+            "caption": "Overlap repeats the last few words of each chunk at the start of the next.",
+            "items": {
+              "var": "words",
+              "line": 4,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "step"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Its weakness is ignoring structure such as sentences, paragraphs and headings.",
+            "items": {
+              "var": "words",
+              "line": 6,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "words"
-                  },
-                  {
-                    "text": "start"
-                  },
-                  {
-                    "text": "start"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Fixed window text chunking with sliding overlap",
-        "columns": [
-          "words",
-          "start",
-          "step"
-        ],
+        "template": "cells",
+        "title": "Fixed-size chunks with overlap",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Sliding overlap preserves each sentence across a chunk boundary.",
-            "rows": [
+            "at": "say1",
+            "caption": "The simplest chunker takes a fixed number of words (or tokens) per chunk.",
+            "items": [
+              "'one'",
+              "'two'",
+              "'three'",
+              "'four'",
+              "'five'",
+              "'six'",
+              "'seven'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "words",
-                  "start",
-                  "step"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "words",
-                  "start",
-                  "step"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Fixed chunking provides predictable partitions across input text.",
-            "rows": [
+            "at": "say2",
+            "caption": "Overlap repeats the last few words of each chunk at the start of the next.",
+            "items": [
+              "'one'",
+              "'two'",
+              "'three'",
+              "'four'",
+              "'five'",
+              "'six'",
+              "'seven'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "words",
-                  "start",
-                  "step"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Its weakness is ignoring structure such as sentences, paragraphs and headings.",
+            "items": [
+              "'one'",
+              "'two'",
+              "'three'",
+              "'four'",
+              "'five'",
+              "'six'",
+              "'seven'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "words",
-                  "start",
-                  "start"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -285,135 +357,277 @@
       "partTitle": "Sentence-aware chunks",
       "codeHash": "29367ae2a6db0606954754dd7e151cafdf17844c6a924bcea98228bcf93c78c0",
       "spec": {
-        "template": "table",
-        "title": "Sentence boundary preservation in passage chunks",
-        "columns": [
-          "sentences",
-          "chunks",
-          "current"
+        "template": "flow",
+        "title": "Sentence-aware chunks",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "sentences",
+            "label": "sentences"
+          },
+          {
+            "id": "chunks",
+            "label": "chunks"
+          },
+          {
+            "id": "current",
+            "label": "current"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Sentence chunking never cuts inside a complete sentence.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "current"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Sentence-aware chunking never cuts inside a sentence.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "current"
-                  }
-                ],
-                "tone": "data"
+              "sentences": {
+                "var": "sentences",
+                "line": 4,
+                "hit": 5
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 5,
+                "hit": 1
+              },
+              "current": {
+                "var": "current",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "text": "data",
+              "sentences": "data",
+              "chunks": "data",
+              "current": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "current"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Chunks that respect complete sentences read naturally in prompts.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "current"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Split the text into sentences, then pack consecutive sentences into.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "sentences"
-                  },
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "ok"
+              "sentences": {
+                "var": "sentences",
+                "line": 5,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 6,
+                "hit": 1
+              },
+              "current": {
+                "var": "current",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "text": "data",
+              "sentences": "data",
+              "chunks": "data",
+              "current": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "current"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "This method is a good default for prose such as articles, policies and emails.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 2
+              },
+              "sentences": {
+                "var": "sentences",
+                "line": 6,
+                "hit": 1
+              },
+              "chunks": {
+                "var": "chunks",
+                "line": 7,
+                "hit": 1
+              },
+              "current": {
+                "var": "current",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "text": "ok",
+              "sentences": "ok",
+              "chunks": "ok",
+              "current": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "current"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sentence boundary preservation in passage chunks",
-        "columns": [
-          "sentences",
-          "chunks",
-          "current"
+        "template": "flow",
+        "title": "Sentence-aware chunks",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "sentences",
+            "label": "sentences"
+          },
+          {
+            "id": "chunks",
+            "label": "chunks"
+          },
+          {
+            "id": "current",
+            "label": "current"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Sentence chunking never cuts inside a complete sentence.",
-            "rows": [
-              {
-                "cells": [
-                  "sentences",
-                  "chunks",
-                  "current"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sentences",
-                  "chunks",
-                  "current"
-                ],
-                "tone": "data"
-              }
+            "caption": "Sentence-aware chunking never cuts inside a sentence.",
+            "values": {
+              "text": "'Vectors capture meaning. Search finds …",
+              "sentences": "['Vectors capture meaning.', 'Search fi…",
+              "chunks": "[]",
+              "current": "[]"
+            },
+            "tones": {
+              "text": "data",
+              "sentences": "data",
+              "chunks": "data",
+              "current": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "current"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Chunks that respect complete sentences read naturally in prompts.",
-            "rows": [
-              {
-                "cells": [
-                  "sentences",
-                  "chunks",
-                  "current"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sentences",
-                  "chunks",
-                  "chunks"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Split the text into sentences, then pack consecutive sentences into.",
+            "values": {
+              "text": "'Vectors capture meaning. Search finds …",
+              "sentences": "['Vectors capture meaning.', 'Search fi…",
+              "chunks": "[]",
+              "current": "[]"
+            },
+            "tones": {
+              "text": "data",
+              "sentences": "data",
+              "chunks": "data",
+              "current": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "current"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "This method is a good default for prose such as articles, policies and emails.",
+            "values": {
+              "text": "'Vectors capture meaning. Search finds …",
+              "sentences": "['Vectors capture meaning.', 'Search fi…",
+              "chunks": "[]",
+              "current": "[]"
+            },
+            "tones": {
+              "text": "ok",
+              "sentences": "ok",
+              "chunks": "ok",
+              "current": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "sentences"
+              ],
+              [
+                "sentences",
+                "chunks"
+              ],
+              [
+                "chunks",
+                "current"
+              ]
             ]
           }
         ]
@@ -423,78 +637,131 @@
       "partTitle": "Choosing a chunk size",
       "codeHash": "803a0b89e41990e7ddccb73b52095c43ad50d35a20d8c154a550bf42035db924",
       "spec": {
-        "template": "table",
-        "title": "Chunk size selection and token budget allocation",
-        "columns": [
-          "chunks",
-          "overlap",
-          "chunks"
-        ],
+        "template": "bars",
+        "title": "Choosing a chunk size",
         "steps": [
           {
             "at": "say1",
-            "caption": "Small chunks provide precise semantic matches but can lack context.",
-            "rows": [
+            "caption": "Trace how small updates chunks during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "overlap"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "ok"
+                "label": "doc_words",
+                "value": {
+                  "var": "doc_words",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "overlap"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
+                "label": "dims",
+                "value": {
+                  "var": "dims",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Large chunks preserve context while consuming more prompt budget.",
-            "rows": [
+            "caption": "Trace how large updates chunks during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "overlap"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "data"
+                "label": "doc_words",
+                "value": {
+                  "var": "doc_words",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "overlap"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
+                "label": "dims",
+                "value": {
+                  "var": "dims",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Record the chunking settings with the index, because they are part of its.",
+            "bars": [
+              {
+                "label": "doc_words",
+                "value": {
+                  "var": "doc_words",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "dims",
+                "value": {
+                  "var": "dims",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +769,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Chunk size selection and token budget allocation",
-        "columns": [
-          "chunks",
-          "overlap",
-          "chunks"
-        ],
+        "template": "bars",
+        "title": "Choosing a chunk size",
         "steps": [
           {
             "at": "say1",
-            "caption": "Small chunks provide precise semantic matches but can lack context.",
-            "rows": [
+            "caption": "Trace how small updates chunks during execution.",
+            "bars": [
               {
-                "cells": [
-                  "chunks",
-                  "overlap",
-                  "chunks"
-                ],
-                "tone": "ok"
+                "label": "doc_words",
+                "value": 10000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "chunks",
-                  "overlap",
-                  "chunks"
-                ],
+                "label": "dims",
+                "value": 768,
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "overlap",
+                "value": 10,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Large chunks preserve context while consuming more prompt budget.",
-            "rows": [
+            "caption": "Trace how large updates chunks during execution.",
+            "bars": [
               {
-                "cells": [
-                  "chunks",
-                  "overlap",
-                  "chunks"
-                ],
-                "tone": "data"
+                "label": "doc_words",
+                "value": 10000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "chunks",
-                  "overlap",
-                  "overlap"
-                ],
+                "label": "dims",
+                "value": 768,
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "overlap",
+                "value": 10,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Record the chunking settings with the index, because they are part of its.",
+            "bars": [
+              {
+                "label": "doc_words",
+                "value": 10000,
+                "tone": "ok"
+              },
+              {
+                "label": "dims",
+                "value": 768,
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "overlap",
+                "value": 10,
                 "tone": "ok"
               }
             ]
@@ -562,110 +858,161 @@
       "codeHash": "2cf261fea17e4d76ce8d2bbc84c094ff05d9df502b06362b5eed6aa8f76c893c",
       "spec": {
         "template": "flow",
-        "title": "Chunk metadata — Execution Pipeline",
+        "title": "Chunk metadata",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "doc",
+            "label": "doc"
           },
           {
-            "id": "proc",
-            "label": "2. Chunk metadata",
-            "tappable": true
+            "id": "i",
+            "label": "i"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "record",
+            "label": "record"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Chunk metadata [Deight.Pfive.Sone].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Chunk metadata [Deight.Pfive.Stwo].",
+            "caption": "Every chunk should carry metadata.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "doc": {
+                "var": "doc",
+                "line": 3,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
+              },
+              "record": {
+                "var": "record",
+                "line": 5,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "doc": "data",
+              "i": "data",
+              "text": "data",
+              "record": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "doc",
+                "i"
               ],
               [
-                "proc",
-                "out"
+                "i",
+                "text"
+              ],
+              [
+                "text",
+                "record"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Metadata links search results back to the original document and supports.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "doc": {
+                "var": "doc",
+                "line": 4,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
+              },
+              "record": {
+                "var": "record",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "doc": "data",
+              "i": "data",
+              "text": "data",
+              "record": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "doc",
+                "i"
+              ],
+              [
+                "i",
+                "text"
+              ],
+              [
+                "text",
+                "record"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Chunk metadata [Deight.Pfive.Sfour].",
+            "at": "say10",
+            "caption": "Tomorrow uses metadata to filter search results.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "doc": {
+                "var": "doc",
+                "line": 5,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 6,
+                "hit": 1
+              },
+              "record": {
+                "var": "record",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "doc": "ok",
+              "i": "ok",
+              "text": "ok",
+              "record": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "doc",
+                "i"
               ],
               [
-                "proc",
-                "out"
+                "i",
+                "text"
+              ],
+              [
+                "text",
+                "record"
               ]
             ]
           }
@@ -673,110 +1020,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Chunk metadata — Execution Pipeline",
+        "title": "Chunk metadata",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "doc",
+            "label": "doc"
           },
           {
-            "id": "proc",
-            "label": "2. Chunk metadata",
-            "tappable": true
+            "id": "i",
+            "label": "i"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "record",
+            "label": "record"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Chunk metadata [D8.P5.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Chunk metadata [D8.P5.S2].",
+            "caption": "Every chunk should carry metadata.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "doc": "{'id': 'policy-7', 'title': 'Refund pol…",
+              "i": "0",
+              "text": "'Refunds within 30 days.'",
+              "record": "{'id': 'policy-7#0', 'doc': 'policy-7',…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "doc": "data",
+              "i": "data",
+              "text": "data",
+              "record": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "doc",
+                "i"
               ],
               [
-                "proc",
-                "out"
+                "i",
+                "text"
+              ],
+              [
+                "text",
+                "record"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P5.S3].",
+            "at": "say2",
+            "caption": "Metadata links search results back to the original document and supports.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "doc": "{'id': 'policy-7', 'title': 'Refund pol…",
+              "i": "0",
+              "text": "'Refunds within 30 days.'",
+              "record": "{'id': 'policy-7#0', 'doc': 'policy-7',…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "doc": "data",
+              "i": "data",
+              "text": "data",
+              "record": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "doc",
+                "i"
+              ],
+              [
+                "i",
+                "text"
+              ],
+              [
+                "text",
+                "record"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Chunk metadata [D8.P5.S4].",
+            "at": "say10",
+            "caption": "Tomorrow uses metadata to filter search results.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "doc": "{'id': 'policy-7', 'title': 'Refund pol…",
+              "i": "0",
+              "text": "'Refunds within 30 days.'",
+              "record": "{'id': 'policy-7#0', 'doc': 'policy-7',…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "doc": "ok",
+              "i": "ok",
+              "text": "ok",
+              "record": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "doc",
+                "i"
               ],
               [
-                "proc",
-                "out"
+                "i",
+                "text"
+              ],
+              [
+                "text",
+                "record"
               ]
             ]
           }
@@ -787,223 +1137,109 @@
       "partTitle": "Practice time: chunking",
       "codeHash": "0b1fa0f95909aed62cd176100a2eccb5354c31ecdbbc360439864aabc2d1679e",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: chunking — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: chun...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: chunking",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: chunking [Deight.Psix.Sone].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: chun... [Deight.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Chunk_words(text, size, overlap).",
+            "items": {
+              "var": "fixed",
+              "line": 5,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "items": {
+              "var": "fixed",
+              "line": 9,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: chunking.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "If chunk_words repeats the last chunk, check your stopping condition.",
+            "items": {
+              "var": "fixed",
+              "line": 11,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: chunking — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: chun...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: chunking",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: chunking [D8.P6.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: chun... [D8.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Chunk_words(text, size, overlap).",
+            "items": [
+              "'Refunds are allowed within 30 days. Da…",
+              "'Damaged items get a full refund. Conta…",
+              "'Contact support with your order number…"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
+            "items": [
+              "'Refunds are allowed within 30 days. Da…",
+              "'Damaged items get a full refund. Conta…",
+              "'Contact support with your order number…"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: chunking [D8.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If chunk_words repeats the last chunk, check your stopping condition.",
+            "items": [
+              "'Refunds are allowed within 30 days. Da…",
+              "'Damaged items get a full refund. Conta…",
+              "'Contact support with your order number…"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]

@@ -2,269 +2,397 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 55,
-  "promptSha": "c3b2343cd46e4f768cac5dec4d9f5d3f0058cf4d3583c85ea24030bd95bd6832",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Milestone 11 — Foundations & Mathematical Invariants",
-      "codeHash": "e11a8fabc2c2658ca0ec5270dfdcca04ab11e987cc733f9840cd25d1129908b3",
+      "partTitle": "Regulatory Ledger — Foundations & Mathematical Invariants",
+      "codeHash": "fd962f68d45c0e7c2e77d33ee9ee206a5bfe75948a578bde14770807e41cfe37",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
+        "title": "Regulatory Ledger — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ledger",
+            "label": "ledger"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "event_type",
+            "label": "event_type"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "actor",
+            "label": "actor"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates delivers during execution.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "ledger": {
+                "var": "ledger",
+                "line": 13,
+                "hit": 1
+              },
+              "event_type": {
+                "var": "event_type",
+                "line": 6,
+                "hit": 1
+              },
+              "actor": {
+                "var": "actor",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "ledger": "data",
+              "event_type": "data",
+              "actor": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "ledger"
+              ],
+              [
+                "ledger",
+                "event_type"
+              ],
+              [
+                "event_type",
+                "actor"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The CryptographicGovernanceLedger records all major compliance events.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "ledger": {
+                "var": "ledger",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "event_type": {
+                "var": "event_type",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "actor": {
+                "var": "actor",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "ledger": "data",
+              "event_type": "data",
+              "actor": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "ledger"
+              ],
+              [
+                "ledger",
+                "event_type"
+              ],
+              [
+                "event_type",
+                "actor"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "ledger": {
+                "var": "ledger",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "event_type": {
+                "var": "event_type",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "actor": {
+                "var": "actor",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "ledger": "ok",
+              "event_type": "ok",
+              "actor": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "ledger"
+              ],
+              [
+                "ledger",
+                "event_type"
+              ],
+              [
+                "event_type",
+                "actor"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
+        "title": "Regulatory Ledger — Foundations & Mathematical Invariants",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ledger",
+            "label": "ledger"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "event_type",
+            "label": "event_type"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "actor",
+            "label": "actor"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates delivers during execution.",
+            "values": {
+              "self": "<CryptographicGovernanceLedger>",
+              "ledger": "<CryptographicGovernanceLedger>",
+              "event_type": "'EU_AI_ACT_AUDIT'",
+              "actor": "'ComplianceBot'"
+            },
+            "tones": {
+              "self": "data",
+              "ledger": "data",
+              "event_type": "data",
+              "actor": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "ledger"
+              ],
+              [
+                "ledger",
+                "event_type"
+              ],
+              [
+                "event_type",
+                "actor"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The CryptographicGovernanceLedger records all major compliance events.",
+            "values": {
+              "self": "<CryptographicGovernanceLedger>",
+              "ledger": "<CryptographicGovernanceLedger>",
+              "event_type": "'EU_AI_ACT_AUDIT'",
+              "actor": "'ComplianceBot'"
+            },
+            "tones": {
+              "self": "data",
+              "ledger": "data",
+              "event_type": "data",
+              "actor": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "ledger"
+              ],
+              [
+                "ledger",
+                "event_type"
+              ],
+              [
+                "event_type",
+                "actor"
+              ]
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "values": {
+              "self": "<CryptographicGovernanceLedger>",
+              "ledger": "<CryptographicGovernanceLedger>",
+              "event_type": "'EU_AI_ACT_AUDIT'",
+              "actor": "'ComplianceBot'"
+            },
+            "tones": {
+              "self": "ok",
+              "ledger": "ok",
+              "event_type": "ok",
+              "actor": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "ledger"
+              ],
+              [
+                "ledger",
+                "event_type"
+              ],
+              [
+                "event_type",
+                "actor"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Regulatory Ledger — Core Algorithm & State Representation",
+      "codeHash": "29a655c4c785e42d9b5d6f10ccf7af77b49c6aab05abbec1299bf9aeebe2650f",
+      "spec": {
+        "template": "table",
+        "title": "Regulatory Ledger — Core Algorithm & State Representation",
+        "columns": [
+          "Symbol",
+          "Executed Value"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Verifying governance ledger immutability requires confirming that every.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "The verify_governance_ledger_immutability function iterates across.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "table",
+        "title": "Regulatory Ledger — Core Algorithm & State Representation",
+        "columns": [
+          "Symbol",
+          "Executed Value"
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Verifying governance ledger immutability requires confirming that every.",
+            "rows": [
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
+                "cells": [
+                  "out 1",
+                  "Governance Ledger Immutable: True"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "The verify_governance_ledger_immutability function iterates across.",
+            "rows": [
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
+                "cells": [
+                  "out 1",
+                  "Governance Ledger Immutable: True"
+                ],
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "rows": [
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "Governance Ledger Immutable: True"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -272,1063 +400,333 @@
       }
     },
     {
-      "partTitle": "Milestone 11 — Core Algorithm & State Representation",
-      "codeHash": "19899320f28bea546f4700731e5fdbab2be2bf9c50e936ff75f713d67cd0434b",
+      "partTitle": "Regulatory Ledger — Production Implementation & Boundary Mechanics",
+      "codeHash": "b8f37a4cdccf97338803127c7c7dd0372727942b3367e5f3c40429a1414753b1",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Regulatory Ledger — Production Implementation & Boundary Mechani",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "auditor",
+            "label": "auditor"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "eu_tier_valid",
+            "label": "eu_tier_valid"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The MultiRegulationComplianceAuditor evaluates enterprise AI systems.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "It verifies three mandatory pillars.",
+            "currentState": "auditor",
+            "transition": {
+              "from": "self",
+              "to": "auditor",
+              "label": {
+                "var": "auditor",
+                "line": 14,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for governance.",
+            "currentState": "eu_tier_valid",
+            "transition": {
+              "from": "auditor",
+              "to": "eu_tier_valid",
+              "label": {
+                "var": "eu_tier_valid",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Regulatory Ledger — Production Implementation & Boundary Mechani",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "auditor",
+            "label": "auditor"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "eu_tier_valid",
+            "label": "eu_tier_valid"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The MultiRegulationComplianceAuditor evaluates enterprise AI systems.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "It verifies three mandatory pillars.",
+            "currentState": "auditor",
+            "transition": {
+              "from": "self",
+              "to": "auditor",
+              "label": "<MultiRegulationComplianceAuditor>"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for governance.",
+            "currentState": "eu_tier_valid",
+            "transition": {
+              "from": "auditor",
+              "to": "eu_tier_valid",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Milestone 11 — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "868cdb8afafa64b90015dc43a4e84f817f8ea6cfed1ed99578228a60030abd85",
+      "partTitle": "Regulatory Ledger — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "a0fe19791778f73f16d8c8a3ff12a26e8bfd174dd3b3d0be5f3423ea153faf40",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Regulatory Ledger — Failure Modes, Hardware Bottlenecks & Debugg",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "system_id",
+            "label": "system_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ledger_head",
+            "label": "ledger_head"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "certified",
+            "label": "certified"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Exporting regulatory binders compiles all technical documentation, audit.",
+            "currentState": "system_id",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The export_regulatory_binder function packages system ID, immutable ledger.",
+            "currentState": "ledger_head",
+            "transition": {
+              "from": "system_id",
+              "to": "ledger_head",
+              "label": {
+                "var": "ledger_head",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "certified",
+            "transition": {
+              "from": "ledger_head",
+              "to": "certified",
+              "label": {
+                "var": "certified",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Regulatory Ledger — Failure Modes, Hardware Bottlenecks & Debugg",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "system_id",
+            "label": "system_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ledger_head",
+            "label": "ledger_head"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "certified",
+            "label": "certified"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Exporting regulatory binders compiles all technical documentation, audit.",
+            "currentState": "system_id",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The export_regulatory_binder function packages system ID, immutable ledger.",
+            "currentState": "ledger_head",
+            "transition": {
+              "from": "system_id",
+              "to": "ledger_head",
+              "label": "'f4c8996fb924'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "certified",
+            "transition": {
+              "from": "ledger_head",
+              "to": "certified",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Milestone 11 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "8cf4f6dd1c39e027a7fead6ab4d7a678dd2d51d13d4d9d728fc7da51d105b8fb",
+      "partTitle": "Regulatory Ledger — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "025ba4f3c792c3978aff7208911395b2d1bdf3e383e603077f908ee69a3f3078",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Regulatory Ledger — Production Capstone & Enterprise SRE Integra",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how final updates stage during execution.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "binder"
+                  },
+                  {
+                    "var": "binder",
+                    "line": 6,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The generate_m11_compliance_seal function inspects the regulatory binder.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "binder"
+                  },
+                  {
+                    "var": "binder",
+                    "line": 2,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say13",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Regulatory Ledger — Production Capstone & Enterprise SRE Integra",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "Trace how final updates stage during execution.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "binder",
+                  "{'system_id': 'SovereignAI-Gov-1', 'imm…"
+                ],
+                "tone": "data"
               }
             ]
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Milestone 11 — Production Telemetry & Verification Audit",
-      "codeHash": "a967b653479ae81f973fd9d841617f37b315e38d65992859060bc2e2e659608d",
-      "spec": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The generate_m11_compliance_seal function inspects the regulatory binder.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "binder",
+                  "{'system_id': 'SovereignAI-Gov-1', 'imm…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say13",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "SEAL_ISSUED: Enterprise AI Sovereign Compliance Certified [Head: f4c8996fb924]"
+                ],
+                "tone": "ok"
               }
             ]
           }

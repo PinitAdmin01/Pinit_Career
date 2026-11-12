@@ -2,269 +2,112 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 44,
-  "promptSha": "ddca82ac3e656db248991471bf3726d9d1c3d174368b97b1517ceabccd04aca8",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Filtered HNSW — Foundations & Mathematical Invariants",
-      "codeHash": "362b97a9fa51986b164f2129204a11745e0de5889d9dadcb38440d133635672b",
+      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Foundations & Mathematical Invariants",
+      "codeHash": "ff1271ff56968f376f05860b4a850eb4a8c254f14e61f003ff227bdb773f2012",
       "spec": {
-        "template": "flow",
-        "title": "Filtered HNSW — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Real-world enterprise applications rarely perform pure unconstrained.",
+            "items": {
+              "var": "q_vec",
+              "line": 16,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Users inevitably combine vector searches with hard metadata constraints.",
+            "items": {
+              "var": "q_vec",
+              "line": 17,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": {
+              "var": "q_vec",
+              "line": 18,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Filtered HNSW — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Real-world enterprise applications rarely perform pure unconstrained.",
+            "items": [
+              "0",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Users inevitably combine vector searches with hard metadata constraints.",
+            "items": [
+              "0",
+              "1"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": [
+              "0",
+              "1"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -272,1063 +115,1017 @@
       }
     },
     {
-      "partTitle": "Filtered HNSW — Core Algorithm & State Representation",
-      "codeHash": "141f14db480ca4c3b0eb7c46c2f2a5df9612781174bbdfbee6a433410a50a5b5",
+      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Core Algorithm & State Representation",
+      "codeHash": "0d370dbbf21ffff3a97dae9f6789d3f4118b259b18df1271cc17d0493277d37c",
       "spec": {
         "template": "flow",
-        "title": "Filtered HNSW — Core Algorithm & State Representation",
+        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "knn",
+            "label": "knn"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "meta",
+            "label": "meta"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "knn_results",
+            "label": "knn_results"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "metadata_db",
+            "label": "metadata_db"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The opposite strategy to pre-filtering is post-filtering.",
+            "values": {
+              "knn": {
+                "var": "knn",
+                "line": 11,
+                "hit": 1
+              },
+              "meta": {
+                "var": "meta",
+                "line": 12,
+                "hit": 1
+              },
+              "knn_results": {
+                "var": "knn_results",
+                "line": 3,
+                "hit": 1
+              },
+              "metadata_db": {
+                "var": "metadata_db",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "knn": "data",
+              "meta": "data",
+              "knn_results": "data",
+              "metadata_db": "data"
+            },
+            "arrows": [
+              [
+                "knn",
+                "meta"
+              ],
+              [
+                "meta",
+                "knn_results"
+              ],
+              [
+                "knn_results",
+                "metadata_db"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The search engine runs standard HNSW beam search to extract the top-K.",
+            "values": {
+              "knn": {
+                "var": "knn",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "meta": {
+                "var": "meta",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "knn_results": {
+                "var": "knn_results",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "metadata_db": {
+                "var": "metadata_db",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "knn": "data",
+              "meta": "data",
+              "knn_results": "data",
+              "metadata_db": "data"
+            },
+            "arrows": [
+              [
+                "knn",
+                "meta"
+              ],
+              [
+                "meta",
+                "knn_results"
+              ],
+              [
+                "knn_results",
+                "metadata_db"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "knn": {
+                "var": "knn",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "meta": {
+                "var": "meta",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "knn_results": {
+                "var": "knn_results",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "metadata_db": {
+                "var": "metadata_db",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "knn": "ok",
+              "meta": "ok",
+              "knn_results": "ok",
+              "metadata_db": "ok"
+            },
+            "arrows": [
+              [
+                "knn",
+                "meta"
+              ],
+              [
+                "meta",
+                "knn_results"
+              ],
+              [
+                "knn_results",
+                "metadata_db"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Filtered HNSW — Core Algorithm & State Representation",
+        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "knn",
+            "label": "knn"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "meta",
+            "label": "meta"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "knn_results",
+            "label": "knn_results"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "metadata_db",
+            "label": "metadata_db"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The opposite strategy to pre-filtering is post-filtering.",
+            "values": {
+              "knn": "[[0.01, 101], [0.04, 102], [0.09, 103]]",
+              "meta": "{101: {'tenant_id': 99}, 102: {'tenant_…",
+              "knn_results": "[[0.01, 101], [0.04, 102], [0.09, 103]]",
+              "metadata_db": "{101: {'tenant_id': 99}, 102: {'tenant_…"
+            },
+            "tones": {
+              "knn": "data",
+              "meta": "data",
+              "knn_results": "data",
+              "metadata_db": "data"
+            },
+            "arrows": [
+              [
+                "knn",
+                "meta"
+              ],
+              [
+                "meta",
+                "knn_results"
+              ],
+              [
+                "knn_results",
+                "metadata_db"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The search engine runs standard HNSW beam search to extract the top-K.",
+            "values": {
+              "knn": "[[0.01, 101], [0.04, 102], [0.09, 103]]",
+              "meta": "{101: {'tenant_id': 99}, 102: {'tenant_…",
+              "knn_results": "[[0.01, 101], [0.04, 102], [0.09, 103]]",
+              "metadata_db": "{101: {'tenant_id': 99}, 102: {'tenant_…"
+            },
+            "tones": {
+              "knn": "data",
+              "meta": "data",
+              "knn_results": "data",
+              "metadata_db": "data"
+            },
+            "arrows": [
+              [
+                "knn",
+                "meta"
+              ],
+              [
+                "meta",
+                "knn_results"
+              ],
+              [
+                "knn_results",
+                "metadata_db"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "knn": "[[0.01, 101], [0.04, 102], [0.09, 103]]",
+              "meta": "{101: {'tenant_id': 99}, 102: {'tenant_…",
+              "knn_results": "[[0.01, 101], [0.04, 102], [0.09, 103]]",
+              "metadata_db": "{101: {'tenant_id': 99}, 102: {'tenant_…"
+            },
+            "tones": {
+              "knn": "ok",
+              "meta": "ok",
+              "knn_results": "ok",
+              "metadata_db": "ok"
+            },
+            "arrows": [
+              [
+                "knn",
+                "meta"
+              ],
+              [
+                "meta",
+                "knn_results"
+              ],
+              [
+                "knn_results",
+                "metadata_db"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Filtered HNSW — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "aa22ef68e970ae434de945fb0e32657be981c3c0540775e4874f8da97c03581f",
+      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "718a4cb0df8ff6c1264e266abdeba5b9b47ffa33e550dcb58f2562a7a7230f7c",
       "spec": {
         "template": "flow",
-        "title": "Filtered HNSW — Throughput Optimization & Edge-Case Handling",
+        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "graph_edges",
+            "label": "graph_edges"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "nodes_meta",
+            "label": "nodes_meta"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "entry",
+            "label": "entry"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "query",
+            "label": "query"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Single-stage predicate traversal solves the limitations of both.",
+            "values": {
+              "graph_edges": {
+                "var": "graph_edges",
+                "line": 22,
+                "hit": 1
+              },
+              "nodes_meta": {
+                "var": "nodes_meta",
+                "line": 23,
+                "hit": 1
+              },
+              "entry": {
+                "var": "entry",
+                "line": 3,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "graph_edges": "data",
+              "nodes_meta": "data",
+              "entry": "data",
+              "query": "data"
+            },
+            "arrows": [
+              [
+                "graph_edges",
+                "nodes_meta"
+              ],
+              [
+                "nodes_meta",
+                "entry"
+              ],
+              [
+                "entry",
+                "query"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Instead of filtering before or after graph traversal, predicate evaluation.",
+            "values": {
+              "graph_edges": {
+                "var": "graph_edges",
+                "line": 24,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "nodes_meta": {
+                "var": "nodes_meta",
+                "line": 29,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "entry": {
+                "var": "entry",
+                "line": 4,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "query": {
+                "var": "query",
+                "line": 4,
+                "hit": 3
               }
+            },
+            "tones": {
+              "graph_edges": "data",
+              "nodes_meta": "data",
+              "entry": "data",
+              "query": "data"
+            },
+            "arrows": [
+              [
+                "graph_edges",
+                "nodes_meta"
+              ],
+              [
+                "nodes_meta",
+                "entry"
+              ],
+              [
+                "entry",
+                "query"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "graph_edges": {
+                "var": "graph_edges",
+                "line": 25,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "nodes_meta": {
+                "var": "nodes_meta",
+                "line": 30,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "entry": {
+                "var": "entry",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "query": {
+                "var": "query",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "graph_edges": "ok",
+              "nodes_meta": "ok",
+              "entry": "ok",
+              "query": "ok"
+            },
+            "arrows": [
+              [
+                "graph_edges",
+                "nodes_meta"
+              ],
+              [
+                "nodes_meta",
+                "entry"
+              ],
+              [
+                "entry",
+                "query"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Filtered HNSW — Throughput Optimization & Edge-Case Handling",
+        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "graph_edges",
+            "label": "graph_edges"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "nodes_meta",
+            "label": "nodes_meta"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "entry",
+            "label": "entry"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "query",
+            "label": "query"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Single-stage predicate traversal solves the limitations of both.",
+            "values": {
+              "graph_edges": "{1: [2, 3], 2: [4], 3: [4], 4: []}",
+              "nodes_meta": "{1: {'tenant_id': 99, 'vec': [0]}, 2: {…",
+              "entry": "1",
+              "query": "[1.8]"
+            },
+            "tones": {
+              "graph_edges": "data",
+              "nodes_meta": "data",
+              "entry": "data",
+              "query": "data"
+            },
+            "arrows": [
+              [
+                "graph_edges",
+                "nodes_meta"
+              ],
+              [
+                "nodes_meta",
+                "entry"
+              ],
+              [
+                "entry",
+                "query"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Instead of filtering before or after graph traversal, predicate evaluation.",
+            "values": {
+              "graph_edges": "{1: [2, 3], 2: [4], 3: [4], 4: []}",
+              "nodes_meta": "{1: {'tenant_id': 99, 'vec': [0]}, 2: {…",
+              "entry": "1",
+              "query": "[1.8]"
+            },
+            "tones": {
+              "graph_edges": "data",
+              "nodes_meta": "data",
+              "entry": "data",
+              "query": "data"
+            },
+            "arrows": [
+              [
+                "graph_edges",
+                "nodes_meta"
+              ],
+              [
+                "nodes_meta",
+                "entry"
+              ],
+              [
+                "entry",
+                "query"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "graph_edges": "{1: [2, 3], 2: [4], 3: [4], 4: []}",
+              "nodes_meta": "{1: {'tenant_id': 99, 'vec': [0]}, 2: {…",
+              "entry": "1",
+              "query": "[1.8]"
+            },
+            "tones": {
+              "graph_edges": "ok",
+              "nodes_meta": "ok",
+              "entry": "ok",
+              "query": "ok"
+            },
+            "arrows": [
+              [
+                "graph_edges",
+                "nodes_meta"
+              ],
+              [
+                "nodes_meta",
+                "entry"
+              ],
+              [
+                "entry",
+                "query"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Filtered HNSW — Resilience Guardrails & Failure Recovery",
-      "codeHash": "7d1b2f9727b5c4efb7ff2693a3215573a0c1b980d8b842ad085bae92b5bf5ee5",
+      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Resilience Guardrails & Failure Recovery",
+      "codeHash": "bf1e4903fbd32a5cc6b096cf283949b501c2b9f627af0720a1e994ffdf548e74",
       "spec": {
         "template": "flow",
-        "title": "Filtered HNSW — Resilience Guardrails & Failure Recovery",
+        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "db",
+            "label": "db"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "doc_id",
+            "label": "doc_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "meta_db",
+            "label": "meta_db"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "m",
+            "label": "m"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production metadata engines must guard against missing metadata records.",
+            "values": {
+              "db": {
+                "var": "db",
+                "line": 6,
+                "hit": 1
+              },
+              "doc_id": {
+                "var": "doc_id",
+                "line": 2,
+                "hit": 1
+              },
+              "meta_db": {
+                "var": "meta_db",
+                "line": 2,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "db": "data",
+              "doc_id": "data",
+              "meta_db": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "db",
+                "doc_id"
+              ],
+              [
+                "doc_id",
+                "meta_db"
+              ],
+              [
+                "meta_db",
+                "m"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If a document vector exists in the graph but its metadata record was.",
+            "values": {
+              "db": {
+                "var": "db",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "doc_id": {
+                "var": "doc_id",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "meta_db": {
+                "var": "meta_db",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "m": {
+                "var": "m",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "db": "data",
+              "doc_id": "data",
+              "meta_db": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "db",
+                "doc_id"
+              ],
+              [
+                "doc_id",
+                "meta_db"
+              ],
+              [
+                "meta_db",
+                "m"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "db": {
+                "var": "db",
+                "line": 7,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "doc_id": {
+                "var": "doc_id",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "meta_db": {
+                "var": "meta_db",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "m": {
+                "var": "m",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "db": "ok",
+              "doc_id": "ok",
+              "meta_db": "ok",
+              "m": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "doc_id"
+              ],
+              [
+                "doc_id",
+                "meta_db"
+              ],
+              [
+                "meta_db",
+                "m"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Filtered HNSW — Resilience Guardrails & Failure Recovery",
+        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "db",
+            "label": "db"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "doc_id",
+            "label": "doc_id"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "meta_db",
+            "label": "meta_db"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "m",
+            "label": "m"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production metadata engines must guard against missing metadata records.",
+            "values": {
+              "db": "{1: {'active': True}}",
+              "doc_id": "1",
+              "meta_db": "{1: {'active': True}}",
+              "m": "{'active': True}"
+            },
+            "tones": {
+              "db": "data",
+              "doc_id": "data",
+              "meta_db": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "db",
+                "doc_id"
+              ],
+              [
+                "doc_id",
+                "meta_db"
+              ],
+              [
+                "meta_db",
+                "m"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If a document vector exists in the graph but its metadata record was.",
+            "values": {
+              "db": "{1: {'active': True}}",
+              "doc_id": "1",
+              "meta_db": "{1: {'active': True}}",
+              "m": "{'active': True}"
+            },
+            "tones": {
+              "db": "data",
+              "doc_id": "data",
+              "meta_db": "data",
+              "m": "data"
+            },
+            "arrows": [
+              [
+                "db",
+                "doc_id"
+              ],
+              [
+                "doc_id",
+                "meta_db"
+              ],
+              [
+                "meta_db",
+                "m"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "db": "{1: {'active': True}}",
+              "doc_id": "1",
+              "meta_db": "{1: {'active': True}}",
+              "m": "{'active': True}"
+            },
+            "tones": {
+              "db": "ok",
+              "doc_id": "ok",
+              "meta_db": "ok",
+              "m": "ok"
+            },
+            "arrows": [
+              [
+                "db",
+                "doc_id"
+              ],
+              [
+                "doc_id",
+                "meta_db"
+              ],
+              [
+                "meta_db",
+                "m"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Filtered HNSW — Production Telemetry & Verification Audit",
-      "codeHash": "2595aaa812f9195a3f6ac4da394687c1de541f8641d5988195b256cc1f077500",
+      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Production Telemetry & Verification Audit",
+      "codeHash": "805e2ef2f6983a794ad1f943827068f5bd222090bbeaeca4bef84978bbb6f8db",
       "spec": {
-        "template": "flow",
-        "title": "Filtered HNSW — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Optimizing filtered search requires continuous telemetry on predicate.",
+            "bars": [
+              {
+                "label": "total_docs",
+                "value": {
+                  "var": "total_docs",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "matching_docs",
+                "value": {
+                  "var": "matching_docs",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "selectivity",
+                "value": {
+                  "var": "selectivity",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Selectivity measures the ratio of documents matching the metadata.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_docs",
+                "value": {
+                  "var": "total_docs",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "matching_docs",
+                "value": {
+                  "var": "matching_docs",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "selectivity",
+                "value": {
+                  "var": "selectivity",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_docs",
+                "value": {
+                  "var": "total_docs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "matching_docs",
+                "value": {
+                  "var": "matching_docs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "selectivity",
+                "value": {
+                  "var": "selectivity",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Filtered HNSW — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage P",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Optimizing filtered search requires continuous telemetry on predicate.",
+            "bars": [
+              {
+                "label": "total_docs",
+                "value": 100000,
+                "tone": "data"
+              },
+              {
+                "label": "matching_docs",
+                "value": 2000,
+                "tone": "data"
+              },
+              {
+                "label": "selectivity",
+                "value": 0.02,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Selectivity measures the ratio of documents matching the metadata.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_docs",
+                "value": 100000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "matching_docs",
+                "value": 2000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "selectivity",
+                "value": 0.02,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_docs",
+                "value": 100000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "matching_docs",
+                "value": 2000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "selectivity",
+                "value": 0.02,
+                "tone": "ok"
               }
             ]
           }

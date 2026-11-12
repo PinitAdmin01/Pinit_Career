@@ -2,85 +2,84 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 24,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why cache semantically",
       "codeHash": "7f64c39bbe5968e10929ee10f90656d99fae1c575d5f31ad27e8df4047233293",
       "spec": {
-        "template": "table",
-        "title": "Embedding similarity cache lookup and bypass efficiency",
-        "columns": [
-          "phrasings",
-          "base",
-          "phrasings"
-        ],
+        "template": "bars",
+        "title": "Why cache semantically",
         "steps": [
           {
-            "at": "say3",
-            "caption": "A semantic cache compares query embeddings to return stored answers quickly.",
-            "rows": [
+            "at": "say1",
+            "caption": "A traditional cache stores answers by exact key.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "phrasings"
-                  },
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "phrasings"
-                  }
-                ],
-                "tone": "ok"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "phrasings"
-                  },
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "phrasings"
-                  }
-                ],
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "A cache hit skips retrieval and language model generation entirely.",
-            "rows": [
+            "at": "say2",
+            "caption": "Users rarely type exactly the same words.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "phrasings"
-                  },
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "phrasings"
-                  }
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "phrasings"
-                  },
-                  {
-                    "text": "base"
-                  },
-                  {
-                    "text": "base"
-                  }
-                ],
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we build the cache and measure its value.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 4
+                },
                 "tone": "ok"
               }
             ]
@@ -88,54 +87,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Embedding similarity cache lookup and bypass efficiency",
-        "columns": [
-          "phrasings",
-          "base",
-          "phrasings"
-        ],
+        "template": "bars",
+        "title": "Why cache semantically",
         "steps": [
           {
-            "at": "say3",
-            "caption": "A semantic cache compares query embeddings to return stored answers quickly.",
-            "rows": [
+            "at": "say1",
+            "caption": "A traditional cache stores answers by exact key.",
+            "bars": [
               {
-                "cells": [
-                  "phrasings",
-                  "base",
-                  "phrasings"
-                ],
-                "tone": "ok"
+                "label": "x",
+                "value": 0.9,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "phrasings",
-                  "base",
-                  "phrasings"
-                ],
+                "label": "y",
+                "value": 0.9,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "A cache hit skips retrieval and language model generation entirely.",
-            "rows": [
+            "at": "say2",
+            "caption": "Users rarely type exactly the same words.",
+            "bars": [
               {
-                "cells": [
-                  "phrasings",
-                  "base",
-                  "phrasings"
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": 0.3,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "phrasings",
-                  "base",
-                  "base"
-                ],
+                "label": "y",
+                "value": 0.3,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we build the cache and measure its value.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0.1,
                 "tone": "ok"
               }
             ]
@@ -147,78 +145,131 @@
       "partTitle": "Building the cache",
       "codeHash": "088d2b1a1e8a9e30e44f0caa9f88e936bb5080ed6293a8e7b31af1504325355c",
       "spec": {
-        "template": "table",
-        "title": "Vector cache entry storage and telemetry tracking",
-        "columns": [
-          "cache",
-          "hits",
-          "misses"
-        ],
+        "template": "bars",
+        "title": "Building the cache",
         "steps": [
           {
-            "at": "say2",
-            "caption": "During lookup, similarity above the threshold returns the cached answer.",
-            "rows": [
+            "at": "say1",
+            "caption": "The cache stores pairs of query vectors and answers.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "cache"
-                  },
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "misses"
-                  }
-                ],
-                "tone": "ok"
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "cache"
-                  },
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "misses"
-                  }
-                ],
+                "label": "misses",
+                "value": {
+                  "var": "misses",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Counting cache hits and misses provides measurable performance telemetry.",
-            "rows": [
+            "at": "say2",
+            "caption": "On a lookup, it finds the most similar stored vector.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "cache"
-                  },
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "misses"
-                  }
-                ],
-                "tone": "data"
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "cache"
-                  },
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
+                "label": "misses",
+                "value": {
+                  "var": "misses",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Counting hits and misses from the start makes the cache's value measurable.",
+            "bars": [
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "misses",
+                "value": {
+                  "var": "misses",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 4
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +277,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vector cache entry storage and telemetry tracking",
-        "columns": [
-          "cache",
-          "hits",
-          "misses"
-        ],
+        "template": "bars",
+        "title": "Building the cache",
         "steps": [
           {
-            "at": "say2",
-            "caption": "During lookup, similarity above the threshold returns the cached answer.",
-            "rows": [
+            "at": "say1",
+            "caption": "The cache stores pairs of query vectors and answers.",
+            "bars": [
               {
-                "cells": [
-                  "cache",
-                  "hits",
-                  "misses"
-                ],
-                "tone": "ok"
+                "label": "hits",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "cache",
-                  "hits",
-                  "misses"
-                ],
+                "label": "misses",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 0.99,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Counting cache hits and misses provides measurable performance telemetry.",
-            "rows": [
+            "at": "say2",
+            "caption": "On a lookup, it finds the most similar stored vector.",
+            "bars": [
               {
-                "cells": [
-                  "cache",
-                  "hits",
-                  "misses"
-                ],
-                "tone": "data"
+                "label": "hits",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "cache",
-                  "hits",
-                  "hits"
-                ],
+                "label": "misses",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Counting hits and misses from the start makes the cache's value measurable.",
+            "bars": [
+              {
+                "label": "hits",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "misses",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -285,134 +365,107 @@
       "partTitle": "Choosing the threshold",
       "codeHash": "4ed722f822f31f4e52cb8ae9539aede5e18094965e8b8a57f992b699b4931252",
       "spec": {
-        "template": "table",
-        "title": "Threshold calibration and precision-recall trade-offs",
-        "columns": [
-          "pairs",
-          "threshold",
-          "hits"
-        ],
+        "template": "cells",
+        "title": "Choosing the threshold",
         "steps": [
           {
             "at": "say1",
-            "caption": "A high similarity threshold returns cached answers only for identical queries.",
-            "rows": [
+            "caption": "Safe but fewer hits.",
+            "items": {
+              "var": "hits",
+              "line": 3,
+              "hit": 8
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "threshold"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "threshold"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Favouring precision prevents returning wrong answers to divergent queries.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how threshold updates such during execution.",
+            "items": {
+              "var": "hits",
+              "line": 3,
+              "hit": 11
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "threshold"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Thresholds should be revisited when the embedding model changes.",
+            "items": {
+              "var": "hits",
+              "line": 3,
+              "hit": 16
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "threshold"
-                  },
-                  {
-                    "text": "threshold"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Threshold calibration and precision-recall trade-offs",
-        "columns": [
-          "pairs",
-          "threshold",
-          "hits"
-        ],
+        "template": "cells",
+        "title": "Choosing the threshold",
         "steps": [
           {
             "at": "say1",
-            "caption": "A high similarity threshold returns cached answers only for identical queries.",
-            "rows": [
+            "caption": "Safe but fewer hits.",
+            "items": [
+              "True",
+              "True"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "pairs",
-                  "threshold",
-                  "hits"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pairs",
-                  "threshold",
-                  "hits"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Favouring precision prevents returning wrong answers to divergent queries.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how threshold updates such during execution.",
+            "items": [
+              "True",
+              "True"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "pairs",
-                  "threshold",
-                  "hits"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Thresholds should be revisited when the embedding model changes.",
+            "items": [
+              "True",
+              "True",
+              "True",
+              "False"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "pairs",
-                  "threshold",
-                  "threshold"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -423,135 +476,277 @@
       "partTitle": "Measuring savings",
       "codeHash": "0394a551a98561b43aabe0e5d86f83b6820b56bbcf34a5f43b4da0f2b56f246c",
       "spec": {
-        "template": "table",
-        "title": "Cost and latency savings analysis across query volumes",
-        "columns": [
-          "requests",
-          "llm_cost",
-          "lookup_cost"
+        "template": "flow",
+        "title": "Measuring savings",
+        "nodes": [
+          {
+            "id": "requests",
+            "label": "requests"
+          },
+          {
+            "id": "llm_cost",
+            "label": "llm_cost"
+          },
+          {
+            "id": "lookup_cost",
+            "label": "lookup_cost"
+          },
+          {
+            "id": "hit_rate",
+            "label": "hit_rate"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every request pays a minor lookup cost while cache misses run the pipeline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "requests"
-                  },
-                  {
-                    "text": "llm_cost"
-                  },
-                  {
-                    "text": "lookup_cost"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Every request pays a small lookup cost to check the cache.",
+            "values": {
+              "requests": {
+                "var": "requests",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "requests"
-                  },
-                  {
-                    "text": "llm_cost"
-                  },
-                  {
-                    "text": "lookup_cost"
-                  }
-                ],
-                "tone": "data"
+              "llm_cost": {
+                "var": "llm_cost",
+                "line": 1,
+                "hit": 1
+              },
+              "lookup_cost": {
+                "var": "lookup_cost",
+                "line": 1,
+                "hit": 1
+              },
+              "hit_rate": {
+                "var": "hit_rate",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "requests": "data",
+              "llm_cost": "data",
+              "lookup_cost": "data",
+              "hit_rate": "data"
+            },
+            "arrows": [
+              [
+                "requests",
+                "llm_cost"
+              ],
+              [
+                "llm_cost",
+                "lookup_cost"
+              ],
+              [
+                "lookup_cost",
+                "hit_rate"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Latency savings follow directly because cache hits take mere milliseconds.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "requests"
-                  },
-                  {
-                    "text": "llm_cost"
-                  },
-                  {
-                    "text": "lookup_cost"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Cost without cache = requests pipeline cost.",
+            "values": {
+              "requests": {
+                "var": "requests",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "requests"
-                  },
-                  {
-                    "text": "llm_cost"
-                  },
-                  {
-                    "text": "requests"
-                  }
-                ],
-                "tone": "ok"
+              "llm_cost": {
+                "var": "llm_cost",
+                "line": 2,
+                "hit": 1
+              },
+              "lookup_cost": {
+                "var": "lookup_cost",
+                "line": 2,
+                "hit": 1
+              },
+              "hit_rate": {
+                "var": "hit_rate",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "requests": "data",
+              "llm_cost": "data",
+              "lookup_cost": "data",
+              "hit_rate": "data"
+            },
+            "arrows": [
+              [
+                "requests",
+                "llm_cost"
+              ],
+              [
+                "llm_cost",
+                "lookup_cost"
+              ],
+              [
+                "lookup_cost",
+                "hit_rate"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Caches must never be used to bypass access checks.",
+            "values": {
+              "requests": {
+                "var": "requests",
+                "line": 3,
+                "hit": 1
+              },
+              "llm_cost": {
+                "var": "llm_cost",
+                "line": 3,
+                "hit": 1
+              },
+              "lookup_cost": {
+                "var": "lookup_cost",
+                "line": 3,
+                "hit": 1
+              },
+              "hit_rate": {
+                "var": "hit_rate",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "requests": "ok",
+              "llm_cost": "ok",
+              "lookup_cost": "ok",
+              "hit_rate": "ok"
+            },
+            "arrows": [
+              [
+                "requests",
+                "llm_cost"
+              ],
+              [
+                "llm_cost",
+                "lookup_cost"
+              ],
+              [
+                "lookup_cost",
+                "hit_rate"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cost and latency savings analysis across query volumes",
-        "columns": [
-          "requests",
-          "llm_cost",
-          "lookup_cost"
+        "template": "flow",
+        "title": "Measuring savings",
+        "nodes": [
+          {
+            "id": "requests",
+            "label": "requests"
+          },
+          {
+            "id": "llm_cost",
+            "label": "llm_cost"
+          },
+          {
+            "id": "lookup_cost",
+            "label": "lookup_cost"
+          },
+          {
+            "id": "hit_rate",
+            "label": "hit_rate"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Every request pays a minor lookup cost while cache misses run the pipeline.",
-            "rows": [
-              {
-                "cells": [
-                  "requests",
-                  "llm_cost",
-                  "lookup_cost"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "requests",
-                  "llm_cost",
-                  "lookup_cost"
-                ],
-                "tone": "data"
-              }
+            "caption": "Every request pays a small lookup cost to check the cache.",
+            "values": {
+              "requests": "100000",
+              "llm_cost": "0.02",
+              "lookup_cost": "0.0005",
+              "hit_rate": "0"
+            },
+            "tones": {
+              "requests": "data",
+              "llm_cost": "data",
+              "lookup_cost": "data",
+              "hit_rate": "data"
+            },
+            "arrows": [
+              [
+                "requests",
+                "llm_cost"
+              ],
+              [
+                "llm_cost",
+                "lookup_cost"
+              ],
+              [
+                "lookup_cost",
+                "hit_rate"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Latency savings follow directly because cache hits take mere milliseconds.",
-            "rows": [
-              {
-                "cells": [
-                  "requests",
-                  "llm_cost",
-                  "lookup_cost"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "requests",
-                  "llm_cost",
-                  "requests"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Cost without cache = requests pipeline cost.",
+            "values": {
+              "requests": "100000",
+              "llm_cost": "0.02",
+              "lookup_cost": "0.0005",
+              "hit_rate": "0"
+            },
+            "tones": {
+              "requests": "data",
+              "llm_cost": "data",
+              "lookup_cost": "data",
+              "hit_rate": "data"
+            },
+            "arrows": [
+              [
+                "requests",
+                "llm_cost"
+              ],
+              [
+                "llm_cost",
+                "lookup_cost"
+              ],
+              [
+                "lookup_cost",
+                "hit_rate"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Caches must never be used to bypass access checks.",
+            "values": {
+              "requests": "100000",
+              "llm_cost": "0.02",
+              "lookup_cost": "0.0005",
+              "hit_rate": "0"
+            },
+            "tones": {
+              "requests": "ok",
+              "llm_cost": "ok",
+              "lookup_cost": "ok",
+              "hit_rate": "ok"
+            },
+            "arrows": [
+              [
+                "requests",
+                "llm_cost"
+              ],
+              [
+                "llm_cost",
+                "lookup_cost"
+              ],
+              [
+                "lookup_cost",
+                "hit_rate"
+              ]
             ]
           }
         ]
@@ -562,110 +757,161 @@
       "codeHash": "636ee4cd3f6943bb6169fff0787f4ccc4c1519511be5882c62af229a3c9ebd90",
       "spec": {
         "template": "flow",
-        "title": "Freshness and safety — Execution Pipeline",
+        "title": "Freshness and safety",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "cache",
+            "label": "cache"
           },
           {
-            "id": "proc",
-            "label": "2. Freshness and safety",
-            "tappable": true
+            "id": "updated_docs",
+            "label": "updated_docs"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "stale",
+            "label": "stale"
+          },
+          {
+            "id": "k",
+            "label": "k"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Freshness and safety [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Freshness and safety [D.Pfive.Stwo].",
+            "caption": "Cached answers go stale when documents change, so entries need an expiry.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "cache": {
+                "var": "cache",
+                "line": 1,
+                "hit": 2
+              },
+              "updated_docs": {
+                "var": "updated_docs",
+                "line": 3,
+                "hit": 1
+              },
+              "stale": {
+                "var": "stale",
+                "line": 4,
+                "hit": 3
+              },
+              "k": {
+                "var": "k",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "cache": "data",
+              "updated_docs": "data",
+              "stale": "data",
+              "k": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cache",
+                "updated_docs"
               ],
               [
-                "proc",
-                "out"
+                "updated_docs",
+                "stale"
+              ],
+              [
+                "stale",
+                "k"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Linking each cached answer to the document ids it used allows precise.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "cache": {
+                "var": "cache",
+                "line": 3,
+                "hit": 1
+              },
+              "updated_docs": {
+                "var": "updated_docs",
+                "line": 4,
+                "hit": 1
+              },
+              "stale": {
+                "var": "stale",
+                "line": 5,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "cache": "data",
+              "updated_docs": "data",
+              "stale": "data",
+              "k": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "cache",
+                "updated_docs"
+              ],
+              [
+                "updated_docs",
+                "stale"
+              ],
+              [
+                "stale",
+                "k"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Freshness and safety [D.Pfive.Sfour].",
+            "at": "say10",
+            "caption": "Tomorrow handles freshness in the index itself, including switching.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "cache": {
+                "var": "cache",
+                "line": 4,
+                "hit": 1
+              },
+              "updated_docs": {
+                "var": "updated_docs",
+                "line": 4,
+                "hit": 2
+              },
+              "stale": {
+                "var": "stale",
+                "line": 6,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 5,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "cache": "ok",
+              "updated_docs": "ok",
+              "stale": "ok",
+              "k": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cache",
+                "updated_docs"
               ],
               [
-                "proc",
-                "out"
+                "updated_docs",
+                "stale"
+              ],
+              [
+                "stale",
+                "k"
               ]
             ]
           }
@@ -673,110 +919,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Freshness and safety — Execution Pipeline",
+        "title": "Freshness and safety",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "cache",
+            "label": "cache"
           },
           {
-            "id": "proc",
-            "label": "2. Freshness and safety",
-            "tappable": true
+            "id": "updated_docs",
+            "label": "updated_docs"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "stale",
+            "label": "stale"
+          },
+          {
+            "id": "k",
+            "label": "k"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Freshness and safety [D24.P5.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Freshness and safety [D24.P5.S2].",
+            "caption": "Cached answers go stale when documents change, so entries need an expiry.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "cache": "{'q1': {'answer': 'Refunds within 30 da…",
+              "updated_docs": "{'policy-7'}",
+              "stale": "['q1']",
+              "k": "'q1'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "cache": "data",
+              "updated_docs": "data",
+              "stale": "data",
+              "k": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cache",
+                "updated_docs"
               ],
               [
-                "proc",
-                "out"
+                "updated_docs",
+                "stale"
+              ],
+              [
+                "stale",
+                "k"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P5.S3].",
+            "at": "say2",
+            "caption": "Linking each cached answer to the document ids it used allows precise.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "cache": "{'q1': {'answer': 'Refunds within 30 da…",
+              "updated_docs": "{'policy-7'}",
+              "stale": "['q1']",
+              "k": "'q1'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "cache": "data",
+              "updated_docs": "data",
+              "stale": "data",
+              "k": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "cache",
+                "updated_docs"
+              ],
+              [
+                "updated_docs",
+                "stale"
+              ],
+              [
+                "stale",
+                "k"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Freshness and safety [D24.P5.S4].",
+            "at": "say10",
+            "caption": "Tomorrow handles freshness in the index itself, including switching.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "cache": "{'q1': {'answer': 'Refunds within 30 da…",
+              "updated_docs": "{'policy-7'}",
+              "stale": "['q1']",
+              "k": "'q1'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "cache": "ok",
+              "updated_docs": "ok",
+              "stale": "ok",
+              "k": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cache",
+                "updated_docs"
               ],
               [
-                "proc",
-                "out"
+                "updated_docs",
+                "stale"
+              ],
+              [
+                "stale",
+                "k"
               ]
             ]
           }
@@ -787,223 +1036,217 @@
       "partTitle": "Practice time: caching",
       "codeHash": "95dbbc61c5925f961e814cf80e1b740e09ab1f73365af80451212b4acbdd3d41",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: caching — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: caching",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: caching",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: caching [D.Psix.Sone].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: caching [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "SemanticCache(threshold) with put(vector, answer) and get(vector).",
+            "bars": [
+              {
+                "label": "threshold",
+                "value": {
+                  "var": "threshold",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a near-identical hit, a miss, a hit on a second entry.",
+            "bars": [
+              {
+                "label": "threshold",
+                "value": {
+                  "var": "threshold",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: caching [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If get always misses, check that you compare similarity with the threshold.",
+            "bars": [
+              {
+                "label": "threshold",
+                "value": {
+                  "var": "threshold",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 5,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 5,
+                  "hit": 4
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: caching — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: caching",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: caching",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: caching [D24.P6.S1].",
-            "values": {
-              "in": "Day 24 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: caching [D24.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "SemanticCache(threshold) with put(vector, answer) and get(vector).",
+            "bars": [
+              {
+                "label": "threshold",
+                "value": 0.99,
+                "tone": "data"
+              },
+              {
+                "label": "hits",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": -0.29848548718079204,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": -0.08329167566573771,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D24.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a near-identical hit, a miss, a hit on a second entry.",
+            "bars": [
+              {
+                "label": "threshold",
+                "value": 0.99,
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0.010312916835672148,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 1.318104861612462,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: caching [D24.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If get always misses, check that you compare similarity with the threshold.",
+            "bars": [
+              {
+                "label": "threshold",
+                "value": 0.99,
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 1.0840052911101266,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0.10115764142087533,
+                "tone": "ok"
+              }
             ]
           }
         ]

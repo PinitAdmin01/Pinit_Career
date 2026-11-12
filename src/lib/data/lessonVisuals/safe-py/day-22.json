@@ -2,125 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 22,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why audit logs",
       "codeHash": "7fbc916872f4c559a45e4407fd62f4d95ba6bec77e925b740cd2ed26094cc612",
       "spec": {
-        "template": "table",
-        "title": "Risky vs privacy-safe audit log schemas",
-        "columns": [
-          "risky",
-          "safer"
+        "template": "states",
+        "title": "Why audit logs",
+        "states": [
+          {
+            "id": "risky",
+            "label": "risky"
+          },
+          {
+            "id": "safer",
+            "label": "safer"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Audit logs record critical decisions and system actions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "risky"
-                  },
-                  {
-                    "text": "safer"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "BLOCK"
-                  },
-                  {
-                    "text": "reasons"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "An audit log is a permanent record of important events.",
+            "currentState": "risky",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Storing prompt text risks logging sensitive card numbers.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "risky"
-                  },
-                  {
-                    "text": "safer"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "BLOCK"
-                  },
-                  {
-                    "text": "safer"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "When something goes wrong, the audit log is how you find out what.",
+            "currentState": "safer",
+            "transition": {
+              "from": "risky",
+              "to": "safer",
+              "label": {
+                "var": "safer",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today uses hashing to keep logs useful without keeping raw personal data.",
+            "currentState": "name",
+            "transition": {
+              "from": "safer",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Risky vs privacy-safe audit log schemas",
-        "columns": [
-          "risky",
-          "safer"
+        "template": "states",
+        "title": "Why audit logs",
+        "states": [
+          {
+            "id": "risky",
+            "label": "risky"
+          },
+          {
+            "id": "safer",
+            "label": "safer"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Audit logs record critical decisions and system actions.",
-            "rows": [
-              {
-                "cells": [
-                  "risky",
-                  "safer"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "BLOCK",
-                  "reasons"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "An audit log is a permanent record of important events.",
+            "currentState": "risky",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Storing prompt text risks logging sensitive card numbers.",
-            "rows": [
-              {
-                "cells": [
-                  "risky",
-                  "safer"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "BLOCK",
-                  "safer"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "When something goes wrong, the audit log is how you find out what.",
+            "currentState": "safer",
+            "transition": {
+              "from": "risky",
+              "to": "safer",
+              "label": "{'user': '3f9a1c07d2e4', 'prompt_chars'…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today uses hashing to keep logs useful without keeping raw personal data.",
+            "currentState": "name",
+            "transition": {
+              "from": "safer",
+              "to": "name",
+              "label": "'safer'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -129,118 +117,72 @@
       "partTitle": "Hashing identifiers",
       "codeHash": "a8f8381c9796e726d92f01fe440960f41ef002a3819587ecf50ea7c50b752c3b",
       "spec": {
-        "template": "table",
-        "title": "Cryptographic hashing of sensitive identifiers",
-        "columns": [
-          "uid",
-          "hashlib"
+        "template": "states",
+        "title": "Hashing identifiers",
+        "states": [
+          {
+            "id": "uid",
+            "label": "uid"
+          },
+          {
+            "id": "h",
+            "label": "h"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hash functions convert arbitrary text into fixed length fingerprints.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "uid"
-                  },
-                  {
-                    "text": "hashlib"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sha256"
-                  },
-                  {
-                    "text": "hexdigest"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A hash function turns any text into a fixed-length fingerprint.",
+            "currentState": "uid",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Hashing a user id groups events without storing raw identity.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "uid"
-                  },
-                  {
-                    "text": "hashlib"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "encode"
-                  },
-                  {
-                    "text": "hexdigest"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The same input always gives the same output, and it is practically.",
+            "currentState": "h",
+            "transition": {
+              "from": "uid",
+              "to": "h",
+              "label": {
+                "var": "h",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cryptographic hashing of sensitive identifiers",
-        "columns": [
-          "uid",
-          "hashlib"
+        "template": "states",
+        "title": "Hashing identifiers",
+        "states": [
+          {
+            "id": "uid",
+            "label": "uid"
+          },
+          {
+            "id": "h",
+            "label": "h"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Hash functions convert arbitrary text into fixed length fingerprints.",
-            "rows": [
-              {
-                "cells": [
-                  "uid",
-                  "hashlib"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sha256",
-                  "hexdigest"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A hash function turns any text into a fixed-length fingerprint.",
+            "currentState": "uid",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Hashing a user id groups events without storing raw identity.",
-            "rows": [
-              {
-                "cells": [
-                  "uid",
-                  "hashlib"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "encode",
-                  "hexdigest"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The same input always gives the same output, and it is practically.",
+            "currentState": "h",
+            "transition": {
+              "from": "uid",
+              "to": "h",
+              "label": "'bf579efa420261f06d69ed0649597b2bc1788d…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -249,118 +191,106 @@
       "partTitle": "A privacy-safe audit entry",
       "codeHash": "73da8938a992cf5b328a16ca573c746a674a94f4d50625f194d717564fea62f1",
       "spec": {
-        "template": "table",
-        "title": "Privacy-safe audit record structures",
-        "columns": [
-          "uid",
-          "prompt"
+        "template": "states",
+        "title": "A privacy-safe audit entry",
+        "states": [
+          {
+            "id": "uid",
+            "label": "uid"
+          },
+          {
+            "id": "prompt",
+            "label": "prompt"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Log entries store hash digests and prompt length in characters.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "uid"
-                  },
-                  {
-                    "text": "prompt"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "BLOCK"
-                  },
-                  {
-                    "text": "injection"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Trace how practice updates prompt during execution.",
+            "currentState": "uid",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Decisions and sorted reasons explain why guards intervened.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "uid"
-                  },
-                  {
-                    "text": "prompt"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "override"
-                  },
-                  {
-                    "text": "sha256"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how user updates field during execution.",
+            "currentState": "prompt",
+            "transition": {
+              "from": "uid",
+              "to": "prompt",
+              "label": {
+                "var": "prompt",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Sorting the reasons makes entries easy to compare and count.",
+            "currentState": "text",
+            "transition": {
+              "from": "prompt",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Privacy-safe audit record structures",
-        "columns": [
-          "uid",
-          "prompt"
+        "template": "states",
+        "title": "A privacy-safe audit entry",
+        "states": [
+          {
+            "id": "uid",
+            "label": "uid"
+          },
+          {
+            "id": "prompt",
+            "label": "prompt"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Log entries store hash digests and prompt length in characters.",
-            "rows": [
-              {
-                "cells": [
-                  "uid",
-                  "prompt"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "BLOCK",
-                  "injection"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Trace how practice updates prompt during execution.",
+            "currentState": "uid",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Decisions and sorted reasons explain why guards intervened.",
-            "rows": [
-              {
-                "cells": [
-                  "uid",
-                  "prompt"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "override",
-                  "sha256"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how user updates field during execution.",
+            "currentState": "prompt",
+            "transition": {
+              "from": "uid",
+              "to": "prompt",
+              "label": "'Ignore previous instructions'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Sorting the reasons makes entries easy to compare and count.",
+            "currentState": "text",
+            "transition": {
+              "from": "prompt",
+              "to": "text",
+              "label": "'Ignore previous instructions'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -369,117 +299,165 @@
       "partTitle": "What else to log",
       "codeHash": "5ed4a2fcd673a85ebeae719ae7670bc38b338a917d18e39fc23f643ae970c0b0",
       "spec": {
-        "template": "table",
-        "title": "Heterogeneous pipeline events in audit logs",
-        "columns": [
-          "events",
-          "decision"
+        "template": "flow",
+        "title": "What else to log",
+        "nodes": [
+          {
+            "id": "events",
+            "label": "events"
+          },
+          {
+            "id": "e",
+            "label": "e"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Audit records capture diverse events across the pipeline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "events"
-                  },
-                  {
-                    "text": "decision"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Beyond guard decisions, an AI audit log records several kinds of event.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "guard"
-                  },
-                  {
-                    "text": "BLOCK"
-                  }
-                ],
-                "tone": "data"
+              "e": {
+                "var": "e",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "events": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "events",
+                "e"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Configuration updates record new thresholds and who made them.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "events"
-                  },
-                  {
-                    "text": "decision"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Which tool, the result of validation, and a hash or summary of the arguments.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "tool"
-                  },
-                  {
-                    "text": "refund"
-                  }
-                ],
-                "tone": "ok"
+              "e": {
+                "var": "e",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "events": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "events",
+                "e"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Test that logging works.",
+            "values": {
+              "events": {
+                "var": "events",
+                "line": 8,
+                "hit": 1
+              },
+              "e": {
+                "var": "e",
+                "line": 8,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "events": "ok",
+              "e": "ok"
+            },
+            "arrows": [
+              [
+                "events",
+                "e"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Heterogeneous pipeline events in audit logs",
-        "columns": [
-          "events",
-          "decision"
+        "template": "flow",
+        "title": "What else to log",
+        "nodes": [
+          {
+            "id": "events",
+            "label": "events"
+          },
+          {
+            "id": "e",
+            "label": "e"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Audit records capture diverse events across the pipeline.",
-            "rows": [
-              {
-                "cells": [
-                  "events",
-                  "decision"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "guard",
-                  "BLOCK"
-                ],
-                "tone": "data"
-              }
+            "caption": "Beyond guard decisions, an AI audit log records several kinds of event.",
+            "values": {
+              "events": "[{'type': 'guard', 'decision': 'BLOCK',…",
+              "e": "{'type': 'guard', 'decision': 'BLOCK', …"
+            },
+            "tones": {
+              "events": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "events",
+                "e"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Configuration updates record new thresholds and who made them.",
-            "rows": [
-              {
-                "cells": [
-                  "events",
-                  "decision"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "tool",
-                  "refund"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Which tool, the result of validation, and a hash or summary of the arguments.",
+            "values": {
+              "events": "[{'type': 'guard', 'decision': 'BLOCK',…",
+              "e": "{'type': 'guard', 'decision': 'BLOCK', …"
+            },
+            "tones": {
+              "events": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "events",
+                "e"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Test that logging works.",
+            "values": {
+              "events": "[{'type': 'guard', 'decision': 'BLOCK',…",
+              "e": "{'type': 'guard', 'decision': 'BLOCK', …"
+            },
+            "tones": {
+              "events": "ok",
+              "e": "ok"
+            },
+            "arrows": [
+              [
+                "events",
+                "e"
+              ]
             ]
           }
         ]
@@ -489,224 +467,106 @@
       "partTitle": "Summarising the log",
       "codeHash": "bb56899984869b6bba79a059463a2ef9fb90c7a433cf397a1365dfd4b6732339",
       "spec": {
-        "template": "flow",
-        "title": "Summarising the log — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Summarising the log",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "entries",
+            "label": "entries"
           },
           {
-            "id": "proc",
-            "label": "2. Summarising the log",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "e",
+            "label": "e"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Summarising the log [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Summarising the log [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A log with millions of entries is only useful if you can summarise it.",
+            "currentState": "entries",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Trace how practice updates entries during execution.",
+            "currentState": ".0",
+            "transition": {
+              "from": "entries",
+              "to": ".0",
+              "label": {
+                "var": ".0",
+                "line": 5,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Summarising the log [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Keep summaries at several time scales, such as hourly and daily, to see.",
+            "currentState": "e",
+            "transition": {
+              "from": ".0",
+              "to": "e",
+              "label": {
+                "var": "e",
+                "line": 5,
+                "hit": 3
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Summarising the log — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Summarising the log",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "entries",
+            "label": "entries"
           },
           {
-            "id": "proc",
-            "label": "2. Summarising the log",
-            "tappable": true
+            "id": ".0",
+            "label": ".0"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "e",
+            "label": "e"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Summarising the log [D22.P5.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Summarising the log [D22.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A log with millions of entries is only useful if you can summarise it.",
+            "currentState": "entries",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Trace how practice updates entries during execution.",
+            "currentState": ".0",
+            "transition": {
+              "from": "entries",
+              "to": ".0",
+              "label": "{'__other__': 'list_iterator'}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Summarising the log [D22.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Keep summaries at several time scales, such as hourly and daily, to see.",
+            "currentState": "e",
+            "transition": {
+              "from": ".0",
+              "to": "e",
+              "label": "{'decision': 'BLOCK', 'reasons': ['card…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -715,224 +575,106 @@
       "partTitle": "Audit logs in the pipeline",
       "codeHash": "861e862d31d5a761e8a1e4c2923965dc6e97bb16bd753140a8f99bf35d375f4d",
       "spec": {
-        "template": "flow",
-        "title": "Audit logs in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Audit logs in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "request",
+            "label": "request"
           },
           {
-            "id": "proc",
-            "label": "2. Audit logs in the p...",
-            "tappable": true
+            "id": "checks",
+            "label": "checks"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "t",
+            "label": "t"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Audit logs in the pipeline [D.Psix.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Audit logs in the p... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Every layer of the pipeline writes to the audit log in the same format.",
+            "currentState": "request",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The rate limiter, validator, injection detector, moderation, tool gate.",
+            "currentState": "checks",
+            "transition": {
+              "from": "request",
+              "to": "checks",
+              "label": {
+                "var": "checks",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Audit logs in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add audit_entry and audit_summary to your pipeline today.",
+            "currentState": "t",
+            "transition": {
+              "from": "checks",
+              "to": "t",
+              "label": {
+                "var": "t",
+                "line": 4,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Audit logs in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Audit logs in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "request",
+            "label": "request"
           },
           {
-            "id": "proc",
-            "label": "2. Audit logs in the p...",
-            "tappable": true
+            "id": "checks",
+            "label": "checks"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "t",
+            "label": "t"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Audit logs in the pipeline [D22.P6.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Audit logs in the p... [D22.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Every layer of the pipeline writes to the audit log in the same format.",
+            "currentState": "request",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The rate limiter, validator, injection detector, moderation, tool gate.",
+            "currentState": "checks",
+            "transition": {
+              "from": "request",
+              "to": "checks",
+              "label": "[['rate_limit', 'ok'], ['validate', 'ok…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Audit logs in the pipeline [D22.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add audit_entry and audit_summary to your pipeline today.",
+            "currentState": "t",
+            "transition": {
+              "from": "checks",
+              "to": "t",
+              "label": "'u-77'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

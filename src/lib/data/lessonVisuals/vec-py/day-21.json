@@ -2,142 +2,228 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 21,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Two-stage retrieval",
       "codeHash": "72c2ea690530f78881cdd8a5b493a708ea10293fc39e85627ba0555d4fbf422e",
       "spec": {
-        "template": "table",
-        "title": "Two-stage retrieval architecture and candidate shortlisting",
-        "columns": [
-          "docs",
-          "per_doc_ms",
-          "top"
+        "template": "flow",
+        "title": "Two-stage retrieval",
+        "nodes": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "per_doc_ms",
+            "label": "per_doc_ms"
+          },
+          {
+            "id": "top",
+            "label": "top"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A re-ranker evaluates top candidates with a slower but accurate model.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "per_doc_ms"
-                  },
-                  {
-                    "text": "top"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Fast retrieval methods score millions of documents with simple measures.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "per_doc_ms"
-                  },
-                  {
-                    "text": "top"
-                  }
-                ],
-                "tone": "data"
+              "per_doc_ms": {
+                "var": "per_doc_ms",
+                "line": 1,
+                "hit": 1
+              },
+              "top": {
+                "var": "top",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "docs": "data",
+              "per_doc_ms": "data",
+              "top": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "per_doc_ms"
+              ],
+              [
+                "per_doc_ms",
+                "top"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "A two-stage design delivers high accuracy at a small fraction of cost.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "per_doc_ms"
-                  },
-                  {
-                    "text": "top"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "A re-ranker scores only the top candidates, perhaps 50 to 200, with.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "per_doc_ms"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
-                "tone": "ok"
+              "per_doc_ms": {
+                "var": "per_doc_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "top": {
+                "var": "top",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "docs": "data",
+              "per_doc_ms": "data",
+              "top": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "per_doc_ms"
+              ],
+              [
+                "per_doc_ms",
+                "top"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we use a simple, transparent re-ranker so every score can be checked.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 3,
+                "hit": 1
+              },
+              "per_doc_ms": {
+                "var": "per_doc_ms",
+                "line": 3,
+                "hit": 1
+              },
+              "top": {
+                "var": "top",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "docs": "ok",
+              "per_doc_ms": "ok",
+              "top": "ok"
+            },
+            "arrows": [
+              [
+                "docs",
+                "per_doc_ms"
+              ],
+              [
+                "per_doc_ms",
+                "top"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Two-stage retrieval architecture and candidate shortlisting",
-        "columns": [
-          "docs",
-          "per_doc_ms",
-          "top"
+        "template": "flow",
+        "title": "Two-stage retrieval",
+        "nodes": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "per_doc_ms",
+            "label": "per_doc_ms"
+          },
+          {
+            "id": "top",
+            "label": "top"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "A re-ranker evaluates top candidates with a slower but accurate model.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "per_doc_ms",
-                  "top"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "docs",
-                  "per_doc_ms",
-                  "top"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Fast retrieval methods score millions of documents with simple measures.",
+            "values": {
+              "docs": "5000000",
+              "per_doc_ms": "5",
+              "top": "50"
+            },
+            "tones": {
+              "docs": "data",
+              "per_doc_ms": "data",
+              "top": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "per_doc_ms"
+              ],
+              [
+                "per_doc_ms",
+                "top"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "A two-stage design delivers high accuracy at a small fraction of cost.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "per_doc_ms",
-                  "top"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "docs",
-                  "per_doc_ms",
-                  "docs"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "A re-ranker scores only the top candidates, perhaps 50 to 200, with.",
+            "values": {
+              "docs": "5000000",
+              "per_doc_ms": "5",
+              "top": "50"
+            },
+            "tones": {
+              "docs": "data",
+              "per_doc_ms": "data",
+              "top": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "per_doc_ms"
+              ],
+              [
+                "per_doc_ms",
+                "top"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we use a simple, transparent re-ranker so every score can be checked.",
+            "values": {
+              "docs": "5000000",
+              "per_doc_ms": "5",
+              "top": "100"
+            },
+            "tones": {
+              "docs": "ok",
+              "per_doc_ms": "ok",
+              "top": "ok"
+            },
+            "arrows": [
+              [
+                "docs",
+                "per_doc_ms"
+              ],
+              [
+                "per_doc_ms",
+                "top"
+              ]
             ]
           }
         ]
@@ -147,135 +233,277 @@
       "partTitle": "A simple re-ranker",
       "codeHash": "621c35303d0b45e50676a50efa9ae7e55e28c6de790ca98d0d735f7c25af3aaf",
       "spec": {
-        "template": "table",
-        "title": "Distinct query term coverage scoring and stable ordering",
-        "columns": [
-          "scored",
-          "first_stage",
-          "scored"
+        "template": "flow",
+        "title": "A simple re-ranker",
+        "nodes": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The re-ranker scores candidate documents by distinct query word matches.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "scored"
-                  },
-                  {
-                    "text": "first_stage"
-                  },
-                  {
-                    "text": "scored"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Our re-ranker scores each candidate by the fraction of distinct query.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "scored"
-                  },
-                  {
-                    "text": "first_stage"
-                  },
-                  {
-                    "text": "scored"
-                  }
-                ],
-                "tone": "data"
+              "query": {
+                "var": "query",
+                "line": 5,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 3,
+                "hit": 2
+              },
+              "q": {
+                "var": "q",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "docs": "data",
+              "query": "data",
+              "t": "data",
+              "q": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "query"
+              ],
+              [
+                "query",
+                "t"
+              ],
+              [
+                "t",
+                "q"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Preserving original candidate order resolves equal re-ranking scores.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "scored"
-                  },
-                  {
-                    "text": "first_stage"
-                  },
-                  {
-                    "text": "scored"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "It rewards documents that cover every part of the query, something.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "scored"
-                  },
-                  {
-                    "text": "first_stage"
-                  },
-                  {
-                    "text": "first_stage"
-                  }
-                ],
-                "tone": "ok"
+              "query": {
+                "var": "query",
+                "line": 6,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 3,
+                "hit": 3
+              },
+              "q": {
+                "var": "q",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "docs": "data",
+              "query": "data",
+              "t": "data",
+              "q": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "query"
+              ],
+              [
+                "query",
+                "t"
+              ],
+              [
+                "t",
+                "q"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Keep the re-ranker's input small and its output logged for debugging.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 6,
+                "hit": 1
+              },
+              "query": {
+                "var": "query",
+                "line": 7,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 3,
+                "hit": 4
+              },
+              "q": {
+                "var": "q",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "docs": "ok",
+              "query": "ok",
+              "t": "ok",
+              "q": "ok"
+            },
+            "arrows": [
+              [
+                "docs",
+                "query"
+              ],
+              [
+                "query",
+                "t"
+              ],
+              [
+                "t",
+                "q"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Distinct query term coverage scoring and stable ordering",
-        "columns": [
-          "scored",
-          "first_stage",
-          "scored"
+        "template": "flow",
+        "title": "A simple re-ranker",
+        "nodes": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "query",
+            "label": "query"
+          },
+          {
+            "id": "t",
+            "label": "t"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The re-ranker scores candidate documents by distinct query word matches.",
-            "rows": [
-              {
-                "cells": [
-                  "scored",
-                  "first_stage",
-                  "scored"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "scored",
-                  "first_stage",
-                  "scored"
-                ],
-                "tone": "data"
-              }
+            "caption": "Our re-ranker scores each candidate by the fraction of distinct query.",
+            "values": {
+              "docs": "{'d1': 'Cheap flights to Paris', 'd2': …",
+              "query": "'cheap flights Paris spring'",
+              "t": "'cheap flights Paris spring'",
+              "q": "{'cheap', 'flights', 'paris', 'spring'}"
+            },
+            "tones": {
+              "docs": "data",
+              "query": "data",
+              "t": "data",
+              "q": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "query"
+              ],
+              [
+                "query",
+                "t"
+              ],
+              [
+                "t",
+                "q"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Preserving original candidate order resolves equal re-ranking scores.",
-            "rows": [
-              {
-                "cells": [
-                  "scored",
-                  "first_stage",
-                  "scored"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "scored",
-                  "first_stage",
-                  "first_stage"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "It rewards documents that cover every part of the query, something.",
+            "values": {
+              "docs": "{'d1': 'Cheap flights to Paris', 'd2': …",
+              "query": "'cheap flights Paris spring'",
+              "t": "'Cheap flights to Paris'",
+              "q": "{'cheap', 'flights', 'paris', 'spring'}"
+            },
+            "tones": {
+              "docs": "data",
+              "query": "data",
+              "t": "data",
+              "q": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "query"
+              ],
+              [
+                "query",
+                "t"
+              ],
+              [
+                "t",
+                "q"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Keep the re-ranker's input small and its output logged for debugging.",
+            "values": {
+              "docs": "{'d1': 'Cheap flights to Paris', 'd2': …",
+              "query": "'cheap flights Paris spring'",
+              "t": "'Train tickets to Rome'",
+              "q": "{'cheap', 'flights', 'paris', 'spring'}"
+            },
+            "tones": {
+              "docs": "ok",
+              "query": "ok",
+              "t": "ok",
+              "q": "ok"
+            },
+            "arrows": [
+              [
+                "docs",
+                "query"
+              ],
+              [
+                "query",
+                "t"
+              ],
+              [
+                "t",
+                "q"
+              ]
             ]
           }
         ]
@@ -285,78 +513,77 @@
       "partTitle": "The redundancy problem",
       "codeHash": "6af134f10476ae18fa8c23c65b33af198563907d7c93a296868f05fb9ca8c208",
       "spec": {
-        "template": "table",
-        "title": "Near-duplicate redundancy identification in candidate sets",
-        "columns": [
-          "names",
-          "top3",
-          "names"
-        ],
+        "template": "bars",
+        "title": "The redundancy problem",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Showing identical results wastes user attention and generative context.",
-            "rows": [
+            "at": "say1",
+            "caption": "Search results often contain near-duplicates.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "top3"
-                  },
-                  {
-                    "text": "names"
-                  }
-                ],
-                "tone": "ok"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "top3"
-                  },
-                  {
-                    "text": "names"
-                  }
-                ],
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Retrieval must balance relevance with novelty across candidate outputs.",
-            "rows": [
+            "at": "say2",
+            "caption": "Showing five nearly identical results wastes the user's attention and,.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "top3"
-                  },
-                  {
-                    "text": "names"
-                  }
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "top3"
-                  },
-                  {
-                    "text": "top3"
-                  }
-                ],
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "It remains a standard option in RAG frameworks today.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 4
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +591,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Near-duplicate redundancy identification in candidate sets",
-        "columns": [
-          "names",
-          "top3",
-          "names"
-        ],
+        "template": "bars",
+        "title": "The redundancy problem",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Showing identical results wastes user attention and generative context.",
-            "rows": [
+            "at": "say1",
+            "caption": "Search results often contain near-duplicates.",
+            "bars": [
               {
-                "cells": [
-                  "names",
-                  "top3",
-                  "names"
-                ],
-                "tone": "ok"
+                "label": "x",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "names",
-                  "top3",
-                  "names"
-                ],
+                "label": "y",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Retrieval must balance relevance with novelty across candidate outputs.",
-            "rows": [
+            "at": "say2",
+            "caption": "Showing five nearly identical results wastes the user's attention and,.",
+            "bars": [
               {
-                "cells": [
-                  "names",
-                  "top3",
-                  "names"
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": 0.1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "names",
-                  "top3",
-                  "top3"
-                ],
+                "label": "y",
+                "value": 0.12,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "It remains a standard option in RAG frameworks today.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0.12,
                 "tone": "ok"
               }
             ]
@@ -423,78 +649,104 @@
       "partTitle": "Maximal marginal relevance",
       "codeHash": "5b1663e6e0d87c8f1b2f67d653c59806750eab49062f8eb04bed9c233ce50e25",
       "spec": {
-        "template": "table",
-        "title": "Maximal marginal relevance greedy selection and trade-offs",
-        "columns": [
-          "chosen",
-          "rest",
-          "chosen"
-        ],
+        "template": "bars",
+        "title": "Maximal marginal relevance",
         "steps": [
           {
-            "at": "say2",
-            "caption": "MMR maximises relevance while penalising redundancy against chosen items.",
-            "rows": [
+            "at": "say1",
+            "caption": "MMR builds the result list one item at a time.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "chosen"
-                  },
-                  {
-                    "text": "rest"
-                  },
-                  {
-                    "text": "chosen"
-                  }
-                ],
-                "tone": "ok"
+                "label": "lam",
+                "value": {
+                  "var": "lam",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "chosen"
-                  },
-                  {
-                    "text": "rest"
-                  },
-                  {
-                    "text": "chosen"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Adjusting lambda balances pure relevance ranking against diversity.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each step picks the document that maximises lam relevance (1 lam).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "chosen"
-                  },
-                  {
-                    "text": "rest"
-                  },
-                  {
-                    "text": "chosen"
-                  }
-                ],
-                "tone": "data"
+                "label": "lam",
+                "value": {
+                  "var": "lam",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "chosen"
-                  },
-                  {
-                    "text": "rest"
-                  },
-                  {
-                    "text": "rest"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Measure diversity with the number of distinct sources or topics in the top k.",
+            "bars": [
+              {
+                "label": "lam",
+                "value": {
+                  "var": "lam",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 4
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +754,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Maximal marginal relevance greedy selection and trade-offs",
-        "columns": [
-          "chosen",
-          "rest",
-          "chosen"
-        ],
+        "template": "bars",
+        "title": "Maximal marginal relevance",
         "steps": [
           {
-            "at": "say2",
-            "caption": "MMR maximises relevance while penalising redundancy against chosen items.",
-            "rows": [
+            "at": "say1",
+            "caption": "MMR builds the result list one item at a time.",
+            "bars": [
               {
-                "cells": [
-                  "chosen",
-                  "rest",
-                  "chosen"
-                ],
-                "tone": "ok"
+                "label": "lam",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "chosen",
-                  "rest",
-                  "chosen"
-                ],
+                "label": "x",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Adjusting lambda balances pure relevance ranking against diversity.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each step picks the document that maximises lam relevance (1 lam).",
+            "bars": [
               {
-                "cells": [
-                  "chosen",
-                  "rest",
-                  "chosen"
-                ],
-                "tone": "data"
+                "label": "lam",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "chosen",
-                  "rest",
-                  "rest"
-                ],
+                "label": "x",
+                "value": 0.3,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0.1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Measure diversity with the number of distinct sources or topics in the top k.",
+            "bars": [
+              {
+                "label": "lam",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0.3,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0.1,
                 "tone": "ok"
               }
             ]
@@ -561,223 +827,118 @@
       "partTitle": "Putting the pipeline together",
       "codeHash": "d767ff8213cbb87a72e0e9fccdf0c8432eaae8e363843c5d44eedb5514e2bb80",
       "spec": {
-        "template": "flow",
-        "title": "Putting the pipeline together — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting the pipelin...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Putting the pipeline together",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Putting the pipeline together [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Putting the pipelin... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "A strong retrieval pipeline.",
+            "items": {
+              "var": "first_stage",
+              "line": 1,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Each stage should pass enough candidates to the next.",
+            "items": {
+              "var": "first_stage",
+              "line": 5,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Putting the pipeline together.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow improves the very first input.",
+            "items": {
+              "var": "first_stage",
+              "line": 8,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Putting the pipeline together — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Putting the pipelin...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Putting the pipeline together",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Putting the pipeline together [D21.P5.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Putting the pipelin... [D21.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A strong retrieval pipeline.",
+            "items": [
+              "'d4'",
+              "'d1'",
+              "'d7'",
+              "'d2'",
+              "'d9'",
+              "'d3'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Each stage should pass enough candidates to the next.",
+            "items": [
+              "'d4'",
+              "'d1'",
+              "'d7'",
+              "'d2'",
+              "'d9'",
+              "'d3'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Putting the pipeline together [D21.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Tomorrow improves the very first input.",
+            "items": [
+              "'d4'",
+              "'d1'",
+              "'d7'",
+              "'d2'",
+              "'d9'",
+              "'d3'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -787,223 +948,106 @@
       "partTitle": "Practice time: re-ranking",
       "codeHash": "eabeb4fcfd5368aa09351b246518e6244a69f509f26e4e3270a56ace612777f2",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: re-ranking — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: re-r...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: re-ranking",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: re-ranking [D.Psix.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: re-r... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Rerank(query, docs, candidate_ids).",
+            "items": {
+              "var": "q",
+              "line": 6,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include a full match moving to the top and a tie that keeps.",
+            "items": {
+              "var": "q",
+              "line": 12,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: re-ranking [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "If mmr picks the same document twice, remove each choice from.",
+            "items": {
+              "var": "q",
+              "line": 9,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: re-ranking — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: re-r...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: re-ranking",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: re-ranking [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: re-r... [D21.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Rerank(query, docs, candidate_ids).",
+            "items": [
+              "1",
+              "0.3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a full match moving to the top and a tie that keeps.",
+            "items": [
+              "1",
+              "0.3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: re-ranking [D21.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If mmr picks the same document twice, remove each choice from.",
+            "items": [
+              "1",
+              "0.3"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]

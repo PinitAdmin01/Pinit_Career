@@ -2,124 +2,284 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 20,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Knowing when not to answer",
       "codeHash": "c0477fb26338d811061423b609352f48815846a7cf25a2f204581d4534611892",
       "spec": {
-        "template": "table",
-        "title": "Selective answering based on confidence thresholds",
-        "columns": [
-          "answers",
-          "confident"
+        "template": "flow",
+        "title": "Knowing when not to answer",
+        "nodes": [
+          {
+            "id": "answers",
+            "label": "answers"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "all_acc",
+            "label": "all_acc"
+          },
+          {
+            "id": "confident",
+            "label": "confident"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "System declines to answer when not confident enough.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "confident"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Abstention means the system declines to answer when it is not confident enough.",
+            "values": {
+              "answers": {
+                "var": "answers",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "confident"
-                  }
-                ],
-                "tone": "data"
+              "c": {
+                "var": "c",
+                "line": 2,
+                "hit": 1
+              },
+              "all_acc": {
+                "var": "all_acc",
+                "line": 2,
+                "hit": 9
+              },
+              "confident": {
+                "var": "confident",
+                "line": 3,
+                "hit": 8
               }
+            },
+            "tones": {
+              "answers": "data",
+              "c": "data",
+              "all_acc": "data",
+              "confident": "data"
+            },
+            "arrows": [
+              [
+                "answers",
+                "c"
+              ],
+              [
+                "c",
+                "all_acc"
+              ],
+              [
+                "all_acc",
+                "confident"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Abstention trades question coverage for selective accuracy.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "answers"
-                  },
-                  {
-                    "text": "confident"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Instead of guessing, it says \"I'm not sure\", asks a clarifying question.",
+            "values": {
+              "answers": {
+                "var": "answers",
+                "line": 2,
+                "hit": 9
               },
-              {
-                "cells": [
-                  {
-                    "text": "all_acc"
-                  },
-                  {
-                    "text": "questions"
-                  }
-                ],
-                "tone": "ok"
+              "c": {
+                "var": "c",
+                "line": 2,
+                "hit": 2
+              },
+              "all_acc": {
+                "var": "all_acc",
+                "line": 3,
+                "hit": 1
+              },
+              "confident": {
+                "var": "confident",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "answers": "data",
+              "c": "data",
+              "all_acc": "data",
+              "confident": "data"
+            },
+            "arrows": [
+              [
+                "answers",
+                "c"
+              ],
+              [
+                "c",
+                "all_acc"
+              ],
+              [
+                "all_acc",
+                "confident"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today measures the trade-off and picks a threshold for it.",
+            "values": {
+              "answers": {
+                "var": "answers",
+                "line": 3,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 2,
+                "hit": 3
+              },
+              "all_acc": {
+                "var": "all_acc",
+                "line": 3,
+                "hit": 2
+              },
+              "confident": {
+                "var": "confident",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "answers": "ok",
+              "c": "ok",
+              "all_acc": "ok",
+              "confident": "ok"
+            },
+            "arrows": [
+              [
+                "answers",
+                "c"
+              ],
+              [
+                "c",
+                "all_acc"
+              ],
+              [
+                "all_acc",
+                "confident"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Selective answering based on confidence thresholds",
-        "columns": [
-          "answers",
-          "confident"
+        "template": "flow",
+        "title": "Knowing when not to answer",
+        "nodes": [
+          {
+            "id": "answers",
+            "label": "answers"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "all_acc",
+            "label": "all_acc"
+          },
+          {
+            "id": "confident",
+            "label": "confident"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "System declines to answer when not confident enough.",
-            "rows": [
-              {
-                "cells": [
-                  "answers",
-                  "confident"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "answers",
-                  "confident"
-                ],
-                "tone": "data"
-              }
+            "caption": "Abstention means the system declines to answer when it is not confident enough.",
+            "values": {
+              "answers": "[[0.95, True], [0.9, True], [0.8, True]…",
+              "c": "True",
+              "all_acc": "0.5714285714285714",
+              "confident": "[True, True, True]"
+            },
+            "tones": {
+              "answers": "data",
+              "c": "data",
+              "all_acc": "data",
+              "confident": "data"
+            },
+            "arrows": [
+              [
+                "answers",
+                "c"
+              ],
+              [
+                "c",
+                "all_acc"
+              ],
+              [
+                "all_acc",
+                "confident"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "Abstention trades question coverage for selective accuracy.",
-            "rows": [
-              {
-                "cells": [
-                  "answers",
-                  "confident"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "all_acc",
-                  "questions"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Instead of guessing, it says \"I'm not sure\", asks a clarifying question.",
+            "values": {
+              "answers": "[[0.95, True], [0.9, True], [0.8, True]…",
+              "c": "True",
+              "all_acc": "0.5714285714285714",
+              "confident": "[True, True, True]"
+            },
+            "tones": {
+              "answers": "data",
+              "c": "data",
+              "all_acc": "data",
+              "confident": "data"
+            },
+            "arrows": [
+              [
+                "answers",
+                "c"
+              ],
+              [
+                "c",
+                "all_acc"
+              ],
+              [
+                "all_acc",
+                "confident"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today measures the trade-off and picks a threshold for it.",
+            "values": {
+              "answers": "[[0.95, True], [0.9, True], [0.8, True]…",
+              "c": "True",
+              "all_acc": "0.5714285714285714",
+              "confident": "[True, True, True]"
+            },
+            "tones": {
+              "answers": "ok",
+              "c": "ok",
+              "all_acc": "ok",
+              "confident": "ok"
+            },
+            "arrows": [
+              [
+                "answers",
+                "c"
+              ],
+              [
+                "c",
+                "all_acc"
+              ],
+              [
+                "all_acc",
+                "confident"
+              ]
             ]
           }
         ]
@@ -129,65 +289,104 @@
       "partTitle": "Coverage and selective accuracy",
       "codeHash": "c1015f35ee84b5202fd1cc22cce4f13ce13ccf3aa5816cd373a3de8ce24dbbd2",
       "spec": {
-        "template": "table",
-        "title": "Coverage and selective accuracy at various thresholds",
-        "columns": [
-          "answered",
-          "correct"
-        ],
+        "template": "bars",
+        "title": "Coverage and selective accuracy",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Selective accuracy measures correct answered questions.",
-            "rows": [
+            "at": "say1",
+            "caption": "Two numbers describe an abstaining system.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "answered"
-                  },
-                  {
-                    "text": "correct"
-                  }
-                ],
-                "tone": "ok"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "answered"
-                  },
-                  {
-                    "text": "correct"
-                  }
-                ],
+                "label": "cov",
+                "value": {
+                  "var": "cov",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "acc",
+                "value": {
+                  "var": "acc",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Raising the threshold lowers overall coverage while boosting accuracy.",
-            "rows": [
+            "at": "say2",
+            "caption": "Coverage is the share of all questions it answers.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "answered"
-                  },
-                  {
-                    "text": "correct"
-                  }
-                ],
-                "tone": "data"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "threshold"
-                  },
-                  {
-                    "text": "conf"
-                  }
-                ],
+                "label": "cov",
+                "value": {
+                  "var": "cov",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "acc",
+                "value": {
+                  "var": "acc",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Coverage tells you how useful the system is.",
+            "bars": [
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "cov",
+                "value": {
+                  "var": "cov",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "acc",
+                "value": {
+                  "var": "acc",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -195,49 +394,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Coverage and selective accuracy at various thresholds",
-        "columns": [
-          "answered",
-          "correct"
-        ],
+        "template": "bars",
+        "title": "Coverage and selective accuracy",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Selective accuracy measures correct answered questions.",
-            "rows": [
+            "at": "say1",
+            "caption": "Two numbers describe an abstaining system.",
+            "bars": [
               {
-                "cells": [
-                  "answered",
-                  "correct"
-                ],
-                "tone": "ok"
+                "label": "t",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "answered",
-                  "correct"
-                ],
+                "label": "cov",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "acc",
+                "value": 0.5714285714285714,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Raising the threshold lowers overall coverage while boosting accuracy.",
-            "rows": [
+            "at": "say2",
+            "caption": "Coverage is the share of all questions it answers.",
+            "bars": [
               {
-                "cells": [
-                  "answered",
-                  "correct"
-                ],
-                "tone": "data"
+                "label": "t",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "threshold",
-                  "conf"
-                ],
+                "label": "cov",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "acc",
+                "value": 0.5714285714285714,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Coverage tells you how useful the system is.",
+            "bars": [
+              {
+                "label": "t",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "cov",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "acc",
+                "value": 0.5714285714285714,
                 "tone": "ok"
               }
             ]
@@ -249,65 +467,77 @@
       "partTitle": "The risk-coverage curve",
       "codeHash": "c3e6c9586b1fa3167181da56a5ed662eb3f4df8dd5e93849be90630f5806b3e5",
       "spec": {
-        "template": "table",
-        "title": "Risk-coverage trade-off across sorted predictions",
-        "columns": [
-          "pairs",
-          "top"
-        ],
+        "template": "bars",
+        "title": "The risk-coverage curve",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Risk measures the error rate among answered questions.",
-            "rows": [
+            "at": "say1",
+            "caption": "Plotting accuracy, or its opposite, the error rate, against coverage.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "top"
-                  }
-                ],
-                "tone": "ok"
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "top"
-                  }
-                ],
+                "label": "risk",
+                "value": {
+                  "var": "risk",
+                  "line": 5,
+                  "hit": 3
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Confidence scores ensure risk falls steadily as coverage drops.",
-            "rows": [
+            "at": "say2",
+            "caption": "Risk here means the error rate among answered questions.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "pairs"
-                  },
-                  {
-                    "text": "top"
-                  }
-                ],
-                "tone": "data"
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "risk"
-                  },
-                  {
-                    "text": "coverage"
-                  }
-                ],
+                "label": "risk",
+                "value": {
+                  "var": "risk",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The next part automates finding the threshold for a target.",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "risk",
+                "value": {
+                  "var": "risk",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -315,49 +545,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Risk-coverage trade-off across sorted predictions",
-        "columns": [
-          "pairs",
-          "top"
-        ],
+        "template": "bars",
+        "title": "The risk-coverage curve",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Risk measures the error rate among answered questions.",
-            "rows": [
+            "at": "say1",
+            "caption": "Plotting accuracy, or its opposite, the error rate, against coverage.",
+            "bars": [
               {
-                "cells": [
-                  "pairs",
-                  "top"
-                ],
-                "tone": "ok"
+                "label": "k",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "pairs",
-                  "top"
-                ],
+                "label": "risk",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Confidence scores ensure risk falls steadily as coverage drops.",
-            "rows": [
+            "at": "say2",
+            "caption": "Risk here means the error rate among answered questions.",
+            "bars": [
               {
-                "cells": [
-                  "pairs",
-                  "top"
-                ],
-                "tone": "data"
+                "label": "k",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "risk",
-                  "coverage"
-                ],
+                "label": "risk",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The next part automates finding the threshold for a target.",
+            "bars": [
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "risk",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -369,118 +603,106 @@
       "partTitle": "Choosing a threshold for a target",
       "codeHash": "085a194db9b338351d570af287f68e4500647ff4f5272bd69e8f8ec20bcbb859",
       "spec": {
-        "template": "table",
-        "title": "Target selective accuracy threshold selection",
-        "columns": [
-          "target",
-          "conf"
+        "template": "states",
+        "title": "Choosing a threshold for a target",
+        "states": [
+          {
+            "id": "conf",
+            "label": "conf"
+          },
+          {
+            "id": "correct",
+            "label": "correct"
+          },
+          {
+            "id": "target",
+            "label": "target"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Lowest threshold answers more target questions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "target"
-                  },
-                  {
-                    "text": "conf"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "target"
-                  },
-                  {
-                    "text": "conf"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Product and safety teams usually start from a target.",
+            "currentState": "conf",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Returning none signals that the target is unattainable on this data.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "target"
-                  },
-                  {
-                    "text": "conf"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "answered"
-                  },
-                  {
-                    "text": "correct"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The best threshold is the lowest one that meets the target, because lower.",
+            "currentState": "correct",
+            "transition": {
+              "from": "conf",
+              "to": "correct",
+              "label": {
+                "var": "correct",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Write the chosen threshold, the target and the data it came from into your.",
+            "currentState": "target",
+            "transition": {
+              "from": "correct",
+              "to": "target",
+              "label": {
+                "var": "target",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Target selective accuracy threshold selection",
-        "columns": [
-          "target",
-          "conf"
+        "template": "states",
+        "title": "Choosing a threshold for a target",
+        "states": [
+          {
+            "id": "conf",
+            "label": "conf"
+          },
+          {
+            "id": "correct",
+            "label": "correct"
+          },
+          {
+            "id": "target",
+            "label": "target"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Lowest threshold answers more target questions.",
-            "rows": [
-              {
-                "cells": [
-                  "target",
-                  "conf"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "target",
-                  "conf"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Product and safety teams usually start from a target.",
+            "currentState": "conf",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Returning none signals that the target is unattainable on this data.",
-            "rows": [
-              {
-                "cells": [
-                  "target",
-                  "conf"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "answered",
-                  "correct"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The best threshold is the lowest one that meets the target, because lower.",
+            "currentState": "correct",
+            "transition": {
+              "from": "conf",
+              "to": "correct",
+              "label": "[True, True, True, False, True, False, …"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Write the chosen threshold, the target and the data it came from into your.",
+            "currentState": "target",
+            "transition": {
+              "from": "correct",
+              "to": "target",
+              "label": "0.7"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -489,224 +711,106 @@
       "partTitle": "What to do instead of answering",
       "codeHash": "61aa6b468d58aca813d1aa3701beca1550a6d2ccf848d90a95c06086a48c0bc2",
       "spec": {
-        "template": "flow",
-        "title": "What to do instead of answering — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "What to do instead of answering",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "fallbacks",
+            "label": "fallbacks"
           },
           {
-            "id": "proc",
-            "label": "2. What to do instead ...",
-            "tappable": true
+            "id": "topic",
+            "label": "topic"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "conf",
+            "label": "conf"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for What to do instead of answering.",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in What to do instead ... [Dtwenty.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Abstaining is only half of the design.",
+            "currentState": "fallbacks",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The system can ask a clarifying question, when low confidence comes.",
+            "currentState": "topic",
+            "transition": {
+              "from": "fallbacks",
+              "to": "topic",
+              "label": {
+                "var": "topic",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for What to do instead of answering.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "The user should always understand why they did not get a direct answer.",
+            "currentState": "conf",
+            "transition": {
+              "from": "topic",
+              "to": "conf",
+              "label": {
+                "var": "conf",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "What to do instead of answering — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "What to do instead of answering",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "fallbacks",
+            "label": "fallbacks"
           },
           {
-            "id": "proc",
-            "label": "2. What to do instead ...",
-            "tappable": true
+            "id": "topic",
+            "label": "topic"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "conf",
+            "label": "conf"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for What to do instead of answering [D20.P5.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in What to do instead ... [D20.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Abstaining is only half of the design.",
+            "currentState": "fallbacks",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The system can ask a clarifying question, when low confidence comes.",
+            "currentState": "topic",
+            "transition": {
+              "from": "fallbacks",
+              "to": "topic",
+              "label": "'medical'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What to do instead of answering [D20.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "The user should always understand why they did not get a direct answer.",
+            "currentState": "conf",
+            "transition": {
+              "from": "topic",
+              "to": "conf",
+              "label": "0.62"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -716,110 +820,161 @@
       "codeHash": "34f7f9ff2430c02df1b4b95e2539603f6628ce7dc8d0fa8752287b189147b2ea",
       "spec": {
         "template": "flow",
-        "title": "Abstention in the pipeline — Execution Pipeline",
+        "title": "Abstention in the pipeline",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "THRESHOLDS",
+            "label": "THRESHOLDS"
           },
           {
-            "id": "proc",
-            "label": "2. Abstention in the p...",
-            "tappable": true
+            "id": "cases",
+            "label": "cases"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "topic",
+            "label": "topic"
+          },
+          {
+            "id": "conf",
+            "label": "conf"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Abstention in the pipeline [Dtwenty.Psix.Sone].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Abstention in the p... [Dtwenty.Psix.Stwo].",
+            "caption": "In the pipeline, abstention runs after the answer is generated and scored.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "THRESHOLDS": {
+                "var": "THRESHOLDS",
+                "line": 1,
+                "hit": 1
+              },
+              "cases": {
+                "var": "cases",
+                "line": 2,
+                "hit": 1
+              },
+              "topic": {
+                "var": "topic",
+                "line": 3,
+                "hit": 1
+              },
+              "conf": {
+                "var": "conf",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "THRESHOLDS": "data",
+              "cases": "data",
+              "topic": "data",
+              "conf": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "THRESHOLDS",
+                "cases"
               ],
               [
-                "proc",
-                "out"
+                "cases",
+                "topic"
+              ],
+              [
+                "topic",
+                "conf"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Low confidence, low groundedness or unsupported numbers can all trigger.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "THRESHOLDS": {
+                "var": "THRESHOLDS",
+                "line": 2,
+                "hit": 1
+              },
+              "cases": {
+                "var": "cases",
+                "line": 3,
+                "hit": 1
+              },
+              "topic": {
+                "var": "topic",
+                "line": 4,
+                "hit": 1
+              },
+              "conf": {
+                "var": "conf",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "THRESHOLDS": "data",
+              "cases": "data",
+              "topic": "data",
+              "conf": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "THRESHOLDS",
+                "cases"
+              ],
+              [
+                "cases",
+                "topic"
+              ],
+              [
+                "topic",
+                "conf"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Abstention in the pipeline.",
+            "at": "say10",
+            "caption": "Add selective and threshold_for to your pipeline today.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "THRESHOLDS": {
+                "var": "THRESHOLDS",
+                "line": 3,
+                "hit": 1
+              },
+              "cases": {
+                "var": "cases",
+                "line": 4,
+                "hit": 1
+              },
+              "topic": {
+                "var": "topic",
+                "line": 5,
+                "hit": 1
+              },
+              "conf": {
+                "var": "conf",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "THRESHOLDS": "ok",
+              "cases": "ok",
+              "topic": "ok",
+              "conf": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "THRESHOLDS",
+                "cases"
               ],
               [
-                "proc",
-                "out"
+                "cases",
+                "topic"
+              ],
+              [
+                "topic",
+                "conf"
               ]
             ]
           }
@@ -827,110 +982,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Abstention in the pipeline — Execution Pipeline",
+        "title": "Abstention in the pipeline",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "THRESHOLDS",
+            "label": "THRESHOLDS"
           },
           {
-            "id": "proc",
-            "label": "2. Abstention in the p...",
-            "tappable": true
+            "id": "cases",
+            "label": "cases"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "topic",
+            "label": "topic"
+          },
+          {
+            "id": "conf",
+            "label": "conf"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Abstention in the pipeline [D20.P6.S1].",
-            "values": {
-              "in": "Day 20 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Abstention in the p... [D20.P6.S2].",
+            "caption": "In the pipeline, abstention runs after the answer is generated and scored.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "THRESHOLDS": "{'medical': 0.9, 'general': 0.6}",
+              "cases": "[['medical', 0.93, 1], ['medical', 0.95…",
+              "topic": "'medical'",
+              "conf": "0.93"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "THRESHOLDS": "data",
+              "cases": "data",
+              "topic": "data",
+              "conf": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "THRESHOLDS",
+                "cases"
               ],
               [
-                "proc",
-                "out"
+                "cases",
+                "topic"
+              ],
+              [
+                "topic",
+                "conf"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D20.P6.S3].",
+            "at": "say2",
+            "caption": "Low confidence, low groundedness or unsupported numbers can all trigger.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "THRESHOLDS": "{'medical': 0.9, 'general': 0.6}",
+              "cases": "[['medical', 0.93, 1], ['medical', 0.95…",
+              "topic": "'medical'",
+              "conf": "0.93"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "THRESHOLDS": "data",
+              "cases": "data",
+              "topic": "data",
+              "conf": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "THRESHOLDS",
+                "cases"
+              ],
+              [
+                "cases",
+                "topic"
+              ],
+              [
+                "topic",
+                "conf"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Abstention in the pipeline [D20.P6.S4].",
+            "at": "say10",
+            "caption": "Add selective and threshold_for to your pipeline today.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "THRESHOLDS": "{'medical': 0.9, 'general': 0.6}",
+              "cases": "[['medical', 0.93, 1], ['medical', 0.95…",
+              "topic": "'medical'",
+              "conf": "0.93"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "THRESHOLDS": "ok",
+              "cases": "ok",
+              "topic": "ok",
+              "conf": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "THRESHOLDS",
+                "cases"
               ],
               [
-                "proc",
-                "out"
+                "cases",
+                "topic"
+              ],
+              [
+                "topic",
+                "conf"
               ]
             ]
           }

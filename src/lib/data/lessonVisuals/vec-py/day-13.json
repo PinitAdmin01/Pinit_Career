@@ -2,141 +2,112 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 13,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Scalar quantisation",
       "codeHash": "e29006a35b093c0e4d315c5436f2800a4df9d9168c94391033e17e3a0c1ded1c",
       "spec": {
-        "template": "table",
-        "title": "Independent dimension scaling to byte ranges",
-        "columns": [
-          "mins",
-          "maxs",
-          "codes"
-        ],
+        "template": "cells",
+        "title": "Scalar quantisation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Scalar quantisation maps each dimension independently to a compact integer.",
-            "rows": [
+            "caption": "Scalar quantisation (SQ) maps each dimension of a vector independently.",
+            "items": {
+              "var": "mins",
+              "line": 2,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "mins"
-                  },
-                  {
-                    "text": "maxs"
-                  },
-                  {
-                    "text": "codes"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "mins"
-                  },
-                  {
-                    "text": "maxs"
-                  },
-                  {
-                    "text": "codes"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The minimum and maximum across the collection define the scale range.",
-            "rows": [
+            "caption": "For each dimension, the minimum and maximum across the collection define.",
+            "items": {
+              "var": "mins",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "mins"
-                  },
-                  {
-                    "text": "maxs"
-                  },
-                  {
-                    "text": "codes"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Because each dimension is handled on its own, encoding is fast and can be.",
+            "items": {
+              "var": "mins",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "mins"
-                  },
-                  {
-                    "text": "maxs"
-                  },
-                  {
-                    "text": "mins"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Independent dimension scaling to byte ranges",
-        "columns": [
-          "mins",
-          "maxs",
-          "codes"
-        ],
+        "template": "cells",
+        "title": "Scalar quantisation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Scalar quantisation maps each dimension independently to a compact integer.",
-            "rows": [
+            "caption": "Scalar quantisation (SQ) maps each dimension of a vector independently.",
+            "items": [
+              "0",
+              "-1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "mins",
-                  "maxs",
-                  "codes"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "mins",
-                  "maxs",
-                  "codes"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The minimum and maximum across the collection define the scale range.",
-            "rows": [
+            "caption": "For each dimension, the minimum and maximum across the collection define.",
+            "items": [
+              "0",
+              "-1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "mins",
-                  "maxs",
-                  "codes"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Because each dimension is handled on its own, encoding is fast and can be.",
+            "items": [
+              "0",
+              "-1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "mins",
-                  "maxs",
-                  "mins"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -147,134 +118,111 @@
       "partTitle": "Binary quantisation",
       "codeHash": "039163bd6ece6ad4986b4d0ee93314b883d673281618a03d462172da01fe3500",
       "spec": {
-        "template": "table",
-        "title": "Sign bit extraction and integer bit packing",
-        "columns": [
-          "code",
-          "binarize",
-          "code"
-        ],
+        "template": "cells",
+        "title": "Binary quantisation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Binary quantisation preserves only the positive sign of each dimension.",
-            "rows": [
+            "caption": "Binary quantisation keeps only the sign of each dimension.",
+            "items": {
+              "var": "v",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "code"
-                  },
-                  {
-                    "text": "binarize"
-                  },
-                  {
-                    "text": "code"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "code"
-                  },
-                  {
-                    "text": "binarize"
-                  },
-                  {
-                    "text": "code"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Bits are packed into standard integers to represent the whole code.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how dimensional updates vector during execution.",
+            "items": {
+              "var": "v",
+              "line": 4,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "code"
-                  },
-                  {
-                    "text": "binarize"
-                  },
-                  {
-                    "text": "code"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "The results depend strongly on the embedding model, so always test binary.",
+            "items": {
+              "var": "v",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "code"
-                  },
-                  {
-                    "text": "binarize"
-                  },
-                  {
-                    "text": "binarize"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sign bit extraction and integer bit packing",
-        "columns": [
-          "code",
-          "binarize",
-          "code"
-        ],
+        "template": "cells",
+        "title": "Binary quantisation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Binary quantisation preserves only the positive sign of each dimension.",
-            "rows": [
+            "caption": "Binary quantisation keeps only the sign of each dimension.",
+            "items": [
+              "0.3",
+              "-0.2",
+              "0",
+              "1.5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "code",
-                  "binarize",
-                  "code"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "code",
-                  "binarize",
-                  "code"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Bits are packed into standard integers to represent the whole code.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how dimensional updates vector during execution.",
+            "items": [
+              "0.3",
+              "-0.2",
+              "0",
+              "1.5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "code",
-                  "binarize",
-                  "code"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "The results depend strongly on the embedding model, so always test binary.",
+            "items": [
+              "0.3",
+              "-0.2",
+              "0",
+              "1.5"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "code",
-                  "binarize",
-                  "binarize"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -285,135 +233,221 @@
       "partTitle": "Hamming distance",
       "codeHash": "5decbfa885ed90c71c3170affdf6e0fb66a5d2973da855b99bce2b85298c2703",
       "spec": {
-        "template": "table",
-        "title": "Exclusive OR bitwise differences and bit counting",
-        "columns": [
-          "Hamming",
-          "distance",
-          "diff"
+        "template": "flow",
+        "title": "Hamming distance",
+        "nodes": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "diff",
+            "label": "diff"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The Hamming distance counts the number of positions where binary bits differ.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Hamming"
-                  },
-                  {
-                    "text": "distance"
-                  },
-                  {
-                    "text": "diff"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The Hamming distance between two binary codes is the number of positions.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Hamming"
-                  },
-                  {
-                    "text": "distance"
-                  },
-                  {
-                    "text": "diff"
-                  }
-                ],
-                "tone": "data"
+              "b": {
+                "var": "b",
+                "line": 1,
+                "hit": 1
+              },
+              "diff": {
+                "var": "diff",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "diff": "data"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "diff"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "CPUs evaluate bit differences with a single instruction for rapid search.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "Hamming"
-                  },
-                  {
-                    "text": "distance"
-                  },
-                  {
-                    "text": "diff"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "It is computed with an exclusive-or, which marks differing bits, followed.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "Hamming"
-                  },
-                  {
-                    "text": "distance"
-                  },
-                  {
-                    "text": "diff"
-                  }
-                ],
-                "tone": "ok"
+              "b": {
+                "var": "b",
+                "line": 2,
+                "hit": 1
+              },
+              "diff": {
+                "var": "diff",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "diff": "data"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "diff"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Many ties also mean the tie rule decides which candidates survive, so.",
+            "values": {
+              "a": {
+                "var": "a",
+                "line": 3,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 3,
+                "hit": 1
+              },
+              "diff": {
+                "var": "diff",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "a": "ok",
+              "b": "ok",
+              "diff": "ok"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "diff"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Exclusive OR bitwise differences and bit counting",
-        "columns": [
-          "Hamming",
-          "distance",
-          "diff"
+        "template": "flow",
+        "title": "Hamming distance",
+        "nodes": [
+          {
+            "id": "a",
+            "label": "a"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "diff",
+            "label": "diff"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The Hamming distance counts the number of positions where binary bits differ.",
-            "rows": [
-              {
-                "cells": [
-                  "Hamming",
-                  "distance",
-                  "diff"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "Hamming",
-                  "distance",
-                  "diff"
-                ],
-                "tone": "data"
-              }
+            "caption": "The Hamming distance between two binary codes is the number of positions.",
+            "values": {
+              "a": "11",
+              "b": "6",
+              "diff": "13"
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "diff": "data"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "diff"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "CPUs evaluate bit differences with a single instruction for rapid search.",
-            "rows": [
-              {
-                "cells": [
-                  "Hamming",
-                  "distance",
-                  "diff"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "Hamming",
-                  "distance",
-                  "diff"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "It is computed with an exclusive-or, which marks differing bits, followed.",
+            "values": {
+              "a": "11",
+              "b": "6",
+              "diff": "13"
+            },
+            "tones": {
+              "a": "data",
+              "b": "data",
+              "diff": "data"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "diff"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Many ties also mean the tie rule decides which candidates survive, so.",
+            "values": {
+              "a": "11",
+              "b": "6",
+              "diff": "13"
+            },
+            "tones": {
+              "a": "ok",
+              "b": "ok",
+              "diff": "ok"
+            },
+            "arrows": [
+              [
+                "a",
+                "b"
+              ],
+              [
+                "b",
+                "diff"
+              ]
             ]
           }
         ]
@@ -423,135 +457,277 @@
       "partTitle": "Re-scoring",
       "codeHash": "9c5039397af74c837a6113d3ed94e73546f5d0ddaa02688e2608a88b8efb36b7",
       "spec": {
-        "template": "table",
-        "title": "Two-stage candidate shortlisting and exact rescoring",
-        "columns": [
-          "shortlist",
-          "final",
-          "vecs"
+        "template": "flow",
+        "title": "Re-scoring",
+        "nodes": [
+          {
+            "id": "vecs",
+            "label": "vecs"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compressed codes find candidate matches quickly before final ranking.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "shortlist"
-                  },
-                  {
-                    "text": "final"
-                  },
-                  {
-                    "text": "vecs"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Compressed codes find good candidates quickly, but their ranking.",
+            "values": {
+              "vecs": {
+                "var": "vecs",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "shortlist"
-                  },
-                  {
-                    "text": "final"
-                  },
-                  {
-                    "text": "vecs"
-                  }
-                ],
-                "tone": "data"
+              "q": {
+                "var": "q",
+                "line": 4,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 2
+              },
+              "x": {
+                "var": "x",
+                "line": 5,
+                "hit": 2
               }
+            },
+            "tones": {
+              "vecs": "data",
+              "q": "data",
+              "i": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "vecs",
+                "q"
+              ],
+              [
+                "q",
+                "i"
+              ],
+              [
+                "i",
+                "x"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "A two-stage approach recovers lost recall using exact distance calculations.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "shortlist"
-                  },
-                  {
-                    "text": "final"
-                  },
-                  {
-                    "text": "vecs"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Re-scoring takes the top candidates from the compressed search, such.",
+            "values": {
+              "vecs": {
+                "var": "vecs",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "shortlist"
-                  },
-                  {
-                    "text": "final"
-                  },
-                  {
-                    "text": "shortlist"
-                  }
-                ],
-                "tone": "ok"
+              "q": {
+                "var": "q",
+                "line": 5,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 3
+              },
+              "x": {
+                "var": "x",
+                "line": 5,
+                "hit": 3
               }
+            },
+            "tones": {
+              "vecs": "data",
+              "q": "data",
+              "i": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "vecs",
+                "q"
+              ],
+              [
+                "q",
+                "i"
+              ],
+              [
+                "i",
+                "x"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Trace how appears updates again during execution.",
+            "values": {
+              "vecs": {
+                "var": "vecs",
+                "line": 5,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 6,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 4
+              },
+              "x": {
+                "var": "x",
+                "line": 5,
+                "hit": 4
+              }
+            },
+            "tones": {
+              "vecs": "ok",
+              "q": "ok",
+              "i": "ok",
+              "x": "ok"
+            },
+            "arrows": [
+              [
+                "vecs",
+                "q"
+              ],
+              [
+                "q",
+                "i"
+              ],
+              [
+                "i",
+                "x"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Two-stage candidate shortlisting and exact rescoring",
-        "columns": [
-          "shortlist",
-          "final",
-          "vecs"
+        "template": "flow",
+        "title": "Re-scoring",
+        "nodes": [
+          {
+            "id": "vecs",
+            "label": "vecs"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Compressed codes find candidate matches quickly before final ranking.",
-            "rows": [
-              {
-                "cells": [
-                  "shortlist",
-                  "final",
-                  "vecs"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shortlist",
-                  "final",
-                  "vecs"
-                ],
-                "tone": "data"
-              }
+            "caption": "Compressed codes find good candidates quickly, but their ranking.",
+            "values": {
+              "vecs": "[[0.9, 0.1, -0.2], [0.8, 0.3, 0.1], [0.…",
+              "q": "[0.85, 0.2, 0.05]",
+              "i": "0",
+              "x": "0.85"
+            },
+            "tones": {
+              "vecs": "data",
+              "q": "data",
+              "i": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "vecs",
+                "q"
+              ],
+              [
+                "q",
+                "i"
+              ],
+              [
+                "i",
+                "x"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "A two-stage approach recovers lost recall using exact distance calculations.",
-            "rows": [
-              {
-                "cells": [
-                  "shortlist",
-                  "final",
-                  "vecs"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "shortlist",
-                  "final",
-                  "shortlist"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Re-scoring takes the top candidates from the compressed search, such.",
+            "values": {
+              "vecs": "[[0.9, 0.1, -0.2], [0.8, 0.3, 0.1], [0.…",
+              "q": "[0.85, 0.2, 0.05]",
+              "i": "1",
+              "x": "0.2"
+            },
+            "tones": {
+              "vecs": "data",
+              "q": "data",
+              "i": "data",
+              "x": "data"
+            },
+            "arrows": [
+              [
+                "vecs",
+                "q"
+              ],
+              [
+                "q",
+                "i"
+              ],
+              [
+                "i",
+                "x"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Trace how appears updates again during execution.",
+            "values": {
+              "vecs": "[[0.9, 0.1, -0.2], [0.8, 0.3, 0.1], [0.…",
+              "q": "[0.85, 0.2, 0.05]",
+              "i": "2",
+              "x": "0.05"
+            },
+            "tones": {
+              "vecs": "ok",
+              "q": "ok",
+              "i": "ok",
+              "x": "ok"
+            },
+            "arrows": [
+              [
+                "vecs",
+                "q"
+              ],
+              [
+                "q",
+                "i"
+              ],
+              [
+                "i",
+                "x"
+              ]
             ]
           }
         ]
@@ -561,223 +737,175 @@
       "partTitle": "Choosing a compression method",
       "codeHash": "a371cf2a7a5671d1b4ab3a271e3ce537328d813e9f76d5cc1abcb527f6399784",
       "spec": {
-        "template": "flow",
-        "title": "Choosing a compression method — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a compress...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Choosing a compression method",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Choosing a compression method [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Choosing a compress... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Exact distances, most memory.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "bytes_per_dim",
+                "value": {
+                  "var": "bytes_per_dim",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Int8 scalar quantisation.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bytes_per_dim",
+                "value": {
+                  "var": "bytes_per_dim",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Choosing a compression method.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Different compression levels can even be mixed, for example int8.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "bytes_per_dim",
+                "value": {
+                  "var": "bytes_per_dim",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Choosing a compression method — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Choosing a compress...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Choosing a compression method",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Choosing a compression method [D13.P5.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Choosing a compress... [D13.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Exact distances, most memory.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1000000,
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": 1024,
+                "tone": "data"
+              },
+              {
+                "label": "bytes_per_dim",
+                "value": 4,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Int8 scalar quantisation.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1000000,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 1024,
+                "tone": "ok"
+              },
+              {
+                "label": "bytes_per_dim",
+                "value": 4,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Choosing a compression method [D13.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Different compression levels can even be mixed, for example int8.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1000000,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 1024,
+                "tone": "ok"
+              },
+              {
+                "label": "bytes_per_dim",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -787,223 +915,151 @@
       "partTitle": "Practice time: compact codes",
       "codeHash": "2e835686e7764432d8404c9f2326c4d9bb7fb6c1b03d9b42931b060f7580b1df",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: compact codes — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: comp...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Practice time: compact codes",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: compact codes [D.Psix.Sone].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: comp... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Sq_fit(vectors) returns per-dimension mins and maxs.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "rng"
+                  },
+                  {
+                    "var": "rng",
+                    "line": 3,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include middle values, clamping, exact end points and.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "rng"
+                  },
+                  {
+                    "var": "rng",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: compact codes.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "The format code :08b pads to eight bits, which makes differences easy to see.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 2"
+                  },
+                  {
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "out 3"
+                  },
+                  {
+                    "out": 3
+                  }
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: compact codes — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: comp...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
+        "template": "table",
+        "title": "Practice time: compact codes",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: compact codes [D13.P6.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: comp... [D13.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Sq_fit(vectors) returns per-dimension mins and maxs.",
+            "rows": [
+              {
+                "cells": [
+                  "rng",
+                  "<Random>"
+                ],
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include middle values, clamping, exact end points and.",
+            "rows": [
+              {
+                "cells": [
+                  "rng",
+                  "<Random>"
+                ],
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: compact codes [D13.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "The format code :08b pads to eight bits, which makes differences easy to see.",
+            "rows": [
+              {
+                "cells": [
+                  "out 1",
+                  "shortlist   5: recall@5 0.38"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 2",
+                  "shortlist  25: recall@5 0.60"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "out 3",
+                  "shortlist 100: recall@5 0.93"
+                ],
+                "tone": "ok"
+              }
             ]
           }
         ]

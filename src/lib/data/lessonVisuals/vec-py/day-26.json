@@ -2,141 +2,121 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 26,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Graded relevance",
       "codeHash": "4acadd12e7b32f5fbfe40317d8681979e0996777ce6f11708661bfdbeaaa394e",
       "spec": {
-        "template": "table",
-        "title": "Graded relevance levels and top ranking distribution",
-        "columns": [
-          "results",
-          "grades",
-          "results"
-        ],
+        "template": "cells",
+        "title": "Graded relevance",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Graded judgements let metrics reward systems that place best documents highest.",
-            "rows": [
+            "at": "say1",
+            "caption": "Not all relevant documents are equally good.",
+            "items": {
+              "var": "results",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "grades"
-                  },
-                  {
-                    "text": "results"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "grades"
-                  },
-                  {
-                    "text": "results"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Labelling guidelines with examples for each grade keep judges consistent.",
-            "rows": [
+            "at": "say2",
+            "caption": "Graded relevance uses levels, commonly 0 (not relevant), 1 (somewhat), 2.",
+            "items": {
+              "var": "results",
+              "line": 3,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "grades"
-                  },
-                  {
-                    "text": "results"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Graded labels also make disagreements between judges visible, which helps.",
+            "items": {
+              "var": "results",
+              "line": 4,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "grades"
-                  },
-                  {
-                    "text": "results"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Graded relevance levels and top ranking distribution",
-        "columns": [
-          "results",
-          "grades",
-          "results"
-        ],
+        "template": "cells",
+        "title": "Graded relevance",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Graded judgements let metrics reward systems that place best documents highest.",
-            "rows": [
+            "at": "say1",
+            "caption": "Not all relevant documents are equally good.",
+            "items": [
+              "'d4'",
+              "'d1'",
+              "'d7'",
+              "'d2'",
+              "'d9'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "results",
-                  "grades",
-                  "results"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "results",
-                  "grades",
-                  "results"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Labelling guidelines with examples for each grade keep judges consistent.",
-            "rows": [
+            "at": "say2",
+            "caption": "Graded relevance uses levels, commonly 0 (not relevant), 1 (somewhat), 2.",
+            "items": [
+              "'d4'",
+              "'d1'",
+              "'d7'",
+              "'d2'",
+              "'d9'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "results",
-                  "grades",
-                  "results"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Graded labels also make disagreements between judges visible, which helps.",
+            "items": [
+              "'d4'",
+              "'d1'",
+              "'d7'",
+              "'d2'",
+              "'d9'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "results",
-                  "grades",
-                  "results"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -147,134 +127,111 @@
       "partTitle": "DCG and nDCG",
       "codeHash": "65fe1b5eadf7c238eea035923285f1c462ff3c27c13122a46d4be95fcd2af661",
       "spec": {
-        "template": "table",
-        "title": "Discounted cumulative gain and ideal ordering normalisation",
-        "columns": [
-          "grades",
-          "ideal",
-          "grades"
-        ],
+        "template": "cells",
+        "title": "DCG and nDCG",
         "steps": [
           {
             "at": "say1",
-            "caption": "Discounted cumulative gain adds the value of each result discounted by position.",
-            "rows": [
+            "caption": "Discounted cumulative gain (DCG) adds up the value of each result.",
+            "items": {
+              "var": "grades",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "grades"
-                  },
-                  {
-                    "text": "ideal"
-                  },
-                  {
-                    "text": "grades"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "grades"
-                  },
-                  {
-                    "text": "ideal"
-                  },
-                  {
-                    "text": "grades"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Metric complements recall and MRR by evaluating whole lists with grades.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each result contributes (2^grade 1) log2(position + 1).",
+            "items": {
+              "var": "grades",
+              "line": 6,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "grades"
-                  },
-                  {
-                    "text": "ideal"
-                  },
-                  {
-                    "text": "grades"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Because it uses positions and grades together, nDCG often detects.",
+            "items": {
+              "var": "grades",
+              "line": 8,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "grades"
-                  },
-                  {
-                    "text": "ideal"
-                  },
-                  {
-                    "text": "grades"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Discounted cumulative gain and ideal ordering normalisation",
-        "columns": [
-          "grades",
-          "ideal",
-          "grades"
-        ],
+        "template": "cells",
+        "title": "DCG and nDCG",
         "steps": [
           {
             "at": "say1",
-            "caption": "Discounted cumulative gain adds the value of each result discounted by position.",
-            "rows": [
+            "caption": "Discounted cumulative gain (DCG) adds up the value of each result.",
+            "items": [
+              "3",
+              "2",
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "grades",
-                  "ideal",
-                  "grades"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "grades",
-                  "ideal",
-                  "grades"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say10",
-            "caption": "Metric complements recall and MRR by evaluating whole lists with grades.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each result contributes (2^grade 1) log2(position + 1).",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "grades",
-                  "ideal",
-                  "grades"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Because it uses positions and grades together, nDCG often detects.",
+            "items": [
+              "0",
+              "1",
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "grades",
-                  "ideal",
-                  "grades"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -285,135 +242,277 @@
       "partTitle": "Evaluating a system on a golden set",
       "codeHash": "15e78b75db753a0686ff7ac1534ca48000f5cb9275569922b26e2aba4a1b9f69",
       "spec": {
-        "template": "table",
-        "title": "Golden set evaluation metrics and worst query diagnostics",
-        "columns": [
-          "golden",
-          "results",
-          "golden"
+        "template": "flow",
+        "title": "Evaluating a system on a golden set",
+        "nodes": [
+          {
+            "id": "golden",
+            "label": "golden"
+          },
+          {
+            "id": "results",
+            "label": "results"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "rec",
+            "label": "rec"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A system evaluation runs every golden query and averages summary metrics.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "golden"
-                  },
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "golden"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A system evaluation runs every golden query and averages the metrics.",
+            "values": {
+              "golden": {
+                "var": "golden",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "golden"
-                  },
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "golden"
-                  }
-                ],
-                "tone": "data"
+              "results": {
+                "var": "results",
+                "line": 2,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 3,
+                "hit": 1
+              },
+              "rec": {
+                "var": "rec",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "golden": "data",
+              "results": "data",
+              "k": "data",
+              "rec": "data"
+            },
+            "arrows": [
+              [
+                "golden",
+                "results"
+              ],
+              [
+                "results",
+                "k"
+              ],
+              [
+                "k",
+                "rec"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Reporting the worst query alongside averages points straight at what to repair.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "golden"
-                  },
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "golden"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how practice updates evaluate during execution.",
+            "values": {
+              "golden": {
+                "var": "golden",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "golden"
-                  },
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "golden"
-                  }
-                ],
-                "tone": "ok"
+              "results": {
+                "var": "results",
+                "line": 3,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 4,
+                "hit": 1
+              },
+              "rec": {
+                "var": "rec",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "golden": "data",
+              "results": "data",
+              "k": "data",
+              "rec": "data"
+            },
+            "arrows": [
+              [
+                "golden",
+                "results"
+              ],
+              [
+                "results",
+                "k"
+              ],
+              [
+                "k",
+                "rec"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Running the evaluation takes seconds for a small golden set, so it can run.",
+            "values": {
+              "golden": {
+                "var": "golden",
+                "line": 3,
+                "hit": 1
+              },
+              "results": {
+                "var": "results",
+                "line": 4,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 5,
+                "hit": 1
+              },
+              "rec": {
+                "var": "rec",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "golden": "ok",
+              "results": "ok",
+              "k": "ok",
+              "rec": "ok"
+            },
+            "arrows": [
+              [
+                "golden",
+                "results"
+              ],
+              [
+                "results",
+                "k"
+              ],
+              [
+                "k",
+                "rec"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Golden set evaluation metrics and worst query diagnostics",
-        "columns": [
-          "golden",
-          "results",
-          "golden"
+        "template": "flow",
+        "title": "Evaluating a system on a golden set",
+        "nodes": [
+          {
+            "id": "golden",
+            "label": "golden"
+          },
+          {
+            "id": "results",
+            "label": "results"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "rec",
+            "label": "rec"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A system evaluation runs every golden query and averages summary metrics.",
-            "rows": [
-              {
-                "cells": [
-                  "golden",
-                  "results",
-                  "golden"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "golden",
-                  "results",
-                  "golden"
-                ],
-                "tone": "data"
-              }
+            "caption": "A system evaluation runs every golden query and averages the metrics.",
+            "values": {
+              "golden": "{'q1': {'a', 'b'}, 'q2': {'c'}, 'q3': {…",
+              "results": "{'q1': ['a', 'x', 'b'], 'q2': ['y', 'c'…",
+              "k": "3",
+              "rec": "{}"
+            },
+            "tones": {
+              "golden": "data",
+              "results": "data",
+              "k": "data",
+              "rec": "data"
+            },
+            "arrows": [
+              [
+                "golden",
+                "results"
+              ],
+              [
+                "results",
+                "k"
+              ],
+              [
+                "k",
+                "rec"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Reporting the worst query alongside averages points straight at what to repair.",
-            "rows": [
-              {
-                "cells": [
-                  "golden",
-                  "results",
-                  "golden"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "golden",
-                  "results",
-                  "golden"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how practice updates evaluate during execution.",
+            "values": {
+              "golden": "{'q1': {'a', 'b'}, 'q2': {'c'}, 'q3': {…",
+              "results": "{'q1': ['a', 'x', 'b'], 'q2': ['y', 'c'…",
+              "k": "3",
+              "rec": "{}"
+            },
+            "tones": {
+              "golden": "data",
+              "results": "data",
+              "k": "data",
+              "rec": "data"
+            },
+            "arrows": [
+              [
+                "golden",
+                "results"
+              ],
+              [
+                "results",
+                "k"
+              ],
+              [
+                "k",
+                "rec"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Running the evaluation takes seconds for a small golden set, so it can run.",
+            "values": {
+              "golden": "{'q1': {'a', 'b'}, 'q2': {'c'}, 'q3': {…",
+              "results": "{'q1': ['a', 'x', 'b'], 'q2': ['y', 'c'…",
+              "k": "3",
+              "rec": "{}"
+            },
+            "tones": {
+              "golden": "ok",
+              "results": "ok",
+              "k": "ok",
+              "rec": "ok"
+            },
+            "arrows": [
+              [
+                "golden",
+                "results"
+              ],
+              [
+                "results",
+                "k"
+              ],
+              [
+                "k",
+                "rec"
+              ]
             ]
           }
         ]
@@ -423,134 +522,108 @@
       "partTitle": "Comparing systems fairly",
       "codeHash": "fe9d027b9fd2fd6cb85c993b153f6874c0843977d16fee4668222c7b95e467d7",
       "spec": {
-        "template": "table",
-        "title": "Per-query comparisons and head-to-head system deltas",
-        "columns": [
-          "better",
-          "worse",
-          "better"
-        ],
+        "template": "cells",
+        "title": "Comparing systems fairly",
         "steps": [
           {
             "at": "say1",
-            "caption": "To compare two systems run both on the same golden set with identical metrics.",
-            "rows": [
+            "caption": "To compare two systems, run both on the same golden set with the same.",
+            "items": {
+              "var": "better",
+              "line": 3,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "better"
-                  },
-                  {
-                    "text": "worse"
-                  },
-                  {
-                    "text": "better"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "better"
-                  },
-                  {
-                    "text": "worse"
-                  },
-                  {
-                    "text": "better"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "A simple check counts how many queries improved or got worse between systems.",
-            "rows": [
+            "at": "say2",
+            "caption": "Look at per-query differences, not only averages.",
+            "items": {
+              "var": "better",
+              "line": 4,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "better"
-                  },
-                  {
-                    "text": "worse"
-                  },
-                  {
-                    "text": "better"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Writing down the comparison method before running it prevents choosing.",
+            "items": {
+              "var": "better",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "better"
-                  },
-                  {
-                    "text": "worse"
-                  },
-                  {
-                    "text": "better"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Per-query comparisons and head-to-head system deltas",
-        "columns": [
-          "better",
-          "worse",
-          "better"
-        ],
+        "template": "cells",
+        "title": "Comparing systems fairly",
         "steps": [
           {
             "at": "say1",
-            "caption": "To compare two systems run both on the same golden set with identical metrics.",
-            "rows": [
+            "caption": "To compare two systems, run both on the same golden set with the same.",
+            "items": [
+              "'q1'",
+              "'q2'",
+              "'q4'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "better",
-                  "worse",
-                  "better"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "better",
-                  "worse",
-                  "better"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "A simple check counts how many queries improved or got worse between systems.",
-            "rows": [
+            "at": "say2",
+            "caption": "Look at per-query differences, not only averages.",
+            "items": [
+              "'q1'",
+              "'q2'",
+              "'q4'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "better",
-                  "worse",
-                  "better"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Writing down the comparison method before running it prevents choosing.",
+            "items": [
+              "'q1'",
+              "'q2'",
+              "'q4'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "better",
-                  "worse",
-                  "better"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -561,223 +634,133 @@
       "partTitle": "Building a golden set that lasts",
       "codeHash": "bf8d0880633b21e077181f766517011b0ff0fd0ff6a43539388cbee523bb08f1",
       "spec": {
-        "template": "flow",
-        "title": "Building a golden set that lasts — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a golden s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Building a golden set that lasts",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Building a golden set that lasts [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Building a golden s... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A useful golden set represents real traffic.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how sample updates queries during execution.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Building a golden set that lasts.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Sharing the golden set across teams, such as search and support, keeps.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Building a golden set that lasts — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Building a golden s...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Building a golden set that lasts",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Building a golden set that lasts [D26.P5.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Building a golden s... [D26.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A useful golden set represents real traffic.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 100,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 40,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how sample updates queries during execution.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 40,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Building a golden set that lasts [D26.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Sharing the golden set across teams, such as search and support, keeps.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 100,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 20,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -787,223 +770,217 @@
       "partTitle": "Practice time: evaluation",
       "codeHash": "12ff9eef08a100b6f44bc2158af5d82fd4cbec37fe1b99ccd71e43221a4f328f",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: evaluation — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: eval...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: evaluation",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: evaluation [D.Psix.Sone].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: eval... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Ndcg_at_k(grades, k).",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ideal",
+                "value": {
+                  "var": "ideal",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a perfect order, a reversed order, a cut at k = 2.",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ideal",
+                "value": {
+                  "var": "ideal",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: evaluation [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If nDCG exceeds 1.",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ideal",
+                "value": {
+                  "var": "ideal",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: evaluation — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: eval...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: evaluation",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: evaluation [D26.P6.S1].",
-            "values": {
-              "in": "Day 26 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: eval... [D26.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Ndcg_at_k(grades, k).",
+            "bars": [
+              {
+                "label": "k",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "ideal",
+                "value": 9.392789260714373,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D26.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a perfect order, a reversed order, a cut at k = 2.",
+            "bars": [
+              {
+                "label": "k",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "ideal",
+                "value": 9.392789260714373,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: evaluation [D26.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If nDCG exceeds 1.",
+            "bars": [
+              {
+                "label": "k",
+                "value": 5,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "ideal",
+                "value": 3.6309297535714578,
+                "tone": "ok"
+              }
             ]
           }
         ]

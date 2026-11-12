@@ -2,143 +2,79 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 7,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why card numbers are special",
       "codeHash": "9bdf063a713bfcf00cfaac73d7ff40030ebd3411f9368e4b4ad9c7ed1778bf18",
       "spec": {
-        "template": "table",
-        "title": "Payment data exposure risks and redaction principles",
-        "columns": [
-          "card",
-          "digits",
-          "card"
+        "template": "states",
+        "title": "Why card numbers are special",
+        "states": [
+          {
+            "id": "card",
+            "label": "card"
+          },
+          {
+            "id": "digits",
+            "label": "digits"
+          }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Full card numbers should never appear in model input, output or logs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "card"
-                  },
-                  {
-                    "text": "digits"
-                  },
-                  {
-                    "text": "card"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "card"
-                  },
-                  {
-                    "text": "digits"
-                  },
-                  {
-                    "text": "card"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Leaking personal data is OWASP LLM02, sensitive information disclosure.",
+            "currentState": "card",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Showing only the last four digits lets users recognise their card safely.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "card"
-                  },
-                  {
-                    "text": "digits"
-                  },
-                  {
-                    "text": "card"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "card"
-                  },
-                  {
-                    "text": "digits"
-                  },
-                  {
-                    "text": "card"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Card numbers are the most regulated kind.",
+            "currentState": "digits",
+            "transition": {
+              "from": "card",
+              "to": "digits",
+              "label": {
+                "var": "digits",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Payment data exposure risks and redaction principles",
-        "columns": [
-          "card",
-          "digits",
-          "card"
+        "template": "states",
+        "title": "Why card numbers are special",
+        "states": [
+          {
+            "id": "card",
+            "label": "card"
+          },
+          {
+            "id": "digits",
+            "label": "digits"
+          }
         ],
         "steps": [
           {
-            "at": "say5",
-            "caption": "Full card numbers should never appear in model input, output or logs.",
-            "rows": [
-              {
-                "cells": [
-                  "card",
-                  "digits",
-                  "card"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "card",
-                  "digits",
-                  "card"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Leaking personal data is OWASP LLM02, sensitive information disclosure.",
+            "currentState": "card",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Showing only the last four digits lets users recognise their card safely.",
-            "rows": [
-              {
-                "cells": [
-                  "card",
-                  "digits",
-                  "card"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "card",
-                  "digits",
-                  "card"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Card numbers are the most regulated kind.",
+            "currentState": "digits",
+            "transition": {
+              "from": "card",
+              "to": "digits",
+              "label": "'4111111111111111'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -147,136 +83,106 @@
       "partTitle": "The Luhn check",
       "codeHash": "6876a059ad30983fb0e791c28c77cdcab5b7b189de1629f1f3d39b97cabd4b3c",
       "spec": {
-        "template": "table",
-        "title": "Luhn mod-10 check digit verification algorithm",
-        "columns": [
-          "number",
-          "total",
-          "number"
+        "template": "states",
+        "title": "The Luhn check",
+        "states": [
+          {
+            "id": "number",
+            "label": "number"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Most card numbers end with a check digit calculated by the Luhn algorithm.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "number"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "number"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "number"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "number"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "currentState": "number",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "The example walks through calculation steps for a well-known test number.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "number"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "number"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "number"
-                  },
-                  {
-                    "text": "total"
-                  },
-                  {
-                    "text": "number"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The check digit catches most typing mistakes, and it lets us tell.",
+            "currentState": "total",
+            "transition": {
+              "from": "number",
+              "to": "total",
+              "label": {
+                "var": "total",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Never use a real card number in tests or examples.",
+            "currentState": "i",
+            "transition": {
+              "from": "total",
+              "to": "i",
+              "label": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Luhn mod-10 check digit verification algorithm",
-        "columns": [
-          "number",
-          "total",
-          "number"
+        "template": "states",
+        "title": "The Luhn check",
+        "states": [
+          {
+            "id": "number",
+            "label": "number"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          }
         ],
         "steps": [
           {
             "at": "say1",
             "caption": "Most card numbers end with a check digit calculated by the Luhn algorithm.",
-            "rows": [
-              {
-                "cells": [
-                  "number",
-                  "total",
-                  "number"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "number",
-                  "total",
-                  "number"
-                ],
-                "tone": "data"
-              }
-            ]
+            "currentState": "number",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "The example walks through calculation steps for a well-known test number.",
-            "rows": [
-              {
-                "cells": [
-                  "number",
-                  "total",
-                  "number"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "number",
-                  "total",
-                  "number"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The check digit catches most typing mistakes, and it lets us tell.",
+            "currentState": "total",
+            "transition": {
+              "from": "number",
+              "to": "total",
+              "label": "0"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Never use a real card number in tests or examples.",
+            "currentState": "i",
+            "transition": {
+              "from": "total",
+              "to": "i",
+              "label": "0"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -285,136 +191,106 @@
       "partTitle": "Cleaning and length rules",
       "codeHash": "217beb074a1297d7f908213cbc3983db49c0ec2b975b182c55fbb980cd4f630c",
       "spec": {
-        "template": "table",
-        "title": "Normalization cleaning and digit span length boundaries",
-        "columns": [
-          "raw",
-          "digits",
-          "raw"
+        "template": "states",
+        "title": "Cleaning and length rules",
+        "states": [
+          {
+            "id": "raw",
+            "label": "raw"
+          },
+          {
+            "id": "digits",
+            "label": "digits"
+          },
+          {
+            "id": "ok",
+            "label": "ok"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "People write card numbers in several formats with spaces or dashes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "digits"
-                  },
-                  {
-                    "text": "raw"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "digits"
-                  },
-                  {
-                    "text": "raw"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "People write card numbers in several formats.",
+            "currentState": "raw",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "The isdigit check verifies that every remaining character is a valid digit.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "digits"
-                  },
-                  {
-                    "text": "raw"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "raw"
-                  },
-                  {
-                    "text": "digits"
-                  },
-                  {
-                    "text": "raw"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Before checking, remove spaces and dashes, then make sure only digits remain.",
+            "currentState": "digits",
+            "transition": {
+              "from": "raw",
+              "to": "digits",
+              "label": {
+                "var": "digits",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how practice updates combines during execution.",
+            "currentState": "ok",
+            "transition": {
+              "from": "digits",
+              "to": "ok",
+              "label": {
+                "var": "ok",
+                "line": 1,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Normalization cleaning and digit span length boundaries",
-        "columns": [
-          "raw",
-          "digits",
-          "raw"
+        "template": "states",
+        "title": "Cleaning and length rules",
+        "states": [
+          {
+            "id": "raw",
+            "label": "raw"
+          },
+          {
+            "id": "digits",
+            "label": "digits"
+          },
+          {
+            "id": "ok",
+            "label": "ok"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "People write card numbers in several formats with spaces or dashes.",
-            "rows": [
-              {
-                "cells": [
-                  "raw",
-                  "digits",
-                  "raw"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "raw",
-                  "digits",
-                  "raw"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "People write card numbers in several formats.",
+            "currentState": "raw",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "The isdigit check verifies that every remaining character is a valid digit.",
-            "rows": [
-              {
-                "cells": [
-                  "raw",
-                  "digits",
-                  "raw"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "raw",
-                  "digits",
-                  "raw"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Before checking, remove spaces and dashes, then make sure only digits remain.",
+            "currentState": "digits",
+            "transition": {
+              "from": "raw",
+              "to": "digits",
+              "label": "'4111111111111111'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how practice updates combines during execution.",
+            "currentState": "ok",
+            "transition": {
+              "from": "digits",
+              "to": "ok",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -423,135 +299,277 @@
       "partTitle": "Finding card numbers in text",
       "codeHash": "d3be2077d53efd8d0b9d00bf0eb09cba54dd539dbb88c1df5646cb8686343cb2",
       "spec": {
-        "template": "table",
-        "title": "Regex candidate identification and in-text substitution",
-        "columns": [
-          "text",
-          "digits",
-          "text"
+        "template": "flow",
+        "title": "Finding card numbers in text",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          },
+          {
+            "id": "digits",
+            "label": "digits"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In real text card numbers sit inside sentences so detectors find candidates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "digits"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "In real text, card numbers sit inside sentences, so you first need to find.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "digits"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
+              "m": {
+                "var": "m",
+                "line": 11,
+                "hit": 1
+              },
+              "digits": {
+                "var": "digits",
+                "line": 12,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "text": "data",
+              "m": "data",
+              "digits": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "m"
+              ],
+              [
+                "m",
+                "digits"
+              ],
+              [
+                "digits",
+                "d"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Each candidate is checked with Luhn to treat valid numbers as cards.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "digits"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "The pattern \\b(.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "digits"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+              "m": {
+                "var": "m",
+                "line": 12,
+                "hit": 1
+              },
+              "digits": {
+                "var": "digits",
+                "line": 13,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "text": "data",
+              "m": "data",
+              "digits": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "m"
+              ],
+              [
+                "m",
+                "digits"
+              ],
+              [
+                "digits",
+                "d"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Hiding a harmless number is a small cost.",
+            "values": {
+              "text": {
+                "var": "text",
+                "line": 12,
+                "hit": 1
+              },
+              "m": {
+                "var": "m",
+                "line": 13,
+                "hit": 1
+              },
+              "digits": {
+                "var": "digits",
+                "line": 11,
+                "hit": 2
+              },
+              "d": {
+                "var": "d",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "text": "ok",
+              "m": "ok",
+              "digits": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "m"
+              ],
+              [
+                "m",
+                "digits"
+              ],
+              [
+                "digits",
+                "d"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Regex candidate identification and in-text substitution",
-        "columns": [
-          "text",
-          "digits",
-          "text"
+        "template": "flow",
+        "title": "Finding card numbers in text",
+        "nodes": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          },
+          {
+            "id": "digits",
+            "label": "digits"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "In real text card numbers sit inside sentences so detectors find candidates.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "digits",
-                  "text"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "text",
-                  "digits",
-                  "text"
-                ],
-                "tone": "data"
-              }
+            "caption": "In real text, card numbers sit inside sentences, so you first need to find.",
+            "values": {
+              "text": "'Card 4242-4242-4242-4242, order 123456…",
+              "m": "{'__other__': 'Match'}",
+              "digits": "'4242424242424242'",
+              "d": "'4242424242424242'"
+            },
+            "tones": {
+              "text": "data",
+              "m": "data",
+              "digits": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "m"
+              ],
+              [
+                "m",
+                "digits"
+              ],
+              [
+                "digits",
+                "d"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Each candidate is checked with Luhn to treat valid numbers as cards.",
-            "rows": [
-              {
-                "cells": [
-                  "text",
-                  "digits",
-                  "text"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "text",
-                  "digits",
-                  "text"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "The pattern \\b(.",
+            "values": {
+              "text": "'Card 4242-4242-4242-4242, order 123456…",
+              "m": "{'__other__': 'Match'}",
+              "digits": "'4242424242424242'",
+              "d": "'4242424242424242'"
+            },
+            "tones": {
+              "text": "data",
+              "m": "data",
+              "digits": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "text",
+                "m"
+              ],
+              [
+                "m",
+                "digits"
+              ],
+              [
+                "digits",
+                "d"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Hiding a harmless number is a small cost.",
+            "values": {
+              "text": "'Card 4242-4242-4242-4242, order 123456…",
+              "m": "{'__other__': 'Match'}",
+              "digits": "'4242424242424242'",
+              "d": "'4242424242424242'"
+            },
+            "tones": {
+              "text": "ok",
+              "m": "ok",
+              "digits": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "text",
+                "m"
+              ],
+              [
+                "m",
+                "digits"
+              ],
+              [
+                "digits",
+                "d"
+              ]
             ]
           }
         ]
@@ -561,223 +579,175 @@
       "partTitle": "Masking in place",
       "codeHash": "87ad60c38b6bcfa914b4aaf1627599114667581bd858abdea9531aee730c2976",
       "spec": {
-        "template": "flow",
-        "title": "Masking in place — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masking in place",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Masking in place",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Masking in place [Dseven.Pfive.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Masking in place [Dseven.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Masking replaces each real card number with a safe version while keeping.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Practice 2 is mask_cards(text), which finds candidates, keeps those.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Masking in place [Dseven.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Trace how same updates pattern during execution.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Masking in place — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Masking in place",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Masking in place",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Masking in place [D7.P5.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Masking in place [D7.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Masking replaces each real card number with a safe version while keeping.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Practice 2 is mask_cards(text), which finds candidates, keeps those.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Masking in place [D7.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Trace how same updates pattern during execution.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -787,224 +757,106 @@
       "partTitle": "Personal data on both sides",
       "codeHash": "154ac536f990ae7af9910155e9a60176bcdfd41357715d1fe2739733c9068b85",
       "spec": {
-        "template": "flow",
-        "title": "Personal data on both sides — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Personal data on both sides",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "CARD",
+            "label": "CARD"
           },
           {
-            "id": "proc",
-            "label": "2. Personal data on bo...",
-            "tappable": true
+            "id": "user",
+            "label": "user"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "m",
+            "label": "m"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Personal data on both sides [Dseven.Psix.Sone].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Personal data on bo... [Dseven.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Masking output catches leaks, but the stronger control is not sending card.",
+            "currentState": "CARD",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Scrub user input with the same function before it reaches the model or any.",
+            "currentState": "user",
+            "transition": {
+              "from": "CARD",
+              "to": "user",
+              "label": {
+                "var": "user",
+                "line": 5,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Personal data on both sides.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add mask_cards to both ends of your pipeline today.",
+            "currentState": "m",
+            "transition": {
+              "from": "user",
+              "to": "m",
+              "label": {
+                "var": "m",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Personal data on both sides — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Personal data on both sides",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "CARD",
+            "label": "CARD"
           },
           {
-            "id": "proc",
-            "label": "2. Personal data on bo...",
-            "tappable": true
+            "id": "user",
+            "label": "user"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "m",
+            "label": "m"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Personal data on both sides [D7.P6.S1].",
-            "values": {
-              "in": "Day 7 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Personal data on bo... [D7.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Masking output catches leaks, but the stronger control is not sending card.",
+            "currentState": "CARD",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D7.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Scrub user input with the same function before it reaches the model or any.",
+            "currentState": "user",
+            "transition": {
+              "from": "CARD",
+              "to": "user",
+              "label": "'My card 4111 1111 1111 1111 was charge…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Personal data on both sides [D7.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add mask_cards to both ends of your pipeline today.",
+            "currentState": "m",
+            "transition": {
+              "from": "user",
+              "to": "m",
+              "label": "{'__other__': 'Match'}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

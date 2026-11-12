@@ -2,1335 +2,717 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 45,
-  "promptSha": "cb3a29f3ca14416bb0a19b0721e10ba5e82eda18ce84274f165fcb522abac407",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Milestone 9 — Foundations & Mathematical Invariants",
-      "codeHash": "137590e2fb5adf0c95f59456d0b5b1d5d67b0681108e4545c7f7ad92a79600e8",
+      "partTitle": "Uncertainty-Gated Execution — Foundations & Mathematical Invariants",
+      "codeHash": "31e7f787b77aa3a640d5f28d14bbabeee917dbae280c617cd32004d83d484abf",
       "spec": {
         "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
+        "title": "Uncertainty-Gated Execution — Foundations & Mathematical Invaria",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ece_limit",
+            "label": "ece_limit"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "min_confidence",
+            "label": "min_confidence"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "gate",
+            "label": "gate"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates establishes during execution.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "ece_limit": {
+                "var": "ece_limit",
+                "line": 3,
+                "hit": 1
+              },
+              "min_confidence": {
+                "var": "min_confidence",
+                "line": 3,
+                "hit": 1
+              },
+              "gate": {
+                "var": "gate",
+                "line": 12,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "ece_limit": "data",
+              "min_confidence": "data",
+              "gate": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "ece_limit"
+              ],
+              [
+                "ece_limit",
+                "min_confidence"
+              ],
+              [
+                "min_confidence",
+                "gate"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The core principle mandates that agents may only invoke external tools.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "ece_limit": {
+                "var": "ece_limit",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "min_confidence": {
+                "var": "min_confidence",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "gate": {
+                "var": "gate",
+                "line": 13,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "ece_limit": "data",
+              "min_confidence": "data",
+              "gate": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "ece_limit"
+              ],
+              [
+                "ece_limit",
+                "min_confidence"
+              ],
+              [
+                "min_confidence",
+                "gate"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say13",
+            "caption": "Architectural rigor in uncertainty gate & tool sandbox ensures that formal.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "ece_limit": {
+                "var": "ece_limit",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "min_confidence": {
+                "var": "min_confidence",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "gate": {
+                "var": "gate",
+                "line": 14,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "ece_limit": "ok",
+              "min_confidence": "ok",
+              "gate": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "ece_limit"
+              ],
+              [
+                "ece_limit",
+                "min_confidence"
+              ],
+              [
+                "min_confidence",
+                "gate"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Milestone — Foundations & Mathematical Invariants",
+        "title": "Uncertainty-Gated Execution — Foundations & Mathematical Invaria",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "ece_limit",
+            "label": "ece_limit"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "min_confidence",
+            "label": "min_confidence"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "gate",
+            "label": "gate"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Trace how milestone updates establishes during execution.",
+            "values": {
+              "self": "<CalibratedUncertaintyGate>",
+              "ece_limit": "0.08",
+              "min_confidence": "0.75",
+              "gate": "<CalibratedUncertaintyGate>"
+            },
+            "tones": {
+              "self": "data",
+              "ece_limit": "data",
+              "min_confidence": "data",
+              "gate": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "ece_limit"
+              ],
+              [
+                "ece_limit",
+                "min_confidence"
+              ],
+              [
+                "min_confidence",
+                "gate"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The core principle mandates that agents may only invoke external tools.",
+            "values": {
+              "self": "<CalibratedUncertaintyGate>",
+              "ece_limit": "0.08",
+              "min_confidence": "0.75",
+              "gate": "<CalibratedUncertaintyGate>"
+            },
+            "tones": {
+              "self": "data",
+              "ece_limit": "data",
+              "min_confidence": "data",
+              "gate": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "ece_limit"
+              ],
+              [
+                "ece_limit",
+                "min_confidence"
+              ],
+              [
+                "min_confidence",
+                "gate"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say13",
+            "caption": "Architectural rigor in uncertainty gate & tool sandbox ensures that formal.",
+            "values": {
+              "self": "<CalibratedUncertaintyGate>",
+              "ece_limit": "0.08",
+              "min_confidence": "0.75",
+              "gate": "<CalibratedUncertaintyGate>"
+            },
+            "tones": {
+              "self": "ok",
+              "ece_limit": "ok",
+              "min_confidence": "ok",
+              "gate": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "ece_limit"
+              ],
+              [
+                "ece_limit",
+                "min_confidence"
+              ],
+              [
+                "min_confidence",
+                "gate"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Milestone 9 — Core Algorithm & State Representation",
-      "codeHash": "46c823e956d08ef00a390cd4c3322d9a85d778bfac77866522a11ff1645018c2",
+      "partTitle": "Uncertainty-Gated Execution — Core Algorithm & State Representation",
+      "codeHash": "8828245864d5e7f814b4cdc88e6fa71d0be7a767b7caf04d1e1c1ac252a20aa1",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Uncertainty-Gated Execution — Core Algorithm & State Representat",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "args",
+            "label": "args"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "raw_args",
+            "label": "raw_args"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "allowed_keys",
+            "label": "allowed_keys"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Before tool arguments reach underlying system libraries, argument.",
+            "currentState": "args",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "In a command injection exploit, an adversary injects shell operators like.",
+            "currentState": "raw_args",
+            "transition": {
+              "from": "args",
+              "to": "raw_args",
+              "label": {
+                "var": "raw_args",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say13",
+            "caption": "Profiling memory allocations during uncertainty gate & tool sandbox.",
+            "currentState": "allowed_keys",
+            "transition": {
+              "from": "raw_args",
+              "to": "allowed_keys",
+              "label": {
+                "var": "allowed_keys",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Core Algorithm & State Representation",
-        "nodes": [
+        "template": "states",
+        "title": "Uncertainty-Gated Execution — Core Algorithm & State Representat",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "args",
+            "label": "args"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "raw_args",
+            "label": "raw_args"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "allowed_keys",
+            "label": "allowed_keys"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Before tool arguments reach underlying system libraries, argument.",
+            "currentState": "args",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "In a command injection exploit, an adversary injects shell operators like.",
+            "currentState": "raw_args",
+            "transition": {
+              "from": "args",
+              "to": "raw_args",
+              "label": "{'query': 'SELECT *; rm -rf /', 'limit'…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say13",
+            "caption": "Profiling memory allocations during uncertainty gate & tool sandbox.",
+            "currentState": "allowed_keys",
+            "transition": {
+              "from": "raw_args",
+              "to": "allowed_keys",
+              "label": "['query', 'limit']"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Milestone 9 — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "3c416018619633815fc0fd9b52c3b583470bfe8ae54f1f3883124fade578087d",
+      "partTitle": "Uncertainty-Gated Execution — Production Implementation & Boundary Mechanics",
+      "codeHash": "8022b5d2c96089b627927774e44ea06bca7662afd26827b7d7dd8f190ed9d902",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Uncertainty-Gated Execution — Production Implementation & Bounda",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "enclave",
+            "label": "enclave"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "tool",
+            "label": "tool"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The ZeroTrustExecutionEnclave provides an isolated execution environment.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The enclave verifies that confidence was certified by the uncertainty gate.",
+            "currentState": "enclave",
+            "transition": {
+              "from": "self",
+              "to": "enclave",
+              "label": {
+                "var": "enclave",
+                "line": 13,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say13",
+            "caption": "Production load simulations prove that uncertainty gate & tool sandbox.",
+            "currentState": "tool",
+            "transition": {
+              "from": "enclave",
+              "to": "tool",
+              "label": {
+                "var": "tool",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Uncertainty-Gated Execution — Production Implementation & Bounda",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "enclave",
+            "label": "enclave"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "tool",
+            "label": "tool"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The ZeroTrustExecutionEnclave provides an isolated execution environment.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The enclave verifies that confidence was certified by the uncertainty gate.",
+            "currentState": "enclave",
+            "transition": {
+              "from": "self",
+              "to": "enclave",
+              "label": "<ZeroTrustExecutionEnclave>"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say13",
+            "caption": "Production load simulations prove that uncertainty gate & tool sandbox.",
+            "currentState": "tool",
+            "transition": {
+              "from": "enclave",
+              "to": "tool",
+              "label": "'read_log'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Milestone 9 — Resilience Guardrails & Failure Recovery",
-      "codeHash": "77ce03ad994f5ff4a0ecd9e5cf0a6abbbd11bc992e9e2860e9c68e8d59828dd3",
+      "partTitle": "Uncertainty-Gated Execution — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "f6161d6f188baf05dd09363e20d8b2c06f8be004b216ab17be895f32b97befaf",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Uncertainty-Gated Execution — Failure Modes, Hardware Bottleneck",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "hist",
+            "label": "hist"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "enclave_history",
+            "label": "enclave_history"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "total",
+            "label": "total"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous verification of sandbox containment is vital for detecting.",
+            "currentState": "hist",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The verify_sandbox_containment function inspects historical enclave.",
+            "currentState": "enclave_history",
+            "transition": {
+              "from": "hist",
+              "to": "enclave_history",
+              "label": {
+                "var": "enclave_history",
+                "line": 3,
+                "hit": 4
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say13",
+            "caption": "Comprehensive stress testing demonstrates that defensive fail-safes.",
+            "currentState": "total",
+            "transition": {
+              "from": "enclave_history",
+              "to": "total",
+              "label": {
+                "var": "total",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Uncertainty-Gated Execution — Failure Modes, Hardware Bottleneck",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "hist",
+            "label": "hist"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "enclave_history",
+            "label": "enclave_history"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "total",
+            "label": "total"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Continuous verification of sandbox containment is vital for detecting.",
+            "currentState": "hist",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The verify_sandbox_containment function inspects historical enclave.",
+            "currentState": "enclave_history",
+            "transition": {
+              "from": "hist",
+              "to": "enclave_history",
+              "label": "[['read_log', {'file': 'a.txt'}], ['que…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say13",
+            "caption": "Comprehensive stress testing demonstrates that defensive fail-safes.",
+            "currentState": "total",
+            "transition": {
+              "from": "enclave_history",
+              "to": "total",
+              "label": "2"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Milestone 9 — Production Telemetry & Verification Audit",
-      "codeHash": "5981fb0a4d885617f6f38df1f9d58bbba018de42417fb219a20ae06f6dee61cf",
+      "partTitle": "Uncertainty-Gated Execution — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "2dd481225df1949aeb6bc535afa615ce29595780ff5286e77dd5a3a411058962",
       "spec": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "states",
+        "title": "Uncertainty-Gated Execution — Production Capstone & Enterprise S",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "action_id",
+            "label": "action_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tool",
+            "label": "tool"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ece",
+            "label": "ece"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise governance requires non-repudiable audit receipts for every.",
+            "currentState": "action_id",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The generate_m9_safety_receipt function generates a cryptographic.",
+            "currentState": "tool",
+            "transition": {
+              "from": "action_id",
+              "to": "tool",
+              "label": {
+                "var": "tool",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say14",
+            "caption": "Automated compliance engines continuously validate uncertainty gate & tool.",
+            "currentState": "ece",
+            "transition": {
+              "from": "tool",
+              "to": "ece",
+              "label": {
+                "var": "ece",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Milestone — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "states",
+        "title": "Uncertainty-Gated Execution — Production Capstone & Enterprise S",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "action_id",
+            "label": "action_id"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "tool",
+            "label": "tool"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ece",
+            "label": "ece"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise governance requires non-repudiable audit receipts for every.",
+            "currentState": "action_id",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The generate_m9_safety_receipt function generates a cryptographic.",
+            "currentState": "tool",
+            "transition": {
+              "from": "action_id",
+              "to": "tool",
+              "label": "'query_db'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say14",
+            "caption": "Automated compliance engines continuously validate uncertainty gate & tool.",
+            "currentState": "ece",
+            "transition": {
+              "from": "tool",
+              "to": "ece",
+              "label": "0.035"
+            },
+            "tone": "ok"
           }
         ]
       }

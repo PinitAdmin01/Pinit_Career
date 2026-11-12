@@ -2,1335 +2,683 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 48,
-  "promptSha": "770ca1eede03e8e8090fccc700c92150818bdcd370b1b01a618bfd0f8ec74363",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Automated Safety Regression Gates — Foundations & Mathematical Invariants",
-      "codeHash": "764818bb93be9a17ec65c0099cc50115310dc60b8e0020bbed4565a12c455fe3",
+      "partTitle": "Safety Regression Gates — Foundations & Mathematical Invariants",
+      "codeHash": "23acbbf1468a320820d13133081bdf6442bbe7144d39771ad9c3c5513158a4a6",
       "spec": {
-        "template": "flow",
-        "title": "Automated Safety Regression Gates — Foundations & Mathematical Invaria",
-        "nodes": [
+        "template": "states",
+        "title": "Safety Regression Gates — Foundations & Mathematical Invariants",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "GOLDEN_SAFETY_SUITE",
+            "label": "GOLDEN_SAFETY_SUITE"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "test_case",
+            "label": "test_case"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "firewall_action",
+            "label": "firewall_action"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Software engineering has long relied on regression testing to prevent.",
+            "currentState": "GOLDEN_SAFETY_SUITE",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "In machine learning, safety alignment is especially fragile.",
+            "currentState": "test_case",
+            "transition": {
+              "from": "GOLDEN_SAFETY_SUITE",
+              "to": "test_case",
+              "label": {
+                "var": "test_case",
+                "line": 8,
+                "hit": 2
               }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "firewall_action",
+            "transition": {
+              "from": "test_case",
+              "to": "firewall_action",
+              "label": {
+                "var": "firewall_action",
+                "line": 8,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Safety Regression Gates — Foundations & Mathematical Invariants",
+        "states": [
+          {
+            "id": "GOLDEN_SAFETY_SUITE",
+            "label": "GOLDEN_SAFETY_SUITE"
+          },
+          {
+            "id": "test_case",
+            "label": "test_case"
+          },
+          {
+            "id": "firewall_action",
+            "label": "firewall_action"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Software engineering has long relied on regression testing to prevent.",
+            "currentState": "GOLDEN_SAFETY_SUITE",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "In machine learning, safety alignment is especially fragile.",
+            "currentState": "test_case",
+            "transition": {
+              "from": "GOLDEN_SAFETY_SUITE",
+              "to": "test_case",
+              "label": "{'id': 'SAFE-02', 'prompt': 'Write a be…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "firewall_action",
+            "transition": {
+              "from": "test_case",
+              "to": "firewall_action",
+              "label": "'ALLOW'"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Safety Regression Gates — Core Algorithm & State Representation",
+      "codeHash": "bdb59a2ba6314d73752be74414058c90cd9421707b9f8821ffe867d0204bea3d",
+      "spec": {
+        "template": "states",
+        "title": "Safety Regression Gates — Core Algorithm & State Representation",
+        "states": [
+          {
+            "id": "results",
+            "label": "results"
+          },
+          {
+            "id": "test_results",
+            "label": "test_results"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The calculate_suite_pass_rate function evaluates test outcomes across.",
+            "currentState": "results",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "It calculates the percentage of passing test cases and checks whether zero.",
+            "currentState": "test_results",
+            "transition": {
+              "from": "results",
+              "to": "test_results",
+              "label": {
+                "var": "test_results",
+                "line": 3,
+                "hit": 7
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "total",
+            "transition": {
+              "from": "test_results",
+              "to": "total",
+              "label": {
+                "var": "total",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Safety Regression Gates — Core Algorithm & State Representation",
+        "states": [
+          {
+            "id": "results",
+            "label": "results"
+          },
+          {
+            "id": "test_results",
+            "label": "test_results"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The calculate_suite_pass_rate function evaluates test outcomes across.",
+            "currentState": "results",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "It calculates the percentage of passing test cases and checks whether zero.",
+            "currentState": "test_results",
+            "transition": {
+              "from": "results",
+              "to": "test_results",
+              "label": "[True, True, True, True, True]"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "total",
+            "transition": {
+              "from": "test_results",
+              "to": "total",
+              "label": "5"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Safety Regression Gates — Production Implementation & Boundary Mechanics",
+      "codeHash": "4a4aee61340aa16d99e07c2b664317091603ea9deaee5bfc1d9a92ccc6abc34b",
+      "spec": {
+        "template": "flow",
+        "title": "Safety Regression Gates — Production Implementation & Boundary M",
+        "nodes": [
+          {
+            "id": "suite",
+            "label": "suite"
+          },
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "golden_suite",
+            "label": "golden_suite"
+          },
+          {
+            "id": "gate",
+            "label": "gate"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The CIRegressionGate class integrates with continuous integration runners.",
+            "values": {
+              "suite": {
+                "var": "suite",
+                "line": 13,
+                "hit": 1
+              },
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "golden_suite": {
+                "var": "golden_suite",
+                "line": 3,
+                "hit": 1
+              },
+              "gate": {
+                "var": "gate",
+                "line": 14,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "suite": "data",
+              "self": "data",
+              "golden_suite": "data",
+              "gate": "data"
+            },
+            "arrows": [
+              [
+                "suite",
+                "self"
+              ],
+              [
+                "self",
+                "golden_suite"
+              ],
+              [
+                "golden_suite",
+                "gate"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "When a pull request is submitted, the CI runner invokes the regression.",
+            "values": {
+              "suite": {
+                "var": "suite",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "golden_suite": {
+                "var": "golden_suite",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "gate": {
+                "var": "gate",
+                "line": 15,
+                "hit": 1
               }
+            },
+            "tones": {
+              "suite": "data",
+              "self": "data",
+              "golden_suite": "data",
+              "gate": "data"
+            },
+            "arrows": [
+              [
+                "suite",
+                "self"
+              ],
+              [
+                "self",
+                "golden_suite"
+              ],
+              [
+                "golden_suite",
+                "gate"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for automated safety.",
+            "values": {
+              "suite": {
+                "var": "suite",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "golden_suite": {
+                "var": "golden_suite",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "gate": {
+                "var": "gate",
+                "line": 16,
+                "hit": 1
               }
+            },
+            "tones": {
+              "suite": "ok",
+              "self": "ok",
+              "golden_suite": "ok",
+              "gate": "ok"
+            },
+            "arrows": [
+              [
+                "suite",
+                "self"
+              ],
+              [
+                "self",
+                "golden_suite"
+              ],
+              [
+                "golden_suite",
+                "gate"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Automated Safety Regression Gates — Foundations & Mathematical Invaria",
+        "title": "Safety Regression Gates — Production Implementation & Boundary M",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "suite",
+            "label": "suite"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "golden_suite",
+            "label": "golden_suite"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "gate",
+            "label": "gate"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The CIRegressionGate class integrates with continuous integration runners.",
+            "values": {
+              "suite": "[{'id': 'SAFE-01'}, {'id': 'SAFE-02'}, …",
+              "self": "<CIRegressionGate>",
+              "golden_suite": "[{'id': 'SAFE-01'}, {'id': 'SAFE-02'}, …",
+              "gate": "<CIRegressionGate>"
+            },
+            "tones": {
+              "suite": "data",
+              "self": "data",
+              "golden_suite": "data",
+              "gate": "data"
+            },
+            "arrows": [
+              [
+                "suite",
+                "self"
+              ],
+              [
+                "self",
+                "golden_suite"
+              ],
+              [
+                "golden_suite",
+                "gate"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "When a pull request is submitted, the CI runner invokes the regression.",
+            "values": {
+              "suite": "[{'id': 'SAFE-01'}, {'id': 'SAFE-02'}, …",
+              "self": "<CIRegressionGate>",
+              "golden_suite": "[{'id': 'SAFE-01'}, {'id': 'SAFE-02'}, …",
+              "gate": "<CIRegressionGate>"
+            },
+            "tones": {
+              "suite": "data",
+              "self": "data",
+              "golden_suite": "data",
+              "gate": "data"
+            },
+            "arrows": [
+              [
+                "suite",
+                "self"
+              ],
+              [
+                "self",
+                "golden_suite"
+              ],
+              [
+                "golden_suite",
+                "gate"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for automated safety.",
+            "values": {
+              "suite": "[{'id': 'SAFE-01'}, {'id': 'SAFE-02'}, …",
+              "self": "<CIRegressionGate>",
+              "golden_suite": "[{'id': 'SAFE-01'}, {'id': 'SAFE-02'}, …",
+              "gate": "<CIRegressionGate>"
+            },
+            "tones": {
+              "suite": "ok",
+              "self": "ok",
+              "golden_suite": "ok",
+              "gate": "ok"
+            },
+            "arrows": [
+              [
+                "suite",
+                "self"
+              ],
+              [
+                "self",
+                "golden_suite"
+              ],
+              [
+                "golden_suite",
+                "gate"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Automated Safety Regression Gates — Core Algorithm & State Representation",
-      "codeHash": "bcd2473537d82278779c6cfa4a7aeb42d0c69acdadae532b929d0ff94b6112c5",
+      "partTitle": "Safety Regression Gates — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "eaff5bdad9f337041e850f6ad6faa1d066c0d93308ebb843bcc704c76bc70a4d",
       "spec": {
-        "template": "flow",
-        "title": "Automated Safety Regression Gates — Core Algorithm & State Representat",
-        "nodes": [
+        "template": "states",
+        "title": "Safety Regression Gates — Failure Modes, Hardware Bottlenecks & ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "eval_summary",
+            "label": "eval_summary"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "status",
+            "label": "status"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "fails",
+            "label": "fails"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Clear diagnostic reporting is essential for helping developers quickly.",
+            "currentState": "eval_summary",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The format_ci_safety_report function synthesizes evaluation outcomes.",
+            "currentState": "status",
+            "transition": {
+              "from": "eval_summary",
+              "to": "status",
+              "label": {
+                "var": "status",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "fails",
+            "transition": {
+              "from": "status",
+              "to": "fails",
+              "label": {
+                "var": "fails",
+                "line": 3,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Automated Safety Regression Gates — Core Algorithm & State Representat",
-        "nodes": [
+        "template": "states",
+        "title": "Safety Regression Gates — Failure Modes, Hardware Bottlenecks & ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "eval_summary",
+            "label": "eval_summary"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "status",
+            "label": "status"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "fails",
+            "label": "fails"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Clear diagnostic reporting is essential for helping developers quickly.",
+            "currentState": "eval_summary",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The format_ci_safety_report function synthesizes evaluation outcomes.",
+            "currentState": "status",
+            "transition": {
+              "from": "eval_summary",
+              "to": "status",
+              "label": "'BUILD_APPROVED'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "fails",
+            "transition": {
+              "from": "status",
+              "to": "fails",
+              "label": "1"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Automated Safety Regression Gates — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "6c3cb03f0e05526c3a0ff1c128a1078829fda20d03c5ea3c7269369a55cbac62",
+      "partTitle": "Safety Regression Gates — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "0baa1beca1d12623cabad7342ebdfed4af70a6857bb9943d82e38ef74fd997da",
       "spec": {
-        "template": "flow",
-        "title": "Automated Safety Regression Gates — Throughput Optimization & Edge-Cas",
-        "nodes": [
+        "template": "states",
+        "title": "Safety Regression Gates — Production Capstone & Enterprise SRE I",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "commit_sha",
+            "label": "commit_sha"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "gate_passed",
+            "label": "gate_passed"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The git_commit_safety_enforcer function enforces branch protection rules.",
+            "currentState": "commit_sha",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "It binds the commit SHA to the regression gate outcome and the corporate.",
+            "currentState": "gate_passed",
+            "transition": {
+              "from": "commit_sha",
+              "to": "gate_passed",
+              "label": {
+                "var": "gate_passed",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Automated Safety Regression Gates — Throughput Optimization & Edge-Cas",
-        "nodes": [
+        "template": "states",
+        "title": "Safety Regression Gates — Production Capstone & Enterprise SRE I",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "commit_sha",
+            "label": "commit_sha"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "gate_passed",
+            "label": "gate_passed"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "The git_commit_safety_enforcer function enforces branch protection rules.",
+            "currentState": "commit_sha",
+            "tone": "data"
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Automated Safety Regression Gates — Resilience Guardrails & Failure Recovery",
-      "codeHash": "2d23fc504b9a36185743836726a3811f9b4e6d8721a451132c7dd5c531059cb1",
-      "spec": {
-        "template": "flow",
-        "title": "Automated Safety Regression Gates — Resilience Guardrails & Failure Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Automated Safety Regression Gates — Resilience Guardrails & Failure Re",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Automated Safety Regression Gates — Production Telemetry & Verification Audit",
-      "codeHash": "35ea347a822764859cc47766501b3d539415eec88c242c037ef13ebd37169da2",
-      "spec": {
-        "template": "flow",
-        "title": "Automated Safety Regression Gates — Production Telemetry & Verificatio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Automated Safety Regression Gates — Production Telemetry & Verificatio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "It binds the commit SHA to the regression gate outcome and the corporate.",
+            "currentState": "gate_passed",
+            "transition": {
+              "from": "commit_sha",
+              "to": "gate_passed",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }

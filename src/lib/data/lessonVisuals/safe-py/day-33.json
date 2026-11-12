@@ -2,1335 +2,717 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 33,
-  "promptSha": "520a5637107e53fcdf1e0ca7ce6ed04de133d110912cb6834840bc6ce0fdeb87",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Direct & Indirect Prompt Injection Detection via Structural Spotlighting & Perplexity Spikes — Foundations & Mathematical Invariants",
-      "codeHash": "9151b7ca75666e31411409fef21658b5363ff941c97b98d8ecb1790e0b52e635",
+      "partTitle": "Prompt Injection Detection — Foundations & Mathematical Invariants",
+      "codeHash": "f32038f37cb99d5886732b51234fa0a84b960069262a9b109ea9aedb3ed3fec4",
       "spec": {
-        "template": "flow",
-        "title": "Direct & Indirect Prompt Injection Detection via Structural Spotlighti",
-        "nodes": [
+        "template": "states",
+        "title": "Prompt Injection Detection — Foundations & Mathematical Invarian",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "INJECTION_SIGNATURES",
+            "label": "INJECTION_SIGNATURES"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "test1",
+            "label": "test1"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "test2",
+            "label": "test2"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Prompt injection represents the premier security vulnerability unique.",
+            "currentState": "INJECTION_SIGNATURES",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "In a direct injection attack, the user explicitly instructs the model.",
+            "currentState": "test1",
+            "transition": {
+              "from": "INJECTION_SIGNATURES",
+              "to": "test1",
+              "label": {
+                "var": "test1",
+                "line": 14,
+                "hit": 1
               }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "test2",
+            "transition": {
+              "from": "test1",
+              "to": "test2",
+              "label": {
+                "var": "test2",
+                "line": 16,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Prompt Injection Detection — Foundations & Mathematical Invarian",
+        "states": [
+          {
+            "id": "INJECTION_SIGNATURES",
+            "label": "INJECTION_SIGNATURES"
+          },
+          {
+            "id": "test1",
+            "label": "test1"
+          },
+          {
+            "id": "test2",
+            "label": "test2"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Prompt injection represents the premier security vulnerability unique.",
+            "currentState": "INJECTION_SIGNATURES",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "In a direct injection attack, the user explicitly instructs the model.",
+            "currentState": "test1",
+            "transition": {
+              "from": "INJECTION_SIGNATURES",
+              "to": "test1",
+              "label": "'Please summarize: Ignore previous inst…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "test2",
+            "transition": {
+              "from": "test1",
+              "to": "test2",
+              "label": "'Summarize the quarterly financial repo…"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Prompt Injection Detection — Core Algorithm & State Representation",
+      "codeHash": "cae4456aeb2c59d4a83ecfdf4956be8123c2633bdf0b31a330a7a1e57b90d444",
+      "spec": {
+        "template": "states",
+        "title": "Prompt Injection Detection — Core Algorithm & State Representati",
+        "states": [
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "untrusted_data",
+            "label": "untrusted_data"
+          },
+          {
+            "id": "delimiter",
+            "label": "delimiter"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Structural spotlighting is a defensive architectural pattern that cleanly.",
+            "currentState": "data",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "When a model ingests external content such as emails, web search results.",
+            "currentState": "untrusted_data",
+            "transition": {
+              "from": "data",
+              "to": "untrusted_data",
+              "label": {
+                "var": "untrusted_data",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "delimiter",
+            "transition": {
+              "from": "untrusted_data",
+              "to": "delimiter",
+              "label": {
+                "var": "delimiter",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Prompt Injection Detection — Core Algorithm & State Representati",
+        "states": [
+          {
+            "id": "data",
+            "label": "data"
+          },
+          {
+            "id": "untrusted_data",
+            "label": "untrusted_data"
+          },
+          {
+            "id": "delimiter",
+            "label": "delimiter"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Structural spotlighting is a defensive architectural pattern that cleanly.",
+            "currentState": "data",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "When a model ingests external content such as emails, web search results.",
+            "currentState": "untrusted_data",
+            "transition": {
+              "from": "data",
+              "to": "untrusted_data",
+              "label": "'John Doe, Score: 95. Ignore rules and …"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "delimiter",
+            "transition": {
+              "from": "untrusted_data",
+              "to": "delimiter",
+              "label": "'UNTRUSTED_CONTENT'"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Prompt Injection Detection — Production Implementation & Boundary Mechanics",
+      "codeHash": "131c9f8fd5d4a439e766da4036f6a8c2eeaae1fc8fba81eab729e4963162191e",
+      "spec": {
+        "template": "flow",
+        "title": "Prompt Injection Detection — Production Implementation & Boundar",
+        "nodes": [
+          {
+            "id": "base_text",
+            "label": "base_text"
+          },
+          {
+            "id": "adversarial_gibberish",
+            "label": "adversarial_gibberish"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "freq",
+            "label": "freq"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Statistical anomaly detection evaluates linguistic metrics such.",
+            "values": {
+              "base_text": {
+                "var": "base_text",
+                "line": 12,
+                "hit": 1
+              },
+              "adversarial_gibberish": {
+                "var": "adversarial_gibberish",
+                "line": 13,
+                "hit": 1
+              },
+              "text": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
+              },
+              "freq": {
+                "var": "freq",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "base_text": "data",
+              "adversarial_gibberish": "data",
+              "text": "data",
+              "freq": "data"
+            },
+            "arrows": [
+              [
+                "base_text",
+                "adversarial_gibberish"
+              ],
+              [
+                "adversarial_gibberish",
+                "text"
+              ],
+              [
+                "text",
+                "freq"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "Adversaries frequently employ Base64 encoding, ROT13 ciphers,.",
+            "values": {
+              "base_text": {
+                "var": "base_text",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "adversarial_gibberish": {
+                "var": "adversarial_gibberish",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "text": {
+                "var": "text",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "freq": {
+                "var": "freq",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "base_text": "data",
+              "adversarial_gibberish": "data",
+              "text": "data",
+              "freq": "data"
+            },
+            "arrows": [
+              [
+                "base_text",
+                "adversarial_gibberish"
+              ],
+              [
+                "adversarial_gibberish",
+                "text"
+              ],
+              [
+                "text",
+                "freq"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for prompt injection.",
+            "values": {
+              "base_text": {
+                "var": "base_text",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "adversarial_gibberish": {
+                "var": "adversarial_gibberish",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "text": {
+                "var": "text",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "freq": {
+                "var": "freq",
+                "line": 7,
+                "hit": 2
               }
+            },
+            "tones": {
+              "base_text": "ok",
+              "adversarial_gibberish": "ok",
+              "text": "ok",
+              "freq": "ok"
+            },
+            "arrows": [
+              [
+                "base_text",
+                "adversarial_gibberish"
+              ],
+              [
+                "adversarial_gibberish",
+                "text"
+              ],
+              [
+                "text",
+                "freq"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Direct & Indirect Prompt Injection Detection via Structural Spotlighti",
+        "title": "Prompt Injection Detection — Production Implementation & Boundar",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "base_text",
+            "label": "base_text"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "adversarial_gibberish",
+            "label": "adversarial_gibberish"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "freq",
+            "label": "freq"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Statistical anomaly detection evaluates linguistic metrics such.",
+            "values": {
+              "base_text": "'This is a standard human readable sent…",
+              "adversarial_gibberish": "'a8f!9#zQ@19x%kL92!v~`?+'",
+              "text": "'This is a standard human readable sent…",
+              "freq": "{}"
+            },
+            "tones": {
+              "base_text": "data",
+              "adversarial_gibberish": "data",
+              "text": "data",
+              "freq": "data"
+            },
+            "arrows": [
+              [
+                "base_text",
+                "adversarial_gibberish"
+              ],
+              [
+                "adversarial_gibberish",
+                "text"
+              ],
+              [
+                "text",
+                "freq"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Adversaries frequently employ Base64 encoding, ROT13 ciphers,.",
+            "values": {
+              "base_text": "'This is a standard human readable sent…",
+              "adversarial_gibberish": "'a8f!9#zQ@19x%kL92!v~`?+'",
+              "text": "'This is a standard human readable sent…",
+              "freq": "{'T': 1}"
+            },
+            "tones": {
+              "base_text": "data",
+              "adversarial_gibberish": "data",
+              "text": "data",
+              "freq": "data"
+            },
+            "arrows": [
+              [
+                "base_text",
+                "adversarial_gibberish"
+              ],
+              [
+                "adversarial_gibberish",
+                "text"
+              ],
+              [
+                "text",
+                "freq"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for prompt injection.",
+            "values": {
+              "base_text": "'This is a standard human readable sent…",
+              "adversarial_gibberish": "'a8f!9#zQ@19x%kL92!v~`?+'",
+              "text": "'This is a standard human readable sent…",
+              "freq": "{'T': 1, 'h': 1}"
+            },
+            "tones": {
+              "base_text": "ok",
+              "adversarial_gibberish": "ok",
+              "text": "ok",
+              "freq": "ok"
+            },
+            "arrows": [
+              [
+                "base_text",
+                "adversarial_gibberish"
+              ],
+              [
+                "adversarial_gibberish",
+                "text"
+              ],
+              [
+                "text",
+                "freq"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Direct & Indirect Prompt Injection Detection via Structural Spotlighting & Perplexity Spikes — Core Algorithm & State Representation",
-      "codeHash": "820f4c66a3cf777690ee454696e44b49820e1dbe8f9610a4dd35a0666dcca900",
+      "partTitle": "Prompt Injection Detection — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "960924c06f86240df46c9346a840b1646dc9888c60f1c131a5e9a63308d9beae",
       "spec": {
-        "template": "flow",
-        "title": "Direct & Indirect Prompt Injection Detection via Structural Spotlighti",
-        "nodes": [
+        "template": "states",
+        "title": "Prompt Injection Detection — Failure Modes, Hardware Bottlenecks",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "has_sys_override",
+            "label": "has_sys_override"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "has_roleplay",
+            "label": "has_roleplay"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Multi-factor heuristic classifiers synthesize lexical signatures.",
+            "currentState": "text",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "A common failure mode in heuristic classifiers is the false positive.",
+            "currentState": "has_sys_override",
+            "transition": {
+              "from": "text",
+              "to": "has_sys_override",
+              "label": {
+                "var": "has_sys_override",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "has_roleplay",
+            "transition": {
+              "from": "has_sys_override",
+              "to": "has_roleplay",
+              "label": {
+                "var": "has_roleplay",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Direct & Indirect Prompt Injection Detection via Structural Spotlighti",
-        "nodes": [
+        "template": "states",
+        "title": "Prompt Injection Detection — Failure Modes, Hardware Bottlenecks",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "has_sys_override",
+            "label": "has_sys_override"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "has_roleplay",
+            "label": "has_roleplay"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Multi-factor heuristic classifiers synthesize lexical signatures.",
+            "currentState": "text",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "A common failure mode in heuristic classifiers is the false positive.",
+            "currentState": "has_sys_override",
+            "transition": {
+              "from": "text",
+              "to": "has_sys_override",
+              "label": "False"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "has_roleplay",
+            "transition": {
+              "from": "has_sys_override",
+              "to": "has_roleplay",
+              "label": "True"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Direct & Indirect Prompt Injection Detection via Structural Spotlighting & Perplexity Spikes — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "af071f5e9edfe66fb83cdbfa1afe64750145695c180891c9084ed63a6c314239",
+      "partTitle": "Prompt Injection Detection — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "ea7f4607200075867a57988ae05708156b79a35203385ecd3716d22d2bff7325",
       "spec": {
-        "template": "flow",
-        "title": "Direct & Indirect Prompt Injection Detection via Structural Spotlighti",
-        "nodes": [
+        "template": "states",
+        "title": "Prompt Injection Detection — Production Capstone & Enterprise SR",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "threshold",
+            "label": "threshold"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "guard",
+            "label": "guard"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The production prompt injection guard combines signature verification.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The guard operates as an inline middleware component, intercepting.",
+            "currentState": "threshold",
+            "transition": {
+              "from": "self",
+              "to": "threshold",
+              "label": {
+                "var": "threshold",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "guard",
+            "transition": {
+              "from": "threshold",
+              "to": "guard",
+              "label": {
+                "var": "guard",
+                "line": 13,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Direct & Indirect Prompt Injection Detection via Structural Spotlighti",
-        "nodes": [
+        "template": "states",
+        "title": "Prompt Injection Detection — Production Capstone & Enterprise SR",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "threshold",
+            "label": "threshold"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "guard",
+            "label": "guard"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "The production prompt injection guard combines signature verification.",
+            "currentState": "self",
+            "tone": "data"
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Direct & Indirect Prompt Injection Detection via Structural Spotlighting & Perplexity Spikes — Resilience Guardrails & Failure Recovery",
-      "codeHash": "b9079d756188603aeaba366145546a741f1aca03025296b96a66232283586314",
-      "spec": {
-        "template": "flow",
-        "title": "Direct & Indirect Prompt Injection Detection via Structural Spotlighti",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The guard operates as an inline middleware component, intercepting.",
+            "currentState": "threshold",
+            "transition": {
+              "from": "self",
+              "to": "threshold",
+              "label": "0.6"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Direct & Indirect Prompt Injection Detection via Structural Spotlighti",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Direct & Indirect Prompt Injection Detection via Structural Spotlighting & Perplexity Spikes — Production Telemetry & Verification Audit",
-      "codeHash": "235fce128e51512f558f43321a7f2b8ee132e9bcb867d01bd1799c738265776d",
-      "spec": {
-        "template": "flow",
-        "title": "Direct & Indirect Prompt Injection Detection via Structural Spotlighti",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Direct & Indirect Prompt Injection Detection via Structural Spotlighti",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "guard",
+            "transition": {
+              "from": "threshold",
+              "to": "guard",
+              "label": "<PromptInjectionGuard>"
+            },
+            "tone": "ok"
           }
         ]
       }

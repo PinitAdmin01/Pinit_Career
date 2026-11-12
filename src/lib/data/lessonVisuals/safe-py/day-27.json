@@ -2,125 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 27,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why mark AI-generated text",
       "codeHash": "a34878a3d352f1b1f64e5cb2dba255109fbbdb0524424fe81eb8377cbc18323c",
       "spec": {
-        "template": "table",
-        "title": "Approaches for marking and detecting AI generated text",
-        "columns": [
-          "approaches",
-          "good"
+        "template": "states",
+        "title": "Why mark AI-generated text",
+        "states": [
+          {
+            "id": "approaches",
+            "label": "approaches"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "good",
+            "label": "good"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Machine generated text spreads rapidly across digital channels.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "approaches"
-                  },
-                  {
-                    "text": "good"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "watermark"
-                  },
-                  {
-                    "text": "good"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "AI-generated text is now common in emails, reviews, essays and news-like.",
+            "currentState": "approaches",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Watermarks embed statistical signals directly into text.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "approaches"
-                  },
-                  {
-                    "text": "good"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "metadata label"
-                  },
-                  {
-                    "text": "easy to add"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Being able to tell AI text from human text helps fight spam, fake reviews.",
+            "currentState": "name",
+            "transition": {
+              "from": "approaches",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today builds a simple version of the best-known text watermark.",
+            "currentState": "good",
+            "transition": {
+              "from": "name",
+              "to": "good",
+              "label": {
+                "var": "good",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Approaches for marking and detecting AI generated text",
-        "columns": [
-          "approaches",
-          "good"
+        "template": "states",
+        "title": "Why mark AI-generated text",
+        "states": [
+          {
+            "id": "approaches",
+            "label": "approaches"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "good",
+            "label": "good"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Machine generated text spreads rapidly across digital channels.",
-            "rows": [
-              {
-                "cells": [
-                  "approaches",
-                  "good"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "watermark",
-                  "good"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "AI-generated text is now common in emails, reviews, essays and news-like.",
+            "currentState": "approaches",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Watermarks embed statistical signals directly into text.",
-            "rows": [
-              {
-                "cells": [
-                  "approaches",
-                  "good"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "metadata label",
-                  "easy to add"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Being able to tell AI text from human text helps fight spam, fake reviews.",
+            "currentState": "name",
+            "transition": {
+              "from": "approaches",
+              "to": "name",
+              "label": "'metadata label'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today builds a simple version of the best-known text watermark.",
+            "currentState": "good",
+            "transition": {
+              "from": "name",
+              "to": "good",
+              "label": "'works on any text'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -129,118 +117,106 @@
       "partTitle": "The green-list idea",
       "codeHash": "afa89cfea4ed9930367db77eedf18187018ae3ea9c76067fafb57aaa354b74fb",
       "spec": {
-        "template": "table",
-        "title": "Vocabulary splitting into green and red candidate lists",
-        "columns": [
-          "vocab",
-          "green"
+        "template": "states",
+        "title": "The green-list idea",
+        "states": [
+          {
+            "id": "vocab",
+            "label": "vocab"
+          },
+          {
+            "id": "green",
+            "label": "green"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Language models select one candidate token at a time.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "green"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "dog"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A model writes text one token at a time, choosing from many possible next.",
+            "currentState": "vocab",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "The pseudo random hash splits vocabulary into red and green.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "vocab"
-                  },
-                  {
-                    "text": "green"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "quietly"
-                  },
-                  {
-                    "text": "sat"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "A green-list watermark, proposed by researchers at the University.",
+            "currentState": "green",
+            "transition": {
+              "from": "vocab",
+              "to": "green",
+              "label": {
+                "var": "green",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The nudge is small, so the text still reads naturally.",
+            "currentState": "w",
+            "transition": {
+              "from": "green",
+              "to": "w",
+              "label": {
+                "var": "w",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vocabulary splitting into green and red candidate lists",
-        "columns": [
-          "vocab",
-          "green"
+        "template": "states",
+        "title": "The green-list idea",
+        "states": [
+          {
+            "id": "vocab",
+            "label": "vocab"
+          },
+          {
+            "id": "green",
+            "label": "green"
+          },
+          {
+            "id": "w",
+            "label": "w"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Language models select one candidate token at a time.",
-            "rows": [
-              {
-                "cells": [
-                  "vocab",
-                  "green"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vocab",
-                  "dog"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A model writes text one token at a time, choosing from many possible next.",
+            "currentState": "vocab",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "The pseudo random hash splits vocabulary into red and green.",
-            "rows": [
-              {
-                "cells": [
-                  "vocab",
-                  "green"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "quietly",
-                  "sat"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A green-list watermark, proposed by researchers at the University.",
+            "currentState": "green",
+            "transition": {
+              "from": "vocab",
+              "to": "green",
+              "label": "{'a', 'dog', 'quietly', 'sat'}"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The nudge is small, so the text still reads naturally.",
+            "currentState": "w",
+            "transition": {
+              "from": "green",
+              "to": "w",
+              "label": "'a'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -249,118 +225,106 @@
       "partTitle": "Deciding green with a keyed hash",
       "codeHash": "c4b262cc135cf55ae115187eb8ae1449f6adb8ae0a720707d414379390fcdfec",
       "spec": {
-        "template": "table",
-        "title": "Cryptographic hash determination of green list membership",
-        "columns": [
-          "tokens",
-          "token"
+        "template": "states",
+        "title": "Deciding green with a keyed hash",
+        "states": [
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "prev",
+            "label": "prev"
+          },
+          {
+            "id": "tok",
+            "label": "tok"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Hashing tokens with the secret key produces repeatable results.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "token"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "hashlib"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "To decide whether a token is green, we need a rule that anyone with.",
+            "currentState": "tokens",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "Different secret keys generate distinct detection patterns.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "token"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "cat"
-                  },
-                  {
-                    "text": "sat"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Hashing the key, the previous token and the current token together gives.",
+            "currentState": "prev",
+            "transition": {
+              "from": "tokens",
+              "to": "prev",
+              "label": {
+                "var": "prev",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Using the even-odd rule makes the green list exactly half the vocabulary.",
+            "currentState": "tok",
+            "transition": {
+              "from": "prev",
+              "to": "tok",
+              "label": {
+                "var": "tok",
+                "line": 7,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Cryptographic hash determination of green list membership",
-        "columns": [
-          "tokens",
-          "token"
+        "template": "states",
+        "title": "Deciding green with a keyed hash",
+        "states": [
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "prev",
+            "label": "prev"
+          },
+          {
+            "id": "tok",
+            "label": "tok"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Hashing tokens with the secret key produces repeatable results.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "token"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "hashlib"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "To decide whether a token is green, we need a rule that anyone with.",
+            "currentState": "tokens",
+            "tone": "data"
           },
           {
-            "at": "say8",
-            "caption": "Different secret keys generate distinct detection patterns.",
-            "rows": [
-              {
-                "cells": [
-                  "tokens",
-                  "token"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "cat",
-                  "sat"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Hashing the key, the previous token and the current token together gives.",
+            "currentState": "prev",
+            "transition": {
+              "from": "tokens",
+              "to": "prev",
+              "label": "'the'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Using the even-odd rule makes the green list exactly half the vocabulary.",
+            "currentState": "tok",
+            "transition": {
+              "from": "prev",
+              "to": "tok",
+              "label": "'sat'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -369,117 +333,277 @@
       "partTitle": "Detecting with a z-score",
       "codeHash": "e5429cce7a3ffbb2f440390565a412714953e1871587c8d423d98e2498c2d642",
       "spec": {
-        "template": "table",
-        "title": "Watermark detection z score evaluation across sample lengths",
-        "columns": [
-          "gamma",
-          "math"
+        "template": "flow",
+        "title": "Detecting with a z-score",
+        "nodes": [
+          {
+            "id": "gamma",
+            "label": "gamma"
+          },
+          {
+            "id": "T",
+            "label": "T"
+          },
+          {
+            "id": "G",
+            "label": "G"
+          },
+          {
+            "id": "z",
+            "label": "z"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Watermark detectors compare green token counts to chance.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "gamma"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "To detect a watermark, count green tokens and ask whether there are more.",
+            "values": {
+              "gamma": {
+                "var": "gamma",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "gamma"
-                  },
-                  {
-                    "text": "sqrt"
-                  }
-                ],
-                "tone": "data"
+              "T": {
+                "var": "T",
+                "line": 4,
+                "hit": 1
+              },
+              "G": {
+                "var": "G",
+                "line": 4,
+                "hit": 1
+              },
+              "z": {
+                "var": "z",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "gamma": "data",
+              "T": "data",
+              "G": "data",
+              "z": "data"
+            },
+            "arrows": [
+              [
+                "gamma",
+                "T"
+              ],
+              [
+                "T",
+                "G"
+              ],
+              [
+                "G",
+                "z"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The z score measures deviations above the expected baseline count.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "gamma"
-                  },
-                  {
-                    "text": "math"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "With T judged tokens and a green share gamma, chance gives about gamma T.",
+            "values": {
+              "gamma": {
+                "var": "gamma",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "gamma"
-                  },
-                  {
-                    "text": "gamma"
-                  }
-                ],
-                "tone": "ok"
+              "T": {
+                "var": "T",
+                "line": 5,
+                "hit": 1
+              },
+              "G": {
+                "var": "G",
+                "line": 5,
+                "hit": 1
+              },
+              "z": {
+                "var": "z",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "gamma": "data",
+              "T": "data",
+              "G": "data",
+              "z": "data"
+            },
+            "arrows": [
+              [
+                "gamma",
+                "T"
+              ],
+              [
+                "T",
+                "G"
+              ],
+              [
+                "G",
+                "z"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The threshold is a choice.",
+            "values": {
+              "gamma": {
+                "var": "gamma",
+                "line": 5,
+                "hit": 1
+              },
+              "T": {
+                "var": "T",
+                "line": 6,
+                "hit": 1
+              },
+              "G": {
+                "var": "G",
+                "line": 6,
+                "hit": 1
+              },
+              "z": {
+                "var": "z",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "gamma": "ok",
+              "T": "ok",
+              "G": "ok",
+              "z": "ok"
+            },
+            "arrows": [
+              [
+                "gamma",
+                "T"
+              ],
+              [
+                "T",
+                "G"
+              ],
+              [
+                "G",
+                "z"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Watermark detection z score evaluation across sample lengths",
-        "columns": [
-          "gamma",
-          "math"
+        "template": "flow",
+        "title": "Detecting with a z-score",
+        "nodes": [
+          {
+            "id": "gamma",
+            "label": "gamma"
+          },
+          {
+            "id": "T",
+            "label": "T"
+          },
+          {
+            "id": "G",
+            "label": "G"
+          },
+          {
+            "id": "z",
+            "label": "z"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Watermark detectors compare green token counts to chance.",
-            "rows": [
-              {
-                "cells": [
-                  "gamma",
-                  "math"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "gamma",
-                  "sqrt"
-                ],
-                "tone": "data"
-              }
+            "caption": "To detect a watermark, count green tokens and ask whether there are more.",
+            "values": {
+              "gamma": "0.5",
+              "T": "10",
+              "G": "7",
+              "z": "1.2649110640673518"
+            },
+            "tones": {
+              "gamma": "data",
+              "T": "data",
+              "G": "data",
+              "z": "data"
+            },
+            "arrows": [
+              [
+                "gamma",
+                "T"
+              ],
+              [
+                "T",
+                "G"
+              ],
+              [
+                "G",
+                "z"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "The z score measures deviations above the expected baseline count.",
-            "rows": [
-              {
-                "cells": [
-                  "gamma",
-                  "math"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "gamma",
-                  "gamma"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "With T judged tokens and a green share gamma, chance gives about gamma T.",
+            "values": {
+              "gamma": "0.5",
+              "T": "10",
+              "G": "7",
+              "z": "1.2649110640673518"
+            },
+            "tones": {
+              "gamma": "data",
+              "T": "data",
+              "G": "data",
+              "z": "data"
+            },
+            "arrows": [
+              [
+                "gamma",
+                "T"
+              ],
+              [
+                "T",
+                "G"
+              ],
+              [
+                "G",
+                "z"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The threshold is a choice.",
+            "values": {
+              "gamma": "0.5",
+              "T": "10",
+              "G": "7",
+              "z": "1.2649110640673518"
+            },
+            "tones": {
+              "gamma": "ok",
+              "T": "ok",
+              "G": "ok",
+              "z": "ok"
+            },
+            "arrows": [
+              [
+                "gamma",
+                "T"
+              ],
+              [
+                "T",
+                "G"
+              ],
+              [
+                "G",
+                "z"
+              ]
             ]
           }
         ]
@@ -489,223 +613,217 @@
       "partTitle": "Limits of watermarking",
       "codeHash": "a7fe57e6f6460ae4d2173359e60fc88497bc7817d476c8075644c1dd82947eeb",
       "spec": {
-        "template": "flow",
-        "title": "Limits of watermarking — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Limits of watermarking",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Limits of watermarking",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Limits of watermarking [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Limits of watermarking [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Watermarks are useful but not a complete answer.",
+            "bars": [
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "green_share",
+                "value": {
+                  "var": "green_share",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "rewritten",
+                "value": {
+                  "var": "rewritten",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Paraphrasing, translating or heavily editing the text changes tokens.",
+            "bars": [
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "green_share",
+                "value": {
+                  "var": "green_share",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rewritten",
+                "value": {
+                  "var": "rewritten",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Limits of watermarking [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Tell users honestly what your watermark can and cannot show.",
+            "bars": [
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "gamma",
+                "value": {
+                  "var": "gamma",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "green_share",
+                "value": {
+                  "var": "green_share",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rewritten",
+                "value": {
+                  "var": "rewritten",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Limits of watermarking — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Limits of watermarking",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Limits of watermarking",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Limits of watermarking [D27.P5.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Limits of watermarking [D27.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Watermarks are useful but not a complete answer.",
+            "bars": [
+              {
+                "label": "T",
+                "value": 200,
+                "tone": "data"
+              },
+              {
+                "label": "gamma",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "green_share",
+                "value": 0.75,
+                "tone": "data"
+              },
+              {
+                "label": "rewritten",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Paraphrasing, translating or heavily editing the text changes tokens.",
+            "bars": [
+              {
+                "label": "T",
+                "value": 200,
+                "tone": "ok"
+              },
+              {
+                "label": "gamma",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "green_share",
+                "value": 0.75,
+                "tone": "ok"
+              },
+              {
+                "label": "rewritten",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Limits of watermarking [D27.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Tell users honestly what your watermark can and cannot show.",
+            "bars": [
+              {
+                "label": "T",
+                "value": 200,
+                "tone": "ok"
+              },
+              {
+                "label": "gamma",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "green_share",
+                "value": 0.75,
+                "tone": "ok"
+              },
+              {
+                "label": "rewritten",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -715,223 +833,217 @@
       "partTitle": "Watermarking in the pipeline",
       "codeHash": "eabacc0ba1ba555818683527b534dd9199a43a12e0c86183005e80b3fef19b58",
       "spec": {
-        "template": "flow",
-        "title": "Watermarking in the pipeline — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Watermarking in the...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Watermarking in the pipeline",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Watermarking in the pipeline [D.Psix.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Watermarking in the... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In a product, watermarking happens inside text generation, and detection.",
+            "bars": [
+              {
+                "label": "min_tokens",
+                "value": {
+                  "var": "min_tokens",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "threshold",
+                "value": {
+                  "var": "threshold",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 16,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The detection service holds the key, receives text, and returns a z-score.",
+            "bars": [
+              {
+                "label": "min_tokens",
+                "value": {
+                  "var": "min_tokens",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "threshold",
+                "value": {
+                  "var": "threshold",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 16,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Watermarking in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Add is_green, green_count and watermark_z to your pipeline tools today.",
+            "bars": [
+              {
+                "label": "min_tokens",
+                "value": {
+                  "var": "min_tokens",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "threshold",
+                "value": {
+                  "var": "threshold",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": {
+                  "var": "T",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 16,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Watermarking in the pipeline — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Watermarking in the...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Watermarking in the pipeline",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Watermarking in the pipeline [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Watermarking in the... [D27.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "In a product, watermarking happens inside text generation, and detection.",
+            "bars": [
+              {
+                "label": "min_tokens",
+                "value": 20,
+                "tone": "data"
+              },
+              {
+                "label": "threshold",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "T",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The detection service holds the key, receives text, and returns a z-score.",
+            "bars": [
+              {
+                "label": "min_tokens",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "threshold",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Watermarking in the pipeline [D27.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Add is_green, green_count and watermark_z to your pipeline tools today.",
+            "bars": [
+              {
+                "label": "min_tokens",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "threshold",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "T",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           }
         ]

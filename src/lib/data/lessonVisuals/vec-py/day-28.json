@@ -2,142 +2,172 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 28,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Bytes per vector",
       "codeHash": "2607c24168f7e1c5b400822f851e8c0160e8ba225c48e9253e096afd332ab574",
       "spec": {
-        "template": "table",
-        "title": "Raw vector memory footprints across dimensions and precisions",
-        "columns": [
-          "dims",
-          "float32",
-          "dims"
+        "template": "flow",
+        "title": "Bytes per vector",
+        "nodes": [
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The memory for raw vectors equals total vectors times dimensions times bytes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dims"
-                  },
-                  {
-                    "text": "float32"
-                  },
-                  {
-                    "text": "dims"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The memory for raw vectors is number of vectors dimensions bytes per dimension.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "dims"
-                  },
-                  {
-                    "text": "float32"
-                  },
-                  {
-                    "text": "dims"
-                  }
-                ],
-                "tone": "data"
+              "d": {
+                "var": "d",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "n": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "n",
+                "d"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Dimensions matter when calculating total memory across collections.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "dims"
-                  },
-                  {
-                    "text": "float32"
-                  },
-                  {
-                    "text": "dims"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how uses updates bytes during execution.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "dims"
-                  },
-                  {
-                    "text": "float32"
-                  },
-                  {
-                    "text": "dims"
-                  }
-                ],
-                "tone": "ok"
+              "d": {
+                "var": "d",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "n": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "n",
+                "d"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Having it ready means capacity questions from managers can be answered.",
+            "values": {
+              "n": {
+                "var": "n",
+                "line": 3,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 2,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "n": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "n",
+                "d"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Raw vector memory footprints across dimensions and precisions",
-        "columns": [
-          "dims",
-          "float32",
-          "dims"
+        "template": "flow",
+        "title": "Bytes per vector",
+        "nodes": [
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": "d",
+            "label": "d"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The memory for raw vectors equals total vectors times dimensions times bytes.",
-            "rows": [
-              {
-                "cells": [
-                  "dims",
-                  "float32",
-                  "dims"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "dims",
-                  "float32",
-                  "dims"
-                ],
-                "tone": "data"
-              }
+            "caption": "The memory for raw vectors is number of vectors dimensions bytes per dimension.",
+            "values": {
+              "n": "1000000",
+              "d": "384"
+            },
+            "tones": {
+              "n": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "n",
+                "d"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Dimensions matter when calculating total memory across collections.",
-            "rows": [
-              {
-                "cells": [
-                  "dims",
-                  "float32",
-                  "dims"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "dims",
-                  "float32",
-                  "dims"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how uses updates bytes during execution.",
+            "values": {
+              "n": "1000000",
+              "d": "384"
+            },
+            "tones": {
+              "n": "data",
+              "d": "data"
+            },
+            "arrows": [
+              [
+                "n",
+                "d"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Having it ready means capacity questions from managers can be answered.",
+            "values": {
+              "n": "1000000",
+              "d": "768"
+            },
+            "tones": {
+              "n": "ok",
+              "d": "ok"
+            },
+            "arrows": [
+              [
+                "n",
+                "d"
+              ]
             ]
           }
         ]
@@ -147,78 +177,131 @@
       "partTitle": "Graph index overhead",
       "codeHash": "535eb0d350daafb9e0dfeb300b19fcfc3e5dbd1c5a495156d16c0b55e5384742",
       "spec": {
-        "template": "table",
-        "title": "Graph link indexing overhead vs compressed vector size",
-        "columns": [
-          "vectors",
-          "links",
-          "vectors"
-        ],
+        "template": "bars",
+        "title": "Graph index overhead",
         "steps": [
           {
             "at": "say1",
-            "caption": "Graph indexes store neighbour links in addition to raw vectors.",
-            "rows": [
+            "caption": "Graph indexes store neighbour links in addition to vectors.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "vectors"
-                  },
-                  {
-                    "text": "links"
-                  },
-                  {
-                    "text": "vectors"
-                  }
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "vectors"
-                  },
-                  {
-                    "text": "links"
-                  },
-                  {
-                    "text": "vectors"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "M",
+                "value": {
+                  "var": "M",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "links",
+                "value": {
+                  "var": "links",
+                  "line": 2,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Link memory becomes the main cost once vectors are heavily compressed.",
-            "rows": [
+            "at": "say2",
+            "caption": "HNSW keeps up to 2M neighbour ids per node on the bottom layer, usually 4.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "vectors"
-                  },
-                  {
-                    "text": "links"
-                  },
-                  {
-                    "text": "vectors"
-                  }
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "vectors"
-                  },
-                  {
-                    "text": "links"
-                  },
-                  {
-                    "text": "vectors"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "M",
+                "value": {
+                  "var": "M",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "links",
+                "value": {
+                  "var": "links",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Headroom also absorbs the temporary extra memory needed during compaction.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "M",
+                "value": {
+                  "var": "M",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "links",
+                "value": {
+                  "var": "links",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +309,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Graph link indexing overhead vs compressed vector size",
-        "columns": [
-          "vectors",
-          "links",
-          "vectors"
-        ],
+        "template": "bars",
+        "title": "Graph index overhead",
         "steps": [
           {
             "at": "say1",
-            "caption": "Graph indexes store neighbour links in addition to raw vectors.",
-            "rows": [
+            "caption": "Graph indexes store neighbour links in addition to vectors.",
+            "bars": [
               {
-                "cells": [
-                  "vectors",
-                  "links",
-                  "vectors"
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": 10000000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "vectors",
-                  "links",
-                  "vectors"
-                ],
+                "label": "d",
+                "value": 768,
+                "tone": "data"
+              },
+              {
+                "label": "M",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "links",
+                "value": 1280000000,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Link memory becomes the main cost once vectors are heavily compressed.",
-            "rows": [
+            "at": "say2",
+            "caption": "HNSW keeps up to 2M neighbour ids per node on the bottom layer, usually 4.",
+            "bars": [
               {
-                "cells": [
-                  "vectors",
-                  "links",
-                  "vectors"
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": 10000000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "vectors",
-                  "links",
-                  "vectors"
-                ],
+                "label": "d",
+                "value": 768,
+                "tone": "ok"
+              },
+              {
+                "label": "M",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "links",
+                "value": 1280000000,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Headroom also absorbs the temporary extra memory needed during compaction.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 10000000,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 768,
+                "tone": "ok"
+              },
+              {
+                "label": "M",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "links",
+                "value": 1280000000,
                 "tone": "ok"
               }
             ]
@@ -285,78 +397,131 @@
       "partTitle": "Choosing a format for a budget",
       "codeHash": "2d12cb788e38f99859c4d5754a124cf2554bb965c974bd0c0913fd143a683809",
       "spec": {
-        "template": "table",
-        "title": "Storage format selection within tight memory constraints",
-        "columns": [
-          "budget",
-          "choice",
-          "budget"
-        ],
+        "template": "bars",
+        "title": "Choosing a format for a budget",
         "steps": [
           {
             "at": "say1",
-            "caption": "Given a memory budget pick the most precise storage format that fits.",
-            "rows": [
+            "caption": "Given a memory budget, pick the most precise storage format that fits.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "choice"
-                  },
-                  {
-                    "text": "budget"
-                  }
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "choice"
-                  },
-                  {
-                    "text": "budget"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "M",
+                "value": {
+                  "var": "M",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Search candidate formats stopping at the first that fits including graph links.",
-            "rows": [
+            "caption": "Try float32 first, then float16, int8 and binary, stopping at the first.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "choice"
-                  },
-                  {
-                    "text": "budget"
-                  }
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "budget"
-                  },
-                  {
-                    "text": "choice"
-                  },
-                  {
-                    "text": "budget"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "M",
+                "value": {
+                  "var": "M",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A decision that was right at one million vectors may be wrong at one.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "M",
+                "value": {
+                  "var": "M",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +529,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Storage format selection within tight memory constraints",
-        "columns": [
-          "budget",
-          "choice",
-          "budget"
-        ],
+        "template": "bars",
+        "title": "Choosing a format for a budget",
         "steps": [
           {
             "at": "say1",
-            "caption": "Given a memory budget pick the most precise storage format that fits.",
-            "rows": [
+            "caption": "Given a memory budget, pick the most precise storage format that fits.",
+            "bars": [
               {
-                "cells": [
-                  "budget",
-                  "choice",
-                  "budget"
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": 10000000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "budget",
-                  "choice",
-                  "budget"
-                ],
+                "label": "d",
+                "value": 768,
+                "tone": "data"
+              },
+              {
+                "label": "M",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "budget",
+                "value": 64,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Search candidate formats stopping at the first that fits including graph links.",
-            "rows": [
+            "caption": "Try float32 first, then float16, int8 and binary, stopping at the first.",
+            "bars": [
               {
-                "cells": [
-                  "budget",
-                  "choice",
-                  "budget"
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": 10000000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "budget",
-                  "choice",
-                  "budget"
-                ],
+                "label": "d",
+                "value": 768,
+                "tone": "ok"
+              },
+              {
+                "label": "M",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "budget",
+                "value": 64,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A decision that was right at one million vectors may be wrong at one.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 10000000,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 768,
+                "tone": "ok"
+              },
+              {
+                "label": "M",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "budget",
+                "value": 64,
                 "tone": "ok"
               }
             ]
@@ -423,78 +617,131 @@
       "partTitle": "From memory to cost",
       "codeHash": "843988a8464af665539e5ce5a2983f648df5874f7b7c309c430d344693ea141c",
       "spec": {
-        "template": "table",
-        "title": "Server counts and operational infrastructure expenditure",
-        "columns": [
-          "replicas",
-          "servers",
-          "replicas"
-        ],
+        "template": "bars",
+        "title": "From memory to cost",
         "steps": [
           {
             "at": "say1",
-            "caption": "Memory translates into servers and servers into infrastructure money.",
-            "rows": [
+            "caption": "Memory translates into servers, and servers into money.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "replicas"
-                  },
-                  {
-                    "text": "servers"
-                  },
-                  {
-                    "text": "replicas"
-                  }
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "replicas"
-                  },
-                  {
-                    "text": "servers"
-                  },
-                  {
-                    "text": "replicas"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "M",
+                "value": {
+                  "var": "M",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "replicas",
+                "value": {
+                  "var": "replicas",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Compression often cuts cost more than any other architectural change.",
-            "rows": [
+            "at": "say2",
+            "caption": "Cost per month number of servers price per server.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "replicas"
-                  },
-                  {
-                    "text": "servers"
-                  },
-                  {
-                    "text": "replicas"
-                  }
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "replicas"
-                  },
-                  {
-                    "text": "servers"
-                  },
-                  {
-                    "text": "replicas"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "M",
+                "value": {
+                  "var": "M",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "replicas",
+                "value": {
+                  "var": "replicas",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "In the example, int8 needs a quarter of the servers of float32, a saving.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "M",
+                "value": {
+                  "var": "M",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "replicas",
+                "value": {
+                  "var": "replicas",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +749,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Server counts and operational infrastructure expenditure",
-        "columns": [
-          "replicas",
-          "servers",
-          "replicas"
-        ],
+        "template": "bars",
+        "title": "From memory to cost",
         "steps": [
           {
             "at": "say1",
-            "caption": "Memory translates into servers and servers into infrastructure money.",
-            "rows": [
+            "caption": "Memory translates into servers, and servers into money.",
+            "bars": [
               {
-                "cells": [
-                  "replicas",
-                  "servers",
-                  "replicas"
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": 200000000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "replicas",
-                  "servers",
-                  "replicas"
-                ],
+                "label": "d",
+                "value": 768,
+                "tone": "data"
+              },
+              {
+                "label": "M",
+                "value": 16,
+                "tone": "data"
+              },
+              {
+                "label": "replicas",
+                "value": 3,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Compression often cuts cost more than any other architectural change.",
-            "rows": [
+            "at": "say2",
+            "caption": "Cost per month number of servers price per server.",
+            "bars": [
               {
-                "cells": [
-                  "replicas",
-                  "servers",
-                  "replicas"
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": 200000000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "replicas",
-                  "servers",
-                  "replicas"
-                ],
+                "label": "d",
+                "value": 768,
+                "tone": "ok"
+              },
+              {
+                "label": "M",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "replicas",
+                "value": 3,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "In the example, int8 needs a quarter of the servers of float32, a saving.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 200000000,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 768,
+                "tone": "ok"
+              },
+              {
+                "label": "M",
+                "value": 16,
+                "tone": "ok"
+              },
+              {
+                "label": "replicas",
+                "value": 3,
                 "tone": "ok"
               }
             ]
@@ -562,110 +838,161 @@
       "codeHash": "1f1b1d1810f693e5fe239f70c1dfe7ea830330b71c4e01f2bf75df6e9ef5e896",
       "spec": {
         "template": "flow",
-        "title": "Planning for growth — Execution Pipeline",
+        "title": "Planning for growth",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "gb",
+            "label": "gb"
           },
           {
-            "id": "proc",
-            "label": "2. Planning for growth",
-            "tappable": true
+            "id": "growth",
+            "label": "growth"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "budget",
+            "label": "budget"
+          },
+          {
+            "id": "month",
+            "label": "month"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Planning for growth [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Planning for growth [D.Pfive.Stwo].",
+            "caption": "Collections grow.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "gb": {
+                "var": "gb",
+                "line": 1,
+                "hit": 1
+              },
+              "growth": {
+                "var": "growth",
+                "line": 1,
+                "hit": 1
+              },
+              "budget": {
+                "var": "budget",
+                "line": 1,
+                "hit": 1
+              },
+              "month": {
+                "var": "month",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "gb": "data",
+              "growth": "data",
+              "budget": "data",
+              "month": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "gb",
+                "growth"
               ],
               [
-                "proc",
-                "out"
+                "growth",
+                "budget"
+              ],
+              [
+                "budget",
+                "month"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Trace how plan updates capacity during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "gb": {
+                "var": "gb",
+                "line": 2,
+                "hit": 1
+              },
+              "growth": {
+                "var": "growth",
+                "line": 2,
+                "hit": 1
+              },
+              "budget": {
+                "var": "budget",
+                "line": 2,
+                "hit": 1
+              },
+              "month": {
+                "var": "month",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "gb": "data",
+              "growth": "data",
+              "budget": "data",
+              "month": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "gb",
+                "growth"
+              ],
+              [
+                "growth",
+                "budget"
+              ],
+              [
+                "budget",
+                "month"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Planning for growth [D.Pfive.Sfour].",
+            "at": "say11",
+            "caption": "Writing the growth assumptions next to the plan lets others check.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "gb": {
+                "var": "gb",
+                "line": 3,
+                "hit": 1
+              },
+              "growth": {
+                "var": "growth",
+                "line": 3,
+                "hit": 1
+              },
+              "budget": {
+                "var": "budget",
+                "line": 3,
+                "hit": 1
+              },
+              "month": {
+                "var": "month",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "gb": "ok",
+              "growth": "ok",
+              "budget": "ok",
+              "month": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "gb",
+                "growth"
               ],
               [
-                "proc",
-                "out"
+                "growth",
+                "budget"
+              ],
+              [
+                "budget",
+                "month"
               ]
             ]
           }
@@ -673,110 +1000,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Planning for growth — Execution Pipeline",
+        "title": "Planning for growth",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "gb",
+            "label": "gb"
           },
           {
-            "id": "proc",
-            "label": "2. Planning for growth",
-            "tappable": true
+            "id": "growth",
+            "label": "growth"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "budget",
+            "label": "budget"
+          },
+          {
+            "id": "month",
+            "label": "month"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Planning for growth [D28.P5.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Planning for growth [D28.P5.S2].",
+            "caption": "Collections grow.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "gb": "40",
+              "growth": "0.08",
+              "budget": "64",
+              "month": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "gb": "data",
+              "growth": "data",
+              "budget": "data",
+              "month": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "gb",
+                "growth"
               ],
               [
-                "proc",
-                "out"
+                "growth",
+                "budget"
+              ],
+              [
+                "budget",
+                "month"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P5.S3].",
+            "at": "say2",
+            "caption": "Trace how plan updates capacity during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "gb": "40",
+              "growth": "0.08",
+              "budget": "64",
+              "month": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "gb": "data",
+              "growth": "data",
+              "budget": "data",
+              "month": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "gb",
+                "growth"
+              ],
+              [
+                "growth",
+                "budget"
+              ],
+              [
+                "budget",
+                "month"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Planning for growth [D28.P5.S4].",
+            "at": "say11",
+            "caption": "Writing the growth assumptions next to the plan lets others check.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "gb": "43.2",
+              "growth": "0.08",
+              "budget": "64",
+              "month": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "gb": "ok",
+              "growth": "ok",
+              "budget": "ok",
+              "month": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "gb",
+                "growth"
               ],
               [
-                "proc",
-                "out"
+                "growth",
+                "budget"
+              ],
+              [
+                "budget",
+                "month"
               ]
             ]
           }
@@ -788,110 +1118,161 @@
       "codeHash": "72e1e0f4eb017f34a8cc6fddde4a1cb4fa2e74fdf07a5c00e339a93857125161",
       "spec": {
         "template": "flow",
-        "title": "Practice time: capacity — Execution Pipeline",
+        "title": "Practice time: capacity",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "label",
+            "label": "label"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: capa...",
-            "tappable": true
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "d",
+            "label": "d"
+          },
+          {
+            "id": "b",
+            "label": "b"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: capacity [D.Psix.Sone].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: capa... [D.Psix.Stwo].",
+            "caption": "Return (n dims bytes_per_dim + n graph_m 2 4) 1e9 rounded to 2 decimals.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "label": {
+                "var": "label",
+                "line": 4,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 4,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 2,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "label": "data",
+              "n": "data",
+              "d": "data",
+              "b": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "label",
+                "n"
               ],
               [
-                "proc",
-                "out"
+                "n",
+                "d"
+              ],
+              [
+                "d",
+                "b"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks include float32 with and without a graph, int8 and binary codes.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "label": {
+                "var": "label",
+                "line": 5,
+                "hit": 5
+              },
+              "n": {
+                "var": "n",
+                "line": 2,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 2,
+                "hit": 2
+              },
+              "b": {
+                "var": "b",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "label": "data",
+              "n": "data",
+              "d": "data",
+              "b": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "label",
+                "n"
+              ],
+              [
+                "n",
+                "d"
+              ],
+              [
+                "d",
+                "b"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: capacity [D.Psix.Sfour].",
+            "at": "say11",
+            "caption": "Writing units in variable names, such as budget_gb, prevents most of these.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "label": {
+                "var": "label",
+                "line": 6,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 2,
+                "hit": 2
+              },
+              "d": {
+                "var": "d",
+                "line": 2,
+                "hit": 3
+              },
+              "b": {
+                "var": "b",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "label": "ok",
+              "n": "ok",
+              "d": "ok",
+              "b": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "label",
+                "n"
               ],
               [
-                "proc",
-                "out"
+                "n",
+                "d"
+              ],
+              [
+                "d",
+                "b"
               ]
             ]
           }
@@ -899,110 +1280,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: capacity — Execution Pipeline",
+        "title": "Practice time: capacity",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "label",
+            "label": "label"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: capa...",
-            "tappable": true
+            "id": "n",
+            "label": "n"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "d",
+            "label": "d"
+          },
+          {
+            "id": "b",
+            "label": "b"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: capacity [D28.P6.S1].",
-            "values": {
-              "in": "Day 28 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: capa... [D28.P6.S2].",
+            "caption": "Return (n dims bytes_per_dim + n graph_m 2 4) 1e9 rounded to 2 decimals.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "label": "'today'",
+              "n": "5000000",
+              "d": "1024",
+              "b": "4"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "label": "data",
+              "n": "data",
+              "d": "data",
+              "b": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "label",
+                "n"
               ],
               [
-                "proc",
-                "out"
+                "n",
+                "d"
+              ],
+              [
+                "d",
+                "b"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D28.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include float32 with and without a graph, int8 and binary codes.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "label": "'today'",
+              "n": "5000000",
+              "d": "1024",
+              "b": "4"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "label": "data",
+              "n": "data",
+              "d": "data",
+              "b": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "label",
+                "n"
+              ],
+              [
+                "n",
+                "d"
+              ],
+              [
+                "d",
+                "b"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: capacity [D28.P6.S4].",
+            "at": "say11",
+            "caption": "Writing units in variable names, such as budget_gb, prevents most of these.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "label": "'today'",
+              "n": "5000000",
+              "d": "1024",
+              "b": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "label": "ok",
+              "n": "ok",
+              "d": "ok",
+              "b": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "label",
+                "n"
               ],
               [
-                "proc",
-                "out"
+                "n",
+                "d"
+              ],
+              [
+                "d",
+                "b"
               ]
             ]
           }

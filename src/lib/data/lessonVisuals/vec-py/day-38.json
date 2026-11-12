@@ -2,269 +2,115 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 38,
-  "promptSha": "3b63853925e199a10dc148ad6d4a4b591d780b59ce914b0bd11389b08b4369e5",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Foundations & Mathematical Invariants",
-      "codeHash": "9bde2c2817a7a4b317cf804c139ab958fcba6f622cc79d3cebacc2143c10265f",
+      "codeHash": "8e58f35054b5acfa34f8f637688178ddd1e2807b8e32d9250827ae66bbc55bee",
       "spec": {
-        "template": "flow",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reductio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Applying Product Quantization directly to raw vector coordinates across.",
+            "items": {
+              "var": "x",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Vectors distributed across a vast vector space exhibit high variance.",
+            "items": {
+              "var": "x",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": {
+              "var": "x",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reductio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Applying Product Quantization directly to raw vector coordinates across.",
+            "items": [
+              "1.5",
+              "2.5",
+              "3.5"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Vectors distributed across a vast vector space exhibit high variance.",
+            "items": [
+              "1.5",
+              "2.5",
+              "3.5"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": [
+              "1.5",
+              "2.5",
+              "3.5"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -273,264 +119,107 @@
     },
     {
       "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Core Algorithm & State Representation",
-      "codeHash": "4a0d0765cabdbbdfc2a2e3ed31b25a5070da28d7c9ab473cdb2f86802b154592",
+      "codeHash": "269fc757d7d35c1ea188381cb81de0d9a550432812f5c644d8e2c9ef786193b4",
       "spec": {
-        "template": "flow",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reductio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Encoding an entry in an IVF-PQ composite index involves a three-step.",
+            "items": {
+              "var": "vec",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "First, the incoming vector is assigned to its nearest coarse centroid.",
+            "items": {
+              "var": "vec",
+              "line": 5,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "items": {
+              "var": "vec",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reductio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Encoding an entry in an IVF-PQ composite index involves a three-step.",
+            "items": [
+              "2.1",
+              "2.2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "First, the incoming vector is assigned to its nearest coarse centroid.",
+            "items": [
+              "2.1",
+              "2.2"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "items": [
+              "2.1",
+              "2.2"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -539,265 +228,279 @@
     },
     {
       "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "84908d55a31c2c4003b81ab618d2a8291a74db40b5df50ebf5462ef7a0f59f1f",
+      "codeHash": "f1ec8d06867db63dd59c0b5edfeb8dcb9171d75b60f89626a9b782bb78f8bd61",
       "spec": {
         "template": "flow",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reductio",
+        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "entries",
+            "label": "entries"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "adc",
+            "label": "adc"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "query_res",
+            "label": "query_res"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cluster_entries",
+            "label": "cluster_entries"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Searching an IVF-PQ composite index combines the multi-probe pruning.",
+            "values": {
+              "entries": {
+                "var": "entries",
+                "line": 9,
+                "hit": 1
+              },
+              "adc": {
+                "var": "adc",
+                "line": 10,
+                "hit": 1
+              },
+              "query_res": {
+                "var": "query_res",
+                "line": 2,
+                "hit": 1
+              },
+              "cluster_entries": {
+                "var": "cluster_entries",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "entries": "data",
+              "adc": "data",
+              "query_res": "data",
+              "cluster_entries": "data"
+            },
+            "arrows": [
+              [
+                "entries",
+                "adc"
+              ],
+              [
+                "adc",
+                "query_res"
+              ],
+              [
+                "query_res",
+                "cluster_entries"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "At query time, the search engine identifies the nprobe closest centroids.",
+            "values": {
+              "entries": {
+                "var": "entries",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "adc": {
+                "var": "adc",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "query_res": {
+                "var": "query_res",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "cluster_entries": {
+                "var": "cluster_entries",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "entries": "data",
+              "adc": "data",
+              "query_res": "data",
+              "cluster_entries": "data"
+            },
+            "arrows": [
+              [
+                "entries",
+                "adc"
+              ],
+              [
+                "adc",
+                "query_res"
+              ],
+              [
+                "query_res",
+                "cluster_entries"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "entries": {
+                "var": "entries",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "adc": {
+                "var": "adc",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "query_res": {
+                "var": "query_res",
+                "line": 4,
+                "hit": 4
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "cluster_entries": {
+                "var": "cluster_entries",
+                "line": 4,
+                "hit": 4
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "entries": "ok",
+              "adc": "ok",
+              "query_res": "ok",
+              "cluster_entries": "ok"
+            },
+            "arrows": [
+              [
+                "entries",
+                "adc"
+              ],
+              [
+                "adc",
+                "query_res"
+              ],
+              [
+                "query_res",
+                "cluster_entries"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reductio",
+        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "entries",
+            "label": "entries"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "adc",
+            "label": "adc"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "query_res",
+            "label": "query_res"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cluster_entries",
+            "label": "cluster_entries"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Searching an IVF-PQ composite index combines the multi-probe pruning.",
+            "values": {
+              "entries": "[[1, [0, 1]], [2, [1, 0]]]",
+              "adc": "[[0.01, 0.05], [0.02, 0.08]]",
+              "query_res": "[0.1, 0.2]",
+              "cluster_entries": "[[1, [0, 1]], [2, [1, 0]]]"
+            },
+            "tones": {
+              "entries": "data",
+              "adc": "data",
+              "query_res": "data",
+              "cluster_entries": "data"
+            },
+            "arrows": [
+              [
+                "entries",
+                "adc"
+              ],
+              [
+                "adc",
+                "query_res"
+              ],
+              [
+                "query_res",
+                "cluster_entries"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "At query time, the search engine identifies the nprobe closest centroids.",
+            "values": {
+              "entries": "[[1, [0, 1]], [2, [1, 0]]]",
+              "adc": "[[0.01, 0.05], [0.02, 0.08]]",
+              "query_res": "[0.1, 0.2]",
+              "cluster_entries": "[[1, [0, 1]], [2, [1, 0]]]"
+            },
+            "tones": {
+              "entries": "data",
+              "adc": "data",
+              "query_res": "data",
+              "cluster_entries": "data"
+            },
+            "arrows": [
+              [
+                "entries",
+                "adc"
+              ],
+              [
+                "adc",
+                "query_res"
+              ],
+              [
+                "query_res",
+                "cluster_entries"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "entries": "[[1, [0, 1]], [2, [1, 0]]]",
+              "adc": "[[0.01, 0.05], [0.02, 0.08]]",
+              "query_res": "[0.1, 0.2]",
+              "cluster_entries": "[[1, [0, 1]], [2, [1, 0]]]"
+            },
+            "tones": {
+              "entries": "ok",
+              "adc": "ok",
+              "query_res": "ok",
+              "cluster_entries": "ok"
+            },
+            "arrows": [
+              [
+                "entries",
+                "adc"
+              ],
+              [
+                "adc",
+                "query_res"
+              ],
+              [
+                "query_res",
+                "cluster_entries"
+              ]
             ]
           }
         ]
@@ -805,264 +508,176 @@
     },
     {
       "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Resilience Guardrails & Failure Recovery",
-      "codeHash": "938fa2f0cd6e00907e7edd020d28911fd13a6793cca690df6da066813d211cd8",
+      "codeHash": "c4398bad02ab9fa1460ca14d6d0ce00146473c07c76b6395791f4f279fc9cbc5",
       "spec": {
-        "template": "flow",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reductio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Resilience guardrails in IVF-PQ pipelines validate residual magnitudes.",
+            "bars": [
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "norm_sq",
+                "value": {
+                  "var": "norm_sq",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If an upstream error passes a vector with incorrect dimensionality.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "norm_sq",
+                "value": {
+                  "var": "norm_sq",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "norm_sq",
+                "value": {
+                  "var": "norm_sq",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reductio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Resilience guardrails in IVF-PQ pipelines validate residual magnitudes.",
+            "bars": [
+              {
+                "label": "a",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 1.1,
+                "tone": "data"
+              },
+              {
+                "label": "norm_sq",
+                "value": 0.010000000000000018,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If an upstream error passes a vector with incorrect dimensionality.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "a",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "b",
+                "value": 1.1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "norm_sq",
+                "value": 0.010000000000000018,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "a",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "b",
+                "value": 1.1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "norm_sq",
+                "value": 0.010000000000000018,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,264 +686,218 @@
     },
     {
       "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Production Telemetry & Verification Audit",
-      "codeHash": "161955b2cf2bcde0e886e67a10780cc637b64ebf206adbf7f4a9f4b794b5c85b",
+      "codeHash": "babcc5d70cac28f95d77bb2c20333549878e8c4dec0396cef0228d930ffec88f",
       "spec": {
-        "template": "flow",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reductio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Tuning IVF-PQ indexes in production requires balancing the trade-off.",
+            "bars": [
+              {
+                "label": "nprobe",
+                "value": {
+                  "var": "nprobe",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pq_m",
+                "value": {
+                  "var": "pq_m",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "base_recall",
+                "value": {
+                  "var": "base_recall",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "probe_penalty",
+                "value": {
+                  "var": "probe_penalty",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Retrieval recall is influenced by both the coarse probe count (nprobe).",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "nprobe",
+                "value": {
+                  "var": "nprobe",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "pq_m",
+                "value": {
+                  "var": "pq_m",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "base_recall",
+                "value": {
+                  "var": "base_recall",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "probe_penalty",
+                "value": {
+                  "var": "probe_penalty",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "nprobe",
+                "value": {
+                  "var": "nprobe",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "pq_m",
+                "value": {
+                  "var": "pq_m",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "base_recall",
+                "value": {
+                  "var": "base_recall",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "probe_penalty",
+                "value": {
+                  "var": "probe_penalty",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reductio",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Re",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Tuning IVF-PQ indexes in production requires balancing the trade-off.",
+            "bars": [
+              {
+                "label": "nprobe",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "pq_m",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "base_recall",
+                "value": 0.95,
+                "tone": "data"
+              },
+              {
+                "label": "probe_penalty",
+                "value": 0.08,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Retrieval recall is influenced by both the coarse probe count (nprobe).",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "nprobe",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "pq_m",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "base_recall",
+                "value": 0.95,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "probe_penalty",
+                "value": 0.08,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "nprobe",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "pq_m",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "base_recall",
+                "value": 0.95,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "probe_penalty",
+                "value": 0.08,
+                "tone": "ok"
               }
             ]
           }

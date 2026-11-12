@@ -2,269 +2,112 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 47,
-  "promptSha": "3cc7cc07f593625bd00a5301848b2115c02c1685c7c5bb19e93f94880b8773a5",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Foundations & Mathematical Invariants",
-      "codeHash": "57b3792aa1370e8ff6eb10842e3957c0de3d7a8b1399fd524895bf6d74f23837",
+      "codeHash": "427e6c8b3d3b48a2c2d1092dd612dc7a772e4dfcd9a612b30d17c7c7bba08663",
       "spec": {
-        "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vec",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In memory-buffered vector databases, sudden power loss or kernel panics.",
+            "items": {
+              "var": "vector",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "To prevent catastrophic data loss, database systems enforce.",
+            "items": {
+              "var": "vector",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": {
+              "var": "vector",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vec",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In memory-buffered vector databases, sudden power loss or kernel panics.",
+            "items": [
+              "0.1",
+              "0.2"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "To prevent catastrophic data loss, database systems enforce.",
+            "items": [
+              "0.1",
+              "0.2"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": [
+              "0.1",
+              "0.2"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -273,265 +116,279 @@
     },
     {
       "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Core Algorithm & State Representation",
-      "codeHash": "38b1b8f04c70663c41899a404c1e7e1882074fed935227146d511fcfc2602c62",
+      "codeHash": "502468e4947e4f22aadb1fb675a3b97f9d41494c5c9af91418bf1d58303489eb",
       "spec": {
         "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vec",
+        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "logs",
+            "label": "logs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "wal_records",
+            "label": "wal_records"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "snapshot_lsn",
+            "label": "snapshot_lsn"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "reconstructed_state",
+            "label": "reconstructed_state"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When a database node crashes and reboots, it executes crash recovery.",
+            "values": {
+              "logs": {
+                "var": "logs",
+                "line": 11,
+                "hit": 1
+              },
+              "wal_records": {
+                "var": "wal_records",
+                "line": 2,
+                "hit": 1
+              },
+              "snapshot_lsn": {
+                "var": "snapshot_lsn",
+                "line": 2,
+                "hit": 1
+              },
+              "reconstructed_state": {
+                "var": "reconstructed_state",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "logs": "data",
+              "wal_records": "data",
+              "snapshot_lsn": "data",
+              "reconstructed_state": "data"
+            },
+            "arrows": [
+              [
+                "logs",
+                "wal_records"
+              ],
+              [
+                "wal_records",
+                "snapshot_lsn"
+              ],
+              [
+                "snapshot_lsn",
+                "reconstructed_state"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Recovery begins at the LSN of the last confirmed checkpoint snapshot.",
+            "values": {
+              "logs": {
+                "var": "logs",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "wal_records": {
+                "var": "wal_records",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "snapshot_lsn": {
+                "var": "snapshot_lsn",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "reconstructed_state": {
+                "var": "reconstructed_state",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "logs": "data",
+              "wal_records": "data",
+              "snapshot_lsn": "data",
+              "reconstructed_state": "data"
+            },
+            "arrows": [
+              [
+                "logs",
+                "wal_records"
+              ],
+              [
+                "wal_records",
+                "snapshot_lsn"
+              ],
+              [
+                "snapshot_lsn",
+                "reconstructed_state"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "logs": {
+                "var": "logs",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "wal_records": {
+                "var": "wal_records",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "snapshot_lsn": {
+                "var": "snapshot_lsn",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "reconstructed_state": {
+                "var": "reconstructed_state",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "logs": "ok",
+              "wal_records": "ok",
+              "snapshot_lsn": "ok",
+              "reconstructed_state": "ok"
+            },
+            "arrows": [
+              [
+                "logs",
+                "wal_records"
+              ],
+              [
+                "wal_records",
+                "snapshot_lsn"
+              ],
+              [
+                "snapshot_lsn",
+                "reconstructed_state"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vec",
+        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "logs",
+            "label": "logs"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "wal_records",
+            "label": "wal_records"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "snapshot_lsn",
+            "label": "snapshot_lsn"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "reconstructed_state",
+            "label": "reconstructed_state"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When a database node crashes and reboots, it executes crash recovery.",
+            "values": {
+              "logs": "[{'lsn': 1, 'op': 'UPSERT', 'doc_id': 1…",
+              "wal_records": "[{'lsn': 1, 'op': 'UPSERT', 'doc_id': 1…",
+              "snapshot_lsn": "1",
+              "reconstructed_state": "{}"
+            },
+            "tones": {
+              "logs": "data",
+              "wal_records": "data",
+              "snapshot_lsn": "data",
+              "reconstructed_state": "data"
+            },
+            "arrows": [
+              [
+                "logs",
+                "wal_records"
+              ],
+              [
+                "wal_records",
+                "snapshot_lsn"
+              ],
+              [
+                "snapshot_lsn",
+                "reconstructed_state"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Recovery begins at the LSN of the last confirmed checkpoint snapshot.",
+            "values": {
+              "logs": "[{'lsn': 1, 'op': 'UPSERT', 'doc_id': 1…",
+              "wal_records": "[{'lsn': 1, 'op': 'UPSERT', 'doc_id': 1…",
+              "snapshot_lsn": "1",
+              "reconstructed_state": "{}"
+            },
+            "tones": {
+              "logs": "data",
+              "wal_records": "data",
+              "snapshot_lsn": "data",
+              "reconstructed_state": "data"
+            },
+            "arrows": [
+              [
+                "logs",
+                "wal_records"
+              ],
+              [
+                "wal_records",
+                "snapshot_lsn"
+              ],
+              [
+                "snapshot_lsn",
+                "reconstructed_state"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "logs": "[{'lsn': 1, 'op': 'UPSERT', 'doc_id': 1…",
+              "wal_records": "[{'lsn': 1, 'op': 'UPSERT', 'doc_id': 1…",
+              "snapshot_lsn": "1",
+              "reconstructed_state": "{}"
+            },
+            "tones": {
+              "logs": "ok",
+              "wal_records": "ok",
+              "snapshot_lsn": "ok",
+              "reconstructed_state": "ok"
+            },
+            "arrows": [
+              [
+                "logs",
+                "wal_records"
+              ],
+              [
+                "wal_records",
+                "snapshot_lsn"
+              ],
+              [
+                "snapshot_lsn",
+                "reconstructed_state"
+              ]
             ]
           }
         ]
@@ -539,264 +396,134 @@
     },
     {
       "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "0d2dcba1b24d03124d2619c932ce61a89f20d076ddffa890167647a42c3a6431",
+      "codeHash": "efc5c61c0d7204c02fdaf486ad325b0d8c65ba5bf442c57df91fa8681f16907a",
       "spec": {
-        "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vec",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Long-running vector similarity queries cannot acquire global read locks.",
+            "bars": [
+              {
+                "label": "commit_lsn",
+                "value": {
+                  "var": "commit_lsn",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "doc_id",
+                "value": {
+                  "var": "doc_id",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Snapshot Isolation using Multi-Version Concurrency Control (MVCC) enables.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "commit_lsn",
+                "value": {
+                  "var": "commit_lsn",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "doc_id",
+                "value": {
+                  "var": "doc_id",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "commit_lsn",
+                "value": {
+                  "var": "commit_lsn",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "doc_id",
+                "value": {
+                  "var": "doc_id",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vec",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Long-running vector similarity queries cannot acquire global read locks.",
+            "bars": [
+              {
+                "label": "commit_lsn",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "doc_id",
+                "value": 10,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Snapshot Isolation using Multi-Version Concurrency Control (MVCC) enables.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "commit_lsn",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "doc_id",
+                "value": 10,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "commit_lsn",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "doc_id",
+                "value": 10,
+                "tone": "ok"
               }
             ]
           }
@@ -805,265 +532,223 @@
     },
     {
       "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Resilience Guardrails & Failure Recovery",
-      "codeHash": "a87c8567c5488803717a73b09516075fe2a797be51d62291b6df325a99fd8665",
+      "codeHash": "a85f6b33e261007f03feed6843c3a43511bfd240736317a645e1ec0655e2169d",
       "spec": {
         "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vec",
+        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "payload",
+            "label": "payload"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "crc",
+            "label": "crc"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ch",
+            "label": "ch"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Persistent storage media can suffer from bit rot, partial sector writes.",
+            "values": {
+              "payload": {
+                "var": "payload",
+                "line": 2,
+                "hit": 1
+              },
+              "crc": {
+                "var": "crc",
+                "line": 2,
+                "hit": 1
+              },
+              "ch": {
+                "var": "ch",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "payload": "data",
+              "crc": "data",
+              "ch": "data"
+            },
+            "arrows": [
+              [
+                "payload",
+                "crc"
+              ],
+              [
+                "crc",
+                "ch"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Replaying a corrupted WAL record would inject corrupted coordinate data.",
+            "values": {
+              "payload": {
+                "var": "payload",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "crc": {
+                "var": "crc",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ch": {
+                "var": "ch",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "payload": "data",
+              "crc": "data",
+              "ch": "data"
+            },
+            "arrows": [
+              [
+                "payload",
+                "crc"
+              ],
+              [
+                "crc",
+                "ch"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "payload": {
+                "var": "payload",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "crc": {
+                "var": "crc",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ch": {
+                "var": "ch",
+                "line": 3,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "payload": "ok",
+              "crc": "ok",
+              "ch": "ok"
+            },
+            "arrows": [
+              [
+                "payload",
+                "crc"
+              ],
+              [
+                "crc",
+                "ch"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vec",
+        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "payload",
+            "label": "payload"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "crc",
+            "label": "crc"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ch",
+            "label": "ch"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Persistent storage media can suffer from bit rot, partial sector writes.",
+            "values": {
+              "payload": "'UPSERT:101'",
+              "crc": "0",
+              "ch": "'U'"
+            },
+            "tones": {
+              "payload": "data",
+              "crc": "data",
+              "ch": "data"
+            },
+            "arrows": [
+              [
+                "payload",
+                "crc"
+              ],
+              [
+                "crc",
+                "ch"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Replaying a corrupted WAL record would inject corrupted coordinate data.",
+            "values": {
+              "payload": "'UPSERT:101'",
+              "crc": "0",
+              "ch": "'U'"
+            },
+            "tones": {
+              "payload": "data",
+              "crc": "data",
+              "ch": "data"
+            },
+            "arrows": [
+              [
+                "payload",
+                "crc"
+              ],
+              [
+                "crc",
+                "ch"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "payload": "'UPSERT:101'",
+              "crc": "2635",
+              "ch": "'P'"
+            },
+            "tones": {
+              "payload": "ok",
+              "crc": "ok",
+              "ch": "ok"
+            },
+            "arrows": [
+              [
+                "payload",
+                "crc"
+              ],
+              [
+                "crc",
+                "ch"
+              ]
             ]
           }
         ]
@@ -1071,265 +756,279 @@
     },
     {
       "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Production Telemetry & Verification Audit",
-      "codeHash": "0b1a4a348da8af09c558ac5d89f58252bd78e206f56203845412fd20860361c8",
+      "codeHash": "e532026a82370f67424c52c9affce62798f83d3cd2225090dd9f466d6c5f3477",
       "spec": {
         "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vec",
+        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "log_count",
+            "label": "log_count"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "replay_rate_per_sec",
+            "label": "replay_rate_per_sec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "recovery_ms",
+            "label": "recovery_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rep_info",
+            "label": "rep_info"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational SLAs dictate strict bounds on Mean Time to Recovery (MTTR).",
+            "values": {
+              "log_count": {
+                "var": "log_count",
+                "line": 2,
+                "hit": 1
+              },
+              "replay_rate_per_sec": {
+                "var": "replay_rate_per_sec",
+                "line": 2,
+                "hit": 1
+              },
+              "recovery_ms": {
+                "var": "recovery_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "rep_info": {
+                "var": "rep_info",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "log_count": "data",
+              "replay_rate_per_sec": "data",
+              "recovery_ms": "data",
+              "rep_info": "data"
+            },
+            "arrows": [
+              [
+                "log_count",
+                "replay_rate_per_sec"
+              ],
+              [
+                "replay_rate_per_sec",
+                "recovery_ms"
+              ],
+              [
+                "recovery_ms",
+                "rep_info"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If an index accumulates millions of uncheckpointed WAL records, reboot.",
+            "values": {
+              "log_count": {
+                "var": "log_count",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "replay_rate_per_sec": {
+                "var": "replay_rate_per_sec",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "recovery_ms": {
+                "var": "recovery_ms",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "rep_info": {
+                "var": "rep_info",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "log_count": "data",
+              "replay_rate_per_sec": "data",
+              "recovery_ms": "data",
+              "rep_info": "data"
+            },
+            "arrows": [
+              [
+                "log_count",
+                "replay_rate_per_sec"
+              ],
+              [
+                "replay_rate_per_sec",
+                "recovery_ms"
+              ],
+              [
+                "recovery_ms",
+                "rep_info"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "log_count": {
+                "var": "log_count",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "replay_rate_per_sec": {
+                "var": "replay_rate_per_sec",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "recovery_ms": {
+                "var": "recovery_ms",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "rep_info": {
+                "var": "rep_info",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "log_count": "ok",
+              "replay_rate_per_sec": "ok",
+              "recovery_ms": "ok",
+              "rep_info": "ok"
+            },
+            "arrows": [
+              [
+                "log_count",
+                "replay_rate_per_sec"
+              ],
+              [
+                "replay_rate_per_sec",
+                "recovery_ms"
+              ],
+              [
+                "recovery_ms",
+                "rep_info"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vec",
+        "title": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation f",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "log_count",
+            "label": "log_count"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "replay_rate_per_sec",
+            "label": "replay_rate_per_sec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "recovery_ms",
+            "label": "recovery_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rep_info",
+            "label": "rep_info"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Operational SLAs dictate strict bounds on Mean Time to Recovery (MTTR).",
+            "values": {
+              "log_count": "15000",
+              "replay_rate_per_sec": "50000",
+              "recovery_ms": "300",
+              "rep_info": "{'log_count': 15000, 'recovery_ms': 300…"
+            },
+            "tones": {
+              "log_count": "data",
+              "replay_rate_per_sec": "data",
+              "recovery_ms": "data",
+              "rep_info": "data"
+            },
+            "arrows": [
+              [
+                "log_count",
+                "replay_rate_per_sec"
+              ],
+              [
+                "replay_rate_per_sec",
+                "recovery_ms"
+              ],
+              [
+                "recovery_ms",
+                "rep_info"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If an index accumulates millions of uncheckpointed WAL records, reboot.",
+            "values": {
+              "log_count": "15000",
+              "replay_rate_per_sec": "50000",
+              "recovery_ms": "300",
+              "rep_info": "{'log_count': 15000, 'recovery_ms': 300…"
+            },
+            "tones": {
+              "log_count": "data",
+              "replay_rate_per_sec": "data",
+              "recovery_ms": "data",
+              "rep_info": "data"
+            },
+            "arrows": [
+              [
+                "log_count",
+                "replay_rate_per_sec"
+              ],
+              [
+                "replay_rate_per_sec",
+                "recovery_ms"
+              ],
+              [
+                "recovery_ms",
+                "rep_info"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "log_count": "15000",
+              "replay_rate_per_sec": "50000",
+              "recovery_ms": "300",
+              "rep_info": "{'log_count': 15000, 'recovery_ms': 300…"
+            },
+            "tones": {
+              "log_count": "ok",
+              "replay_rate_per_sec": "ok",
+              "recovery_ms": "ok",
+              "rep_info": "ok"
+            },
+            "arrows": [
+              [
+                "log_count",
+                "replay_rate_per_sec"
+              ],
+              [
+                "replay_rate_per_sec",
+                "recovery_ms"
+              ],
+              [
+                "recovery_ms",
+                "rep_info"
+              ]
             ]
           }
         ]

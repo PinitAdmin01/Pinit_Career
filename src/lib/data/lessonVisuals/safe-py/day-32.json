@@ -2,1335 +2,545 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 32,
-  "promptSha": "9422f4c9726b2d0ddd649c3dbe3e1bf8464d1025fb898b5d5bfb5c011e32417d",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Input Guardrails — Foundations & Mathematical Invariants",
-      "codeHash": "79390736c43d2b71108928c6441d415aca93310cc023aa4d004b2d92f15948de",
+      "codeHash": "03cbff56ca48314d62cd1c1a07f40043d83f55a7478afbee5fab92aee51398c5",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "Input Guardrails — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "raw_attack",
+            "label": "raw_attack"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "clean",
+            "label": "clean"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The first line of defense in any production AI system is the deterministic.",
+            "currentState": "raw_attack",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Adversaries frequently employ Unicode homoglyphsvisually identical.",
+            "currentState": "text",
+            "transition": {
+              "from": "raw_attack",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "clean",
+            "transition": {
+              "from": "text",
+              "to": "clean",
+              "label": {
+                "var": "clean",
+                "line": 10,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "Input Guardrails — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "raw_attack",
+            "label": "raw_attack"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "clean",
+            "label": "clean"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The first line of defense in any production AI system is the deterministic.",
+            "currentState": "raw_attack",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Adversaries frequently employ Unicode homoglyphsvisually identical.",
+            "currentState": "text",
+            "transition": {
+              "from": "raw_attack",
+              "to": "text",
+              "label": "'Ｐａｙｐａｌ​ Login'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "clean",
+            "transition": {
+              "from": "text",
+              "to": "clean",
+              "label": "'Paypal​ Login'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Input Guardrails — Core Algorithm & State Representation",
-      "codeHash": "33a1d4961064e680dd77b8e53292315ccfea7cbcfe1cef7b41f34583b214ad37",
+      "codeHash": "814d5c4c9cd7d92454cf2b4f787214c7f41aab9c0baf287357e8f24915840e92",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "Input Guardrails — Core Algorithm & State Representation",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "malicious_payload",
+            "label": "malicious_payload"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sanitized",
+            "label": "sanitized"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Beyond homoglyph deception, malicious inputs frequently embed invisible.",
+            "currentState": "malicious_payload",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Null bytes, ANSI escape sequences, and backspace codes can truncate.",
+            "currentState": "text",
+            "transition": {
+              "from": "malicious_payload",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "sanitized",
+            "transition": {
+              "from": "text",
+              "to": "sanitized",
+              "label": {
+                "var": "sanitized",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "Input Guardrails — Core Algorithm & State Representation",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "malicious_payload",
+            "label": "malicious_payload"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sanitized",
+            "label": "sanitized"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Beyond homoglyph deception, malicious inputs frequently embed invisible.",
+            "currentState": "malicious_payload",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Null bytes, ANSI escape sequences, and backspace codes can truncate.",
+            "currentState": "text",
+            "transition": {
+              "from": "malicious_payload",
+              "to": "text",
+              "label": "'System: Safe\u0000\u001b[31mExploit\u0007Text'"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "sanitized",
+            "transition": {
+              "from": "text",
+              "to": "sanitized",
+              "label": "'System: Safe[31mExploitText'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Input Guardrails — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "4054a4cb445bd5f717bbd4b8aaa0ff8938e4b18c2c30d84633bd3565f07fcaa3",
+      "partTitle": "Input Guardrails — Production Implementation & Boundary Mechanics",
+      "codeHash": "8c3436fed069b844a7fa153daf4dd4a0d4f1abc49687b10c3b344b8fc7ac009b",
       "spec": {
-        "template": "flow",
-        "title": "Input Guardrails — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Input Guardrails — Production Implementation & Boundary Mechanic",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "prompt",
+            "label": "prompt"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_tokens",
+            "label": "max_tokens"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Unbounded input lengths present severe operational risks, including.",
+            "currentState": "prompt",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Because transformer self-attention scales quadratically with sequence.",
+            "currentState": "text",
+            "transition": {
+              "from": "prompt",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for input guardrail.",
+            "currentState": "max_tokens",
+            "transition": {
+              "from": "text",
+              "to": "max_tokens",
+              "label": {
+                "var": "max_tokens",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Input Guardrails — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
+        "template": "states",
+        "title": "Input Guardrails — Production Implementation & Boundary Mechanic",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "prompt",
+            "label": "prompt"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "max_tokens",
+            "label": "max_tokens"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Unbounded input lengths present severe operational risks, including.",
+            "currentState": "prompt",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Because transformer self-attention scales quadratically with sequence.",
+            "currentState": "text",
+            "transition": {
+              "from": "prompt",
+              "to": "text",
+              "label": "'word word word word word word word wor…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for input guardrail.",
+            "currentState": "max_tokens",
+            "transition": {
+              "from": "text",
+              "to": "max_tokens",
+              "label": "100"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Input Guardrails — Resilience Guardrails & Failure Recovery",
-      "codeHash": "12258d769ca5ea2fc12bf3de4a09d763b59e53c082592392b63f1420e2b64cc2",
+      "partTitle": "Input Guardrails — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "cdfc9b0d9285bb83d92b5ca8371cacc6cf379ae7ff2fac9c4ae89d70be2c6d3f",
       "spec": {
-        "template": "flow",
-        "title": "Input Guardrails — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Input Guardrails — Failure Modes, Hardware Bottlenecks & Debuggi",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_words",
+            "label": "max_words"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pipeline",
+            "label": "pipeline"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Complex enterprise applications combine multiple sanitizers into.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Ordering dependencies within the pipeline represent a frequent source.",
+            "currentState": "max_words",
+            "transition": {
+              "from": "self",
+              "to": "max_words",
+              "label": {
+                "var": "max_words",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "pipeline",
+            "transition": {
+              "from": "max_words",
+              "to": "pipeline",
+              "label": {
+                "var": "pipeline",
+                "line": 15,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Input Guardrails — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Input Guardrails — Failure Modes, Hardware Bottlenecks & Debuggi",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "max_words",
+            "label": "max_words"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "pipeline",
+            "label": "pipeline"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Complex enterprise applications combine multiple sanitizers into.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Ordering dependencies within the pipeline represent a frequent source.",
+            "currentState": "max_words",
+            "transition": {
+              "from": "self",
+              "to": "max_words",
+              "label": "5"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "pipeline",
+            "transition": {
+              "from": "max_words",
+              "to": "pipeline",
+              "label": "<InputSanitizerPipeline>"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Input Guardrails — Production Telemetry & Verification Audit",
-      "codeHash": "0b96d3577b39bd52a3b6ef98942e9d125059e9f717520653d2dc39489ab78535",
+      "partTitle": "Input Guardrails — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "267b9cf991f25378709f4079011056bf374eb320a9d02252c46c504e4f17f44d",
       "spec": {
-        "template": "flow",
-        "title": "Input Guardrails — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "states",
+        "title": "Input Guardrails — Production Capstone & Enterprise SRE Integrat",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "has_null",
+            "label": "has_null"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "word_count",
+            "label": "word_count"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In enterprise SRE architectures, the input firewall serves as.",
+            "currentState": "text",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Health check endpoints verify that regex patterns compile correctly.",
+            "currentState": "has_null",
+            "transition": {
+              "from": "text",
+              "to": "has_null",
+              "label": {
+                "var": "has_null",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "word_count",
+            "transition": {
+              "from": "has_null",
+              "to": "word_count",
+              "label": {
+                "var": "word_count",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Input Guardrails — Production Telemetry & Verification Audit",
-        "nodes": [
+        "template": "states",
+        "title": "Input Guardrails — Production Capstone & Enterprise SRE Integrat",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "has_null",
+            "label": "has_null"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "word_count",
+            "label": "word_count"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In enterprise SRE architectures, the input firewall serves as.",
+            "currentState": "text",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Health check endpoints verify that regex patterns compile correctly.",
+            "currentState": "has_null",
+            "transition": {
+              "from": "text",
+              "to": "has_null",
+              "label": "False"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "word_count",
+            "transition": {
+              "from": "has_null",
+              "to": "word_count",
+              "label": "6"
+            },
+            "tone": "ok"
           }
         ]
       }

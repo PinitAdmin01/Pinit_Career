@@ -2,85 +2,138 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 19,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why shard",
       "codeHash": "9a00db51e993a9b8d104d5bd1b8f87c29ec8182867faa088b7b1e4a0441d7969",
       "spec": {
-        "template": "table",
-        "title": "Capacity calculation and horizontal shard partitioning",
-        "columns": [
-          "vectors",
-          "usable",
-          "shards"
-        ],
+        "template": "bars",
+        "title": "Why shard",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Sharding splits large vector collections across multiple independent servers.",
-            "rows": [
+            "at": "say1",
+            "caption": "A single server has limited memory, CPU and network capacity.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "vectors"
-                  },
-                  {
-                    "text": "usable"
-                  },
-                  {
-                    "text": "shards"
-                  }
-                ],
-                "tone": "ok"
+                "label": "vectors",
+                "value": {
+                  "var": "vectors",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "vectors"
-                  },
-                  {
-                    "text": "usable"
-                  },
-                  {
-                    "text": "shards"
-                  }
-                ],
+                "label": "gb_per_million",
+                "value": {
+                  "var": "gb_per_million",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "server_gb",
+                "value": {
+                  "var": "server_gb",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "usable",
+                "value": {
+                  "var": "usable",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Horizontal scaling increases storage capacity by distributing shards.",
-            "rows": [
+            "at": "say2",
+            "caption": "Sharding splits a collection across several servers, each holding a part.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "vectors"
-                  },
-                  {
-                    "text": "usable"
-                  },
-                  {
-                    "text": "shards"
-                  }
-                ],
-                "tone": "data"
+                "label": "vectors",
+                "value": {
+                  "var": "vectors",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "vectors"
-                  },
-                  {
-                    "text": "usable"
-                  },
-                  {
-                    "text": "vectors"
-                  }
-                ],
+                "label": "gb_per_million",
+                "value": {
+                  "var": "gb_per_million",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "server_gb",
+                "value": {
+                  "var": "server_gb",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "usable",
+                "value": {
+                  "var": "usable",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A common approach is to start with a modest number of shards and add more.",
+            "bars": [
+              {
+                "label": "vectors",
+                "value": {
+                  "var": "vectors",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "gb_per_million",
+                "value": {
+                  "var": "gb_per_million",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "server_gb",
+                "value": {
+                  "var": "server_gb",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "usable",
+                "value": {
+                  "var": "usable",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -88,54 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Capacity calculation and horizontal shard partitioning",
-        "columns": [
-          "vectors",
-          "usable",
-          "shards"
-        ],
+        "template": "bars",
+        "title": "Why shard",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Sharding splits large vector collections across multiple independent servers.",
-            "rows": [
+            "at": "say1",
+            "caption": "A single server has limited memory, CPU and network capacity.",
+            "bars": [
               {
-                "cells": [
-                  "vectors",
-                  "usable",
-                  "shards"
-                ],
-                "tone": "ok"
+                "label": "vectors",
+                "value": 800000000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "vectors",
-                  "usable",
-                  "shards"
-                ],
+                "label": "gb_per_million",
+                "value": 3.3,
+                "tone": "data"
+              },
+              {
+                "label": "server_gb",
+                "value": 64,
+                "tone": "data"
+              },
+              {
+                "label": "usable",
+                "value": 44.8,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Horizontal scaling increases storage capacity by distributing shards.",
-            "rows": [
+            "at": "say2",
+            "caption": "Sharding splits a collection across several servers, each holding a part.",
+            "bars": [
               {
-                "cells": [
-                  "vectors",
-                  "usable",
-                  "shards"
-                ],
-                "tone": "data"
+                "label": "vectors",
+                "value": 800000000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "vectors",
-                  "usable",
-                  "vectors"
-                ],
+                "label": "gb_per_million",
+                "value": 3.3,
+                "tone": "ok"
+              },
+              {
+                "label": "server_gb",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "usable",
+                "value": 44.8,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A common approach is to start with a modest number of shards and add more.",
+            "bars": [
+              {
+                "label": "vectors",
+                "value": 800000000,
+                "tone": "ok"
+              },
+              {
+                "label": "gb_per_million",
+                "value": 3.3,
+                "tone": "ok"
+              },
+              {
+                "label": "server_gb",
+                "value": 64,
+                "tone": "ok"
+              },
+              {
+                "label": "usable",
+                "value": 44.8,
                 "tone": "ok"
               }
             ]
@@ -147,134 +229,111 @@
       "partTitle": "Hash-based placement",
       "codeHash": "c71159418c874f4e6372de50642b572e7ae1c409e13d4bf7b6b36145ec9236b4",
       "spec": {
-        "template": "table",
-        "title": "Deterministic hash partitioning and uniform document spread",
-        "columns": [
-          "shards",
-          "counts",
-          "shards"
-        ],
+        "template": "cells",
+        "title": "Hash-based placement",
         "steps": [
           {
-            "at": "say3",
-            "caption": "A stable hash algorithm ensures consistent placement across server restarts.",
-            "rows": [
+            "at": "say1",
+            "caption": "Each document must be assigned to exactly one shard, in a way every.",
+            "items": {
+              "var": "counts",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "shards"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "shards"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "shards"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "shards"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Deterministic hashing spreads documents evenly across partition shards.",
-            "rows": [
+            "at": "say2",
+            "caption": "A simple rule is shard = hash(document id) mod number of shards.",
+            "items": {
+              "var": "counts",
+              "line": 6,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "shards"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "shards"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Testing placement with a large sample of real ids before launch confirms.",
+            "items": {
+              "var": "counts",
+              "line": 5,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "shards"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "counts"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Deterministic hash partitioning and uniform document spread",
-        "columns": [
-          "shards",
-          "counts",
-          "shards"
-        ],
+        "template": "cells",
+        "title": "Hash-based placement",
         "steps": [
           {
-            "at": "say3",
-            "caption": "A stable hash algorithm ensures consistent placement across server restarts.",
-            "rows": [
+            "at": "say1",
+            "caption": "Each document must be assigned to exactly one shard, in a way every.",
+            "items": [
+              "0",
+              "0",
+              "0",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "shards",
-                  "counts",
-                  "shards"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shards",
-                  "counts",
-                  "shards"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Deterministic hashing spreads documents evenly across partition shards.",
-            "rows": [
+            "at": "say2",
+            "caption": "A simple rule is shard = hash(document id) mod number of shards.",
+            "items": [
+              "0",
+              "0",
+              "2",
+              "1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "shards",
-                  "counts",
-                  "shards"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Testing placement with a large sample of real ids before launch confirms.",
+            "items": [
+              "0",
+              "0",
+              "2",
+              "3"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "shards",
-                  "counts",
-                  "counts"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -285,134 +344,105 @@
       "partTitle": "Scatter-gather search",
       "codeHash": "dc88e69595a9c3ba21c70504e13d1be73970f2ca4d27b8bea7b9065877f63514",
       "spec": {
-        "template": "table",
-        "title": "Parallel shard dispatch and global top-k gathering",
-        "columns": [
-          "shards",
-          "gathered",
-          "shards"
-        ],
+        "template": "cells",
+        "title": "Scatter-gather search",
         "steps": [
           {
             "at": "say1",
-            "caption": "Scatter search dispatches queries to shards and gathers merged results.",
-            "rows": [
+            "caption": "Scatter-gather sends the query to every shard (scatter) and merges their.",
+            "items": {
+              "var": "q",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "shards"
-                  },
-                  {
-                    "text": "gathered"
-                  },
-                  {
-                    "text": "shards"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "shards"
-                  },
-                  {
-                    "text": "gathered"
-                  },
-                  {
-                    "text": "shards"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Each shard returns local candidates before the coordinator merges them.",
-            "rows": [
+            "caption": "Each shard returns its own top k, and the coordinator keeps the global top.",
+            "items": {
+              "var": "q",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "shards"
-                  },
-                  {
-                    "text": "gathered"
-                  },
-                  {
-                    "text": "shards"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Understanding it also explains why adding shards can make each individual.",
+            "items": {
+              "var": "q",
+              "line": 7,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "shards"
-                  },
-                  {
-                    "text": "gathered"
-                  },
-                  {
-                    "text": "gathered"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Parallel shard dispatch and global top-k gathering",
-        "columns": [
-          "shards",
-          "gathered",
-          "shards"
-        ],
+        "template": "cells",
+        "title": "Scatter-gather search",
         "steps": [
           {
             "at": "say1",
-            "caption": "Scatter search dispatches queries to shards and gathers merged results.",
-            "rows": [
+            "caption": "Scatter-gather sends the query to every shard (scatter) and merges their.",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "shards",
-                  "gathered",
-                  "shards"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "shards",
-                  "gathered",
-                  "shards"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Each shard returns local candidates before the coordinator merges them.",
-            "rows": [
+            "caption": "Each shard returns its own top k, and the coordinator keeps the global top.",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "shards",
-                  "gathered",
-                  "shards"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Understanding it also explains why adding shards can make each individual.",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "shards",
-                  "gathered",
-                  "gathered"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -423,135 +453,221 @@
       "partTitle": "Replication",
       "codeHash": "bbd5992f9dd30892eabf23dd3845be38b0cc304b3306a7735634ae641454f99a",
       "spec": {
-        "template": "table",
-        "title": "High availability replicas and query load distribution",
-        "columns": [
-          "replicas",
-          "healthy",
-          "replicas"
+        "template": "flow",
+        "title": "Replication",
+        "nodes": [
+          {
+            "id": "replicas",
+            "label": "replicas"
+          },
+          {
+            "id": "query_number",
+            "label": "query_number"
+          },
+          {
+            "id": "healthy",
+            "label": "healthy"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Replicas provide high availability when an individual machine fails.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "replicas"
-                  },
-                  {
-                    "text": "healthy"
-                  },
-                  {
-                    "text": "replicas"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "A replica is a full copy of a shard on another machine.",
+            "values": {
+              "replicas": {
+                "var": "replicas",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "replicas"
-                  },
-                  {
-                    "text": "healthy"
-                  },
-                  {
-                    "text": "replicas"
-                  }
-                ],
-                "tone": "data"
+              "query_number": {
+                "var": "query_number",
+                "line": 2,
+                "hit": 1
+              },
+              "healthy": {
+                "var": "healthy",
+                "line": 4,
+                "hit": 4
               }
+            },
+            "tones": {
+              "replicas": "data",
+              "query_number": "data",
+              "healthy": "data"
+            },
+            "arrows": [
+              [
+                "replicas",
+                "query_number"
+              ],
+              [
+                "query_number",
+                "healthy"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Adding read replicas multiplies query throughput across concurrent requests.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "replicas"
-                  },
-                  {
-                    "text": "healthy"
-                  },
-                  {
-                    "text": "replicas"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Replicas provide availability.",
+            "values": {
+              "replicas": {
+                "var": "replicas",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "replicas"
-                  },
-                  {
-                    "text": "healthy"
-                  },
-                  {
-                    "text": "healthy"
-                  }
-                ],
-                "tone": "ok"
+              "query_number": {
+                "var": "query_number",
+                "line": 3,
+                "hit": 1
+              },
+              "healthy": {
+                "var": "healthy",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "replicas": "data",
+              "query_number": "data",
+              "healthy": "data"
+            },
+            "arrows": [
+              [
+                "replicas",
+                "query_number"
+              ],
+              [
+                "query_number",
+                "healthy"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Most production systems use both together, for example six shards.",
+            "values": {
+              "replicas": {
+                "var": "replicas",
+                "line": 3,
+                "hit": 1
+              },
+              "query_number": {
+                "var": "query_number",
+                "line": 2,
+                "hit": 2
+              },
+              "healthy": {
+                "var": "healthy",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "replicas": "ok",
+              "query_number": "ok",
+              "healthy": "ok"
+            },
+            "arrows": [
+              [
+                "replicas",
+                "query_number"
+              ],
+              [
+                "query_number",
+                "healthy"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "High availability replicas and query load distribution",
-        "columns": [
-          "replicas",
-          "healthy",
-          "replicas"
+        "template": "flow",
+        "title": "Replication",
+        "nodes": [
+          {
+            "id": "replicas",
+            "label": "replicas"
+          },
+          {
+            "id": "query_number",
+            "label": "query_number"
+          },
+          {
+            "id": "healthy",
+            "label": "healthy"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Replicas provide high availability when an individual machine fails.",
-            "rows": [
-              {
-                "cells": [
-                  "replicas",
-                  "healthy",
-                  "replicas"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "replicas",
-                  "healthy",
-                  "replicas"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "A replica is a full copy of a shard on another machine.",
+            "values": {
+              "replicas": "['replica-A', 'replica-B', 'replica-C']",
+              "query_number": "0",
+              "healthy": "['replica-A', 'replica-C']"
+            },
+            "tones": {
+              "replicas": "data",
+              "query_number": "data",
+              "healthy": "data"
+            },
+            "arrows": [
+              [
+                "replicas",
+                "query_number"
+              ],
+              [
+                "query_number",
+                "healthy"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Adding read replicas multiplies query throughput across concurrent requests.",
-            "rows": [
-              {
-                "cells": [
-                  "replicas",
-                  "healthy",
-                  "replicas"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "replicas",
-                  "healthy",
-                  "healthy"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Replicas provide availability.",
+            "values": {
+              "replicas": "['replica-A', 'replica-B', 'replica-C']",
+              "query_number": "0",
+              "healthy": "['replica-A', 'replica-C']"
+            },
+            "tones": {
+              "replicas": "data",
+              "query_number": "data",
+              "healthy": "data"
+            },
+            "arrows": [
+              [
+                "replicas",
+                "query_number"
+              ],
+              [
+                "query_number",
+                "healthy"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Most production systems use both together, for example six shards.",
+            "values": {
+              "replicas": "['replica-A', 'replica-B', 'replica-C']",
+              "query_number": "1",
+              "healthy": "['replica-A', 'replica-C']"
+            },
+            "tones": {
+              "replicas": "ok",
+              "query_number": "ok",
+              "healthy": "ok"
+            },
+            "arrows": [
+              [
+                "replicas",
+                "query_number"
+              ],
+              [
+                "query_number",
+                "healthy"
+              ]
             ]
           }
         ]
@@ -561,223 +677,133 @@
       "partTitle": "Operating a sharded cluster",
       "codeHash": "cd4da5bcc05beee0480f9b7104cf7c9b17409983c20e5837c44d9de26307407c",
       "spec": {
-        "template": "flow",
-        "title": "Operating a sharded cluster — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Operating a sharded...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Operating a sharded cluster",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Operating a sharded cluster [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Operating a sharded... [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Balanced shards keep latency even.",
+            "bars": [
+              {
+                "label": "avg",
+                "value": {
+                  "var": "avg",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Monitoring per-shard size, latency and error rate reveals imbalance.",
+            "bars": [
+              {
+                "label": "avg",
+                "value": {
+                  "var": "avg",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Operating a sharded cluster.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Clear runbooks, written steps for common problems, help whoever is on call.",
+            "bars": [
+              {
+                "label": "avg",
+                "value": {
+                  "var": "avg",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": {
+                  "var": "size",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Operating a sharded cluster — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Operating a sharded...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Operating a sharded cluster",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Operating a sharded cluster [D19.P5.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Operating a sharded... [D19.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Balanced shards keep latency even.",
+            "bars": [
+              {
+                "label": "avg",
+                "value": 116.5,
+                "tone": "data"
+              },
+              {
+                "label": "size",
+                "value": 102,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Monitoring per-shard size, latency and error rate reveals imbalance.",
+            "bars": [
+              {
+                "label": "avg",
+                "value": 116.5,
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": 102,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Operating a sharded cluster [D19.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Clear runbooks, written steps for common problems, help whoever is on call.",
+            "bars": [
+              {
+                "label": "avg",
+                "value": 116.5,
+                "tone": "ok"
+              },
+              {
+                "label": "size",
+                "value": 102,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -787,223 +813,133 @@
       "partTitle": "Practice time: shards",
       "codeHash": "cd9a79be04fbae9b2a5e5e0cf71f8295e657cac3fa4e10c320984712680a44df",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: shards — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: shards",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: shards",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: shards [D.Psix.Sone].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: shards [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Shard_for(doc_id, shards) returns int(md5(doc_id).",
+            "bars": [
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates confirm during execution.",
+            "bars": [
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 9,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 9,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: shards [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If scatter_gather differs from single-machine search, check that each.",
+            "bars": [
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 9,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 9,
+                  "hit": 4
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: shards — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: shards",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: shards",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: shards [D19.P6.S1].",
-            "values": {
-              "in": "Day 19 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: shards [D19.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Shard_for(doc_id, shards) returns int(md5(doc_id).",
+            "bars": [
+              {
+                "label": "a",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "b",
+                "value": 0.14948477281580505,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D19.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Trace how checks updates confirm during execution.",
+            "bars": [
+              {
+                "label": "a",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": -0.03317509406048647,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: shards [D19.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If scatter_gather differs from single-machine search, check that each.",
+            "bars": [
+              {
+                "label": "a",
+                "value": -0.2,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": -0.05155537704302504,
+                "tone": "ok"
+              }
             ]
           }
         ]

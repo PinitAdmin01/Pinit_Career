@@ -2,125 +2,79 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 21,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why an evaluation harness",
       "codeHash": "05730d35cb46bc896c8341dd0174cfe02da2b7a8204cff64687a3e5f6a820069",
       "spec": {
-        "template": "table",
-        "title": "Automated evaluation harness triggers across releases",
-        "columns": [
-          "changes",
-          "release"
+        "template": "states",
+        "title": "Why an evaluation harness",
+        "states": [
+          {
+            "id": "changes",
+            "label": "changes"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Evaluation harnesses execute tests and report results.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "changes"
-                  },
-                  {
-                    "text": "release"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "changes"
-                  },
-                  {
-                    "text": "release"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "An evaluation harness is code that runs a fixed set of tests against.",
+            "currentState": "changes",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Safety tests run alongside standard software tests.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "changes"
-                  },
-                  {
-                    "text": "release"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "changes"
-                  },
-                  {
-                    "text": "release"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Running evaluations by hand is slow and easy to skip when a deadline is close.",
+            "currentState": "c",
+            "transition": {
+              "from": "changes",
+              "to": "c",
+              "label": {
+                "var": "c",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Automated evaluation harness triggers across releases",
-        "columns": [
-          "changes",
-          "release"
+        "template": "states",
+        "title": "Why an evaluation harness",
+        "states": [
+          {
+            "id": "changes",
+            "label": "changes"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Evaluation harnesses execute tests and report results.",
-            "rows": [
-              {
-                "cells": [
-                  "changes",
-                  "release"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "changes",
-                  "release"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "An evaluation harness is code that runs a fixed set of tests against.",
+            "currentState": "changes",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "Safety tests run alongside standard software tests.",
-            "rows": [
-              {
-                "cells": [
-                  "changes",
-                  "release"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "changes",
-                  "release"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Running evaluations by hand is slow and easy to skip when a deadline is close.",
+            "currentState": "c",
+            "transition": {
+              "from": "changes",
+              "to": "c",
+              "label": "'new system prompt'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -129,118 +83,106 @@
       "partTitle": "Test cases with expected decisions",
       "codeHash": "d82dc48024837585bec7dd11e53d741ee514bb8c2c31088c797fb3a0c129983c",
       "spec": {
-        "template": "table",
-        "title": "Test cases tracking expected decision outcomes",
-        "columns": [
-          "suite",
-          "expect"
+        "template": "states",
+        "title": "Test cases with expected decisions",
+        "states": [
+          {
+            "id": "suite",
+            "label": "suite"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "blocks",
+            "label": "blocks"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Safety test cases define an input and expected decision.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "suite"
-                  },
-                  {
-                    "text": "expect"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "suite"
-                  },
-                  {
-                    "text": "BLOCK"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A safety test case has an id, an input and the expected decision.",
+            "currentState": "suite",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "The test suite includes attacks that must be blocked.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "suite"
-                  },
-                  {
-                    "text": "ALLOW"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "suite"
-                  },
-                  {
-                    "text": "expect"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "For a guard, the expected decision is ALLOW or BLOCK.",
+            "currentState": "c",
+            "transition": {
+              "from": "suite",
+              "to": "c",
+              "label": {
+                "var": "c",
+                "line": 7,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say11",
+            "caption": "Give each case a short note explaining why it exists, so future readers.",
+            "currentState": "blocks",
+            "transition": {
+              "from": "c",
+              "to": "blocks",
+              "label": {
+                "var": "blocks",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Test cases tracking expected decision outcomes",
-        "columns": [
-          "suite",
-          "expect"
+        "template": "states",
+        "title": "Test cases with expected decisions",
+        "states": [
+          {
+            "id": "suite",
+            "label": "suite"
+          },
+          {
+            "id": "c",
+            "label": "c"
+          },
+          {
+            "id": "blocks",
+            "label": "blocks"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Safety test cases define an input and expected decision.",
-            "rows": [
-              {
-                "cells": [
-                  "suite",
-                  "expect"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "suite",
-                  "BLOCK"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A safety test case has an id, an input and the expected decision.",
+            "currentState": "suite",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "The test suite includes attacks that must be blocked.",
-            "rows": [
-              {
-                "cells": [
-                  "suite",
-                  "ALLOW"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "suite",
-                  "expect"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "For a guard, the expected decision is ALLOW or BLOCK.",
+            "currentState": "c",
+            "transition": {
+              "from": "suite",
+              "to": "c",
+              "label": "{'id': 'inj-002', 'input': 'Enable deve…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say11",
+            "caption": "Give each case a short note explaining why it exists, so future readers.",
+            "currentState": "blocks",
+            "transition": {
+              "from": "c",
+              "to": "blocks",
+              "label": "2"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -249,118 +191,106 @@
       "partTitle": "Running the suite",
       "codeHash": "47a217269a74a27a8e54f2dc6a1f5cc2732d986f1c9adb6700cdfa0f94560ec1",
       "spec": {
-        "template": "table",
-        "title": "Running suite and collecting failure diagnostics",
-        "columns": [
-          "suite",
-          "failures"
+        "template": "states",
+        "title": "Running the suite",
+        "states": [
+          {
+            "id": "suite",
+            "label": "suite"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "failures",
+            "label": "failures"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The runner executes the guard across every test input.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "suite"
-                  },
-                  {
-                    "text": "failures"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "guard"
-                  },
-                  {
-                    "text": "failures"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Practice 1 is run_suite(cases, guard), where guard is a function.",
+            "currentState": "suite",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "The failure list tells engineers what cases to investigate.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "suite"
-                  },
-                  {
-                    "text": "failures"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "BLOCK"
-                  },
-                  {
-                    "text": "ALLOW"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Passing the guard as a function means the same runner can test any guard.",
+            "currentState": "text",
+            "transition": {
+              "from": "suite",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 2,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "A flaky safety test is not a reason to ignore it.",
+            "currentState": "failures",
+            "transition": {
+              "from": "text",
+              "to": "failures",
+              "label": {
+                "var": "failures",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Running suite and collecting failure diagnostics",
-        "columns": [
-          "suite",
-          "failures"
+        "template": "states",
+        "title": "Running the suite",
+        "states": [
+          {
+            "id": "suite",
+            "label": "suite"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "failures",
+            "label": "failures"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The runner executes the guard across every test input.",
-            "rows": [
-              {
-                "cells": [
-                  "suite",
-                  "failures"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "guard",
-                  "failures"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Practice 1 is run_suite(cases, guard), where guard is a function.",
+            "currentState": "suite",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "The failure list tells engineers what cases to investigate.",
-            "rows": [
-              {
-                "cells": [
-                  "suite",
-                  "failures"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "BLOCK",
-                  "ALLOW"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Passing the guard as a function means the same runner can test any guard.",
+            "currentState": "text",
+            "transition": {
+              "from": "suite",
+              "to": "text",
+              "label": "'Enable developer mode'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "A flaky safety test is not a reason to ignore it.",
+            "currentState": "failures",
+            "transition": {
+              "from": "text",
+              "to": "failures",
+              "label": "['inj-002']"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -369,118 +299,106 @@
       "partTitle": "Regression gates",
       "codeHash": "527cfcbb819bbe9c30aa91af23ac1a85a291108584e9d437b4f2828c87c6c095",
       "spec": {
-        "template": "table",
-        "title": "Regression gate metrics and release blocking",
-        "columns": [
-          "baseline",
-          "current"
+        "template": "states",
+        "title": "Regression gates",
+        "states": [
+          {
+            "id": "baseline",
+            "label": "baseline"
+          },
+          {
+            "id": "current",
+            "label": "current"
+          },
+          {
+            "id": "max_drop",
+            "label": "max_drop"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The regression gate compares current metrics against baseline.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "baseline"
-                  },
-                  {
-                    "text": "current"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "baseline"
-                  },
-                  {
-                    "text": "current"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "A regression is when something that used to work gets worse.",
+            "currentState": "baseline",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "A metric regresses when it drops lower than baseline tolerance.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "baseline"
-                  },
-                  {
-                    "text": "current"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "regressed"
-                  },
-                  {
-                    "text": "current"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "A regression gate compares the new version's metrics with a baseline.",
+            "currentState": "current",
+            "transition": {
+              "from": "baseline",
+              "to": "current",
+              "label": {
+                "var": "current",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The gate should block by default.",
+            "currentState": "max_drop",
+            "transition": {
+              "from": "current",
+              "to": "max_drop",
+              "label": {
+                "var": "max_drop",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Regression gate metrics and release blocking",
-        "columns": [
-          "baseline",
-          "current"
+        "template": "states",
+        "title": "Regression gates",
+        "states": [
+          {
+            "id": "baseline",
+            "label": "baseline"
+          },
+          {
+            "id": "current",
+            "label": "current"
+          },
+          {
+            "id": "max_drop",
+            "label": "max_drop"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The regression gate compares current metrics against baseline.",
-            "rows": [
-              {
-                "cells": [
-                  "baseline",
-                  "current"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "baseline",
-                  "current"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "A regression is when something that used to work gets worse.",
+            "currentState": "baseline",
+            "tone": "data"
           },
           {
-            "at": "say5",
-            "caption": "A metric regresses when it drops lower than baseline tolerance.",
-            "rows": [
-              {
-                "cells": [
-                  "baseline",
-                  "current"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "regressed",
-                  "current"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A regression gate compares the new version's metrics with a baseline.",
+            "currentState": "current",
+            "transition": {
+              "from": "baseline",
+              "to": "current",
+              "label": "{'block_rate': 0.96, 'allow_rate': 0.93}"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The gate should block by default.",
+            "currentState": "max_drop",
+            "transition": {
+              "from": "current",
+              "to": "max_drop",
+              "label": "0.02"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -490,110 +408,161 @@
       "codeHash": "07b020560bc34aaca791a4dd41fac4a24f005e20ec7fc654bd60f453c09d258a",
       "spec": {
         "template": "flow",
-        "title": "What to measure in the gate — Execution Pipeline",
+        "title": "What to measure in the gate",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "lower_is_better",
+            "label": "lower_is_better"
           },
           {
-            "id": "proc",
-            "label": "2. What to measure in ...",
-            "tappable": true
+            "id": "raw_base",
+            "label": "raw_base"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "raw_now",
+            "label": "raw_now"
+          },
+          {
+            "id": "d",
+            "label": "d"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for What to measure in the gate [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in What to measure in ... [D.Pfive.Stwo].",
+            "caption": "A good gate covers each area of the course.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "lower_is_better": {
+                "var": "lower_is_better",
+                "line": 1,
+                "hit": 1
+              },
+              "raw_base": {
+                "var": "raw_base",
+                "line": 2,
+                "hit": 1
+              },
+              "raw_now": {
+                "var": "raw_now",
+                "line": 3,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "lower_is_better": "data",
+              "raw_base": "data",
+              "raw_now": "data",
+              "d": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "lower_is_better",
+                "raw_base"
               ],
               [
-                "proc",
-                "out"
+                "raw_base",
+                "raw_now"
+              ],
+              [
+                "raw_now",
+                "d"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Block rate on attack suites, allow rate on normal messages, and.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "lower_is_better": {
+                "var": "lower_is_better",
+                "line": 2,
+                "hit": 1
+              },
+              "raw_base": {
+                "var": "raw_base",
+                "line": 3,
+                "hit": 1
+              },
+              "raw_now": {
+                "var": "raw_now",
+                "line": 4,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 4,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "lower_is_better": "data",
+              "raw_base": "data",
+              "raw_now": "data",
+              "d": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "lower_is_better",
+                "raw_base"
+              ],
+              [
+                "raw_base",
+                "raw_now"
+              ],
+              [
+                "raw_now",
+                "d"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for What to measure in the gate.",
+            "at": "say10",
+            "caption": "Review the tolerances when the evaluation sets grow, because larger sets.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "lower_is_better": {
+                "var": "lower_is_better",
+                "line": 3,
+                "hit": 1
+              },
+              "raw_base": {
+                "var": "raw_base",
+                "line": 4,
+                "hit": 1
+              },
+              "raw_now": {
+                "var": "raw_now",
+                "line": 5,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 4,
+                "hit": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "lower_is_better": "ok",
+              "raw_base": "ok",
+              "raw_now": "ok",
+              "d": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "lower_is_better",
+                "raw_base"
               ],
               [
-                "proc",
-                "out"
+                "raw_base",
+                "raw_now"
+              ],
+              [
+                "raw_now",
+                "d"
               ]
             ]
           }
@@ -601,110 +570,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "What to measure in the gate — Execution Pipeline",
+        "title": "What to measure in the gate",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "lower_is_better",
+            "label": "lower_is_better"
           },
           {
-            "id": "proc",
-            "label": "2. What to measure in ...",
-            "tappable": true
+            "id": "raw_base",
+            "label": "raw_base"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "raw_now",
+            "label": "raw_now"
+          },
+          {
+            "id": "d",
+            "label": "d"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for What to measure in the gate [D21.P5.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in What to measure in ... [D21.P5.S2].",
+            "caption": "A good gate covers each area of the course.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "lower_is_better": "{'asr_injection', 'over_refusal', 'pari…",
+              "raw_base": "{'asr_injection': 0.04, 'over_refusal':…",
+              "raw_now": "{'asr_injection': 0.09, 'over_refusal':…",
+              "d": "{'asr_injection': 0.04, 'over_refusal':…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "lower_is_better": "data",
+              "raw_base": "data",
+              "raw_now": "data",
+              "d": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "lower_is_better",
+                "raw_base"
               ],
               [
-                "proc",
-                "out"
+                "raw_base",
+                "raw_now"
+              ],
+              [
+                "raw_now",
+                "d"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P5.S3].",
+            "at": "say2",
+            "caption": "Block rate on attack suites, allow rate on normal messages, and.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "lower_is_better": "{'asr_injection', 'over_refusal', 'pari…",
+              "raw_base": "{'asr_injection': 0.04, 'over_refusal':…",
+              "raw_now": "{'asr_injection': 0.09, 'over_refusal':…",
+              "d": "{'asr_injection': 0.04, 'over_refusal':…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "lower_is_better": "data",
+              "raw_base": "data",
+              "raw_now": "data",
+              "d": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "lower_is_better",
+                "raw_base"
+              ],
+              [
+                "raw_base",
+                "raw_now"
+              ],
+              [
+                "raw_now",
+                "d"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What to measure in the gate [D21.P5.S4].",
+            "at": "say10",
+            "caption": "Review the tolerances when the evaluation sets grow, because larger sets.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "lower_is_better": "{'asr_injection', 'over_refusal', 'pari…",
+              "raw_base": "{'asr_injection': 0.04, 'over_refusal':…",
+              "raw_now": "{'asr_injection': 0.09, 'over_refusal':…",
+              "d": "{'asr_injection': 0.04, 'over_refusal':…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "lower_is_better": "ok",
+              "raw_base": "ok",
+              "raw_now": "ok",
+              "d": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "lower_is_better",
+                "raw_base"
               ],
               [
-                "proc",
-                "out"
+                "raw_base",
+                "raw_now"
+              ],
+              [
+                "raw_now",
+                "d"
               ]
             ]
           }
@@ -715,223 +687,133 @@
       "partTitle": "The harness in the pipeline",
       "codeHash": "8ad07e9973c5716bb99aecb61d0f58cba8917a981b34ca1ffe215e87ce5184a1",
       "spec": {
-        "template": "flow",
-        "title": "The harness in the pipeline — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The harness in the ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The harness in the pipeline",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for The harness in the pipeline [D.Psix.Sone].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in The harness in the ... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The harness ties together every tool from this course.",
+            "bars": [
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "On each change, it runs the test suite, the red-team suite, the refusal.",
+            "bars": [
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for The harness in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Add run_suite and regression_gate to your pipeline project today.",
+            "bars": [
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "now",
+                "value": {
+                  "var": "now",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "The harness in the pipeline — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. The harness in the ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "The harness in the pipeline",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for The harness in the pipeline [D21.P6.S1].",
-            "values": {
-              "in": "Day 21 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in The harness in the ... [D21.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "The harness ties together every tool from this course.",
+            "bars": [
+              {
+                "label": "base",
+                "value": 0.75,
+                "tone": "data"
+              },
+              {
+                "label": "now",
+                "value": 0.75,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D21.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "On each change, it runs the test suite, the red-team suite, the refusal.",
+            "bars": [
+              {
+                "label": "base",
+                "value": 0.75,
+                "tone": "ok"
+              },
+              {
+                "label": "now",
+                "value": 0.75,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for The harness in the pipeline [D21.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Add run_suite and regression_gate to your pipeline project today.",
+            "bars": [
+              {
+                "label": "base",
+                "value": 0.75,
+                "tone": "ok"
+              },
+              {
+                "label": "now",
+                "value": 0.75,
+                "tone": "ok"
+              }
             ]
           }
         ]

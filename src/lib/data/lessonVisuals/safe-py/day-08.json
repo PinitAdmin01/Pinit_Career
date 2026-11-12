@@ -2,143 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 8,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Moderation classifiers",
       "codeHash": "bc1f3a7da5da878472f55ef43a4e405a7b62e5f9d76edffe745ad9b24e4e3f19",
       "spec": {
-        "template": "table",
-        "title": "Harm category classification and confidence scoring",
-        "columns": [
-          "scores",
-          "top",
-          "scores"
+        "template": "states",
+        "title": "Moderation classifiers",
+        "states": [
+          {
+            "id": "scores",
+            "label": "scores"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A moderation classifier reads text and scores it for harm categories.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "top"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "top"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A moderation classifier is a model that reads text and scores it.",
+            "currentState": "scores",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "The classifier computes scores while policy code decides automated actions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "top"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "top"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Typical categories are violence, self-harm, hate, harassment, sexual.",
+            "currentState": "text",
+            "transition": {
+              "from": "scores",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "This is why thresholds, categories and review paths all need care.",
+            "currentState": "s",
+            "transition": {
+              "from": "text",
+              "to": "s",
+              "label": {
+                "var": "s",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Harm category classification and confidence scoring",
-        "columns": [
-          "scores",
-          "top",
-          "scores"
+        "template": "states",
+        "title": "Moderation classifiers",
+        "states": [
+          {
+            "id": "scores",
+            "label": "scores"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A moderation classifier reads text and scores it for harm categories.",
-            "rows": [
-              {
-                "cells": [
-                  "scores",
-                  "top",
-                  "scores"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "scores",
-                  "top",
-                  "scores"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A moderation classifier is a model that reads text and scores it.",
+            "currentState": "scores",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "The classifier computes scores while policy code decides automated actions.",
-            "rows": [
-              {
-                "cells": [
-                  "scores",
-                  "top",
-                  "scores"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "scores",
-                  "top",
-                  "scores"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Typical categories are violence, self-harm, hate, harassment, sexual.",
+            "currentState": "text",
+            "transition": {
+              "from": "scores",
+              "to": "text",
+              "label": "'How do I bake bread?'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "This is why thresholds, categories and review paths all need care.",
+            "currentState": "s",
+            "transition": {
+              "from": "text",
+              "to": "s",
+              "label": "{'violence': 0.01, 'self_harm': 0, 'hat…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -147,136 +117,106 @@
       "partTitle": "Per-category thresholds",
       "codeHash": "1ac413398f148afd89b7c0312fb4bed0640a02e19801843fcc222675927510a4",
       "spec": {
-        "template": "table",
-        "title": "Per-category threshold policy definitions and routing",
-        "columns": [
-          "scores",
-          "policies",
-          "flagged"
+        "template": "states",
+        "title": "Per-category thresholds",
+        "states": [
+          {
+            "id": "scores",
+            "label": "scores"
+          },
+          {
+            "id": "policies",
+            "label": "policies"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A threshold defines the minimum score at which a category counts as flagged.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "policies"
-                  },
-                  {
-                    "text": "flagged"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "policies"
-                  },
-                  {
-                    "text": "flagged"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A threshold is the score at which a category counts as flagged.",
+            "currentState": "scores",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Different categories deserve different thresholds based on mistake severity.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "policies"
-                  },
-                  {
-                    "text": "flagged"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "policies"
-                  },
-                  {
-                    "text": "flagged"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Different categories deserve different thresholds, because the cost of.",
+            "currentState": "policies",
+            "transition": {
+              "from": "scores",
+              "to": "policies",
+              "label": {
+                "var": "policies",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The next parts show how to choose them with data.",
+            "currentState": "name",
+            "transition": {
+              "from": "policies",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Per-category threshold policy definitions and routing",
-        "columns": [
-          "scores",
-          "policies",
-          "flagged"
+        "template": "states",
+        "title": "Per-category thresholds",
+        "states": [
+          {
+            "id": "scores",
+            "label": "scores"
+          },
+          {
+            "id": "policies",
+            "label": "policies"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A threshold defines the minimum score at which a category counts as flagged.",
-            "rows": [
-              {
-                "cells": [
-                  "scores",
-                  "policies",
-                  "flagged"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "scores",
-                  "policies",
-                  "flagged"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A threshold is the score at which a category counts as flagged.",
+            "currentState": "scores",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Different categories deserve different thresholds based on mistake severity.",
-            "rows": [
-              {
-                "cells": [
-                  "scores",
-                  "policies",
-                  "flagged"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "scores",
-                  "policies",
-                  "flagged"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Different categories deserve different thresholds, because the cost of.",
+            "currentState": "policies",
+            "transition": {
+              "from": "scores",
+              "to": "policies",
+              "label": "{'teen app': {'violence': 0.5, 'self_ha…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The next parts show how to choose them with data.",
+            "currentState": "name",
+            "transition": {
+              "from": "policies",
+              "to": "name",
+              "label": "'teen app'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -285,135 +225,277 @@
       "partTitle": "Four outcomes",
       "codeHash": "30844076b7947c9ba09d28aad71fef14c9e155585ecfe5e3c575a1859a913936",
       "spec": {
-        "template": "table",
-        "title": "Four classification outcomes on labelled benchmark datasets",
-        "columns": [
-          "examples",
-          "counts",
-          "examples"
+        "template": "flow",
+        "title": "Four outcomes",
+        "nodes": [
+          {
+            "id": "examples",
+            "label": "examples"
+          },
+          {
+            "id": "threshold",
+            "label": "threshold"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          },
+          {
+            "id": "score",
+            "label": "score"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "To choose a threshold teams need labelled examples with known true labels.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "examples"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "To choose a threshold you need labelled examples.",
+            "values": {
+              "examples": {
+                "var": "examples",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "examples"
-                  }
-                ],
-                "tone": "data"
+              "threshold": {
+                "var": "threshold",
+                "line": 2,
+                "hit": 1
+              },
+              "counts": {
+                "var": "counts",
+                "line": 3,
+                "hit": 1
+              },
+              "score": {
+                "var": "score",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "examples": "data",
+              "threshold": "data",
+              "counts": "data",
+              "score": "data"
+            },
+            "arrows": [
+              [
+                "examples",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "counts"
+              ],
+              [
+                "counts",
+                "score"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Predictions classify harmful items as either caught or missed.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "examples"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Each example ends in one of four outcomes.",
+            "values": {
+              "examples": {
+                "var": "examples",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "examples"
-                  }
-                ],
-                "tone": "ok"
+              "threshold": {
+                "var": "threshold",
+                "line": 3,
+                "hit": 1
+              },
+              "counts": {
+                "var": "counts",
+                "line": 4,
+                "hit": 1
+              },
+              "score": {
+                "var": "score",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "examples": "data",
+              "threshold": "data",
+              "counts": "data",
+              "score": "data"
+            },
+            "arrows": [
+              [
+                "examples",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "counts"
+              ],
+              [
+                "counts",
+                "score"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow names these four numbers formally as the confusion matrix.",
+            "values": {
+              "examples": {
+                "var": "examples",
+                "line": 3,
+                "hit": 1
+              },
+              "threshold": {
+                "var": "threshold",
+                "line": 4,
+                "hit": 1
+              },
+              "counts": {
+                "var": "counts",
+                "line": 5,
+                "hit": 1
+              },
+              "score": {
+                "var": "score",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "examples": "ok",
+              "threshold": "ok",
+              "counts": "ok",
+              "score": "ok"
+            },
+            "arrows": [
+              [
+                "examples",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "counts"
+              ],
+              [
+                "counts",
+                "score"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Four classification outcomes on labelled benchmark datasets",
-        "columns": [
-          "examples",
-          "counts",
-          "examples"
+        "template": "flow",
+        "title": "Four outcomes",
+        "nodes": [
+          {
+            "id": "examples",
+            "label": "examples"
+          },
+          {
+            "id": "threshold",
+            "label": "threshold"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          },
+          {
+            "id": "score",
+            "label": "score"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "To choose a threshold teams need labelled examples with known true labels.",
-            "rows": [
-              {
-                "cells": [
-                  "examples",
-                  "counts",
-                  "examples"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "examples",
-                  "counts",
-                  "examples"
-                ],
-                "tone": "data"
-              }
+            "caption": "To choose a threshold you need labelled examples.",
+            "values": {
+              "examples": "[[0.9, True], [0.7, True], [0.4, True],…",
+              "threshold": "0.5",
+              "counts": "{'caught': 0, 'missed': 0, 'false_alarm…",
+              "score": "0.9"
+            },
+            "tones": {
+              "examples": "data",
+              "threshold": "data",
+              "counts": "data",
+              "score": "data"
+            },
+            "arrows": [
+              [
+                "examples",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "counts"
+              ],
+              [
+                "counts",
+                "score"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Predictions classify harmful items as either caught or missed.",
-            "rows": [
-              {
-                "cells": [
-                  "examples",
-                  "counts",
-                  "examples"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "examples",
-                  "counts",
-                  "examples"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Each example ends in one of four outcomes.",
+            "values": {
+              "examples": "[[0.9, True], [0.7, True], [0.4, True],…",
+              "threshold": "0.5",
+              "counts": "{'caught': 0, 'missed': 0, 'false_alarm…",
+              "score": "0.9"
+            },
+            "tones": {
+              "examples": "data",
+              "threshold": "data",
+              "counts": "data",
+              "score": "data"
+            },
+            "arrows": [
+              [
+                "examples",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "counts"
+              ],
+              [
+                "counts",
+                "score"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow names these four numbers formally as the confusion matrix.",
+            "values": {
+              "examples": "[[0.9, True], [0.7, True], [0.4, True],…",
+              "threshold": "0.5",
+              "counts": "{'caught': 0, 'missed': 0, 'false_alarm…",
+              "score": "0.9"
+            },
+            "tones": {
+              "examples": "ok",
+              "threshold": "ok",
+              "counts": "ok",
+              "score": "ok"
+            },
+            "arrows": [
+              [
+                "examples",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "counts"
+              ],
+              [
+                "counts",
+                "score"
+              ]
             ]
           }
         ]
@@ -423,78 +505,131 @@
       "partTitle": "The threshold trade-off",
       "codeHash": "fa8cb4cfdcf0b50a31482e58d3fcdf10f5563778501fe523dbb5d440d4b08b72",
       "spec": {
-        "template": "table",
-        "title": "Threshold parameter sweeps across false alarm and miss rates",
-        "columns": [
-          "examples",
-          "missed",
-          "examples"
-        ],
+        "template": "bars",
+        "title": "The threshold trade-off",
         "steps": [
           {
             "at": "say1",
-            "caption": "Lowering the threshold flags more content with fewer misses but false alarms.",
-            "rows": [
+            "caption": "Lowering the threshold flags more content.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "missed"
-                  },
-                  {
-                    "text": "examples"
-                  }
-                ],
-                "tone": "ok"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "missed"
-                  },
-                  {
-                    "text": "examples"
-                  }
-                ],
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "missed",
+                "value": {
+                  "var": "missed",
+                  "line": 3,
+                  "hit": 8
+                },
+                "tone": "data"
+              },
+              {
+                "label": "false_alarms",
+                "value": {
+                  "var": "false_alarms",
+                  "line": 4,
+                  "hit": 8
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Raising thresholds produces fewer false alarms while increasing missed harm.",
-            "rows": [
+            "caption": "Raising it does the opposite.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "missed"
-                  },
-                  {
-                    "text": "examples"
-                  }
-                ],
-                "tone": "data"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 3,
+                  "hit": 8
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "examples"
-                  },
-                  {
-                    "text": "missed"
-                  },
-                  {
-                    "text": "examples"
-                  }
-                ],
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "missed",
+                "value": {
+                  "var": "missed",
+                  "line": 4,
+                  "hit": 8
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "false_alarms",
+                "value": {
+                  "var": "false_alarms",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "That is a real outcome, and the answer might be human review or a better.",
+            "bars": [
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 4,
+                  "hit": 8
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "missed",
+                "value": {
+                  "var": "missed",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "false_alarms",
+                "value": {
+                  "var": "false_alarms",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +637,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Threshold parameter sweeps across false alarm and miss rates",
-        "columns": [
-          "examples",
-          "missed",
-          "examples"
-        ],
+        "template": "bars",
+        "title": "The threshold trade-off",
         "steps": [
           {
             "at": "say1",
-            "caption": "Lowering the threshold flags more content with fewer misses but false alarms.",
-            "rows": [
+            "caption": "Lowering the threshold flags more content.",
+            "bars": [
               {
-                "cells": [
-                  "examples",
-                  "missed",
-                  "examples"
-                ],
-                "tone": "ok"
+                "label": "t",
+                "value": 0.3,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "examples",
-                  "missed",
-                  "examples"
-                ],
+                "label": "s",
+                "value": 0.9,
+                "tone": "data"
+              },
+              {
+                "label": "missed",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "false_alarms",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Raising thresholds produces fewer false alarms while increasing missed harm.",
-            "rows": [
+            "caption": "Raising it does the opposite.",
+            "bars": [
               {
-                "cells": [
-                  "examples",
-                  "missed",
-                  "examples"
-                ],
-                "tone": "data"
+                "label": "t",
+                "value": 0.3,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "examples",
-                  "missed",
-                  "examples"
-                ],
+                "label": "s",
+                "value": 0.7,
+                "tone": "ok"
+              },
+              {
+                "label": "missed",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "false_alarms",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "That is a real outcome, and the answer might be human review or a better.",
+            "bars": [
+              {
+                "label": "t",
+                "value": 0.3,
+                "tone": "ok"
+              },
+              {
+                "label": "s",
+                "value": 0.4,
+                "tone": "ok"
+              },
+              {
+                "label": "missed",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "false_alarms",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -561,224 +725,106 @@
       "partTitle": "Moderation in the pipeline",
       "codeHash": "5cfb229a95fbb386c871cb087a164fb49cba53d8691448b84938a920c06b65d4",
       "spec": {
-        "template": "flow",
-        "title": "Moderation in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Moderation in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "LIMITS",
+            "label": "LIMITS"
           },
           {
-            "id": "proc",
-            "label": "2. Moderation in the p...",
-            "tappable": true
+            "id": "turn",
+            "label": "turn"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "side",
+            "label": "side"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Moderation in the pipeline [Deight.Pfive.Sone].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Moderation in the p... [Deight.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "In a pipeline, moderation usually runs twice.",
+            "currentState": "LIMITS",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Input moderation stops the model being used for harmful tasks.",
+            "currentState": "turn",
+            "transition": {
+              "from": "LIMITS",
+              "to": "turn",
+              "label": {
+                "var": "turn",
+                "line": 9,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Moderation in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow gives you the standard measures for judging any classifier.",
+            "currentState": "side",
+            "transition": {
+              "from": "turn",
+              "to": "side",
+              "label": {
+                "var": "side",
+                "line": 9,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Moderation in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Moderation in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "LIMITS",
+            "label": "LIMITS"
           },
           {
-            "id": "proc",
-            "label": "2. Moderation in the p...",
-            "tappable": true
+            "id": "turn",
+            "label": "turn"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "side",
+            "label": "side"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Moderation in the pipeline [D8.P5.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Moderation in the p... [D8.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "In a pipeline, moderation usually runs twice.",
+            "currentState": "LIMITS",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Input moderation stops the model being used for harmful tasks.",
+            "currentState": "turn",
+            "transition": {
+              "from": "LIMITS",
+              "to": "turn",
+              "label": "{'input': {'violence': 0.1, 'self_harm'…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Moderation in the pipeline [D8.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow gives you the standard measures for judging any classifier.",
+            "currentState": "side",
+            "transition": {
+              "from": "turn",
+              "to": "side",
+              "label": "'output'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -787,224 +833,106 @@
       "partTitle": "Where moderation goes wrong",
       "codeHash": "a7f8c8fbfacdd3f2fdfba6258caf69aa1b296160e57986f01595587b5ab9a023",
       "spec": {
-        "template": "flow",
-        "title": "Where moderation goes wrong — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Where moderation goes wrong",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "harmless",
+            "label": "harmless"
           },
           {
-            "id": "proc",
-            "label": "2. Where moderation go...",
-            "tappable": true
+            "id": "threshold",
+            "label": "threshold"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "group",
+            "label": "group"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Where moderation goes wrong [Deight.Psix.Sone].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Where moderation go... [Deight.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Moderation classifiers make systematic mistakes, not just random ones.",
+            "currentState": "harmless",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "They often over-flag reclaimed slurs, dialects and discussions.",
+            "currentState": "threshold",
+            "transition": {
+              "from": "harmless",
+              "to": "threshold",
+              "label": {
+                "var": "threshold",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Where moderation goes wrong.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Good moderation is a process of measuring and adjusting, not a one-time.",
+            "currentState": "group",
+            "transition": {
+              "from": "threshold",
+              "to": "group",
+              "label": {
+                "var": "group",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Where moderation goes wrong — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Where moderation goes wrong",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "harmless",
+            "label": "harmless"
           },
           {
-            "id": "proc",
-            "label": "2. Where moderation go...",
-            "tappable": true
+            "id": "threshold",
+            "label": "threshold"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "group",
+            "label": "group"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Where moderation goes wrong [D8.P6.S1].",
-            "values": {
-              "in": "Day 8 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Where moderation go... [D8.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Moderation classifiers make systematic mistakes, not just random ones.",
+            "currentState": "harmless",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D8.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "They often over-flag reclaimed slurs, dialects and discussions.",
+            "currentState": "threshold",
+            "transition": {
+              "from": "harmless",
+              "to": "threshold",
+              "label": "0.5"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Where moderation goes wrong [D8.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Good moderation is a process of measuring and adjusting, not a one-time.",
+            "currentState": "group",
+            "transition": {
+              "from": "threshold",
+              "to": "group",
+              "label": "'standard English'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

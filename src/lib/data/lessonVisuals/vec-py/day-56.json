@@ -2,269 +2,121 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 56,
-  "promptSha": "3dd32494d0b42eaaf912f9a17a6f112f12fbb814c4dda1a82903252f4b7e29ca",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Retrieval Evaluation Suite — Foundations & Mathematical Invariants",
-      "codeHash": "1bfdd96adb39ea8c2766a39d8d633af408d4e702a8f78cf475998a8639efad50",
+      "codeHash": "9f7e364f678f67c8366b7577c1704da4dfad1b21d3653a252604bb39a9cc3cfb",
       "spec": {
-        "template": "flow",
-        "title": "Retrieval Evaluation Suite — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Retrieval Evaluation Suite — Foundations & Mathematical Invarian",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantifying search engine quality requires standardized statistical.",
+            "items": {
+              "var": "ret",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The most fundamental recall metric in approximate nearest neighbor search.",
+            "items": {
+              "var": "ret",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": {
+              "var": "ret",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Retrieval Evaluation Suite — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Retrieval Evaluation Suite — Foundations & Mathematical Invarian",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantifying search engine quality requires standardized statistical.",
+            "items": [
+              "10",
+              "20",
+              "30",
+              "40",
+              "50"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "The most fundamental recall metric in approximate nearest neighbor search.",
+            "items": [
+              "10",
+              "20",
+              "30",
+              "40",
+              "50"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": [
+              "10",
+              "20",
+              "30",
+              "40",
+              "50"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -273,264 +125,110 @@
     },
     {
       "partTitle": "Retrieval Evaluation Suite — Core Algorithm & State Representation",
-      "codeHash": "931933437c3cc10167cac26a4db0db885b7e5d0ce3d2b2f74a13cbc757db142f",
+      "codeHash": "5c7de3550dd883db071c246620ad5962d3343fbaff5fae04e76da2c3d3cb9b5e",
       "spec": {
-        "template": "flow",
-        "title": "Retrieval Evaluation Suite — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Retrieval Evaluation Suite — Core Algorithm & State Representati",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In navigational and known-item search scenarios, users seek a.",
+            "items": {
+              "var": "docs",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Mean Reciprocal Rank (MRR) evaluates the quality of the first relevant.",
+            "items": {
+              "var": "docs",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "items": {
+              "var": "docs",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Retrieval Evaluation Suite — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Retrieval Evaluation Suite — Core Algorithm & State Representati",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In navigational and known-item search scenarios, users seek a.",
+            "items": [
+              "101",
+              "102",
+              "103"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Mean Reciprocal Rank (MRR) evaluates the quality of the first relevant.",
+            "items": [
+              "101",
+              "102",
+              "103"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "items": [
+              "101",
+              "102",
+              "103"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -539,265 +237,279 @@
     },
     {
       "partTitle": "Retrieval Evaluation Suite — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "faf7de353f7b2c2d295474e6d027a91d813be11a7bf68f92c10fb7cb6ea5a6b9",
+      "codeHash": "c60ba395fdf3820c9c5b8b0781d1455ea6db76f6d0d330388d6caf153265b950",
       "spec": {
         "template": "flow",
-        "title": "Retrieval Evaluation Suite — Throughput Optimization & Edge-Case Handl",
+        "title": "Retrieval Evaluation Suite — Throughput Optimization & Edge-Case",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ret_list",
+            "label": "ret_list"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rel_scores",
+            "label": "rel_scores"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "retrieved_ids",
+            "label": "retrieved_ids"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "relevance_map",
+            "label": "relevance_map"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Binary relevant/non-relevant labels fail to distinguish between highly.",
+            "values": {
+              "ret_list": {
+                "var": "ret_list",
+                "line": 15,
+                "hit": 1
+              },
+              "rel_scores": {
+                "var": "rel_scores",
+                "line": 16,
+                "hit": 1
+              },
+              "retrieved_ids": {
+                "var": "retrieved_ids",
+                "line": 5,
+                "hit": 1
+              },
+              "relevance_map": {
+                "var": "relevance_map",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "ret_list": "data",
+              "rel_scores": "data",
+              "retrieved_ids": "data",
+              "relevance_map": "data"
+            },
+            "arrows": [
+              [
+                "ret_list",
+                "rel_scores"
+              ],
+              [
+                "rel_scores",
+                "retrieved_ids"
+              ],
+              [
+                "retrieved_ids",
+                "relevance_map"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Normalized Discounted Cumulative Gain (nDCG) accounts for graded relevance.",
+            "values": {
+              "ret_list": {
+                "var": "ret_list",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "rel_scores": {
+                "var": "rel_scores",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "retrieved_ids": {
+                "var": "retrieved_ids",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "relevance_map": {
+                "var": "relevance_map",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "ret_list": "data",
+              "rel_scores": "data",
+              "retrieved_ids": "data",
+              "relevance_map": "data"
+            },
+            "arrows": [
+              [
+                "ret_list",
+                "rel_scores"
+              ],
+              [
+                "rel_scores",
+                "retrieved_ids"
+              ],
+              [
+                "retrieved_ids",
+                "relevance_map"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "ret_list": {
+                "var": "ret_list",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "rel_scores": {
+                "var": "rel_scores",
+                "line": 17,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "retrieved_ids": {
+                "var": "retrieved_ids",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "relevance_map": {
+                "var": "relevance_map",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "ret_list": "ok",
+              "rel_scores": "ok",
+              "retrieved_ids": "ok",
+              "relevance_map": "ok"
+            },
+            "arrows": [
+              [
+                "ret_list",
+                "rel_scores"
+              ],
+              [
+                "rel_scores",
+                "retrieved_ids"
+              ],
+              [
+                "retrieved_ids",
+                "relevance_map"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Retrieval Evaluation Suite — Throughput Optimization & Edge-Case Handl",
+        "title": "Retrieval Evaluation Suite — Throughput Optimization & Edge-Case",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "ret_list",
+            "label": "ret_list"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "rel_scores",
+            "label": "rel_scores"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "retrieved_ids",
+            "label": "retrieved_ids"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "relevance_map",
+            "label": "relevance_map"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Binary relevant/non-relevant labels fail to distinguish between highly.",
+            "values": {
+              "ret_list": "[1, 2, 3]",
+              "rel_scores": "{1: 3, 2: 1, 3: 2}",
+              "retrieved_ids": "[1, 2, 3]",
+              "relevance_map": "{1: 3, 2: 1, 3: 2}"
+            },
+            "tones": {
+              "ret_list": "data",
+              "rel_scores": "data",
+              "retrieved_ids": "data",
+              "relevance_map": "data"
+            },
+            "arrows": [
+              [
+                "ret_list",
+                "rel_scores"
+              ],
+              [
+                "rel_scores",
+                "retrieved_ids"
+              ],
+              [
+                "retrieved_ids",
+                "relevance_map"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Normalized Discounted Cumulative Gain (nDCG) accounts for graded relevance.",
+            "values": {
+              "ret_list": "[1, 2, 3]",
+              "rel_scores": "{1: 3, 2: 1, 3: 2}",
+              "retrieved_ids": "[1, 2, 3]",
+              "relevance_map": "{1: 3, 2: 1, 3: 2}"
+            },
+            "tones": {
+              "ret_list": "data",
+              "rel_scores": "data",
+              "retrieved_ids": "data",
+              "relevance_map": "data"
+            },
+            "arrows": [
+              [
+                "ret_list",
+                "rel_scores"
+              ],
+              [
+                "rel_scores",
+                "retrieved_ids"
+              ],
+              [
+                "retrieved_ids",
+                "relevance_map"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "ret_list": "[1, 2, 3]",
+              "rel_scores": "{1: 3, 2: 1, 3: 2}",
+              "retrieved_ids": "[1, 2, 3]",
+              "relevance_map": "{1: 3, 2: 1, 3: 2}"
+            },
+            "tones": {
+              "ret_list": "ok",
+              "rel_scores": "ok",
+              "retrieved_ids": "ok",
+              "relevance_map": "ok"
+            },
+            "arrows": [
+              [
+                "ret_list",
+                "rel_scores"
+              ],
+              [
+                "rel_scores",
+                "retrieved_ids"
+              ],
+              [
+                "retrieved_ids",
+                "relevance_map"
+              ]
             ]
           }
         ]
@@ -805,264 +517,176 @@
     },
     {
       "partTitle": "Retrieval Evaluation Suite — Resilience Guardrails & Failure Recovery",
-      "codeHash": "27e9fe28480f84dbd3baf2f4895bbad917cc29cc8eec1c748a315b80f5fd5002",
+      "codeHash": "43e54b60981eef6afa937a4f3c8735c1bfe177fb2eca10c4de8f3270dae73fbc",
       "spec": {
-        "template": "flow",
-        "title": "Retrieval Evaluation Suite — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Retrieval Evaluation Suite — Resilience Guardrails & Failure Rec",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Defensive evaluation guardrails verify that calculated metrics remain.",
+            "bars": [
+              {
+                "label": "recall",
+                "value": {
+                  "var": "recall",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "mrr",
+                "value": {
+                  "var": "mrr",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ndcg",
+                "value": {
+                  "var": "ndcg",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A bug in metric calculation or division by zero can produce negative.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "recall",
+                "value": {
+                  "var": "recall",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mrr",
+                "value": {
+                  "var": "mrr",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "ndcg",
+                "value": {
+                  "var": "ndcg",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "recall",
+                "value": {
+                  "var": "recall",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mrr",
+                "value": {
+                  "var": "mrr",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "ndcg",
+                "value": {
+                  "var": "ndcg",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Retrieval Evaluation Suite — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Retrieval Evaluation Suite — Resilience Guardrails & Failure Rec",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Defensive evaluation guardrails verify that calculated metrics remain.",
+            "bars": [
+              {
+                "label": "recall",
+                "value": 0.95,
+                "tone": "data"
+              },
+              {
+                "label": "mrr",
+                "value": 0.85,
+                "tone": "data"
+              },
+              {
+                "label": "ndcg",
+                "value": 0.92,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A bug in metric calculation or division by zero can produce negative.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "recall",
+                "value": 0.95,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mrr",
+                "value": 0.85,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "ndcg",
+                "value": 0.92,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "recall",
+                "value": 0.95,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "mrr",
+                "value": 0.85,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "ndcg",
+                "value": 0.92,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,264 +695,218 @@
     },
     {
       "partTitle": "Retrieval Evaluation Suite — Production Telemetry & Verification Audit",
-      "codeHash": "5630bc92ed4295a40a5ab7380c7aa512eadaf46153ba965614ab9f77d7024100",
+      "codeHash": "3094eda97513e29073f4bfeb37edec8878458c4accc51375cb1c50ed12c83951",
       "spec": {
-        "template": "flow",
-        "title": "Retrieval Evaluation Suite — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Retrieval Evaluation Suite — Production Telemetry & Verification",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production release pipelines require automated certification audits before.",
+            "bars": [
+              {
+                "label": "test_queries",
+                "value": {
+                  "var": "test_queries",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg_recall_at_",
+                "value": {
+                  "var": "avg_recall_at_10",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg_mrr",
+                "value": {
+                  "var": "avg_mrr",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg_ndcg",
+                "value": {
+                  "var": "avg_ndcg",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how certification updates criteria during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "test_queries",
+                "value": {
+                  "var": "test_queries",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "avg_recall_at_",
+                "value": {
+                  "var": "avg_recall_at_10",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "avg_mrr",
+                "value": {
+                  "var": "avg_mrr",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "avg_ndcg",
+                "value": {
+                  "var": "avg_ndcg",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "test_queries",
+                "value": {
+                  "var": "test_queries",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "avg_recall_at_",
+                "value": {
+                  "var": "avg_recall_at_10",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "avg_mrr",
+                "value": {
+                  "var": "avg_mrr",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "avg_ndcg",
+                "value": {
+                  "var": "avg_ndcg",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Retrieval Evaluation Suite — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Retrieval Evaluation Suite — Production Telemetry & Verification",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production release pipelines require automated certification audits before.",
+            "bars": [
+              {
+                "label": "test_queries",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "avg_recall_at_",
+                "value": 0.942,
+                "tone": "data"
+              },
+              {
+                "label": "avg_mrr",
+                "value": 0.785,
+                "tone": "data"
+              },
+              {
+                "label": "avg_ndcg",
+                "value": 0.881,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Trace how certification updates criteria during execution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "test_queries",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "avg_recall_at_",
+                "value": 0.942,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "avg_mrr",
+                "value": 0.785,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "avg_ndcg",
+                "value": 0.881,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "test_queries",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "avg_recall_at_",
+                "value": 0.942,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "avg_mrr",
+                "value": 0.785,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "avg_ndcg",
+                "value": 0.881,
+                "tone": "ok"
               }
             ]
           }

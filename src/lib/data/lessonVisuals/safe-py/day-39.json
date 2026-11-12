@@ -2,269 +2,331 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 39,
-  "promptSha": "80861b97a7064f6659f32495f4a4217c0d945275c32aa373c6229d8f07aca15c",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Calibrated Refusal Classifiers — Foundations & Mathematical Invariants",
-      "codeHash": "a0b4fbdd5caa1d1bb511c829789fababd235fa3358777dcdabbb010e9f7e0be8",
+      "partTitle": "Calibrated Refusal — Foundations & Mathematical Invariants",
+      "codeHash": "c05c113a14d78a27f8cc1c42e0f8b559d22e29bf5bf04986c42fa589712c0689",
       "spec": {
-        "template": "flow",
-        "title": "Calibrated Refusal Classifiers — Foundations & Mathematical Invariants",
-        "nodes": [
+        "template": "states",
+        "title": "Calibrated Refusal — Foundations & Mathematical Invariants",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "BENIGN_SENSITIVE_PAIRS",
+            "label": "BENIGN_SENSITIVE_PAIRS"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "q",
+            "label": "q"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cat",
+            "label": "cat"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "A major failure mode in modern aligned foundation models is over-refusal.",
+            "currentState": "BENIGN_SENSITIVE_PAIRS",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "For example, a cybersecurity student asking 'How do security researchers.",
+            "currentState": "q",
+            "transition": {
+              "from": "BENIGN_SENSITIVE_PAIRS",
+              "to": "q",
+              "label": {
+                "var": "q",
+                "line": 15,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "cat",
+            "transition": {
+              "from": "q",
+              "to": "cat",
+              "label": {
+                "var": "cat",
+                "line": 14,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Calibrated Refusal — Foundations & Mathematical Invariants",
+        "states": [
+          {
+            "id": "BENIGN_SENSITIVE_PAIRS",
+            "label": "BENIGN_SENSITIVE_PAIRS"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "cat",
+            "label": "cat"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "A major failure mode in modern aligned foundation models is over-refusal.",
+            "currentState": "BENIGN_SENSITIVE_PAIRS",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "For example, a cybersecurity student asking 'How do security researchers.",
+            "currentState": "q",
+            "transition": {
+              "from": "BENIGN_SENSITIVE_PAIRS",
+              "to": "q",
+              "label": "'How do security researchers test for S…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "cat",
+            "transition": {
+              "from": "q",
+              "to": "cat",
+              "label": "'Adversarial/Exploit'"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Calibrated Refusal — Core Algorithm & State Representation",
+      "codeHash": "463ff28d142fb676f5969526193da8068a03ab33e414607af48dfe9ae3a043bb",
+      "spec": {
+        "template": "bars",
+        "title": "Calibrated Refusal — Core Algorithm & State Representation",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Quantifying refusal calibration requires measuring the empirical.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "refusal_thresh",
+                "value": {
+                  "var": "refusal_threshold",
+                  "line": 2,
+                  "hit": 8
+                },
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "false_refusals",
+                "value": {
+                  "var": "false_refusals",
+                  "line": 2,
+                  "hit": 8
+                },
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "The calculate_refusal_calibration function takes a distribution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "refusal_thresh",
+                "value": {
+                  "var": "refusal_threshold",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "false_refusals",
+                "value": {
+                  "var": "false_refusals",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "refusal_thresh",
+                "value": {
+                  "var": "refusal_threshold",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "false_refusals",
+                "value": {
+                  "var": "false_refusals",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Calibrated Refusal Classifiers — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Calibrated Refusal — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantifying refusal calibration requires measuring the empirical.",
+            "bars": [
+              {
+                "label": "s",
+                "value": 0.85,
+                "tone": "data"
+              },
+              {
+                "label": "refusal_thresh",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "false_refusals",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "total",
+                "value": 6,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The calculate_refusal_calibration function takes a distribution.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "s",
+                "value": 0.92,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "refusal_thresh",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "false_refusals",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "total",
+                "value": 6,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "s",
+                "value": 0.44,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "refusal_thresh",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "false_refusals",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "total",
+                "value": 6,
+                "tone": "ok"
               }
             ]
           }
@@ -272,265 +334,219 @@
       }
     },
     {
-      "partTitle": "Calibrated Refusal Classifiers — Core Algorithm & State Representation",
-      "codeHash": "c4ef9e593093133f55d7d87c0349c69bdac5b6a879432152e03451384d57b17b",
+      "partTitle": "Calibrated Refusal — Production Implementation & Boundary Mechanics",
+      "codeHash": "d12f3d071e422c86919bf428fbb6d5519eb2a4e9b5583b5230f18f33444a9c65",
       "spec": {
-        "template": "flow",
-        "title": "Calibrated Refusal Classifiers — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Calibrated Refusal — Production Implementation & Boundary Mechan",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The ContextualRefusalClassifier evaluates dual-use queries by balancing.",
+            "bars": [
+              {
+                "label": "sensitivity",
+                "value": {
+                  "var": "sensitivity",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "edu_signals",
+                "value": {
+                  "var": "edu_signals",
+                  "line": 6,
+                  "hit": 7
+                },
+                "tone": "data"
+              },
+              {
+                "label": "attack_signals",
+                "value": {
+                  "var": "attack_signals",
+                  "line": 7,
+                  "hit": 7
+                },
+                "tone": "data"
+              },
+              {
+                "label": "net_risk",
+                "value": {
+                  "var": "net_risk",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Educational keywords like 'explain', 'history', and 'properties' indicate.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "sensitivity",
+                "value": {
+                  "var": "sensitivity",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "edu_signals",
+                "value": {
+                  "var": "edu_signals",
+                  "line": 7,
+                  "hit": 7
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "attack_signals",
+                "value": {
+                  "var": "attack_signals",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "net_risk",
+                "value": {
+                  "var": "net_risk",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for calibrated.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "sensitivity",
+                "value": {
+                  "var": "sensitivity",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "edu_signals",
+                "value": {
+                  "var": "edu_signals",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "attack_signals",
+                "value": {
+                  "var": "attack_signals",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "net_risk",
+                "value": {
+                  "var": "net_risk",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Calibrated Refusal Classifiers — Core Algorithm & State Representation",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Calibrated Refusal — Production Implementation & Boundary Mechan",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The ContextualRefusalClassifier evaluates dual-use queries by balancing.",
+            "bars": [
+              {
+                "label": "sensitivity",
+                "value": 0.4,
+                "tone": "data"
+              },
+              {
+                "label": "edu_signals",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "attack_signals",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "net_risk",
+                "value": 0.1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Educational keywords like 'explain', 'history', and 'properties' indicate.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "sensitivity",
+                "value": 0.4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "edu_signals",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "attack_signals",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "net_risk",
+                "value": 0.1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for calibrated.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "sensitivity",
+                "value": 0.4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "edu_signals",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "attack_signals",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "net_risk",
+                "value": 0.1,
+                "tone": "ok"
               }
             ]
           }
@@ -538,799 +554,217 @@
       }
     },
     {
-      "partTitle": "Calibrated Refusal Classifiers — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "af4092ffe745d728547e6d94e9c8404ca2f6fbd6d5b8abd2164586b15dc61ea3",
+      "partTitle": "Calibrated Refusal — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "13f776cc94daad3673a94885d4ad5de8af3ef8e3b7efdcb08b877c695ba117d2",
       "spec": {
-        "template": "flow",
-        "title": "Calibrated Refusal Classifiers — Throughput Optimization & Edge-Case H",
-        "nodes": [
+        "template": "states",
+        "title": "Calibrated Refusal — Failure Modes, Hardware Bottlenecks & Debug",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "category",
+            "label": "category"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "allowed_alternative",
+            "label": "allowed_alternative"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "msg",
+            "label": "msg"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When a refusal is strictly necessary, the phrasing of the refusal response.",
+            "currentState": "category",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Blunt, preachy, or moralizing refusals (e.",
+            "currentState": "allowed_alternative",
+            "transition": {
+              "from": "category",
+              "to": "allowed_alternative",
+              "label": {
+                "var": "allowed_alternative",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "msg",
+            "transition": {
+              "from": "allowed_alternative",
+              "to": "msg",
+              "label": {
+                "var": "msg",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Calibrated Refusal Classifiers — Throughput Optimization & Edge-Case H",
-        "nodes": [
+        "template": "states",
+        "title": "Calibrated Refusal — Failure Modes, Hardware Bottlenecks & Debug",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "category",
+            "label": "category"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "allowed_alternative",
+            "label": "allowed_alternative"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "msg",
+            "label": "msg"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When a refusal is strictly necessary, the phrasing of the refusal response.",
+            "currentState": "category",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Blunt, preachy, or moralizing refusals (e.",
+            "currentState": "allowed_alternative",
+            "transition": {
+              "from": "category",
+              "to": "allowed_alternative",
+              "label": "'the physics of combustion and safety g…"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "msg",
+            "transition": {
+              "from": "allowed_alternative",
+              "to": "msg",
+              "label": "'I cannot provide instructions for weap…"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Calibrated Refusal Classifiers — Resilience Guardrails & Failure Recovery",
-      "codeHash": "5798355897ae9723846ac5fbe4a778c1a28513ad09691b2c0a9e733d38ff82be",
+      "partTitle": "Calibrated Refusal — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "5e304972edf951b4e3d80a2a5a26d09b5ab3e17fdf668502eaa476243e06cece",
       "spec": {
-        "template": "flow",
-        "title": "Calibrated Refusal Classifiers — Resilience Guardrails & Failure Recov",
-        "nodes": [
+        "template": "states",
+        "title": "Calibrated Refusal — Production Capstone & Enterprise SRE Integr",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_queries",
+            "label": "total_queries"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "total_refusals",
+            "label": "total_refusals"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "user_appeals",
+            "label": "user_appeals"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production refusal telemetry tracks real-time refusal rates and user.",
+            "currentState": "total_queries",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The audit_refusal_telemetry function calculates overall refusal.",
+            "currentState": "total_refusals",
+            "transition": {
+              "from": "total_queries",
+              "to": "total_refusals",
+              "label": {
+                "var": "total_refusals",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "user_appeals",
+            "transition": {
+              "from": "total_refusals",
+              "to": "user_appeals",
+              "label": {
+                "var": "user_appeals",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Calibrated Refusal Classifiers — Resilience Guardrails & Failure Recov",
-        "nodes": [
+        "template": "states",
+        "title": "Calibrated Refusal — Production Capstone & Enterprise SRE Integr",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_queries",
+            "label": "total_queries"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "total_refusals",
+            "label": "total_refusals"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "user_appeals",
+            "label": "user_appeals"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "Production refusal telemetry tracks real-time refusal rates and user.",
+            "currentState": "total_queries",
+            "tone": "data"
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Calibrated Refusal Classifiers — Production Telemetry & Verification Audit",
-      "codeHash": "70eeb945e056178a286018b3e98bde032a5fc1f8cd28a70bdd78d763553c9c48",
-      "spec": {
-        "template": "flow",
-        "title": "Calibrated Refusal Classifiers — Production Telemetry & Verification A",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The audit_refusal_telemetry function calculates overall refusal.",
+            "currentState": "total_refusals",
+            "transition": {
+              "from": "total_queries",
+              "to": "total_refusals",
+              "label": "420"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Calibrated Refusal Classifiers — Production Telemetry & Verification A",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "user_appeals",
+            "transition": {
+              "from": "total_refusals",
+              "to": "user_appeals",
+              "label": "12"
+            },
+            "tone": "ok"
           }
         ]
       }

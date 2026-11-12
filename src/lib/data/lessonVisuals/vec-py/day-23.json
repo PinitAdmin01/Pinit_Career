@@ -2,141 +2,112 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 23,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Retrieval-augmented generation",
       "codeHash": "7bf7393ad41bd935afe766810d092990852a43e69d419cf79c52c33ce16e0af1",
       "spec": {
-        "template": "table",
-        "title": "Contextual injection and prompt synthesis architecture",
-        "columns": [
-          "chunks",
-          "question",
-          "prompt"
-        ],
+        "template": "cells",
+        "title": "Retrieval-augmented generation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Retrieval augmented generation provides relevant chunks directly to the model.",
-            "rows": [
+            "caption": "Retrieval-augmented generation (RAG) answers questions by retrieving.",
+            "items": {
+              "var": "chunks",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "prompt"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "prompt"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Citations enable users to verify where each generative answer originated.",
-            "rows": [
+            "at": "say2",
+            "caption": "The model then answers using the provided text, which keeps answers.",
+            "items": {
+              "var": "chunks",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "prompt"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Today covers the step between retrieval and the model.",
+            "items": {
+              "var": "chunks",
+              "line": 4,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "question"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Contextual injection and prompt synthesis architecture",
-        "columns": [
-          "chunks",
-          "question",
-          "prompt"
-        ],
+        "template": "cells",
+        "title": "Retrieval-augmented generation",
         "steps": [
           {
             "at": "say1",
-            "caption": "Retrieval augmented generation provides relevant chunks directly to the model.",
-            "rows": [
+            "caption": "Retrieval-augmented generation (RAG) answers questions by retrieving.",
+            "items": [
+              "'[1] Refunds are allowed within 30 days…",
+              "'[2] Damaged items receive a full refun…"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "chunks",
-                  "question",
-                  "prompt"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "chunks",
-                  "question",
-                  "prompt"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Citations enable users to verify where each generative answer originated.",
-            "rows": [
+            "at": "say2",
+            "caption": "The model then answers using the provided text, which keeps answers.",
+            "items": [
+              "'[1] Refunds are allowed within 30 days…",
+              "'[2] Damaged items receive a full refun…"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "chunks",
-                  "question",
-                  "prompt"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Today covers the step between retrieval and the model.",
+            "items": [
+              "'[1] Refunds are allowed within 30 days…",
+              "'[2] Damaged items receive a full refun…"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "chunks",
-                  "question",
-                  "chunks"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -147,78 +118,104 @@
       "partTitle": "Token budgets",
       "codeHash": "47233287c2cdc797ec9121d6aeb1aed4fdf5b92e270c6623c931302259c2f231",
       "spec": {
-        "template": "table",
-        "title": "Context window token allocation and greedy packing",
-        "columns": [
-          "chunks",
-          "tokens",
-          "budget"
-        ],
+        "template": "bars",
+        "title": "Token budgets",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Retrieved chunks must fit inside the designated context budget.",
-            "rows": [
+            "at": "say1",
+            "caption": "Language models have a context window measured in tokens, and every token.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "budget"
-                  }
-                ],
-                "tone": "ok"
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "budget"
-                  }
-                ],
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "tokens",
+                "value": {
+                  "var": "tokens",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Skipping chunks that exceed budget allows continuing with smaller passages.",
-            "rows": [
+            "at": "say2",
+            "caption": "The context budget is what remains after the instructions, the question.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "budget"
-                  }
-                ],
-                "tone": "data"
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tokens",
+                "value": {
+                  "var": "tokens",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Leaving a safety margin of a few percent protects against small counting.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": {
+                  "var": "budget",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "used",
+                "value": {
+                  "var": "used",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tokens",
+                "value": {
+                  "var": "tokens",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +223,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Context window token allocation and greedy packing",
-        "columns": [
-          "chunks",
-          "tokens",
-          "budget"
-        ],
+        "template": "bars",
+        "title": "Token budgets",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Retrieved chunks must fit inside the designated context budget.",
-            "rows": [
+            "at": "say1",
+            "caption": "Language models have a context window measured in tokens, and every token.",
+            "bars": [
               {
-                "cells": [
-                  "chunks",
-                  "tokens",
-                  "budget"
-                ],
-                "tone": "ok"
+                "label": "budget",
+                "value": 1000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "chunks",
-                  "tokens",
-                  "budget"
-                ],
+                "label": "used",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "tokens",
+                "value": 400,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Skipping chunks that exceed budget allows continuing with smaller passages.",
-            "rows": [
+            "at": "say2",
+            "caption": "The context budget is what remains after the instructions, the question.",
+            "bars": [
               {
-                "cells": [
-                  "chunks",
-                  "tokens",
-                  "budget"
-                ],
-                "tone": "data"
+                "label": "budget",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "chunks",
-                  "tokens",
-                  "tokens"
-                ],
+                "label": "used",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "tokens",
+                "value": 400,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Leaving a safety margin of a few percent protects against small counting.",
+            "bars": [
+              {
+                "label": "budget",
+                "value": 1000,
+                "tone": "ok"
+              },
+              {
+                "label": "used",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "tokens",
+                "value": 400,
                 "tone": "ok"
               }
             ]
@@ -285,134 +296,107 @@
       "partTitle": "Citations",
       "codeHash": "05c1b7379f6f8f1532b63955c7050c4e389dab5cf573e7184127d53a783e9509",
       "spec": {
-        "template": "table",
-        "title": "Source claim linking and citation marker assignment",
-        "columns": [
-          "numbers",
-          "parts",
-          "numbers"
-        ],
+        "template": "cells",
+        "title": "Citations",
         "steps": [
           {
             "at": "say1",
-            "caption": "Citations connect factual claims to their original verification source.",
-            "rows": [
+            "caption": "Citations connect each claim in an answer to its source, letting users.",
+            "items": {
+              "var": "parts",
+              "line": 9,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "numbers"
-                  },
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "numbers"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "numbers"
-                  },
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "numbers"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Reusing the same source preserves its original citation number.",
-            "rows": [
+            "at": "say2",
+            "caption": "A clear convention is to number sources in the order they are first cited.",
+            "items": {
+              "var": "parts",
+              "line": 9,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "numbers"
-                  },
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "numbers"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "They also make mistakes easier to find, because a reader can check.",
+            "items": {
+              "var": "parts",
+              "line": 6,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "numbers"
-                  },
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "parts"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Source claim linking and citation marker assignment",
-        "columns": [
-          "numbers",
-          "parts",
-          "numbers"
-        ],
+        "template": "cells",
+        "title": "Citations",
         "steps": [
           {
             "at": "say1",
-            "caption": "Citations connect factual claims to their original verification source.",
-            "rows": [
+            "caption": "Citations connect each claim in an answer to its source, letting users.",
+            "items": [
+              "'Paris is the capital of France. [1]'",
+              "'It has about 2 million residents. [2]'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "numbers",
-                  "parts",
-                  "numbers"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "numbers",
-                  "parts",
-                  "numbers"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Reusing the same source preserves its original citation number.",
-            "rows": [
+            "at": "say2",
+            "caption": "A clear convention is to number sources in the order they are first cited.",
+            "items": [
+              "'Paris is the capital of France. [1]'",
+              "'It has about 2 million residents. [2]'",
+              "'It is known for the Eiffel Tower. [1]'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "numbers",
-                  "parts",
-                  "numbers"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "They also make mistakes easier to find, because a reader can check.",
+            "items": [
+              "'Paris is the capital of France. [1]'",
+              "'It has about 2 million residents. [2]'",
+              "'It is known for the Eiffel Tower. [1]'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "numbers",
-                  "parts",
-                  "parts"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -423,134 +407,108 @@
       "partTitle": "Grounded prompts",
       "codeHash": "6147a345fbb1b59759101b0bde1294f05db37080ae20773b912f37a9c7283280",
       "spec": {
-        "template": "table",
-        "title": "Prompt instruction delimitation and grounded evaluation",
-        "columns": [
-          "sources",
-          "rules",
-          "lines"
-        ],
+        "template": "cells",
+        "title": "Grounded prompts",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Clear delimiters separate prompt instructions from retrieved source context.",
-            "rows": [
+            "at": "say1",
+            "caption": "The prompt should tell the model to answer only from the sources, to cite.",
+            "items": {
+              "var": "rules",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "lines"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "lines"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Evaluation measures faithfulness and whether sources support claims.",
-            "rows": [
+            "at": "say2",
+            "caption": "Delimiters, such as numbered source blocks, separate instructions.",
+            "items": {
+              "var": "rules",
+              "line": 3,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "lines"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Good prompts cannot fix bad retrieval, but bad prompts can waste good.",
+            "items": {
+              "var": "rules",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "rules"
-                  },
-                  {
-                    "text": "rules"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Prompt instruction delimitation and grounded evaluation",
-        "columns": [
-          "sources",
-          "rules",
-          "lines"
-        ],
+        "template": "cells",
+        "title": "Grounded prompts",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Clear delimiters separate prompt instructions from retrieved source context.",
-            "rows": [
+            "at": "say1",
+            "caption": "The prompt should tell the model to answer only from the sources, to cite.",
+            "items": [
+              "'Answer only from the sources.'",
+              "'Cite sources like [1].'",
+              "'If the sources do not answer, say you …"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sources",
-                  "rules",
-                  "lines"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sources",
-                  "rules",
-                  "lines"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Evaluation measures faithfulness and whether sources support claims.",
-            "rows": [
+            "at": "say2",
+            "caption": "Delimiters, such as numbered source blocks, separate instructions.",
+            "items": [
+              "'Answer only from the sources.'",
+              "'Cite sources like [1].'",
+              "'If the sources do not answer, say you …"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sources",
-                  "rules",
-                  "lines"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Good prompts cannot fix bad retrieval, but bad prompts can waste good.",
+            "items": [
+              "'Answer only from the sources.'",
+              "'Cite sources like [1].'",
+              "'If the sources do not answer, say you …"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "sources",
-                  "rules",
-                  "rules"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -562,110 +520,161 @@
       "codeHash": "fb42a490fa32b97b8a7b72ac5cf96c8cd9a03941335f8ae72fb51cd0b90b42fc",
       "spec": {
         "template": "flow",
-        "title": "Evaluating RAG answers — Execution Pipeline",
+        "title": "Evaluating RAG answers",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "sources",
+            "label": "sources"
           },
           {
-            "id": "proc",
-            "label": "2. Evaluating RAG answers",
-            "tappable": true
+            "id": "answer",
+            "label": "answer"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "sentence",
+            "label": "sentence"
+          },
+          {
+            "id": "src",
+            "label": "src"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Evaluating RAG answers [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Evaluating RAG answers [D.Pfive.Stwo].",
+            "caption": "RAG quality has two parts.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "sources": {
+                "var": "sources",
+                "line": 1,
+                "hit": 1
+              },
+              "answer": {
+                "var": "answer",
+                "line": 2,
+                "hit": 1
+              },
+              "sentence": {
+                "var": "sentence",
+                "line": 4,
+                "hit": 1
+              },
+              "src": {
+                "var": "src",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "sources": "data",
+              "answer": "data",
+              "sentence": "data",
+              "src": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "sources",
+                "answer"
               ],
               [
-                "proc",
-                "out"
+                "answer",
+                "sentence"
+              ],
+              [
+                "sentence",
+                "src"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Trace how retrieval updates measured during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "sources": {
+                "var": "sources",
+                "line": 2,
+                "hit": 1
+              },
+              "answer": {
+                "var": "answer",
+                "line": 4,
+                "hit": 1
+              },
+              "sentence": {
+                "var": "sentence",
+                "line": 5,
+                "hit": 1
+              },
+              "src": {
+                "var": "src",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "sources": "data",
+              "answer": "data",
+              "sentence": "data",
+              "src": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "sentence"
+              ],
+              [
+                "sentence",
+                "src"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Evaluating RAG answers [D.Pfive.Sfour].",
+            "at": "say10",
+            "caption": "Tomorrow saves money and time by caching answers to repeated questions.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "sources": {
+                "var": "sources",
+                "line": 4,
+                "hit": 1
+              },
+              "answer": {
+                "var": "answer",
+                "line": 5,
+                "hit": 1
+              },
+              "sentence": {
+                "var": "sentence",
+                "line": 5,
+                "hit": 2
+              },
+              "src": {
+                "var": "src",
+                "line": 5,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "sources": "ok",
+              "answer": "ok",
+              "sentence": "ok",
+              "src": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "sources",
+                "answer"
               ],
               [
-                "proc",
-                "out"
+                "answer",
+                "sentence"
+              ],
+              [
+                "sentence",
+                "src"
               ]
             ]
           }
@@ -673,110 +682,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Evaluating RAG answers — Execution Pipeline",
+        "title": "Evaluating RAG answers",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "sources",
+            "label": "sources"
           },
           {
-            "id": "proc",
-            "label": "2. Evaluating RAG answers",
-            "tappable": true
+            "id": "answer",
+            "label": "answer"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "sentence",
+            "label": "sentence"
+          },
+          {
+            "id": "src",
+            "label": "src"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Evaluating RAG answers [D23.P5.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Evaluating RAG answers [D23.P5.S2].",
+            "caption": "RAG quality has two parts.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "sources": "{'s1': 'Refunds are allowed within 30 d…",
+              "answer": "[['You can get a refund within 30 days.…",
+              "sentence": "'You can get a refund within 30 days.'",
+              "src": "'s1'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "sources": "data",
+              "answer": "data",
+              "sentence": "data",
+              "src": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "sources",
+                "answer"
               ],
               [
-                "proc",
-                "out"
+                "answer",
+                "sentence"
+              ],
+              [
+                "sentence",
+                "src"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P5.S3].",
+            "at": "say2",
+            "caption": "Trace how retrieval updates measured during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "sources": "{'s1': 'Refunds are allowed within 30 d…",
+              "answer": "[['You can get a refund within 30 days.…",
+              "sentence": "'You can get a refund within 30 days.'",
+              "src": "'s1'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "sources": "data",
+              "answer": "data",
+              "sentence": "data",
+              "src": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "sentence"
+              ],
+              [
+                "sentence",
+                "src"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Evaluating RAG answers [D23.P5.S4].",
+            "at": "say10",
+            "caption": "Tomorrow saves money and time by caching answers to repeated questions.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "sources": "{'s1': 'Refunds are allowed within 30 d…",
+              "answer": "[['You can get a refund within 30 days.…",
+              "sentence": "'You can get a refund within 30 days.'",
+              "src": "'s1'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "sources": "ok",
+              "answer": "ok",
+              "sentence": "ok",
+              "src": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "sources",
+                "answer"
               ],
               [
-                "proc",
-                "out"
+                "answer",
+                "sentence"
+              ],
+              [
+                "sentence",
+                "src"
               ]
             ]
           }
@@ -788,110 +800,161 @@
       "codeHash": "d99b2a85c5f526fda37682deb42b1252156006cc893ff1897452145764fdaade",
       "spec": {
         "template": "flow",
-        "title": "Practice time: context and citations — Execution Pipeline",
+        "title": "Practice time: context and citations",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "ranked",
+            "label": "ranked"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: cont...",
-            "tappable": true
+            "id": "budget",
+            "label": "budget"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "used",
+            "label": "used"
+          },
+          {
+            "id": "ctx",
+            "label": "ctx"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: context and citations.",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: cont... [D.Psix.Stwo].",
+            "caption": "Assemble_context(chunks, budget).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "ranked": {
+                "var": "ranked",
+                "line": 1,
+                "hit": 1
+              },
+              "budget": {
+                "var": "budget",
+                "line": 2,
+                "hit": 1
+              },
+              "used": {
+                "var": "used",
+                "line": 2,
+                "hit": 1
+              },
+              "ctx": {
+                "var": "ctx",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "ranked": "data",
+              "budget": "data",
+              "used": "data",
+              "ctx": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ranked",
+                "budget"
               ],
               [
-                "proc",
-                "out"
+                "budget",
+                "used"
+              ],
+              [
+                "used",
+                "ctx"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks include skipping a large chunk, fitting only a small one.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "ranked": {
+                "var": "ranked",
+                "line": 2,
+                "hit": 1
+              },
+              "budget": {
+                "var": "budget",
+                "line": 3,
+                "hit": 1
+              },
+              "used": {
+                "var": "used",
+                "line": 3,
+                "hit": 1
+              },
+              "ctx": {
+                "var": "ctx",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "ranked": "data",
+              "budget": "data",
+              "used": "data",
+              "ctx": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "ranked",
+                "budget"
+              ],
+              [
+                "budget",
+                "used"
+              ],
+              [
+                "used",
+                "ctx"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: context and citati.",
+            "at": "say10",
+            "caption": "If your citation numbers jump, check that you reuse the number for.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "ranked": {
+                "var": "ranked",
+                "line": 3,
+                "hit": 1
+              },
+              "budget": {
+                "var": "budget",
+                "line": 4,
+                "hit": 1
+              },
+              "used": {
+                "var": "used",
+                "line": 4,
+                "hit": 1
+              },
+              "ctx": {
+                "var": "ctx",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "ranked": "ok",
+              "budget": "ok",
+              "used": "ok",
+              "ctx": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ranked",
+                "budget"
               ],
               [
-                "proc",
-                "out"
+                "budget",
+                "used"
+              ],
+              [
+                "used",
+                "ctx"
               ]
             ]
           }
@@ -899,110 +962,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: context and citations — Execution Pipeline",
+        "title": "Practice time: context and citations",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "ranked",
+            "label": "ranked"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: cont...",
-            "tappable": true
+            "id": "budget",
+            "label": "budget"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "used",
+            "label": "used"
+          },
+          {
+            "id": "ctx",
+            "label": "ctx"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: context and citations [D23.P6.S1].",
-            "values": {
-              "in": "Day 23 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: cont... [D23.P6.S2].",
+            "caption": "Assemble_context(chunks, budget).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "ranked": "[['c1', 'Refunds within 30 days.', 12],…",
+              "budget": "40",
+              "used": "0",
+              "ctx": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "ranked": "data",
+              "budget": "data",
+              "used": "data",
+              "ctx": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ranked",
+                "budget"
               ],
               [
-                "proc",
-                "out"
+                "budget",
+                "used"
+              ],
+              [
+                "used",
+                "ctx"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D23.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include skipping a large chunk, fitting only a small one.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "ranked": "[['c1', 'Refunds within 30 days.', 12],…",
+              "budget": "40",
+              "used": "0",
+              "ctx": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "ranked": "data",
+              "budget": "data",
+              "used": "data",
+              "ctx": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "ranked",
+                "budget"
+              ],
+              [
+                "budget",
+                "used"
+              ],
+              [
+                "used",
+                "ctx"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: context and citati.. [D23.P6.S4].",
+            "at": "say10",
+            "caption": "If your citation numbers jump, check that you reuse the number for.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "ranked": "[['c1', 'Refunds within 30 days.', 12],…",
+              "budget": "40",
+              "used": "0",
+              "ctx": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "ranked": "ok",
+              "budget": "ok",
+              "used": "ok",
+              "ctx": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "ranked",
+                "budget"
               ],
               [
-                "proc",
-                "out"
+                "budget",
+                "used"
+              ],
+              [
+                "used",
+                "ctx"
               ]
             ]
           }

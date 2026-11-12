@@ -2,125 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 29,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why monitor in production",
       "codeHash": "a2c2ed06abff05d264612a653bb035d53338e9268612be4981d4571114629afb",
       "spec": {
-        "template": "table",
-        "title": "Live production safety signals and diagnostic meanings",
-        "columns": [
-          "signals",
-          "meaning"
+        "template": "states",
+        "title": "Why monitor in production",
+        "states": [
+          {
+            "id": "signals",
+            "label": "signals"
+          },
+          {
+            "id": "signal",
+            "label": "signal"
+          },
+          {
+            "id": "meaning",
+            "label": "meaning"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Pre release tests cannot anticipate all live production inputs.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "signals"
-                  },
-                  {
-                    "text": "meaning"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "signals"
-                  },
-                  {
-                    "text": "retrieval problem"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Tests before release cannot catch everything, because real users do things.",
+            "currentState": "signals",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Monitoring tracks safety metrics and alerts on anomalies.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "signals"
-                  },
-                  {
-                    "text": "meaning"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "signals"
-                  },
-                  {
-                    "text": "approval fatigue"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Attackers also adapt after launch.",
+            "currentState": "signal",
+            "transition": {
+              "from": "signals",
+              "to": "signal",
+              "label": {
+                "var": "signal",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today builds both.",
+            "currentState": "meaning",
+            "transition": {
+              "from": "signal",
+              "to": "meaning",
+              "label": {
+                "var": "meaning",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Live production safety signals and diagnostic meanings",
-        "columns": [
-          "signals",
-          "meaning"
+        "template": "states",
+        "title": "Why monitor in production",
+        "states": [
+          {
+            "id": "signals",
+            "label": "signals"
+          },
+          {
+            "id": "signal",
+            "label": "signal"
+          },
+          {
+            "id": "meaning",
+            "label": "meaning"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Pre release tests cannot anticipate all live production inputs.",
-            "rows": [
-              {
-                "cells": [
-                  "signals",
-                  "meaning"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "signals",
-                  "retrieval problem"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Tests before release cannot catch everything, because real users do things.",
+            "currentState": "signals",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Monitoring tracks safety metrics and alerts on anomalies.",
-            "rows": [
-              {
-                "cells": [
-                  "signals",
-                  "meaning"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "signals",
-                  "approval fatigue"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Attackers also adapt after launch.",
+            "currentState": "signal",
+            "transition": {
+              "from": "signals",
+              "to": "signal",
+              "label": "'block rate up'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Today builds both.",
+            "currentState": "meaning",
+            "transition": {
+              "from": "signal",
+              "to": "meaning",
+              "label": "'guardrail broken or bypassed'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -129,117 +117,221 @@
       "partTitle": "A decision dashboard",
       "codeHash": "64ae9f0c9bc9e9c921fcb12a2e465cfba57511cf8d05287e276a6b1770de8b1c",
       "spec": {
-        "template": "table",
-        "title": "Production decision dashboard rates and category counts",
-        "columns": [
-          "decisions",
-          "counts"
+        "template": "flow",
+        "title": "A decision dashboard",
+        "nodes": [
+          {
+            "id": "decisions",
+            "label": "decisions"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Safety dashboards aggregate guardrail decisions over time.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "decisions"
-                  },
-                  {
-                    "text": "counts"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The simplest safety dashboard summarises guardrail decisions over a period.",
+            "values": {
+              "decisions": {
+                "var": "decisions",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "ALLOW"
-                  },
-                  {
-                    "text": "counts"
-                  }
-                ],
-                "tone": "data"
+              "counts": {
+                "var": "counts",
+                "line": 2,
+                "hit": 4
+              },
+              "total": {
+                "var": "total",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "decisions": "data",
+              "counts": "data",
+              "total": "data"
+            },
+            "arrows": [
+              [
+                "decisions",
+                "counts"
+              ],
+              [
+                "counts",
+                "total"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Decision counts calculate block and human review rates.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "decisions"
-                  },
-                  {
-                    "text": "counts"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Trace how practice updates dashboard during execution.",
+            "values": {
+              "decisions": {
+                "var": "decisions",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "BLOCK"
-                  },
-                  {
-                    "text": "REVIEW"
-                  }
-                ],
-                "tone": "ok"
+              "counts": {
+                "var": "counts",
+                "line": 3,
+                "hit": 1
+              },
+              "total": {
+                "var": "total",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "decisions": "data",
+              "counts": "data",
+              "total": "data"
+            },
+            "arrows": [
+              [
+                "decisions",
+                "counts"
+              ],
+              [
+                "counts",
+                "total"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The review rate matters for staffing.",
+            "values": {
+              "decisions": {
+                "var": "decisions",
+                "line": 2,
+                "hit": 2
+              },
+              "counts": {
+                "var": "counts",
+                "line": 4,
+                "hit": 1
+              },
+              "total": {
+                "var": "total",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "decisions": "ok",
+              "counts": "ok",
+              "total": "ok"
+            },
+            "arrows": [
+              [
+                "decisions",
+                "counts"
+              ],
+              [
+                "counts",
+                "total"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production decision dashboard rates and category counts",
-        "columns": [
-          "decisions",
-          "counts"
+        "template": "flow",
+        "title": "A decision dashboard",
+        "nodes": [
+          {
+            "id": "decisions",
+            "label": "decisions"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          },
+          {
+            "id": "total",
+            "label": "total"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Safety dashboards aggregate guardrail decisions over time.",
-            "rows": [
-              {
-                "cells": [
-                  "decisions",
-                  "counts"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ALLOW",
-                  "counts"
-                ],
-                "tone": "data"
-              }
+            "caption": "The simplest safety dashboard summarises guardrail decisions over a period.",
+            "values": {
+              "decisions": "['ALLOW', 'ALLOW', 'ALLOW', 'ALLOW', 'A…",
+              "counts": "{'ALLOW': 930, 'REVIEW': 45, 'BLOCK': 2…",
+              "total": "1000"
+            },
+            "tones": {
+              "decisions": "data",
+              "counts": "data",
+              "total": "data"
+            },
+            "arrows": [
+              [
+                "decisions",
+                "counts"
+              ],
+              [
+                "counts",
+                "total"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Decision counts calculate block and human review rates.",
-            "rows": [
-              {
-                "cells": [
-                  "decisions",
-                  "counts"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "BLOCK",
-                  "REVIEW"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Trace how practice updates dashboard during execution.",
+            "values": {
+              "decisions": "['ALLOW', 'ALLOW', 'ALLOW', 'ALLOW', 'A…",
+              "counts": "{'ALLOW': 930, 'REVIEW': 45, 'BLOCK': 2…",
+              "total": "1000"
+            },
+            "tones": {
+              "decisions": "data",
+              "counts": "data",
+              "total": "data"
+            },
+            "arrows": [
+              [
+                "decisions",
+                "counts"
+              ],
+              [
+                "counts",
+                "total"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The review rate matters for staffing.",
+            "values": {
+              "decisions": "['ALLOW', 'ALLOW', 'ALLOW', 'ALLOW', 'A…",
+              "counts": "{'ALLOW': 930, 'REVIEW': 45, 'BLOCK': 2…",
+              "total": "1000"
+            },
+            "tones": {
+              "decisions": "ok",
+              "counts": "ok",
+              "total": "ok"
+            },
+            "arrows": [
+              [
+                "decisions",
+                "counts"
+              ],
+              [
+                "counts",
+                "total"
+              ]
             ]
           }
         ]
@@ -249,65 +341,104 @@
       "partTitle": "Baselines",
       "codeHash": "d1e0ffaa86116fb625a498ce8bb978a34f14889ac5f68195ad8f842fe1c97fdc",
       "spec": {
-        "template": "table",
-        "title": "Rolling baseline calculation across metric windows",
-        "columns": [
-          "rates",
-          "window"
-        ],
+        "template": "bars",
+        "title": "Baselines",
         "steps": [
           {
-            "at": "say2",
-            "caption": "A baseline reflects the average value over a recent observation window.",
-            "rows": [
+            "at": "say1",
+            "caption": "A number on its own does not say whether something is wrong.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "rates"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
-                "tone": "ok"
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "rates"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Rolling baselines dynamically adapt as the underlying system changes.",
-            "rows": [
+            "at": "say2",
+            "caption": "A baseline is the typical value of a signal, usually the average over.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "rates"
-                  },
-                  {
-                    "text": "window"
-                  }
-                ],
-                "tone": "data"
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "rates"
-                  },
-                  {
-                    "text": "rates"
-                  }
-                ],
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The next part uses the baseline to detect spikes.",
+            "bars": [
+              {
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -315,49 +446,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Rolling baseline calculation across metric windows",
-        "columns": [
-          "rates",
-          "window"
-        ],
+        "template": "bars",
+        "title": "Baselines",
         "steps": [
           {
-            "at": "say2",
-            "caption": "A baseline reflects the average value over a recent observation window.",
-            "rows": [
+            "at": "say1",
+            "caption": "A number on its own does not say whether something is wrong.",
+            "bars": [
               {
-                "cells": [
-                  "rates",
-                  "window"
-                ],
-                "tone": "ok"
+                "label": "window",
+                "value": 7,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "rates",
-                  "window"
-                ],
+                "label": "i",
+                "value": 7,
+                "tone": "data"
+              },
+              {
+                "label": "base",
+                "value": 0.020999999999999998,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Rolling baselines dynamically adapt as the underlying system changes.",
-            "rows": [
+            "at": "say2",
+            "caption": "A baseline is the typical value of a signal, usually the average over.",
+            "bars": [
               {
-                "cells": [
-                  "rates",
-                  "window"
-                ],
-                "tone": "data"
+                "label": "window",
+                "value": 7,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "rates",
-                  "rates"
-                ],
+                "label": "i",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": 0.020999999999999998,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The next part uses the baseline to detect spikes.",
+            "bars": [
+              {
+                "label": "window",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": 0.020999999999999998,
                 "tone": "ok"
               }
             ]
@@ -369,65 +519,131 @@
       "partTitle": "Spike alerts",
       "codeHash": "214fe84f39e0500509fb209398f48f0932adc63927f4cec28c9fa8ec0afd75ee",
       "spec": {
-        "template": "table",
-        "title": "Spike detection and threshold multiplier evaluation",
-        "columns": [
-          "rates",
-          "spikes"
-        ],
+        "template": "bars",
+        "title": "Spike alerts",
         "steps": [
           {
             "at": "say1",
-            "caption": "A metric spike occurs when observations surge well above baseline.",
-            "rows": [
+            "caption": "A spike is a value much higher than its baseline.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "rates"
-                  },
-                  {
-                    "text": "spikes"
-                  }
-                ],
-                "tone": "ok"
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "window"
-                  },
-                  {
-                    "text": "factor"
-                  }
-                ],
+                "label": "factor",
+                "value": {
+                  "var": "factor",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Sudden jumps in block rate signal potential attack campaigns.",
-            "rows": [
+            "at": "say2",
+            "caption": "Practice 2 is spike_days(rates, factor=2.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "rates"
-                  },
-                  {
-                    "text": "spikes"
-                  }
-                ],
-                "tone": "data"
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "rates"
-                  },
-                  {
-                    "text": "spikes"
-                  }
-                ],
+                "label": "factor",
+                "value": {
+                  "var": "factor",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Many teams add a minimum count before alerting, so tiny numbers do not.",
+            "bars": [
+              {
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "factor",
+                "value": {
+                  "var": "factor",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": {
+                  "var": "base",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -435,49 +651,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Spike detection and threshold multiplier evaluation",
-        "columns": [
-          "rates",
-          "spikes"
-        ],
+        "template": "bars",
+        "title": "Spike alerts",
         "steps": [
           {
             "at": "say1",
-            "caption": "A metric spike occurs when observations surge well above baseline.",
-            "rows": [
+            "caption": "A spike is a value much higher than its baseline.",
+            "bars": [
               {
-                "cells": [
-                  "rates",
-                  "spikes"
-                ],
-                "tone": "ok"
+                "label": "window",
+                "value": 7,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "window",
-                  "factor"
-                ],
+                "label": "factor",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 7,
+                "tone": "data"
+              },
+              {
+                "label": "base",
+                "value": 0.02,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Sudden jumps in block rate signal potential attack campaigns.",
-            "rows": [
+            "at": "say2",
+            "caption": "Practice 2 is spike_days(rates, factor=2.",
+            "bars": [
               {
-                "cells": [
-                  "rates",
-                  "spikes"
-                ],
-                "tone": "data"
+                "label": "window",
+                "value": 7,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "rates",
-                  "spikes"
-                ],
+                "label": "factor",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": 0.02,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Many teams add a minimum count before alerting, so tiny numbers do not.",
+            "bars": [
+              {
+                "label": "window",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "factor",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 7,
+                "tone": "ok"
+              },
+              {
+                "label": "base",
+                "value": 0.02,
                 "tone": "ok"
               }
             ]
@@ -489,224 +739,72 @@
       "partTitle": "Alerts people trust",
       "codeHash": "c4df1dcd6319eb5ec47858191bfdb55bb701a9144e828ca330dc0f2f1621a812",
       "spec": {
-        "template": "flow",
-        "title": "Alerts people trust — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Alerts people trust",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "spike",
+            "label": "spike"
           },
           {
-            "id": "proc",
-            "label": "2. Alerts people trust",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "ratio",
+            "label": "ratio"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Alerts people trust [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Alerts people trust [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "An alert is only useful if someone responds to it.",
+            "currentState": "spike",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Too many false alarms cause alert fatigue.",
+            "currentState": "ratio",
+            "transition": {
+              "from": "spike",
+              "to": "ratio",
+              "label": {
+                "var": "ratio",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Alerts people trust [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Alerts people trust — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Alerts people trust",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "spike",
+            "label": "spike"
           },
           {
-            "id": "proc",
-            "label": "2. Alerts people trust",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "ratio",
+            "label": "ratio"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Alerts people trust [D29.P5.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Alerts people trust [D29.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "An alert is only useful if someone responds to it.",
+            "currentState": "spike",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Too many false alarms cause alert fatigue.",
+            "currentState": "ratio",
+            "transition": {
+              "from": "spike",
+              "to": "ratio",
+              "label": "2.824074074074074"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
-          },
-          {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Alerts people trust [D29.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -715,224 +813,106 @@
       "partTitle": "Monitoring in the pipeline",
       "codeHash": "bc42bf5f71c32d42fdbfcbd505f65c7e2dcde18ce1b374a93fa1b0378683f5a4",
       "spec": {
-        "template": "flow",
-        "title": "Monitoring in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Monitoring in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "days",
+            "label": "days"
           },
           {
-            "id": "proc",
-            "label": "2. Monitoring in the p...",
-            "tappable": true
+            "id": "rates",
+            "label": "rates"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "base",
+            "label": "base"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Monitoring in the pipeline [D.Psix.Sone].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Monitoring in the p... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Monitoring closes the loop of the safety pipeline.",
+            "currentState": "days",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Guardrails write decisions to the audit log.",
+            "currentState": "rates",
+            "transition": {
+              "from": "days",
+              "to": "rates",
+              "label": {
+                "var": "rates",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Monitoring in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add dashboard and spike_days to your pipeline today.",
+            "currentState": "base",
+            "transition": {
+              "from": "rates",
+              "to": "base",
+              "label": {
+                "var": "base",
+                "line": 4,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Monitoring in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Monitoring in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "days",
+            "label": "days"
           },
           {
-            "id": "proc",
-            "label": "2. Monitoring in the p...",
-            "tappable": true
+            "id": "rates",
+            "label": "rates"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "base",
+            "label": "base"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Monitoring in the pipeline [D29.P6.S1].",
-            "values": {
-              "in": "Day 29 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Monitoring in the p... [D29.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Monitoring closes the loop of the safety pipeline.",
+            "currentState": "days",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D29.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Guardrails write decisions to the audit log.",
+            "currentState": "rates",
+            "transition": {
+              "from": "days",
+              "to": "rates",
+              "label": "[0.03, 0.03, 0.03, 0.03, 0.03, 0.03, 0.…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Monitoring in the pipeline [D29.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add dashboard and spike_days to your pipeline today.",
+            "currentState": "base",
+            "transition": {
+              "from": "rates",
+              "to": "base",
+              "label": "0.03"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

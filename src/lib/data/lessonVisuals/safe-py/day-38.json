@@ -2,269 +2,635 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 38,
-  "promptSha": "1378853e4b23649c655d4ac8ac7605a743e928ca690489e7c8f5dc361b3f1ab3",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved Source Spans — Foundations & Mathematical Invariants",
-      "codeHash": "429d68c705427e95c6e2db2d43d9980249fefc220fe6d7a3b801e5848e0a8148",
+      "partTitle": "Faithfulness & Groundedness — Foundations & Mathematical Invariants",
+      "codeHash": "56436ae5e1b35e7802200d38a33c4dccf3f3dc5c87c1e1efc00d03cc64ef9b2d",
       "spec": {
-        "template": "flow",
-        "title": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved S",
-        "nodes": [
+        "template": "states",
+        "title": "Faithfulness & Groundedness — Foundations & Mathematical Invaria",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "source",
+            "label": "source"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "grounded_resp",
+            "label": "grounded_resp"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "hallucinated_resp",
+            "label": "hallucinated_resp"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In enterprise knowledge retrieval systems, factual hallucinations present.",
+            "currentState": "source",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "A response is defined as faithful if every factual claim it asserts.",
+            "currentState": "grounded_resp",
+            "transition": {
+              "from": "source",
+              "to": "grounded_resp",
+              "label": {
+                "var": "grounded_resp",
+                "line": 11,
+                "hit": 1
               }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "hallucinated_resp",
+            "transition": {
+              "from": "grounded_resp",
+              "to": "hallucinated_resp",
+              "label": {
+                "var": "hallucinated_resp",
+                "line": 13,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Faithfulness & Groundedness — Foundations & Mathematical Invaria",
+        "states": [
+          {
+            "id": "source",
+            "label": "source"
+          },
+          {
+            "id": "grounded_resp",
+            "label": "grounded_resp"
+          },
+          {
+            "id": "hallucinated_resp",
+            "label": "hallucinated_resp"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "In enterprise knowledge retrieval systems, factual hallucinations present.",
+            "currentState": "source",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "A response is defined as faithful if every factual claim it asserts.",
+            "currentState": "grounded_resp",
+            "transition": {
+              "from": "source",
+              "to": "grounded_resp",
+              "label": "'Python 3.12 features improved error me…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "hallucinated_resp",
+            "transition": {
+              "from": "grounded_resp",
+              "to": "hallucinated_resp",
+              "label": "'Python 3.12 completely removed the glo…"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Faithfulness & Groundedness — Core Algorithm & State Representation",
+      "codeHash": "06aba5ab88e6f0eadae90be0297eaee2f35c285d49dc8181be76030680a5ed0d",
+      "spec": {
+        "template": "states",
+        "title": "Faithfulness & Groundedness — Core Algorithm & State Representat",
+        "states": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "statement",
+            "label": "statement"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Evaluating the faithfulness of an entire multi-paragraph document at once.",
+            "currentState": "text",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "A robust verification algorithm decomposes the generated response.",
+            "currentState": "statement",
+            "transition": {
+              "from": "text",
+              "to": "statement",
+              "label": {
+                "var": "statement",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "s",
+            "transition": {
+              "from": "statement",
+              "to": "s",
+              "label": {
+                "var": "s",
+                "line": 3,
+                "hit": 3
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Faithfulness & Groundedness — Core Algorithm & State Representat",
+        "states": [
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "statement",
+            "label": "statement"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Evaluating the faithfulness of an entire multi-paragraph document at once.",
+            "currentState": "text",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "A robust verification algorithm decomposes the generated response.",
+            "currentState": "statement",
+            "transition": {
+              "from": "text",
+              "to": "statement",
+              "label": "'The server was deployed in Frankfurt. …"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "s",
+            "transition": {
+              "from": "statement",
+              "to": "s",
+              "label": "' The CPU usage is 40%'"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Faithfulness & Groundedness — Production Implementation & Boundary Mechanics",
+      "codeHash": "e0810f4fb6249fa9e9292a71c1cbe32c9856bbed9d3dbc6655abc135c34a2de9",
+      "spec": {
+        "template": "flow",
+        "title": "Faithfulness & Groundedness — Production Implementation & Bounda",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "threshold",
+            "label": "threshold"
+          },
+          {
+            "id": "gv",
+            "label": "gv"
+          },
+          {
+            "id": "ctx",
+            "label": "ctx"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "The GroundednessVerifier class evaluates extracted claims against.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "threshold": {
+                "var": "threshold",
+                "line": 3,
+                "hit": 1
+              },
+              "gv": {
+                "var": "gv",
+                "line": 11,
+                "hit": 1
+              },
+              "ctx": {
+                "var": "ctx",
+                "line": 12,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "threshold": "data",
+              "gv": "data",
+              "ctx": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "gv"
+              ],
+              [
+                "gv",
+                "ctx"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "The verification method computes the ratio of unique content words in.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "threshold": {
+                "var": "threshold",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "gv": {
+                "var": "gv",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "ctx": {
+                "var": "ctx",
+                "line": 13,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "threshold": "data",
+              "gv": "data",
+              "ctx": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "gv"
+              ],
+              [
+                "gv",
+                "ctx"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for faithfulness &.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "threshold": {
+                "var": "threshold",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "gv": {
+                "var": "gv",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "ctx": {
+                "var": "ctx",
+                "line": 14,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "ok",
+              "threshold": "ok",
+              "gv": "ok",
+              "ctx": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "gv"
+              ],
+              [
+                "gv",
+                "ctx"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved S",
+        "title": "Faithfulness & Groundedness — Production Implementation & Bounda",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "threshold",
+            "label": "threshold"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "gv",
+            "label": "gv"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "ctx",
+            "label": "ctx"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The GroundednessVerifier class evaluates extracted claims against.",
+            "values": {
+              "self": "<GroundednessVerifier>",
+              "threshold": "0.6",
+              "gv": "<GroundednessVerifier>",
+              "ctx": "'Enterprise security policy requires mu…"
+            },
+            "tones": {
+              "self": "data",
+              "threshold": "data",
+              "gv": "data",
+              "ctx": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "gv"
+              ],
+              [
+                "gv",
+                "ctx"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The verification method computes the ratio of unique content words in.",
+            "values": {
+              "self": "<GroundednessVerifier>",
+              "threshold": "0.6",
+              "gv": "<GroundednessVerifier>",
+              "ctx": "'Enterprise security policy requires mu…"
+            },
+            "tones": {
+              "self": "data",
+              "threshold": "data",
+              "gv": "data",
+              "ctx": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "gv"
+              ],
+              [
+                "gv",
+                "ctx"
+              ]
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for faithfulness &.",
+            "values": {
+              "self": "<GroundednessVerifier>",
+              "threshold": "0.6",
+              "gv": "<GroundednessVerifier>",
+              "ctx": "'Enterprise security policy requires mu…"
+            },
+            "tones": {
+              "self": "ok",
+              "threshold": "ok",
+              "gv": "ok",
+              "ctx": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "threshold"
+              ],
+              [
+                "threshold",
+                "gv"
+              ],
+              [
+                "gv",
+                "ctx"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Faithfulness & Groundedness — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "36a3e184c6c0e7a314327469f805c3ed0c1646d1355f2987e4963b354d72f54a",
+      "spec": {
+        "template": "bars",
+        "title": "Faithfulness & Groundedness — Failure Modes, Hardware Bottleneck",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Natural Language Inference (NLI) provides the gold standard for semantic.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "entailment_pro",
+                "value": {
+                  "var": "entailment_prob",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "contradiction_",
+                "value": {
+                  "var": "contradiction_prob",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "NLI models take a premise (the retrieved context) and a hypothesis (the.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "entailment_pro",
+                "value": {
+                  "var": "entailment_prob",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "contradiction_",
+                "value": {
+                  "var": "contradiction_prob",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "entailment_pro",
+                "value": {
+                  "var": "entailment_prob",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "contradiction_",
+                "value": {
+                  "var": "contradiction_prob",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "bars",
+        "title": "Faithfulness & Groundedness — Failure Modes, Hardware Bottleneck",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Natural Language Inference (NLI) provides the gold standard for semantic.",
+            "bars": [
+              {
+                "label": "entailment_pro",
+                "value": 0.92,
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "contradiction_",
+                "value": 0.02,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "NLI models take a premise (the retrieved context) and a hypothesis (the.",
+            "bars": [
+              {
+                "label": "entailment_pro",
+                "value": 0.92,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "contradiction_",
+                "value": 0.02,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "bars": [
+              {
+                "label": "entailment_pro",
+                "value": 0.05,
+                "tone": "ok"
+              },
+              {
+                "label": "contradiction_",
+                "value": 0.88,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1063 +638,135 @@
       }
     },
     {
-      "partTitle": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved Source Spans — Core Algorithm & State Representation",
-      "codeHash": "7b9b0b6fc377fdbf7897adf24dbc71c4c3ab4ee58919448986ee1255213094b6",
+      "partTitle": "Faithfulness & Groundedness — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "8a3b4023bc11e8f137be032bea0f6a7a4578cdedea03eae62fb51745584e4d86",
       "spec": {
-        "template": "flow",
-        "title": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Faithfulness & Groundedness — Production Capstone & Enterprise S",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The audit_rag_faithfulness function synthesizes atomic claim verification.",
+            "bars": [
+              {
+                "label": "verified",
+                "value": {
+                  "var": "verified",
+                  "line": 2,
+                  "hit": 7
+                },
+                "tone": "data"
+              },
+              {
+                "label": "faithfulness",
+                "value": {
+                  "var": "faithfulness",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "It iterates across all extracted claims, calculating the percentage.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "verified",
+                "value": {
+                  "var": "verified",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "faithfulness",
+                "value": {
+                  "var": "faithfulness",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "verified",
+                "value": {
+                  "var": "verified",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "faithfulness",
+                "value": {
+                  "var": "faithfulness",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Faithfulness & Groundedness — Production Capstone & Enterprise S",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "at": "say1",
+            "caption": "The audit_rag_faithfulness function synthesizes atomic claim verification.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "verified",
+                "value": 2,
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "faithfulness",
+                "value": 1,
+                "tone": "data"
               }
             ]
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved Source Spans — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "ac32346203798ba3210b8337e3420a31bc04870b2cbb6d0d9e648030c8ba54e8",
-      "spec": {
-        "template": "flow",
-        "title": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "It iterates across all extracted claims, calculating the percentage.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "verified",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "faithfulness",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "verified",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved Source Spans — Resilience Guardrails & Failure Recovery",
-      "codeHash": "86c052cee9f7439759817ef1a87db16c0156f48a4a449806a9eba43a8ae24236",
-      "spec": {
-        "template": "flow",
-        "title": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved Source Spans — Production Telemetry & Verification Audit",
-      "codeHash": "745d12857b67311a408ef2512dbfa4603fb0b79a159c9eb1db2cca070d721fd8",
-      "spec": {
-        "template": "flow",
-        "title": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "NLI-Style Faithfulness & Groundedness Verification Against Retrieved S",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "faithfulness",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }

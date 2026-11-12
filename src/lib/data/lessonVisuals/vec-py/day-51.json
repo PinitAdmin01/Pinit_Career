@@ -2,270 +2,284 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 51,
-  "promptSha": "59cc342ce890cab3649ea1d4468eec0e03f66133b7bd310bf5a37259f1a8ad5e",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Foundations & Mathematical Invariants",
-      "codeHash": "9d1284efee5100cc462d870c9eba840963c5cfa1e366fe8cc727faee4d893916",
+      "codeHash": "bcf5b50ad84da24798640c1f6434e2c82b30e4705ced5cbe9a3ac28b70753ace",
       "spec": {
         "template": "flow",
-        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Th",
+        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Qu",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "doc_a",
+            "label": "doc_a"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "doc_b",
+            "label": "doc_b"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "doc_c",
+            "label": "doc_c"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "doc_metadata",
+            "label": "doc_metadata"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In multi-tenant SaaS environments, multiple enterprise clients share.",
+            "values": {
+              "doc_a": {
+                "var": "doc_a",
+                "line": 7,
+                "hit": 1
+              },
+              "doc_b": {
+                "var": "doc_b",
+                "line": 8,
+                "hit": 1
+              },
+              "doc_c": {
+                "var": "doc_c",
+                "line": 9,
+                "hit": 1
+              },
+              "doc_metadata": {
+                "var": "doc_metadata",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "doc_a": "data",
+              "doc_b": "data",
+              "doc_c": "data",
+              "doc_metadata": "data"
+            },
+            "arrows": [
+              [
+                "doc_a",
+                "doc_b"
+              ],
+              [
+                "doc_b",
+                "doc_c"
+              ],
+              [
+                "doc_c",
+                "doc_metadata"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Cross-tenant data contamination represents the most severe security.",
+            "values": {
+              "doc_a": {
+                "var": "doc_a",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "doc_b": {
+                "var": "doc_b",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "doc_c": {
+                "var": "doc_c",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "doc_metadata": {
+                "var": "doc_metadata",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "doc_a": "data",
+              "doc_b": "data",
+              "doc_c": "data",
+              "doc_metadata": "data"
+            },
+            "arrows": [
+              [
+                "doc_a",
+                "doc_b"
+              ],
+              [
+                "doc_b",
+                "doc_c"
+              ],
+              [
+                "doc_c",
+                "doc_metadata"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "values": {
+              "doc_a": {
+                "var": "doc_a",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "doc_b": {
+                "var": "doc_b",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "doc_c": {
+                "var": "doc_c",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "doc_metadata": {
+                "var": "doc_metadata",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "doc_a": "ok",
+              "doc_b": "ok",
+              "doc_c": "ok",
+              "doc_metadata": "ok"
+            },
+            "arrows": [
+              [
+                "doc_a",
+                "doc_b"
+              ],
+              [
+                "doc_b",
+                "doc_c"
+              ],
+              [
+                "doc_c",
+                "doc_metadata"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Th",
+        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Qu",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "doc_a",
+            "label": "doc_a"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "doc_b",
+            "label": "doc_b"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "doc_c",
+            "label": "doc_c"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "doc_metadata",
+            "label": "doc_metadata"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In multi-tenant SaaS environments, multiple enterprise clients share.",
+            "values": {
+              "doc_a": "{'tenant_id': 100, 'acl_role': 'admin'}",
+              "doc_b": "{'tenant_id': 100, 'acl_role': 'public'}",
+              "doc_c": "{'tenant_id': 200, 'acl_role': 'public'}",
+              "doc_metadata": "{'tenant_id': 100, 'acl_role': 'admin'}"
+            },
+            "tones": {
+              "doc_a": "data",
+              "doc_b": "data",
+              "doc_c": "data",
+              "doc_metadata": "data"
+            },
+            "arrows": [
+              [
+                "doc_a",
+                "doc_b"
+              ],
+              [
+                "doc_b",
+                "doc_c"
+              ],
+              [
+                "doc_c",
+                "doc_metadata"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Cross-tenant data contamination represents the most severe security.",
+            "values": {
+              "doc_a": "{'tenant_id': 100, 'acl_role': 'admin'}",
+              "doc_b": "{'tenant_id': 100, 'acl_role': 'public'}",
+              "doc_c": "{'tenant_id': 200, 'acl_role': 'public'}",
+              "doc_metadata": "{'tenant_id': 100, 'acl_role': 'admin'}"
+            },
+            "tones": {
+              "doc_a": "data",
+              "doc_b": "data",
+              "doc_c": "data",
+              "doc_metadata": "data"
+            },
+            "arrows": [
+              [
+                "doc_a",
+                "doc_b"
+              ],
+              [
+                "doc_b",
+                "doc_c"
+              ],
+              [
+                "doc_c",
+                "doc_metadata"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "values": {
+              "doc_a": "{'tenant_id': 100, 'acl_role': 'admin'}",
+              "doc_b": "{'tenant_id': 100, 'acl_role': 'public'}",
+              "doc_c": "{'tenant_id': 200, 'acl_role': 'public'}",
+              "doc_metadata": "{'tenant_id': 100, 'acl_role': 'admin'}"
+            },
+            "tones": {
+              "doc_a": "ok",
+              "doc_b": "ok",
+              "doc_c": "ok",
+              "doc_metadata": "ok"
+            },
+            "arrows": [
+              [
+                "doc_a",
+                "doc_b"
+              ],
+              [
+                "doc_b",
+                "doc_c"
+              ],
+              [
+                "doc_c",
+                "doc_metadata"
+              ]
             ]
           }
         ]
@@ -273,265 +287,279 @@
     },
     {
       "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Core Algorithm & State Representation",
-      "codeHash": "33b1edd2902b0971fb9f043a8a577bf21b2430faef8577f181c020e2053fac38",
+      "codeHash": "71ae44535c475d18bbd33f1f9bcb355979e8cb089539f22c26a4b76c94c9d246",
       "spec": {
         "template": "flow",
-        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Th",
+        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Qu",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "capacity",
+            "label": "capacity"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "refill_rate_per_sec",
+            "label": "refill_rate_per_sec"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "limiter",
+            "label": "limiter"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Multi-tenant clusters must defend against the 'noisy neighbor' problem.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "capacity": {
+                "var": "capacity",
+                "line": 3,
+                "hit": 1
+              },
+              "refill_rate_per_sec": {
+                "var": "refill_rate_per_sec",
+                "line": 3,
+                "hit": 1
+              },
+              "limiter": {
+                "var": "limiter",
+                "line": 17,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "capacity": "data",
+              "refill_rate_per_sec": "data",
+              "limiter": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "refill_rate_per_sec"
+              ],
+              [
+                "refill_rate_per_sec",
+                "limiter"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Token-bucket rate limiting enforces per-tenant request limits.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "capacity": {
+                "var": "capacity",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "refill_rate_per_sec": {
+                "var": "refill_rate_per_sec",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "limiter": {
+                "var": "limiter",
+                "line": 18,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "capacity": "data",
+              "refill_rate_per_sec": "data",
+              "limiter": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "refill_rate_per_sec"
+              ],
+              [
+                "refill_rate_per_sec",
+                "limiter"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "capacity": {
+                "var": "capacity",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "refill_rate_per_sec": {
+                "var": "refill_rate_per_sec",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "limiter": {
+                "var": "limiter",
+                "line": 19,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "self": "ok",
+              "capacity": "ok",
+              "refill_rate_per_sec": "ok",
+              "limiter": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "refill_rate_per_sec"
+              ],
+              [
+                "refill_rate_per_sec",
+                "limiter"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Th",
+        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Qu",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "capacity",
+            "label": "capacity"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "refill_rate_per_sec",
+            "label": "refill_rate_per_sec"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "limiter",
+            "label": "limiter"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Multi-tenant clusters must defend against the 'noisy neighbor' problem.",
+            "values": {
+              "self": "<TokenBucketRateLimiter>",
+              "capacity": "2",
+              "refill_rate_per_sec": "1",
+              "limiter": "<TokenBucketRateLimiter>"
+            },
+            "tones": {
+              "self": "data",
+              "capacity": "data",
+              "refill_rate_per_sec": "data",
+              "limiter": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "refill_rate_per_sec"
+              ],
+              [
+                "refill_rate_per_sec",
+                "limiter"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Token-bucket rate limiting enforces per-tenant request limits.",
+            "values": {
+              "self": "<TokenBucketRateLimiter>",
+              "capacity": "2",
+              "refill_rate_per_sec": "1",
+              "limiter": "<TokenBucketRateLimiter>"
+            },
+            "tones": {
+              "self": "data",
+              "capacity": "data",
+              "refill_rate_per_sec": "data",
+              "limiter": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "refill_rate_per_sec"
+              ],
+              [
+                "refill_rate_per_sec",
+                "limiter"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "values": {
+              "self": "<TokenBucketRateLimiter>",
+              "capacity": "2",
+              "refill_rate_per_sec": "1",
+              "limiter": "<TokenBucketRateLimiter>"
+            },
+            "tones": {
+              "self": "ok",
+              "capacity": "ok",
+              "refill_rate_per_sec": "ok",
+              "limiter": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "capacity"
+              ],
+              [
+                "capacity",
+                "refill_rate_per_sec"
+              ],
+              [
+                "refill_rate_per_sec",
+                "limiter"
+              ]
             ]
           }
         ]
@@ -539,265 +567,279 @@
     },
     {
       "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "9c7eab4c7d850fddb226e584cd3c49524339d9686f36d04c9b9a9726cde34eab",
+      "codeHash": "40cee730c549b34756edad66d7f9f5b2639163ea0fbb8f9a1c322618ba67931a",
       "spec": {
         "template": "flow",
-        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Th",
+        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Qu",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "corpus",
+            "label": "corpus"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "candidates",
+            "label": "candidates"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "target_namespace",
+            "label": "target_namespace"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "c",
+            "label": "c"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Within an enterprise tenant account, different departments or environments.",
+            "values": {
+              "corpus": {
+                "var": "corpus",
+                "line": 4,
+                "hit": 1
+              },
+              "candidates": {
+                "var": "candidates",
+                "line": 2,
+                "hit": 1
+              },
+              "target_namespace": {
+                "var": "target_namespace",
+                "line": 2,
+                "hit": 1
+              },
+              "c": {
+                "var": "c",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "corpus": "data",
+              "candidates": "data",
+              "target_namespace": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "corpus",
+                "candidates"
+              ],
+              [
+                "candidates",
+                "target_namespace"
+              ],
+              [
+                "target_namespace",
+                "c"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "For example, a customer may maintain separate 'prod_kb' (production.",
+            "values": {
+              "corpus": {
+                "var": "corpus",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "candidates": {
+                "var": "candidates",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "target_namespace": {
+                "var": "target_namespace",
+                "line": 2,
+                "hit": 2
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "c": {
+                "var": "c",
+                "line": 2,
+                "hit": 2
               }
+            },
+            "tones": {
+              "corpus": "data",
+              "candidates": "data",
+              "target_namespace": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "corpus",
+                "candidates"
+              ],
+              [
+                "candidates",
+                "target_namespace"
+              ],
+              [
+                "target_namespace",
+                "c"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "corpus": {
+                "var": "corpus",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "candidates": {
+                "var": "candidates",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "target_namespace": {
+                "var": "target_namespace",
+                "line": 2,
+                "hit": 3
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "c": {
+                "var": "c",
+                "line": 2,
+                "hit": 3
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "corpus": "ok",
+              "candidates": "ok",
+              "target_namespace": "ok",
+              "c": "ok"
+            },
+            "arrows": [
+              [
+                "corpus",
+                "candidates"
+              ],
+              [
+                "candidates",
+                "target_namespace"
+              ],
+              [
+                "target_namespace",
+                "c"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Th",
+        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Qu",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "corpus",
+            "label": "corpus"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "candidates",
+            "label": "candidates"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "target_namespace",
+            "label": "target_namespace"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "c",
+            "label": "c"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Within an enterprise tenant account, different departments or environments.",
+            "values": {
+              "corpus": "[{'id': 1, 'namespace': 'prod_kb'}, {'i…",
+              "candidates": "[{'id': 1, 'namespace': 'prod_kb'}, {'i…",
+              "target_namespace": "'prod_kb'",
+              "c": "{'id': 1, 'namespace': 'prod_kb'}"
+            },
+            "tones": {
+              "corpus": "data",
+              "candidates": "data",
+              "target_namespace": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "corpus",
+                "candidates"
+              ],
+              [
+                "candidates",
+                "target_namespace"
+              ],
+              [
+                "target_namespace",
+                "c"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "For example, a customer may maintain separate 'prod_kb' (production.",
+            "values": {
+              "corpus": "[{'id': 1, 'namespace': 'prod_kb'}, {'i…",
+              "candidates": "[{'id': 1, 'namespace': 'prod_kb'}, {'i…",
+              "target_namespace": "'prod_kb'",
+              "c": "{'id': 2, 'namespace': 'staging_kb'}"
+            },
+            "tones": {
+              "corpus": "data",
+              "candidates": "data",
+              "target_namespace": "data",
+              "c": "data"
+            },
+            "arrows": [
+              [
+                "corpus",
+                "candidates"
+              ],
+              [
+                "candidates",
+                "target_namespace"
+              ],
+              [
+                "target_namespace",
+                "c"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "corpus": "[{'id': 1, 'namespace': 'prod_kb'}, {'i…",
+              "candidates": "[{'id': 1, 'namespace': 'prod_kb'}, {'i…",
+              "target_namespace": "'prod_kb'",
+              "c": "{'id': 3, 'namespace': 'prod_kb'}"
+            },
+            "tones": {
+              "corpus": "ok",
+              "candidates": "ok",
+              "target_namespace": "ok",
+              "c": "ok"
+            },
+            "arrows": [
+              [
+                "corpus",
+                "candidates"
+              ],
+              [
+                "candidates",
+                "target_namespace"
+              ],
+              [
+                "target_namespace",
+                "c"
+              ]
             ]
           }
         ]
@@ -805,264 +847,176 @@
     },
     {
       "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Resilience Guardrails & Failure Recovery",
-      "codeHash": "d7e312ad8a40d63a1cd10b890a9bcf3a90612bbdd9ab88e7fd1daf1225a791bb",
+      "codeHash": "204eaaa58fcbc2c737f59582c9b595b964b78f1c4c0818b9c76a130301261f96",
       "spec": {
-        "template": "flow",
-        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Th",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Qu",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Defensive quota checks protect cluster infrastructure from runaway loops.",
+            "bars": [
+              {
+                "label": "tenant_id",
+                "value": {
+                  "var": "tenant_id",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_quota",
+                "value": {
+                  "var": "max_quota",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "current",
+                "value": {
+                  "var": "current",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If a client script encounters an infinite loop and fires millions.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tenant_id",
+                "value": {
+                  "var": "tenant_id",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_quota",
+                "value": {
+                  "var": "max_quota",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "current",
+                "value": {
+                  "var": "current",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tenant_id",
+                "value": {
+                  "var": "tenant_id",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_quota",
+                "value": {
+                  "var": "max_quota",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "current",
+                "value": {
+                  "var": "current",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Th",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Qu",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Defensive quota checks protect cluster infrastructure from runaway loops.",
+            "bars": [
+              {
+                "label": "tenant_id",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "max_quota",
+                "value": 1000,
+                "tone": "data"
+              },
+              {
+                "label": "current",
+                "value": 500,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If a client script encounters an infinite loop and fires millions.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tenant_id",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_quota",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "current",
+                "value": 500,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tenant_id",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_quota",
+                "value": 1000,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "current",
+                "value": 500,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,264 +1025,176 @@
     },
     {
       "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Production Telemetry & Verification Audit",
-      "codeHash": "12d4a4e7f94eb6aa85253dec5acd0628f6922d0dd840b336627c1974891db185",
+      "codeHash": "3cbfb389221dfc5962900315d56c1d56bee92531a197dfe2016ee914ca7da407",
       "spec": {
-        "template": "flow",
-        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Th",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Qu",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Security telemetry in multi-tenant environments monitors authorization.",
+            "bars": [
+              {
+                "label": "total_queries",
+                "value": {
+                  "var": "total_queries",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "denied_acl_cou",
+                "value": {
+                  "var": "denied_acl_count",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "throttled_coun",
+                "value": {
+                  "var": "throttled_count",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A sudden surge in ACL denials signals potential security breaches.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_queries",
+                "value": {
+                  "var": "total_queries",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "denied_acl_cou",
+                "value": {
+                  "var": "denied_acl_count",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "throttled_coun",
+                "value": {
+                  "var": "throttled_count",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_queries",
+                "value": {
+                  "var": "total_queries",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "denied_acl_cou",
+                "value": {
+                  "var": "denied_acl_count",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "throttled_coun",
+                "value": {
+                  "var": "throttled_count",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Th",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Qu",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Security telemetry in multi-tenant environments monitors authorization.",
+            "bars": [
+              {
+                "label": "total_queries",
+                "value": 10000,
+                "tone": "data"
+              },
+              {
+                "label": "denied_acl_cou",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "throttled_coun",
+                "value": 20,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A sudden surge in ACL denials signals potential security breaches.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_queries",
+                "value": 10000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "denied_acl_cou",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "throttled_coun",
+                "value": 20,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_queries",
+                "value": 10000,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "denied_acl_cou",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "throttled_coun",
+                "value": 20,
+                "tone": "ok"
               }
             ]
           }

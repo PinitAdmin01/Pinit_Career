@@ -2,141 +2,115 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 6,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The inverted index",
       "codeHash": "1b65e589705e897e4ad006a64ea0f5284393fef69ef7acb114c24b88ee7b9f0f",
       "spec": {
-        "template": "table",
-        "title": "Inverted index document posting list mapping",
-        "columns": [
-          "term",
-          "text",
-          "term"
-        ],
+        "template": "cells",
+        "title": "The inverted index",
         "steps": [
           {
             "at": "say1",
-            "caption": "An inverted index maps words to matching documents directly.",
-            "rows": [
+            "caption": "An inverted index maps each word to the list of documents that contain it.",
+            "items": {
+              "var": "docs",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "term"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "term"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "term"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "term"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Looking up lists finds matching documents without scanning.",
-            "rows": [
+            "at": "say2",
+            "caption": "To build it, tokenise every document and add its number to the list.",
+            "items": {
+              "var": "docs",
+              "line": 7,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "term"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "term"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how inverted updates indexes during execution.",
+            "items": {
+              "var": "docs",
+              "line": 6,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "term"
-                  },
-                  {
-                    "text": "text"
-                  },
-                  {
-                    "text": "text"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Inverted index document posting list mapping",
-        "columns": [
-          "term",
-          "text",
-          "term"
-        ],
+        "template": "cells",
+        "title": "The inverted index",
         "steps": [
           {
             "at": "say1",
-            "caption": "An inverted index maps words to matching documents directly.",
-            "rows": [
+            "caption": "An inverted index maps each word to the list of documents that contain it.",
+            "items": [
+              "'Fast vector search'",
+              "'Keyword search with BM25'",
+              "'Vector databases store vectors'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "term",
-                  "text",
-                  "term"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "term",
-                  "text",
-                  "term"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Looking up lists finds matching documents without scanning.",
-            "rows": [
+            "at": "say2",
+            "caption": "To build it, tokenise every document and add its number to the list.",
+            "items": [
+              "'Fast vector search'",
+              "'Keyword search with BM25'",
+              "'Vector databases store vectors'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "term",
-                  "text",
-                  "term"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how inverted updates indexes during execution.",
+            "items": [
+              "'Fast vector search'",
+              "'Keyword search with BM25'",
+              "'Vector databases store vectors'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "term",
-                  "text",
-                  "text"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -147,78 +121,77 @@
       "partTitle": "TF-IDF",
       "codeHash": "d5d06589d307277b16fed9a8d3f0bde1a6e07c64bdcf773c704aac108ec14ebd",
       "spec": {
-        "template": "table",
-        "title": "Term frequency and inverse document frequency scoring",
-        "columns": [
-          "policy",
-          "refund",
-          "shipping"
-        ],
+        "template": "bars",
+        "title": "TF-IDF",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Higher term frequency suggests greater document relevance.",
-            "rows": [
+            "at": "say1",
+            "caption": "Not all matching words are equally useful.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "policy"
-                  },
-                  {
-                    "text": "refund"
-                  },
-                  {
-                    "text": "shipping"
-                  }
-                ],
-                "tone": "ok"
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "policy"
-                  },
-                  {
-                    "text": "refund"
-                  },
-                  {
-                    "text": "shipping"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 6,
+                  "hit": 6
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Weighting multiplies terms to produce informative document scores.",
-            "rows": [
+            "at": "say2",
+            "caption": "Term frequency (TF) counts how often a word appears in a document.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "policy"
-                  },
-                  {
-                    "text": "refund"
-                  },
-                  {
-                    "text": "shipping"
-                  }
-                ],
-                "tone": "data"
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "policy"
-                  },
-                  {
-                    "text": "refund"
-                  },
-                  {
-                    "text": "refund"
-                  }
-                ],
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "BM25 fixes that weakness and adds length normalisation.",
+            "bars": [
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 5,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +199,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Term frequency and inverse document frequency scoring",
-        "columns": [
-          "policy",
-          "refund",
-          "shipping"
-        ],
+        "template": "bars",
+        "title": "TF-IDF",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Higher term frequency suggests greater document relevance.",
-            "rows": [
+            "at": "say1",
+            "caption": "Not all matching words are equally useful.",
+            "bars": [
               {
-                "cells": [
-                  "policy",
-                  "refund",
-                  "shipping"
-                ],
-                "tone": "ok"
+                "label": "N",
+                "value": 4,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "policy",
-                  "refund",
-                  "shipping"
-                ],
+                "label": "n",
+                "value": 4,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Weighting multiplies terms to produce informative document scores.",
-            "rows": [
+            "at": "say2",
+            "caption": "Term frequency (TF) counts how often a word appears in a document.",
+            "bars": [
               {
-                "cells": [
-                  "policy",
-                  "refund",
-                  "shipping"
-                ],
-                "tone": "data"
+                "label": "N",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "policy",
-                  "refund",
-                  "refund"
-                ],
+                "label": "n",
+                "value": 4,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "BM25 fixes that weakness and adds length normalisation.",
+            "bars": [
+              {
+                "label": "N",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 4,
                 "tone": "ok"
               }
             ]
@@ -285,135 +257,277 @@
       "partTitle": "BM25",
       "codeHash": "083a9293cd34d12ac7b7c71a2a4ac7e5a71d95edde302e35fa6bb29a261ff225",
       "spec": {
-        "template": "table",
-        "title": "Okapi BM25 term frequency saturation curves",
-        "columns": [
-          "avgdl",
-          "doc_len",
-          "avgdl"
+        "template": "flow",
+        "title": "BM25",
+        "nodes": [
+          {
+            "id": "k1",
+            "label": "k1"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "avgdl",
+            "label": "avgdl"
+          },
+          {
+            "id": "doc_len",
+            "label": "doc_len"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The ranking term saturates as extra query mentions appear.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "avgdl"
-                  },
-                  {
-                    "text": "doc_len"
-                  },
-                  {
-                    "text": "avgdl"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "BM25, from the Okapi system of the 1990s, is still the standard keyword.",
+            "values": {
+              "k1": {
+                "var": "k1",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "avgdl"
-                  },
-                  {
-                    "text": "doc_len"
-                  },
-                  {
-                    "text": "avgdl"
-                  }
-                ],
-                "tone": "data"
+              "b": {
+                "var": "b",
+                "line": 1,
+                "hit": 1
+              },
+              "avgdl": {
+                "var": "avgdl",
+                "line": 1,
+                "hit": 1
+              },
+              "doc_len": {
+                "var": "doc_len",
+                "line": 1,
+                "hit": 1
               }
+            },
+            "tones": {
+              "k1": "data",
+              "b": "data",
+              "avgdl": "data",
+              "doc_len": "data"
+            },
+            "arrows": [
+              [
+                "k1",
+                "b"
+              ],
+              [
+                "b",
+                "avgdl"
+              ],
+              [
+                "avgdl",
+                "doc_len"
+              ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "Specific queries remain hard to beat across many benchmarks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "avgdl"
-                  },
-                  {
-                    "text": "doc_len"
-                  },
-                  {
-                    "text": "avgdl"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "For each query term it multiplies an IDF weight by a term-frequency part.",
+            "values": {
+              "k1": {
+                "var": "k1",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "avgdl"
-                  },
-                  {
-                    "text": "doc_len"
-                  },
-                  {
-                    "text": "doc_len"
-                  }
-                ],
-                "tone": "ok"
+              "b": {
+                "var": "b",
+                "line": 2,
+                "hit": 1
+              },
+              "avgdl": {
+                "var": "avgdl",
+                "line": 2,
+                "hit": 1
+              },
+              "doc_len": {
+                "var": "doc_len",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "k1": "data",
+              "b": "data",
+              "avgdl": "data",
+              "doc_len": "data"
+            },
+            "arrows": [
+              [
+                "k1",
+                "b"
+              ],
+              [
+                "b",
+                "avgdl"
+              ],
+              [
+                "avgdl",
+                "doc_len"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow combines BM25 with vector search to get the best of both.",
+            "values": {
+              "k1": {
+                "var": "k1",
+                "line": 3,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 3,
+                "hit": 1
+              },
+              "avgdl": {
+                "var": "avgdl",
+                "line": 3,
+                "hit": 1
+              },
+              "doc_len": {
+                "var": "doc_len",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "k1": "ok",
+              "b": "ok",
+              "avgdl": "ok",
+              "doc_len": "ok"
+            },
+            "arrows": [
+              [
+                "k1",
+                "b"
+              ],
+              [
+                "b",
+                "avgdl"
+              ],
+              [
+                "avgdl",
+                "doc_len"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Okapi BM25 term frequency saturation curves",
-        "columns": [
-          "avgdl",
-          "doc_len",
-          "avgdl"
+        "template": "flow",
+        "title": "BM25",
+        "nodes": [
+          {
+            "id": "k1",
+            "label": "k1"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "avgdl",
+            "label": "avgdl"
+          },
+          {
+            "id": "doc_len",
+            "label": "doc_len"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "The ranking term saturates as extra query mentions appear.",
-            "rows": [
-              {
-                "cells": [
-                  "avgdl",
-                  "doc_len",
-                  "avgdl"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "avgdl",
-                  "doc_len",
-                  "avgdl"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "BM25, from the Okapi system of the 1990s, is still the standard keyword.",
+            "values": {
+              "k1": "1.5",
+              "b": "0.75",
+              "avgdl": "10",
+              "doc_len": "10"
+            },
+            "tones": {
+              "k1": "data",
+              "b": "data",
+              "avgdl": "data",
+              "doc_len": "data"
+            },
+            "arrows": [
+              [
+                "k1",
+                "b"
+              ],
+              [
+                "b",
+                "avgdl"
+              ],
+              [
+                "avgdl",
+                "doc_len"
+              ]
             ]
           },
           {
-            "at": "say8",
-            "caption": "Specific queries remain hard to beat across many benchmarks.",
-            "rows": [
-              {
-                "cells": [
-                  "avgdl",
-                  "doc_len",
-                  "avgdl"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "avgdl",
-                  "doc_len",
-                  "doc_len"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "For each query term it multiplies an IDF weight by a term-frequency part.",
+            "values": {
+              "k1": "1.5",
+              "b": "0.75",
+              "avgdl": "10",
+              "doc_len": "10"
+            },
+            "tones": {
+              "k1": "data",
+              "b": "data",
+              "avgdl": "data",
+              "doc_len": "data"
+            },
+            "arrows": [
+              [
+                "k1",
+                "b"
+              ],
+              [
+                "b",
+                "avgdl"
+              ],
+              [
+                "avgdl",
+                "doc_len"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow combines BM25 with vector search to get the best of both.",
+            "values": {
+              "k1": "1.5",
+              "b": "0.75",
+              "avgdl": "10",
+              "doc_len": "10"
+            },
+            "tones": {
+              "k1": "ok",
+              "b": "ok",
+              "avgdl": "ok",
+              "doc_len": "ok"
+            },
+            "arrows": [
+              [
+                "k1",
+                "b"
+              ],
+              [
+                "b",
+                "avgdl"
+              ],
+              [
+                "avgdl",
+                "doc_len"
+              ]
             ]
           }
         ]
@@ -423,135 +537,277 @@
       "partTitle": "Length normalisation",
       "codeHash": "a662284cacbc51db8fb9c0f63be877530752055804a1eb9c09dd94edb110d865",
       "spec": {
-        "template": "table",
-        "title": "Document length normalisation penalties",
-        "columns": [
-          "score",
-          "length",
-          "avgdl"
+        "template": "flow",
+        "title": "Length normalisation",
+        "nodes": [
+          {
+            "id": "k1",
+            "label": "k1"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "avgdl",
+            "label": "avgdl"
+          },
+          {
+            "id": "idf",
+            "label": "idf"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Dividing by relative document length avoids bias toward longer text.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "score"
-                  },
-                  {
-                    "text": "length"
-                  },
-                  {
-                    "text": "avgdl"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "A long document naturally contains more words, so it matches more query.",
+            "values": {
+              "k1": {
+                "var": "k1",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "score"
-                  },
-                  {
-                    "text": "length"
-                  },
-                  {
-                    "text": "avgdl"
-                  }
-                ],
-                "tone": "data"
+              "b": {
+                "var": "b",
+                "line": 3,
+                "hit": 1
+              },
+              "avgdl": {
+                "var": "avgdl",
+                "line": 3,
+                "hit": 1
+              },
+              "idf": {
+                "var": "idf",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "k1": "data",
+              "b": "data",
+              "avgdl": "data",
+              "idf": "data"
+            },
+            "arrows": [
+              [
+                "k1",
+                "b"
+              ],
+              [
+                "b",
+                "avgdl"
+              ],
+              [
+                "avgdl",
+                "idf"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "A short document scores higher because each mention is meaningful.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "score"
-                  },
-                  {
-                    "text": "length"
-                  },
-                  {
-                    "text": "avgdl"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "BM25 divides by a factor that grows with document length relative to.",
+            "values": {
+              "k1": {
+                "var": "k1",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "score"
-                  },
-                  {
-                    "text": "length"
-                  },
-                  {
-                    "text": "length"
-                  }
-                ],
-                "tone": "ok"
+              "b": {
+                "var": "b",
+                "line": 4,
+                "hit": 1
+              },
+              "avgdl": {
+                "var": "avgdl",
+                "line": 4,
+                "hit": 1
+              },
+              "idf": {
+                "var": "idf",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "k1": "data",
+              "b": "data",
+              "avgdl": "data",
+              "idf": "data"
+            },
+            "arrows": [
+              [
+                "k1",
+                "b"
+              ],
+              [
+                "b",
+                "avgdl"
+              ],
+              [
+                "avgdl",
+                "idf"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Understanding each factor makes BM25 scores explainable, which users.",
+            "values": {
+              "k1": {
+                "var": "k1",
+                "line": 5,
+                "hit": 1
+              },
+              "b": {
+                "var": "b",
+                "line": 5,
+                "hit": 1
+              },
+              "avgdl": {
+                "var": "avgdl",
+                "line": 5,
+                "hit": 1
+              },
+              "idf": {
+                "var": "idf",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "k1": "ok",
+              "b": "ok",
+              "avgdl": "ok",
+              "idf": "ok"
+            },
+            "arrows": [
+              [
+                "k1",
+                "b"
+              ],
+              [
+                "b",
+                "avgdl"
+              ],
+              [
+                "avgdl",
+                "idf"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Document length normalisation penalties",
-        "columns": [
-          "score",
-          "length",
-          "avgdl"
+        "template": "flow",
+        "title": "Length normalisation",
+        "nodes": [
+          {
+            "id": "k1",
+            "label": "k1"
+          },
+          {
+            "id": "b",
+            "label": "b"
+          },
+          {
+            "id": "avgdl",
+            "label": "avgdl"
+          },
+          {
+            "id": "idf",
+            "label": "idf"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Dividing by relative document length avoids bias toward longer text.",
-            "rows": [
-              {
-                "cells": [
-                  "score",
-                  "length",
-                  "avgdl"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "score",
-                  "length",
-                  "avgdl"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "A long document naturally contains more words, so it matches more query.",
+            "values": {
+              "k1": "1.5",
+              "b": "0.75",
+              "avgdl": "20",
+              "idf": "1.2"
+            },
+            "tones": {
+              "k1": "data",
+              "b": "data",
+              "avgdl": "data",
+              "idf": "data"
+            },
+            "arrows": [
+              [
+                "k1",
+                "b"
+              ],
+              [
+                "b",
+                "avgdl"
+              ],
+              [
+                "avgdl",
+                "idf"
+              ]
             ]
           },
           {
-            "at": "say5",
-            "caption": "A short document scores higher because each mention is meaningful.",
-            "rows": [
-              {
-                "cells": [
-                  "score",
-                  "length",
-                  "avgdl"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "score",
-                  "length",
-                  "length"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "BM25 divides by a factor that grows with document length relative to.",
+            "values": {
+              "k1": "1.5",
+              "b": "0.75",
+              "avgdl": "20",
+              "idf": "1.2"
+            },
+            "tones": {
+              "k1": "data",
+              "b": "data",
+              "avgdl": "data",
+              "idf": "data"
+            },
+            "arrows": [
+              [
+                "k1",
+                "b"
+              ],
+              [
+                "b",
+                "avgdl"
+              ],
+              [
+                "avgdl",
+                "idf"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Understanding each factor makes BM25 scores explainable, which users.",
+            "values": {
+              "k1": "1.5",
+              "b": "0.75",
+              "avgdl": "20",
+              "idf": "1.2"
+            },
+            "tones": {
+              "k1": "ok",
+              "b": "ok",
+              "avgdl": "ok",
+              "idf": "ok"
+            },
+            "arrows": [
+              [
+                "k1",
+                "b"
+              ],
+              [
+                "b",
+                "avgdl"
+              ],
+              [
+                "avgdl",
+                "idf"
+              ]
             ]
           }
         ]
@@ -562,110 +818,161 @@
       "codeHash": "ada0308be0bfa710150c03fa70fe131ce7b02f0611d4611201b5fb3d1548e945",
       "spec": {
         "template": "flow",
-        "title": "When keywords beat vectors — Execution Pipeline",
+        "title": "When keywords beat vectors",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "docs",
+            "label": "docs"
           },
           {
-            "id": "proc",
-            "label": "2. When keywords beat ...",
-            "tappable": true
+            "id": "queries",
+            "label": "queries"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "note",
+            "label": "note"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for When keywords beat vectors [Dsix.Pfive.Sone].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in When keywords beat ... [Dsix.Pfive.Stwo].",
+            "caption": "Dense vectors capture meaning but can blur exact identifiers such.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "docs": {
+                "var": "docs",
+                "line": 1,
+                "hit": 1
+              },
+              "queries": {
+                "var": "queries",
+                "line": 2,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 3,
+                "hit": 1
+              },
+              "note": {
+                "var": "note",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "docs": "data",
+              "queries": "data",
+              "q": "data",
+              "note": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "docs",
+                "queries"
               ],
               [
-                "proc",
-                "out"
+                "queries",
+                "q"
+              ],
+              [
+                "q",
+                "note"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Keyword search matches these exactly and ranks them highly.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "docs": {
+                "var": "docs",
+                "line": 2,
+                "hit": 1
+              },
+              "queries": {
+                "var": "queries",
+                "line": 3,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 4,
+                "hit": 1
+              },
+              "note": {
+                "var": "note",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "docs": "data",
+              "queries": "data",
+              "q": "data",
+              "note": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "docs",
+                "queries"
+              ],
+              [
+                "queries",
+                "q"
+              ],
+              [
+                "q",
+                "note"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for When keywords beat vectors.",
+            "at": "say10",
+            "caption": "Many production systems quietly rely on keyword search for a large share.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "docs": {
+                "var": "docs",
+                "line": 3,
+                "hit": 1
+              },
+              "queries": {
+                "var": "queries",
+                "line": 4,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 4,
+                "hit": 2
+              },
+              "note": {
+                "var": "note",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "docs": "ok",
+              "queries": "ok",
+              "q": "ok",
+              "note": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "docs",
+                "queries"
               ],
               [
-                "proc",
-                "out"
+                "queries",
+                "q"
+              ],
+              [
+                "q",
+                "note"
               ]
             ]
           }
@@ -673,110 +980,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "When keywords beat vectors — Execution Pipeline",
+        "title": "When keywords beat vectors",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "docs",
+            "label": "docs"
           },
           {
-            "id": "proc",
-            "label": "2. When keywords beat ...",
-            "tappable": true
+            "id": "queries",
+            "label": "queries"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "note",
+            "label": "note"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for When keywords beat vectors [D6.P5.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in When keywords beat ... [D6.P5.S2].",
+            "caption": "Dense vectors capture meaning but can blur exact identifiers such.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "docs": "{'d1': 'Error E4012 means the battery i…",
+              "queries": "{'E4012': 'keyword wins: exact code', '…",
+              "q": "'E4012'",
+              "note": "'keyword wins: exact code'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "docs": "data",
+              "queries": "data",
+              "q": "data",
+              "note": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "docs",
+                "queries"
               ],
               [
-                "proc",
-                "out"
+                "queries",
+                "q"
+              ],
+              [
+                "q",
+                "note"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P5.S3].",
+            "at": "say2",
+            "caption": "Keyword search matches these exactly and ranks them highly.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "docs": "{'d1': 'Error E4012 means the battery i…",
+              "queries": "{'E4012': 'keyword wins: exact code', '…",
+              "q": "'E4012'",
+              "note": "'keyword wins: exact code'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "docs": "data",
+              "queries": "data",
+              "q": "data",
+              "note": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "docs",
+                "queries"
+              ],
+              [
+                "queries",
+                "q"
+              ],
+              [
+                "q",
+                "note"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for When keywords beat vectors [D6.P5.S4].",
+            "at": "say10",
+            "caption": "Many production systems quietly rely on keyword search for a large share.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "docs": "{'d1': 'Error E4012 means the battery i…",
+              "queries": "{'E4012': 'keyword wins: exact code', '…",
+              "q": "'E4012'",
+              "note": "'keyword wins: exact code'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "docs": "ok",
+              "queries": "ok",
+              "q": "ok",
+              "note": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "docs",
+                "queries"
               ],
               [
-                "proc",
-                "out"
+                "queries",
+                "q"
+              ],
+              [
+                "q",
+                "note"
               ]
             ]
           }
@@ -787,223 +1097,217 @@
       "partTitle": "Practice time: keyword search",
       "codeHash": "afa9a1275fa8acd06883b86d38f496f512518aa972595f36b8a7e513cbb805f0",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: keyword search — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: keyw...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: keyword search",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: keyword search [Dsix.Psix.Sone].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: keyw... [Dsix.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Build_index(docs) returns term sorted document indices (each once),.",
+            "bars": [
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avgdl",
+                "value": {
+                  "var": "avgdl",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "k1",
+                "value": {
+                  "var": "k1",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dsix.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include repeated words, exact-token matching, AND queries,.",
+            "bars": [
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "avgdl",
+                "value": {
+                  "var": "avgdl",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 14,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k1",
+                "value": {
+                  "var": "k1",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: keyword search.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If your scores differ slightly, check that avgdl is the mean length of all.",
+            "bars": [
+              {
+                "label": "N",
+                "value": {
+                  "var": "N",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "avgdl",
+                "value": {
+                  "var": "avgdl",
+                  "line": 13,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 13,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "k1",
+                "value": {
+                  "var": "k1",
+                  "line": 8,
+                  "hit": 5
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: keyword search — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: keyw...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: keyword search",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: keyword search [D6.P6.S1].",
-            "values": {
-              "in": "Day 6 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: keyw... [D6.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Build_index(docs) returns term sorted document indices (each once),.",
+            "bars": [
+              {
+                "label": "N",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "avgdl",
+                "value": 3.3333333333333335,
+                "tone": "data"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "k1",
+                "value": 1.5,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D6.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include repeated words, exact-token matching, AND queries,.",
+            "bars": [
+              {
+                "label": "N",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "avgdl",
+                "value": 3.3333333333333335,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "k1",
+                "value": 1.5,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: keyword search [D6.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If your scores differ slightly, check that avgdl is the mean length of all.",
+            "bars": [
+              {
+                "label": "N",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "avgdl",
+                "value": 3.3333333333333335,
+                "tone": "ok"
+              },
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "k1",
+                "value": 1.5,
+                "tone": "ok"
+              }
             ]
           }
         ]

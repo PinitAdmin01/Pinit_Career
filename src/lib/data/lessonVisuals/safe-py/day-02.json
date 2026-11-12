@@ -2,143 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 2,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What threat modelling is",
       "codeHash": "b0c452fabd5346bcf5f84e6c5a6b33e060a7073f1e5907b71a8271a622014880",
       "spec": {
-        "template": "table",
-        "title": "Data flow mapping and untrusted trust boundary identification",
-        "columns": [
-          "flows",
-          "flows",
-          "flows"
+        "template": "states",
+        "title": "What threat modelling is",
+        "states": [
+          {
+            "id": "flows",
+            "label": "flows"
+          },
+          {
+            "id": "source",
+            "label": "source"
+          },
+          {
+            "id": "target",
+            "label": "target"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Threat modelling systematically investigates what could go wrong with a system.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "flows"
-                  },
-                  {
-                    "text": "flows"
-                  },
-                  {
-                    "text": "flows"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "flows"
-                  },
-                  {
-                    "text": "flows"
-                  },
-                  {
-                    "text": "flows"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Threat modelling is a structured way of asking what could go wrong with.",
+            "currentState": "flows",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Points where trust changes across components represent critical boundaries.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "flows"
-                  },
-                  {
-                    "text": "flows"
-                  },
-                  {
-                    "text": "flows"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "flows"
-                  },
-                  {
-                    "text": "flows"
-                  },
-                  {
-                    "text": "flows"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "You draw the system.",
+            "currentState": "source",
+            "transition": {
+              "from": "flows",
+              "to": "source",
+              "label": {
+                "var": "source",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The output is a list of threats, which goes straight into yesterday's risk.",
+            "currentState": "target",
+            "transition": {
+              "from": "source",
+              "to": "target",
+              "label": {
+                "var": "target",
+                "line": 10,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Data flow mapping and untrusted trust boundary identification",
-        "columns": [
-          "flows",
-          "flows",
-          "flows"
+        "template": "states",
+        "title": "What threat modelling is",
+        "states": [
+          {
+            "id": "flows",
+            "label": "flows"
+          },
+          {
+            "id": "source",
+            "label": "source"
+          },
+          {
+            "id": "target",
+            "label": "target"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Threat modelling systematically investigates what could go wrong with a system.",
-            "rows": [
-              {
-                "cells": [
-                  "flows",
-                  "flows",
-                  "flows"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "flows",
-                  "flows",
-                  "flows"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Threat modelling is a structured way of asking what could go wrong with.",
+            "currentState": "flows",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Points where trust changes across components represent critical boundaries.",
-            "rows": [
-              {
-                "cells": [
-                  "flows",
-                  "flows",
-                  "flows"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "flows",
-                  "flows",
-                  "flows"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "You draw the system.",
+            "currentState": "source",
+            "transition": {
+              "from": "flows",
+              "to": "source",
+              "label": "'user message'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The output is a list of threats, which goes straight into yesterday's risk.",
+            "currentState": "target",
+            "transition": {
+              "from": "source",
+              "to": "target",
+              "label": "'model'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -147,136 +117,106 @@
       "partTitle": "The OWASP Top 10 for LLM Applications",
       "codeHash": "106c1413280e0d3bcfa8b18a2e26af06ac9ffa9483017bfa9021bcebf760dfd3",
       "spec": {
-        "template": "table",
-        "title": "OWASP LLM Top 10 vulnerability classification",
-        "columns": [
-          "top10",
-          "name",
-          "top10"
+        "template": "states",
+        "title": "The OWASP Top 10 for LLM Applications",
+        "states": [
+          {
+            "id": "top10",
+            "label": "top10"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "OWASP compiles the most important risks for systems built on language models.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "top10"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "top10"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "top10"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "top10"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "OWASP is a non-profit community that publishes security guidance used.",
+            "currentState": "top10",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Standardized taxonomies provide teams with a shared vocabulary across audits.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "top10"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "top10"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "top10"
-                  },
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "top10"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how applications updates lists during execution.",
+            "currentState": "i",
+            "transition": {
+              "from": "top10",
+              "to": "i",
+              "label": {
+                "var": "i",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Many later days in this course are controls for one of these categories.",
+            "currentState": "name",
+            "transition": {
+              "from": "i",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 5,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "OWASP LLM Top 10 vulnerability classification",
-        "columns": [
-          "top10",
-          "name",
-          "top10"
+        "template": "states",
+        "title": "The OWASP Top 10 for LLM Applications",
+        "states": [
+          {
+            "id": "top10",
+            "label": "top10"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "OWASP compiles the most important risks for systems built on language models.",
-            "rows": [
-              {
-                "cells": [
-                  "top10",
-                  "name",
-                  "top10"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "top10",
-                  "name",
-                  "top10"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "OWASP is a non-profit community that publishes security guidance used.",
+            "currentState": "top10",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "Standardized taxonomies provide teams with a shared vocabulary across audits.",
-            "rows": [
-              {
-                "cells": [
-                  "top10",
-                  "name",
-                  "top10"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "top10",
-                  "name",
-                  "top10"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how applications updates lists during execution.",
+            "currentState": "i",
+            "transition": {
+              "from": "top10",
+              "to": "i",
+              "label": "1"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Many later days in this course are controls for one of these categories.",
+            "currentState": "name",
+            "transition": {
+              "from": "i",
+              "to": "name",
+              "label": "'Sensitive Information Disclosure'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -285,136 +225,106 @@
       "partTitle": "Tagging findings with keywords",
       "codeHash": "1c5c682bd43eebd8f7ea8111726061e75e842900f4ce9bf7c7c5916257bda989",
       "spec": {
-        "template": "table",
-        "title": "Automated vulnerability tagging via keyword stems",
-        "columns": [
-          "stems",
-          "tags",
-          "stems"
+        "template": "states",
+        "title": "Tagging findings with keywords",
+        "states": [
+          {
+            "id": "stems",
+            "label": "stems"
+          },
+          {
+            "id": "finding",
+            "label": "finding"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Tagging each finding with OWASP codes makes it possible to track risks easily.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "stems"
-                  },
-                  {
-                    "text": "tags"
-                  },
-                  {
-                    "text": "stems"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "stems"
-                  },
-                  {
-                    "text": "tags"
-                  },
-                  {
-                    "text": "stems"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Security reviews and bug reports produce many findings written in plain.",
+            "currentState": "stems",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "A simple tagger looks for keyword stems to identify vulnerability categories.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "stems"
-                  },
-                  {
-                    "text": "tags"
-                  },
-                  {
-                    "text": "stems"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "stems"
-                  },
-                  {
-                    "text": "tags"
-                  },
-                  {
-                    "text": "stems"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Tagging each finding with OWASP codes makes it possible to count and track.",
+            "currentState": "finding",
+            "transition": {
+              "from": "stems",
+              "to": "finding",
+              "label": {
+                "var": "finding",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Returning codes in a fixed order makes results easy to test and compare.",
+            "currentState": "text",
+            "transition": {
+              "from": "finding",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 8,
+                "hit": 5
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Automated vulnerability tagging via keyword stems",
-        "columns": [
-          "stems",
-          "tags",
-          "stems"
+        "template": "states",
+        "title": "Tagging findings with keywords",
+        "states": [
+          {
+            "id": "stems",
+            "label": "stems"
+          },
+          {
+            "id": "finding",
+            "label": "finding"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Tagging each finding with OWASP codes makes it possible to track risks easily.",
-            "rows": [
-              {
-                "cells": [
-                  "stems",
-                  "tags",
-                  "stems"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "stems",
-                  "tags",
-                  "stems"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Security reviews and bug reports produce many findings written in plain.",
+            "currentState": "stems",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "A simple tagger looks for keyword stems to identify vulnerability categories.",
-            "rows": [
-              {
-                "cells": [
-                  "stems",
-                  "tags",
-                  "stems"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "stems",
-                  "tags",
-                  "stems"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Tagging each finding with OWASP codes makes it possible to count and track.",
+            "currentState": "finding",
+            "transition": {
+              "from": "stems",
+              "to": "finding",
+              "label": "'Jailbreak revealed the SYSTEM PROMPT'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Returning codes in a fixed order makes results easy to test and compare.",
+            "currentState": "text",
+            "transition": {
+              "from": "finding",
+              "to": "text",
+              "label": "'jailbreak revealed the system prompt'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -423,135 +333,221 @@
       "partTitle": "Controls for each category",
       "codeHash": "c83a55c51170fa572e8a345df37bb386c0211dd172cf75aff77ac47ef0f00207",
       "spec": {
-        "template": "table",
-        "title": "Threat mitigation mapping and control coverage analysis",
-        "columns": [
-          "controls",
-          "names",
-          "controls"
+        "template": "flow",
+        "title": "Controls for each category",
+        "nodes": [
+          {
+            "id": "controls",
+            "label": "controls"
+          },
+          {
+            "id": "code",
+            "label": "code"
+          },
+          {
+            "id": "names",
+            "label": "names"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each threat category has well-known controls established across the industry.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "controls"
-                  },
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "controls"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Each OWASP category has well-known controls.",
+            "values": {
+              "controls": {
+                "var": "controls",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "controls"
-                  },
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "controls"
-                  }
-                ],
-                "tone": "data"
+              "code": {
+                "var": "code",
+                "line": 7,
+                "hit": 1
+              },
+              "names": {
+                "var": "names",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "controls": "data",
+              "code": "data",
+              "names": "data"
+            },
+            "arrows": [
+              [
+                "controls",
+                "code"
+              ],
+              [
+                "code",
+                "names"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "A threat with no control is a gap that attackers actively seek to exploit.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "controls"
-                  },
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "controls"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Prompt injection is reduced by input screening, separating instructions.",
+            "values": {
+              "controls": {
+                "var": "controls",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "controls"
-                  },
-                  {
-                    "text": "names"
-                  },
-                  {
-                    "text": "controls"
-                  }
-                ],
-                "tone": "ok"
+              "code": {
+                "var": "code",
+                "line": 8,
+                "hit": 1
+              },
+              "names": {
+                "var": "names",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "controls": "data",
+              "code": "data",
+              "names": "data"
+            },
+            "arrows": [
+              [
+                "controls",
+                "code"
+              ],
+              [
+                "code",
+                "names"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow starts building these controls, beginning with input validation.",
+            "values": {
+              "controls": {
+                "var": "controls",
+                "line": 8,
+                "hit": 1
+              },
+              "code": {
+                "var": "code",
+                "line": 7,
+                "hit": 2
+              },
+              "names": {
+                "var": "names",
+                "line": 7,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "controls": "ok",
+              "code": "ok",
+              "names": "ok"
+            },
+            "arrows": [
+              [
+                "controls",
+                "code"
+              ],
+              [
+                "code",
+                "names"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Threat mitigation mapping and control coverage analysis",
-        "columns": [
-          "controls",
-          "names",
-          "controls"
+        "template": "flow",
+        "title": "Controls for each category",
+        "nodes": [
+          {
+            "id": "controls",
+            "label": "controls"
+          },
+          {
+            "id": "code",
+            "label": "code"
+          },
+          {
+            "id": "names",
+            "label": "names"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Each threat category has well-known controls established across the industry.",
-            "rows": [
-              {
-                "cells": [
-                  "controls",
-                  "names",
-                  "controls"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "controls",
-                  "names",
-                  "controls"
-                ],
-                "tone": "data"
-              }
+            "caption": "Each OWASP category has well-known controls.",
+            "values": {
+              "controls": "{'LLM01': ['input screening', 'instruct…",
+              "code": "'LLM01'",
+              "names": "['input screening', 'instruction/data s…"
+            },
+            "tones": {
+              "controls": "data",
+              "code": "data",
+              "names": "data"
+            },
+            "arrows": [
+              [
+                "controls",
+                "code"
+              ],
+              [
+                "code",
+                "names"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "A threat with no control is a gap that attackers actively seek to exploit.",
-            "rows": [
-              {
-                "cells": [
-                  "controls",
-                  "names",
-                  "controls"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "controls",
-                  "names",
-                  "controls"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Prompt injection is reduced by input screening, separating instructions.",
+            "values": {
+              "controls": "{'LLM01': ['input screening', 'instruct…",
+              "code": "'LLM01'",
+              "names": "['input screening', 'instruction/data s…"
+            },
+            "tones": {
+              "controls": "data",
+              "code": "data",
+              "names": "data"
+            },
+            "arrows": [
+              [
+                "controls",
+                "code"
+              ],
+              [
+                "code",
+                "names"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow starts building these controls, beginning with input validation.",
+            "values": {
+              "controls": "{'LLM01': ['input screening', 'instruct…",
+              "code": "'LLM05'",
+              "names": "['escape output before rendering']"
+            },
+            "tones": {
+              "controls": "ok",
+              "code": "ok",
+              "names": "ok"
+            },
+            "arrows": [
+              [
+                "controls",
+                "code"
+              ],
+              [
+                "code",
+                "names"
+              ]
             ]
           }
         ]
@@ -561,224 +557,106 @@
       "partTitle": "Finding gaps",
       "codeHash": "24e1515df085cb1718b89c63462ed383773a4b8cb27be50c8b38b0e359012738",
       "spec": {
-        "template": "flow",
-        "title": "Finding gaps — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Finding gaps",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "threats",
+            "label": "threats"
           },
           {
-            "id": "proc",
-            "label": "2. Finding gaps",
-            "tappable": true
+            "id": "controls",
+            "label": "controls"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "gaps",
+            "label": "gaps"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Finding gaps [Dtwo.Pfive.Sone].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Finding gaps [Dtwo.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "After a threat model you have two lists.",
+            "currentState": "threats",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "A gap is a threat that has no control at all.",
+            "currentState": "controls",
+            "transition": {
+              "from": "threats",
+              "to": "controls",
+              "label": {
+                "var": "controls",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Finding gaps [Dtwo.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Running a gap check automatically on every design review keeps the model.",
+            "currentState": "gaps",
+            "transition": {
+              "from": "controls",
+              "to": "gaps",
+              "label": {
+                "var": "gaps",
+                "line": 4,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Finding gaps — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Finding gaps",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "threats",
+            "label": "threats"
           },
           {
-            "id": "proc",
-            "label": "2. Finding gaps",
-            "tappable": true
+            "id": "controls",
+            "label": "controls"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "gaps",
+            "label": "gaps"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Finding gaps [D2.P5.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Finding gaps [D2.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "After a threat model you have two lists.",
+            "currentState": "threats",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "A gap is a threat that has no control at all.",
+            "currentState": "controls",
+            "transition": {
+              "from": "threats",
+              "to": "controls",
+              "label": "{'LLM01': ['input screening'], 'LLM06':…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Finding gaps [D2.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Running a gap check automatically on every design review keeps the model.",
+            "currentState": "gaps",
+            "transition": {
+              "from": "controls",
+              "to": "gaps",
+              "label": "['LLM02', 'LLM06']"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -787,224 +665,106 @@
       "partTitle": "Threat modelling in practice",
       "codeHash": "c6ce440913f50642bfb20334541905cdb2352c329a7872ea6f7f1a0c6c912f12",
       "spec": {
-        "template": "flow",
-        "title": "Threat modelling in practice — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Threat modelling in practice",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "stems",
+            "label": "stems"
           },
           {
-            "id": "proc",
-            "label": "2. Threat modelling in...",
-            "tappable": true
+            "id": "findings",
+            "label": "findings"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "controls",
+            "label": "controls"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Threat modelling in practice [Dtwo.Psix.Sone].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Threat modelling in... [Dtwo.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A threat model is only useful if it is kept up to date and acted on.",
+            "currentState": "stems",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dtwo.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Good teams store it next to the code and review it whenever the design changes.",
+            "currentState": "findings",
+            "transition": {
+              "from": "stems",
+              "to": "findings",
+              "label": {
+                "var": "findings",
+                "line": 3,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Threat modelling in practice.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow you build the first control on the input side.",
+            "currentState": "controls",
+            "transition": {
+              "from": "findings",
+              "to": "controls",
+              "label": {
+                "var": "controls",
+                "line": 5,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Threat modelling in practice — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Threat modelling in practice",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "stems",
+            "label": "stems"
           },
           {
-            "id": "proc",
-            "label": "2. Threat modelling in...",
-            "tappable": true
+            "id": "findings",
+            "label": "findings"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "controls",
+            "label": "controls"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Threat modelling in practice [D2.P6.S1].",
-            "values": {
-              "in": "Day 2 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Threat modelling in... [D2.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "A threat model is only useful if it is kept up to date and acted on.",
+            "currentState": "stems",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D2.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Good teams store it next to the code and review it whenever the design changes.",
+            "currentState": "findings",
+            "transition": {
+              "from": "stems",
+              "to": "findings",
+              "label": "['Injection via email body', 'Autonomou…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Threat modelling in practice [D2.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow you build the first control on the input side.",
+            "currentState": "controls",
+            "transition": {
+              "from": "findings",
+              "to": "controls",
+              "label": "{'LLM01': ['input screening']}"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

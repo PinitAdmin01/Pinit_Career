@@ -2,141 +2,115 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 5,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Relevance judgements",
       "codeHash": "672f3a4efdd2937c0fab4a109c6c8fb530797af3ad5ed6fb27a117431250d700",
       "spec": {
-        "template": "table",
-        "title": "Relevance ground truth annotation and evaluation benchmark sets",
-        "columns": [
-          "golden",
-          "results",
-          "marks"
-        ],
+        "template": "cells",
+        "title": "Relevance judgements",
         "steps": [
           {
             "at": "say1",
-            "caption": "To measure search quality engineers determine which documents are relevant.",
-            "rows": [
+            "caption": "To measure search quality, you need to know which documents are relevant.",
+            "items": {
+              "var": "marks",
+              "line": 4,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "golden"
-                  },
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "marks"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "golden"
-                  },
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "marks"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "A labelled golden test set associates queries with known relevant documents.",
-            "rows": [
+            "caption": "A labelled test set, sometimes called a golden set, lists queries.",
+            "items": {
+              "var": "marks",
+              "line": 4,
+              "hit": 6
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "golden"
-                  },
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "marks"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Start small, with twenty honest labels, and grow the set as you meet new.",
+            "items": {
+              "var": "marks",
+              "line": 3,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "golden"
-                  },
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "golden"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Relevance ground truth annotation and evaluation benchmark sets",
-        "columns": [
-          "golden",
-          "results",
-          "marks"
-        ],
+        "template": "cells",
+        "title": "Relevance judgements",
         "steps": [
           {
             "at": "say1",
-            "caption": "To measure search quality engineers determine which documents are relevant.",
-            "rows": [
+            "caption": "To measure search quality, you need to know which documents are relevant.",
+            "items": [
+              "'relevant'",
+              "'-'",
+              "'relevant'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "golden",
-                  "results",
-                  "marks"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "golden",
-                  "results",
-                  "marks"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "A labelled golden test set associates queries with known relevant documents.",
-            "rows": [
+            "caption": "A labelled test set, sometimes called a golden set, lists queries.",
+            "items": [
+              "'relevant'",
+              "'-'",
+              "'relevant'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "golden",
-                  "results",
-                  "marks"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Start small, with twenty honest labels, and grow the set as you meet new.",
+            "items": [
+              "'-'",
+              "'relevant'",
+              "'-'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "golden",
-                  "results",
-                  "golden"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -147,78 +121,77 @@
       "partTitle": "Recall and precision at k",
       "codeHash": "cf742a87edd257494a3650e8807d6a9d4da32544e2348cb7acd07e3e5b33d9a4",
       "spec": {
-        "template": "table",
-        "title": "Precision and recall trade-offs across cut-off thresholds",
-        "columns": [
-          "retrieved",
-          "relevant",
-          "hits"
-        ],
+        "template": "bars",
+        "title": "Recall and precision at k",
         "steps": [
           {
             "at": "say1",
-            "caption": "Recall measures the fraction of relevant documents retrieved in the ranking.",
-            "rows": [
+            "caption": "Recall@k is the fraction of relevant documents that appear in the first k.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "retrieved"
-                  },
-                  {
-                    "text": "relevant"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
-                "tone": "ok"
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "retrieved"
-                  },
-                  {
-                    "text": "relevant"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Precision reflects the fraction of displayed results that prove relevant.",
-            "rows": [
+            "caption": "Precision@k is the fraction of the first k results that are relevant.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "retrieved"
-                  },
-                  {
-                    "text": "relevant"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
-                "tone": "data"
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "retrieved"
-                  },
-                  {
-                    "text": "relevant"
-                  },
-                  {
-                    "text": "retrieved"
-                  }
-                ],
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Reporting them together guards against gaming one of them.",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": {
+                  "var": "hits",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +199,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Precision and recall trade-offs across cut-off thresholds",
-        "columns": [
-          "retrieved",
-          "relevant",
-          "hits"
-        ],
+        "template": "bars",
+        "title": "Recall and precision at k",
         "steps": [
           {
             "at": "say1",
-            "caption": "Recall measures the fraction of relevant documents retrieved in the ranking.",
-            "rows": [
+            "caption": "Recall@k is the fraction of relevant documents that appear in the first k.",
+            "bars": [
               {
-                "cells": [
-                  "retrieved",
-                  "relevant",
-                  "hits"
-                ],
-                "tone": "ok"
+                "label": "k",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "retrieved",
-                  "relevant",
-                  "hits"
-                ],
+                "label": "hits",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Precision reflects the fraction of displayed results that prove relevant.",
-            "rows": [
+            "caption": "Precision@k is the fraction of the first k results that are relevant.",
+            "bars": [
               {
-                "cells": [
-                  "retrieved",
-                  "relevant",
-                  "hits"
-                ],
-                "tone": "data"
+                "label": "k",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "retrieved",
-                  "relevant",
-                  "retrieved"
-                ],
+                "label": "hits",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Reporting them together guards against gaming one of them.",
+            "bars": [
+              {
+                "label": "k",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "hits",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -285,78 +257,77 @@
       "partTitle": "Mean reciprocal rank",
       "codeHash": "56dd712e6d08fc7526541053b828f2acc780e11cfa5bbbfcd6edd7a33cf7b251",
       "spec": {
-        "template": "table",
-        "title": "Mean Reciprocal Rank evaluating top-rank discovery positions",
-        "columns": [
-          "runs",
-          "rrs",
-          "runs"
-        ],
+        "template": "bars",
+        "title": "Mean reciprocal rank",
         "steps": [
           {
             "at": "say1",
-            "caption": "Evaluation often focuses on how high the first relevant result appears.",
-            "rows": [
+            "caption": "Often what matters most is how high the first relevant result appears.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "rrs"
-                  },
-                  {
-                    "text": "runs"
-                  }
-                ],
-                "tone": "ok"
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "rrs"
-                  },
-                  {
-                    "text": "runs"
-                  }
-                ],
+                "label": "rr",
+                "value": {
+                  "var": "rr",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Mean reciprocal rank averages the inverse position across query evaluations.",
-            "rows": [
+            "at": "say2",
+            "caption": "The reciprocal rank is 1 divided by the position of the first relevant result.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "rrs"
-                  },
-                  {
-                    "text": "runs"
-                  }
-                ],
-                "tone": "data"
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "rrs"
-                  },
-                  {
-                    "text": "rrs"
-                  }
-                ],
+                "label": "rr",
+                "value": {
+                  "var": "rr",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Because it rewards the very top positions, MRR is very sensitive to small.",
+            "bars": [
+              {
+                "label": "pos",
+                "value": {
+                  "var": "pos",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "rr",
+                "value": {
+                  "var": "rr",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +335,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Mean Reciprocal Rank evaluating top-rank discovery positions",
-        "columns": [
-          "runs",
-          "rrs",
-          "runs"
-        ],
+        "template": "bars",
+        "title": "Mean reciprocal rank",
         "steps": [
           {
             "at": "say1",
-            "caption": "Evaluation often focuses on how high the first relevant result appears.",
-            "rows": [
+            "caption": "Often what matters most is how high the first relevant result appears.",
+            "bars": [
               {
-                "cells": [
-                  "runs",
-                  "rrs",
-                  "runs"
-                ],
-                "tone": "ok"
+                "label": "pos",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "runs",
-                  "rrs",
-                  "runs"
-                ],
+                "label": "rr",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Mean reciprocal rank averages the inverse position across query evaluations.",
-            "rows": [
+            "at": "say2",
+            "caption": "The reciprocal rank is 1 divided by the position of the first relevant result.",
+            "bars": [
               {
-                "cells": [
-                  "runs",
-                  "rrs",
-                  "runs"
-                ],
-                "tone": "data"
+                "label": "pos",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "runs",
-                  "rrs",
-                  "rrs"
-                ],
+                "label": "rr",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Because it rewards the very top positions, MRR is very sensitive to small.",
+            "bars": [
+              {
+                "label": "pos",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "rr",
+                "value": 1,
                 "tone": "ok"
               }
             ]
@@ -423,135 +393,277 @@
       "partTitle": "Recall against exact search",
       "codeHash": "7f90f2e1d7574640ac1dee3779c46d547ade04e32985679227f16b33aeff575f",
       "spec": {
-        "template": "table",
-        "title": "Faithfulness benchmarking: approximate index recall against exact search",
-        "columns": [
-          "exact",
-          "approx",
-          "overlap"
+        "template": "flow",
+        "title": "Recall against exact search",
+        "nodes": [
+          {
+            "id": "exact",
+            "label": "exact"
+          },
+          {
+            "id": "approx",
+            "label": "approx"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "overlap",
+            "label": "overlap"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Exact search provides ground truth to compute recall of approximate indexes.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "exact"
-                  },
-                  {
-                    "text": "approx"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Approximate indexes are usually evaluated without human labels.",
+            "values": {
+              "exact": {
+                "var": "exact",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "exact"
-                  },
-                  {
-                    "text": "approx"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
-                "tone": "data"
+              "approx": {
+                "var": "approx",
+                "line": 2,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 3,
+                "hit": 1
+              },
+              "overlap": {
+                "var": "overlap",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "exact": "data",
+              "approx": "data",
+              "q": "data",
+              "overlap": "data"
+            },
+            "arrows": [
+              [
+                "exact",
+                "approx"
+              ],
+              [
+                "approx",
+                "q"
+              ],
+              [
+                "q",
+                "overlap"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "This benchmark measures how faithfully an index approximates exact search.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "exact"
-                  },
-                  {
-                    "text": "approx"
-                  },
-                  {
-                    "text": "overlap"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how instead updates exact during execution.",
+            "values": {
+              "exact": {
+                "var": "exact",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "exact"
-                  },
-                  {
-                    "text": "approx"
-                  },
-                  {
-                    "text": "exact"
-                  }
-                ],
-                "tone": "ok"
+              "approx": {
+                "var": "approx",
+                "line": 3,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 4,
+                "hit": 1
+              },
+              "overlap": {
+                "var": "overlap",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "exact": "data",
+              "approx": "data",
+              "q": "data",
+              "overlap": "data"
+            },
+            "arrows": [
+              [
+                "exact",
+                "approx"
+              ],
+              [
+                "approx",
+                "q"
+              ],
+              [
+                "q",
+                "overlap"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Mixing them up can make a weak system look excellent, simply because it.",
+            "values": {
+              "exact": {
+                "var": "exact",
+                "line": 3,
+                "hit": 1
+              },
+              "approx": {
+                "var": "approx",
+                "line": 4,
+                "hit": 1
+              },
+              "q": {
+                "var": "q",
+                "line": 5,
+                "hit": 1
+              },
+              "overlap": {
+                "var": "overlap",
+                "line": 3,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "exact": "ok",
+              "approx": "ok",
+              "q": "ok",
+              "overlap": "ok"
+            },
+            "arrows": [
+              [
+                "exact",
+                "approx"
+              ],
+              [
+                "approx",
+                "q"
+              ],
+              [
+                "q",
+                "overlap"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Faithfulness benchmarking: approximate index recall against exact search",
-        "columns": [
-          "exact",
-          "approx",
-          "overlap"
+        "template": "flow",
+        "title": "Recall against exact search",
+        "nodes": [
+          {
+            "id": "exact",
+            "label": "exact"
+          },
+          {
+            "id": "approx",
+            "label": "approx"
+          },
+          {
+            "id": "q",
+            "label": "q"
+          },
+          {
+            "id": "overlap",
+            "label": "overlap"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Exact search provides ground truth to compute recall of approximate indexes.",
-            "rows": [
-              {
-                "cells": [
-                  "exact",
-                  "approx",
-                  "overlap"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "exact",
-                  "approx",
-                  "overlap"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Approximate indexes are usually evaluated without human labels.",
+            "values": {
+              "exact": "{'q1': ['d4', 'd9', 'd2', 'd7'], 'q2': …",
+              "approx": "{'q1': ['d4', 'd2', 'd7', 'd6'], 'q2': …",
+              "q": "'q1'",
+              "overlap": "0.75"
+            },
+            "tones": {
+              "exact": "data",
+              "approx": "data",
+              "q": "data",
+              "overlap": "data"
+            },
+            "arrows": [
+              [
+                "exact",
+                "approx"
+              ],
+              [
+                "approx",
+                "q"
+              ],
+              [
+                "q",
+                "overlap"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "This benchmark measures how faithfully an index approximates exact search.",
-            "rows": [
-              {
-                "cells": [
-                  "exact",
-                  "approx",
-                  "overlap"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "exact",
-                  "approx",
-                  "exact"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how instead updates exact during execution.",
+            "values": {
+              "exact": "{'q1': ['d4', 'd9', 'd2', 'd7'], 'q2': …",
+              "approx": "{'q1': ['d4', 'd2', 'd7', 'd6'], 'q2': …",
+              "q": "'q1'",
+              "overlap": "0.75"
+            },
+            "tones": {
+              "exact": "data",
+              "approx": "data",
+              "q": "data",
+              "overlap": "data"
+            },
+            "arrows": [
+              [
+                "exact",
+                "approx"
+              ],
+              [
+                "approx",
+                "q"
+              ],
+              [
+                "q",
+                "overlap"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Mixing them up can make a weak system look excellent, simply because it.",
+            "values": {
+              "exact": "{'q1': ['d4', 'd9', 'd2', 'd7'], 'q2': …",
+              "approx": "{'q1': ['d4', 'd2', 'd7', 'd6'], 'q2': …",
+              "q": "'q1'",
+              "overlap": "0.75"
+            },
+            "tones": {
+              "exact": "ok",
+              "approx": "ok",
+              "q": "ok",
+              "overlap": "ok"
+            },
+            "arrows": [
+              [
+                "exact",
+                "approx"
+              ],
+              [
+                "approx",
+                "q"
+              ],
+              [
+                "q",
+                "overlap"
+              ]
             ]
           }
         ]
@@ -561,223 +673,106 @@
       "partTitle": "Reading the numbers",
       "codeHash": "d91d69579c0a3e112fcc9d0c251bf9b9c02a1baa46b83e01191768bbb38b3312",
       "spec": {
-        "template": "flow",
-        "title": "Reading the numbers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reading the numbers",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Reading the numbers",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Reading the numbers [Dfive.Pfive.Sone].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Reading the numbers [Dfive.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "A single average hides the queries that fail completely.",
+            "items": {
+              "var": "kv",
+              "line": 4,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Always look at the worst queries as well as the mean.",
+            "items": {
+              "var": "kv",
+              "line": 4,
+              "hit": 3
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Reading the numbers [Dfive.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say11",
+            "caption": "Keeping a short changelog of each evaluation run, with the settings used.",
+            "items": {
+              "var": "kv",
+              "line": 4,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reading the numbers — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Reading the numbers",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Reading the numbers",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Reading the numbers [D5.P5.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Reading the numbers [D5.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "A single average hides the queries that fail completely.",
+            "items": [
+              "'refund policy'",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Always look at the worst queries as well as the mean.",
+            "items": [
+              "'warrenty claim'",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Reading the numbers [D5.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Keeping a short changelog of each evaluation run, with the settings used.",
+            "items": [
+              "'store hours'",
+              "1"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
@@ -788,110 +783,161 @@
       "codeHash": "2b926e1124b970aa8bcc48b5342cb260125ad4166b34faf42873a639d790c1d4",
       "spec": {
         "template": "flow",
-        "title": "Practice time: metrics — Execution Pipeline",
+        "title": "Practice time: metrics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "golden",
+            "label": "golden"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: metrics",
-            "tappable": true
+            "id": "runs",
+            "label": "runs"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "recalls",
+            "label": "recalls"
+          },
+          {
+            "id": "rrs",
+            "label": "rrs"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: metrics [Dfive.Psix.Sone].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: metrics [Dfive.Psix.Stwo].",
+            "caption": "Recall_at_k(retrieved, relevant, k) and precision_at_k(retrieved, relevant, k).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "golden": {
+                "var": "golden",
+                "line": 1,
+                "hit": 1
+              },
+              "runs": {
+                "var": "runs",
+                "line": 2,
+                "hit": 1
+              },
+              "recalls": {
+                "var": "recalls",
+                "line": 3,
+                "hit": 1
+              },
+              "rrs": {
+                "var": "rrs",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "golden": "data",
+              "runs": "data",
+              "recalls": "data",
+              "rrs": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "golden",
+                "runs"
               ],
               [
-                "proc",
-                "out"
+                "runs",
+                "recalls"
+              ],
+              [
+                "recalls",
+                "rrs"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dfive.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks include several values of k and both edge cases.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "golden": {
+                "var": "golden",
+                "line": 2,
+                "hit": 1
+              },
+              "runs": {
+                "var": "runs",
+                "line": 3,
+                "hit": 1
+              },
+              "recalls": {
+                "var": "recalls",
+                "line": 4,
+                "hit": 1
+              },
+              "rrs": {
+                "var": "rrs",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "golden": "data",
+              "runs": "data",
+              "recalls": "data",
+              "rrs": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "golden",
+                "runs"
+              ],
+              [
+                "runs",
+                "recalls"
+              ],
+              [
+                "recalls",
+                "rrs"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: metrics.",
+            "at": "say10",
+            "caption": "If your recall is above 1, check that you use sets so duplicates are not.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "golden": {
+                "var": "golden",
+                "line": 3,
+                "hit": 1
+              },
+              "runs": {
+                "var": "runs",
+                "line": 4,
+                "hit": 1
+              },
+              "recalls": {
+                "var": "recalls",
+                "line": 5,
+                "hit": 1
+              },
+              "rrs": {
+                "var": "rrs",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "golden": "ok",
+              "runs": "ok",
+              "recalls": "ok",
+              "rrs": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "golden",
+                "runs"
               ],
               [
-                "proc",
-                "out"
+                "runs",
+                "recalls"
+              ],
+              [
+                "recalls",
+                "rrs"
               ]
             ]
           }
@@ -899,110 +945,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: metrics — Execution Pipeline",
+        "title": "Practice time: metrics",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "golden",
+            "label": "golden"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: metrics",
-            "tappable": true
+            "id": "runs",
+            "label": "runs"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "recalls",
+            "label": "recalls"
+          },
+          {
+            "id": "rrs",
+            "label": "rrs"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: metrics [D5.P6.S1].",
-            "values": {
-              "in": "Day 5 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: metrics [D5.P6.S2].",
+            "caption": "Recall_at_k(retrieved, relevant, k) and precision_at_k(retrieved, relevant, k).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "golden": "{'q1': {'a'}, 'q2': {'b', 'c'}, 'q3': {…",
+              "runs": "{'q1': ['a', 'x'], 'q2': ['x', 'c', 'b'…",
+              "recalls": "[]",
+              "rrs": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "golden": "data",
+              "runs": "data",
+              "recalls": "data",
+              "rrs": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "golden",
+                "runs"
               ],
               [
-                "proc",
-                "out"
+                "runs",
+                "recalls"
+              ],
+              [
+                "recalls",
+                "rrs"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D5.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include several values of k and both edge cases.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "golden": "{'q1': {'a'}, 'q2': {'b', 'c'}, 'q3': {…",
+              "runs": "{'q1': ['a', 'x'], 'q2': ['x', 'c', 'b'…",
+              "recalls": "[]",
+              "rrs": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "golden": "data",
+              "runs": "data",
+              "recalls": "data",
+              "rrs": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "golden",
+                "runs"
+              ],
+              [
+                "runs",
+                "recalls"
+              ],
+              [
+                "recalls",
+                "rrs"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: metrics [D5.P6.S4].",
+            "at": "say10",
+            "caption": "If your recall is above 1, check that you use sets so duplicates are not.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "golden": "{'q1': {'a'}, 'q2': {'b', 'c'}, 'q3': {…",
+              "runs": "{'q1': ['a', 'x'], 'q2': ['x', 'c', 'b'…",
+              "recalls": "[]",
+              "rrs": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "golden": "ok",
+              "runs": "ok",
+              "recalls": "ok",
+              "rrs": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "golden",
+                "runs"
               ],
               [
-                "proc",
-                "out"
+                "runs",
+                "recalls"
+              ],
+              [
+                "recalls",
+                "rrs"
               ]
             ]
           }

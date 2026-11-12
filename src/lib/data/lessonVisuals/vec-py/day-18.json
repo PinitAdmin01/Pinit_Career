@@ -2,141 +2,112 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 18,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Upserts and versions",
       "codeHash": "13578773ebba5b6ef124dbd4da48a00f0d5b6d006318b3eb7a51a81482b7d8b9",
       "spec": {
-        "template": "table",
-        "title": "Monotonic record versioning and idempotency",
-        "columns": [
-          "store",
-          "vector",
-          "version"
-        ],
+        "template": "cells",
+        "title": "Upserts and versions",
         "steps": [
           {
             "at": "say1",
-            "caption": "An upsert operation inserts new records and replaces existing documents.",
-            "rows": [
+            "caption": "An upsert inserts a record if its id is new and replaces it if the id.",
+            "items": {
+              "var": "vector",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "store"
-                  },
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "version"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "store"
-                  },
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "version"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Incrementing version numbers shows how many times a record has changed.",
-            "rows": [
+            "at": "say2",
+            "caption": "Upserts make ingestion pipelines simple.",
+            "items": {
+              "var": "vector",
+              "line": 4,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "store"
-                  },
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "version"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A class keeps the records and the rules for changing them together,.",
+            "items": {
+              "var": "vector",
+              "line": 4,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "store"
-                  },
-                  {
-                    "text": "vector"
-                  },
-                  {
-                    "text": "vector"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Monotonic record versioning and idempotency",
-        "columns": [
-          "store",
-          "vector",
-          "version"
-        ],
+        "template": "cells",
+        "title": "Upserts and versions",
         "steps": [
           {
             "at": "say1",
-            "caption": "An upsert operation inserts new records and replaces existing documents.",
-            "rows": [
+            "caption": "An upsert inserts a record if its id is new and replaces it if the id.",
+            "items": [
+              "0.1",
+              "0.9"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "store",
-                  "vector",
-                  "version"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "store",
-                  "vector",
-                  "version"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Incrementing version numbers shows how many times a record has changed.",
-            "rows": [
+            "at": "say2",
+            "caption": "Upserts make ingestion pipelines simple.",
+            "items": [
+              "0.8",
+              "0.2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "store",
-                  "vector",
-                  "version"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A class keeps the records and the rules for changing them together,.",
+            "items": [
+              "0.2",
+              "0.8"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "store",
-                  "vector",
-                  "vector"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -147,135 +118,221 @@
       "partTitle": "Deletes and tombstones",
       "codeHash": "d0e408a42e384180978f5f18934e2d10a3fc5fb9f6bbd295ae72e27f1925ba2e",
       "spec": {
-        "template": "table",
-        "title": "Tombstone markers and non-blocking deletions",
-        "columns": [
-          "records",
-          "delete",
-          "records"
+        "template": "flow",
+        "title": "Deletes and tombstones",
+        "nodes": [
+          {
+            "id": "records",
+            "label": "records"
+          },
+          {
+            "id": "id_",
+            "label": "id_"
+          },
+          {
+            "id": "rec",
+            "label": "rec"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Marking records with a tombstone flags deleted items without full rewrites.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "records"
-                  },
-                  {
-                    "text": "delete"
-                  },
-                  {
-                    "text": "records"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Deleting from an index immediately can be expensive.",
+            "values": {
+              "records": {
+                "var": "records",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "records"
-                  },
-                  {
-                    "text": "delete"
-                  },
-                  {
-                    "text": "records"
-                  }
-                ],
-                "tone": "data"
+              "id_": {
+                "var": "id_",
+                "line": 3,
+                "hit": 1
+              },
+              "rec": {
+                "var": "rec",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "records": "data",
+              "id_": "data",
+              "rec": "data"
+            },
+            "arrows": [
+              [
+                "records",
+                "id_"
+              ],
+              [
+                "id_",
+                "rec"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Background compaction rebuilds segments to reclaim space from tombstones.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "records"
-                  },
-                  {
-                    "text": "delete"
-                  },
-                  {
-                    "text": "records"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Instead, most systems mark the record as deleted with a tombstone and skip.",
+            "values": {
+              "records": {
+                "var": "records",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "records"
-                  },
-                  {
-                    "text": "delete"
-                  },
-                  {
-                    "text": "delete"
-                  }
-                ],
-                "tone": "ok"
+              "id_": {
+                "var": "id_",
+                "line": 4,
+                "hit": 1
+              },
+              "rec": {
+                "var": "rec",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "records": "data",
+              "id_": "data",
+              "rec": "data"
+            },
+            "arrows": [
+              [
+                "records",
+                "id_"
+              ],
+              [
+                "id_",
+                "rec"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how deletes updates also during execution.",
+            "values": {
+              "records": {
+                "var": "records",
+                "line": 8,
+                "hit": 1
+              },
+              "id_": {
+                "var": "id_",
+                "line": 6,
+                "hit": 1
+              },
+              "rec": {
+                "var": "rec",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "records": "ok",
+              "id_": "ok",
+              "rec": "ok"
+            },
+            "arrows": [
+              [
+                "records",
+                "id_"
+              ],
+              [
+                "id_",
+                "rec"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Tombstone markers and non-blocking deletions",
-        "columns": [
-          "records",
-          "delete",
-          "records"
+        "template": "flow",
+        "title": "Deletes and tombstones",
+        "nodes": [
+          {
+            "id": "records",
+            "label": "records"
+          },
+          {
+            "id": "id_",
+            "label": "id_"
+          },
+          {
+            "id": "rec",
+            "label": "rec"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Marking records with a tombstone flags deleted items without full rewrites.",
-            "rows": [
-              {
-                "cells": [
-                  "records",
-                  "delete",
-                  "records"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "records",
-                  "delete",
-                  "records"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Deleting from an index immediately can be expensive.",
+            "values": {
+              "records": "{'a': {'v': [1, 0], 'deleted': False}, …",
+              "id_": "'a'",
+              "rec": "{'v': [1, 0], 'deleted': False}"
+            },
+            "tones": {
+              "records": "data",
+              "id_": "data",
+              "rec": "data"
+            },
+            "arrows": [
+              [
+                "records",
+                "id_"
+              ],
+              [
+                "id_",
+                "rec"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Background compaction rebuilds segments to reclaim space from tombstones.",
-            "rows": [
-              {
-                "cells": [
-                  "records",
-                  "delete",
-                  "records"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "records",
-                  "delete",
-                  "delete"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Instead, most systems mark the record as deleted with a tombstone and skip.",
+            "values": {
+              "records": "{'a': {'v': [1, 0], 'deleted': False}, …",
+              "id_": "'a'",
+              "rec": "{'v': [1, 0], 'deleted': False}"
+            },
+            "tones": {
+              "records": "data",
+              "id_": "data",
+              "rec": "data"
+            },
+            "arrows": [
+              [
+                "records",
+                "id_"
+              ],
+              [
+                "id_",
+                "rec"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how deletes updates also during execution.",
+            "values": {
+              "records": "{'a': {'v': [1, 0], 'deleted': True}, '…",
+              "id_": "'a'",
+              "rec": "{'v': [1, 0], 'deleted': True}"
+            },
+            "tones": {
+              "records": "ok",
+              "id_": "ok",
+              "rec": "ok"
+            },
+            "arrows": [
+              [
+                "records",
+                "id_"
+              ],
+              [
+                "id_",
+                "rec"
+              ]
             ]
           }
         ]
@@ -285,134 +342,108 @@
       "partTitle": "Searching around tombstones",
       "codeHash": "1b0f8f00507543657b65ca70af28a51d473ca5aacf843450b78ca67923876e47",
       "spec": {
-        "template": "table",
-        "title": "Tombstone traversal filtering during approximate search",
-        "columns": [
-          "items",
-          "live",
-          "items"
-        ],
+        "template": "cells",
+        "title": "Searching around tombstones",
         "steps": [
           {
             "at": "say1",
-            "caption": "Search queries must never return deleted records to protect privacy.",
-            "rows": [
+            "caption": "Search must never return deleted records, which would be both confusing.",
+            "items": {
+              "var": "it",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "live"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "live"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Traversed graph nodes act as stepping stones without being returned.",
-            "rows": [
+            "at": "say2",
+            "caption": "With brute-force search, skipping tombstones is a simple filter.",
+            "items": {
+              "var": "it",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "live"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Leaking a deleted record is not just a quality bug.",
+            "items": {
+              "var": "it",
+              "line": 6,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "live"
-                  },
-                  {
-                    "text": "live"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Tombstone traversal filtering during approximate search",
-        "columns": [
-          "items",
-          "live",
-          "items"
-        ],
+        "template": "cells",
+        "title": "Searching around tombstones",
         "steps": [
           {
             "at": "say1",
-            "caption": "Search queries must never return deleted records to protect privacy.",
-            "rows": [
+            "caption": "Search must never return deleted records, which would be both confusing.",
+            "items": [
+              "'a'",
+              "0.95",
+              "True"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "items",
-                  "live",
-                  "items"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "items",
-                  "live",
-                  "items"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Traversed graph nodes act as stepping stones without being returned.",
-            "rows": [
+            "at": "say2",
+            "caption": "With brute-force search, skipping tombstones is a simple filter.",
+            "items": [
+              "'a'",
+              "0.95",
+              "True"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "items",
-                  "live",
-                  "items"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Leaking a deleted record is not just a quality bug.",
+            "items": [
+              "'e'",
+              "0.6",
+              "False"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "items",
-                  "live",
-                  "live"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -423,135 +454,277 @@
       "partTitle": "Segments and compaction",
       "codeHash": "c745fab56ec39c4938cdfbc83caff3b89c775aba787a08e6af95e73bcd86eaf4",
       "spec": {
-        "template": "table",
-        "title": "Immutable segment merge and space reclamation",
-        "columns": [
-          "latest",
-          "kept",
-          "latest"
+        "template": "flow",
+        "title": "Segments and compaction",
+        "nodes": [
+          {
+            "id": "log",
+            "label": "log"
+          },
+          {
+            "id": "latest",
+            "label": "latest"
+          },
+          {
+            "id": "id_",
+            "label": "id_"
+          },
+          {
+            "id": "version",
+            "label": "version"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Databases organize updates into immutable segments written sequentially.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "latest"
-                  },
-                  {
-                    "text": "kept"
-                  },
-                  {
-                    "text": "latest"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Many vector databases store data in segments.",
+            "values": {
+              "log": {
+                "var": "log",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "latest"
-                  },
-                  {
-                    "text": "kept"
-                  },
-                  {
-                    "text": "latest"
-                  }
-                ],
-                "tone": "data"
+              "latest": {
+                "var": "latest",
+                "line": 2,
+                "hit": 1
+              },
+              "id_": {
+                "var": "id_",
+                "line": 3,
+                "hit": 1
+              },
+              "version": {
+                "var": "version",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "log": "data",
+              "latest": "data",
+              "id_": "data",
+              "version": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "latest"
+              ],
+              [
+                "latest",
+                "id_"
+              ],
+              [
+                "id_",
+                "version"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Compaction merges segments and purges deleted records permanently.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "latest"
-                  },
-                  {
-                    "text": "kept"
-                  },
-                  {
-                    "text": "latest"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Updates and deletes add new entries and tombstones instead of editing old.",
+            "values": {
+              "log": {
+                "var": "log",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "latest"
-                  },
-                  {
-                    "text": "kept"
-                  },
-                  {
-                    "text": "kept"
-                  }
-                ],
-                "tone": "ok"
+              "latest": {
+                "var": "latest",
+                "line": 3,
+                "hit": 1
+              },
+              "id_": {
+                "var": "id_",
+                "line": 4,
+                "hit": 1
+              },
+              "version": {
+                "var": "version",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "log": "data",
+              "latest": "data",
+              "id_": "data",
+              "version": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "latest"
+              ],
+              [
+                "latest",
+                "id_"
+              ],
+              [
+                "id_",
+                "version"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Many systems compact at quiet times of day, such as overnight, to avoid.",
+            "values": {
+              "log": {
+                "var": "log",
+                "line": 3,
+                "hit": 1
+              },
+              "latest": {
+                "var": "latest",
+                "line": 4,
+                "hit": 1
+              },
+              "id_": {
+                "var": "id_",
+                "line": 5,
+                "hit": 1
+              },
+              "version": {
+                "var": "version",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "log": "ok",
+              "latest": "ok",
+              "id_": "ok",
+              "version": "ok"
+            },
+            "arrows": [
+              [
+                "log",
+                "latest"
+              ],
+              [
+                "latest",
+                "id_"
+              ],
+              [
+                "id_",
+                "version"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Immutable segment merge and space reclamation",
-        "columns": [
-          "latest",
-          "kept",
-          "latest"
+        "template": "flow",
+        "title": "Segments and compaction",
+        "nodes": [
+          {
+            "id": "log",
+            "label": "log"
+          },
+          {
+            "id": "latest",
+            "label": "latest"
+          },
+          {
+            "id": "id_",
+            "label": "id_"
+          },
+          {
+            "id": "version",
+            "label": "version"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Databases organize updates into immutable segments written sequentially.",
-            "rows": [
-              {
-                "cells": [
-                  "latest",
-                  "kept",
-                  "latest"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "latest",
-                  "kept",
-                  "latest"
-                ],
-                "tone": "data"
-              }
+            "caption": "Many vector databases store data in segments.",
+            "values": {
+              "log": "[['a', 1, False], ['a', 2, False], ['b'…",
+              "latest": "{}",
+              "id_": "'a'",
+              "version": "1"
+            },
+            "tones": {
+              "log": "data",
+              "latest": "data",
+              "id_": "data",
+              "version": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "latest"
+              ],
+              [
+                "latest",
+                "id_"
+              ],
+              [
+                "id_",
+                "version"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Compaction merges segments and purges deleted records permanently.",
-            "rows": [
-              {
-                "cells": [
-                  "latest",
-                  "kept",
-                  "latest"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "latest",
-                  "kept",
-                  "kept"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Updates and deletes add new entries and tombstones instead of editing old.",
+            "values": {
+              "log": "[['a', 1, False], ['a', 2, False], ['b'…",
+              "latest": "{}",
+              "id_": "'a'",
+              "version": "1"
+            },
+            "tones": {
+              "log": "data",
+              "latest": "data",
+              "id_": "data",
+              "version": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "latest"
+              ],
+              [
+                "latest",
+                "id_"
+              ],
+              [
+                "id_",
+                "version"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Many systems compact at quiet times of day, such as overnight, to avoid.",
+            "values": {
+              "log": "[['a', 1, False], ['a', 2, False], ['b'…",
+              "latest": "{}",
+              "id_": "'a'",
+              "version": "1"
+            },
+            "tones": {
+              "log": "ok",
+              "latest": "ok",
+              "id_": "ok",
+              "version": "ok"
+            },
+            "arrows": [
+              [
+                "log",
+                "latest"
+              ],
+              [
+                "latest",
+                "id_"
+              ],
+              [
+                "id_",
+                "version"
+              ]
             ]
           }
         ]
@@ -562,110 +735,161 @@
       "codeHash": "213a028c1aa864af5b3d49c1ff929f5cfc6c699e3314333cc7cc4beb5a98d555",
       "spec": {
         "template": "flow",
-        "title": "Consistency for readers — Execution Pipeline",
+        "title": "Consistency for readers",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "written",
+            "label": "written"
           },
           {
-            "id": "proc",
-            "label": "2. Consistency for rea...",
-            "tappable": true
+            "id": "searchable",
+            "label": "searchable"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "doc",
+            "label": "doc"
+          },
+          {
+            "id": "d",
+            "label": "d"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Consistency for readers [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Consistency for rea... [D.Pfive.Stwo].",
+            "caption": "When writes and searches happen at the same time, a search may or may not.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "written": {
+                "var": "written",
+                "line": 1,
+                "hit": 1
+              },
+              "searchable": {
+                "var": "searchable",
+                "line": 1,
+                "hit": 1
+              },
+              "doc": {
+                "var": "doc",
+                "line": 3,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "written": "data",
+              "searchable": "data",
+              "doc": "data",
+              "d": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "written",
+                "searchable"
               ],
               [
-                "proc",
-                "out"
+                "searchable",
+                "doc"
+              ],
+              [
+                "doc",
+                "d"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Many vector databases are eventually consistent.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "written": {
+                "var": "written",
+                "line": 2,
+                "hit": 1
+              },
+              "searchable": {
+                "var": "searchable",
+                "line": 2,
+                "hit": 1
+              },
+              "doc": {
+                "var": "doc",
+                "line": 3,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 5,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "written": "data",
+              "searchable": "data",
+              "doc": "data",
+              "d": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "written",
+                "searchable"
+              ],
+              [
+                "searchable",
+                "doc"
+              ],
+              [
+                "doc",
+                "d"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Consistency for readers [D.Pfive.Sfour].",
+            "at": "say10",
+            "caption": "Tomorrow spreads data across machines, where these questions become even.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "written": {
+                "var": "written",
+                "line": 4,
+                "hit": 1
+              },
+              "searchable": {
+                "var": "searchable",
+                "line": 4,
+                "hit": 1
+              },
+              "doc": {
+                "var": "doc",
+                "line": 3,
+                "hit": 1
+              },
+              "d": {
+                "var": "d",
+                "line": 5,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "written": "ok",
+              "searchable": "ok",
+              "doc": "ok",
+              "d": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "written",
+                "searchable"
               ],
               [
-                "proc",
-                "out"
+                "searchable",
+                "doc"
+              ],
+              [
+                "doc",
+                "d"
               ]
             ]
           }
@@ -673,110 +897,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Consistency for readers — Execution Pipeline",
+        "title": "Consistency for readers",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "written",
+            "label": "written"
           },
           {
-            "id": "proc",
-            "label": "2. Consistency for rea...",
-            "tappable": true
+            "id": "searchable",
+            "label": "searchable"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "doc",
+            "label": "doc"
+          },
+          {
+            "id": "d",
+            "label": "d"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Consistency for readers [D18.P5.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Consistency for rea... [D18.P5.S2].",
+            "caption": "When writes and searches happen at the same time, a search may or may not.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "written": "[]",
+              "searchable": "[]",
+              "doc": "'new-policy'",
+              "d": "'new-policy'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "written": "data",
+              "searchable": "data",
+              "doc": "data",
+              "d": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "written",
+                "searchable"
               ],
               [
-                "proc",
-                "out"
+                "searchable",
+                "doc"
+              ],
+              [
+                "doc",
+                "d"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P5.S3].",
+            "at": "say2",
+            "caption": "Many vector databases are eventually consistent.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "written": "[]",
+              "searchable": "[]",
+              "doc": "'new-policy'",
+              "d": "'new-policy'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "written": "data",
+              "searchable": "data",
+              "doc": "data",
+              "d": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "written",
+                "searchable"
+              ],
+              [
+                "searchable",
+                "doc"
+              ],
+              [
+                "doc",
+                "d"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Consistency for readers [D18.P5.S4].",
+            "at": "say10",
+            "caption": "Tomorrow spreads data across machines, where these questions become even.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "written": "[]",
+              "searchable": "[]",
+              "doc": "'new-policy'",
+              "d": "'new-policy'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "written": "ok",
+              "searchable": "ok",
+              "doc": "ok",
+              "d": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "written",
+                "searchable"
               ],
               [
-                "proc",
-                "out"
+                "searchable",
+                "doc"
+              ],
+              [
+                "doc",
+                "d"
               ]
             ]
           }
@@ -787,223 +1014,133 @@
       "partTitle": "Practice time: operations",
       "codeHash": "c666713182b2ff6e3d8f11cd562806a10d9459ce909ceeffa0cf489088cbccee",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: operations — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: oper...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: operations",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: operations [D.Psix.Sone].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: oper... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "VectorStore with upsert (versions start at 1 and increase), delete.",
+            "bars": [
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "version",
+                "value": {
+                  "var": "version",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks follow a sequence of upserts, an update, searches and deletes.",
+            "bars": [
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "version",
+                "value": {
+                  "var": "version",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: operations [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If search returns a deleted record, check that search filters on.",
+            "bars": [
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "version",
+                "value": {
+                  "var": "version",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: operations — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: oper...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: operations",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: operations [D18.P6.S1].",
-            "values": {
-              "in": "Day 18 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: oper... [D18.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "VectorStore with upsert (versions start at 1 and increase), delete.",
+            "bars": [
+              {
+                "label": "step",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "version",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D18.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks follow a sequence of upserts, an update, searches and deletes.",
+            "bars": [
+              {
+                "label": "step",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "version",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: operations [D18.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If search returns a deleted record, check that search filters on.",
+            "bars": [
+              {
+                "label": "step",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "version",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           }
         ]

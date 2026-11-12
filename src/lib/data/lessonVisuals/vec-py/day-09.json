@@ -2,141 +2,112 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 9,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Filters in search",
       "codeHash": "20e199d01044a5270492bda0fe9ffdb07e69f0a833cbda55c7f29e8136c48695",
       "spec": {
-        "template": "table",
-        "title": "Metadata attribute filtering over vector collections",
-        "columns": [
-          "matches",
-          "where",
-          "items"
-        ],
+        "template": "cells",
+        "title": "Filters in search",
         "steps": [
           {
-            "at": "say2",
-            "caption": "A metadata filter enforces conditions that all returned items satisfy.",
-            "rows": [
+            "at": "say1",
+            "caption": "Users rarely want the whole collection.",
+            "items": {
+              "var": "matches",
+              "line": 4,
+              "hit": 14
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "matches"
-                  },
-                  {
-                    "text": "where"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "matches"
-                  },
-                  {
-                    "text": "where"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Two retrieval strategies exist: filter first or rank first.",
-            "rows": [
+            "at": "say2",
+            "caption": "A filter is a condition on metadata that results must satisfy.",
+            "items": {
+              "var": "matches",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "matches"
-                  },
-                  {
-                    "text": "where"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we implement both and see where each breaks.",
+            "items": {
+              "var": "matches",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "matches"
-                  },
-                  {
-                    "text": "where"
-                  },
-                  {
-                    "text": "matches"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Metadata attribute filtering over vector collections",
-        "columns": [
-          "matches",
-          "where",
-          "items"
-        ],
+        "template": "cells",
+        "title": "Filters in search",
         "steps": [
           {
-            "at": "say2",
-            "caption": "A metadata filter enforces conditions that all returned items satisfy.",
-            "rows": [
+            "at": "say1",
+            "caption": "Users rarely want the whole collection.",
+            "items": [
+              "'a'",
+              "'d'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "matches",
-                  "where",
-                  "items"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "matches",
-                  "where",
-                  "items"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Two retrieval strategies exist: filter first or rank first.",
-            "rows": [
+            "at": "say2",
+            "caption": "A filter is a condition on metadata that results must satisfy.",
+            "items": [
+              "'a'",
+              "'d'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "matches",
-                  "where",
-                  "items"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we implement both and see where each breaks.",
+            "items": [
+              "'a'",
+              "'d'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "matches",
-                  "where",
-                  "matches"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -147,78 +118,77 @@
       "partTitle": "Pre-filtering",
       "codeHash": "3a22657e29bac933acd85e5cf6bf0878fdac4cdc85865b9fd05a5d61180393a8",
       "spec": {
-        "template": "table",
-        "title": "Pre-filtering candidate selection before vector ranking",
-        "columns": [
-          "items",
-          "english",
-          "items"
-        ],
+        "template": "bars",
+        "title": "Pre-filtering",
         "steps": [
           {
             "at": "say1",
-            "caption": "Pre-filtering applies conditions first and ranks only matching items.",
-            "rows": [
+            "caption": "Pre-filtering applies the filter first and then ranks only the matching items.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "english"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
-                "tone": "ok"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "english"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Under exhaustive search, pre-filtering remains simple and exact.",
-            "rows": [
+            "at": "say2",
+            "caption": "It always returns the true top k among matching items, as long as there.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "english"
-                  },
-                  {
-                    "text": "items"
-                  }
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "items"
-                  },
-                  {
-                    "text": "english"
-                  },
-                  {
-                    "text": "english"
-                  }
-                ],
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Pre-filtering is the correct default when you can afford it.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +196,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Pre-filtering candidate selection before vector ranking",
-        "columns": [
-          "items",
-          "english",
-          "items"
-        ],
+        "template": "bars",
+        "title": "Pre-filtering",
         "steps": [
           {
             "at": "say1",
-            "caption": "Pre-filtering applies conditions first and ranks only matching items.",
-            "rows": [
+            "caption": "Pre-filtering applies the filter first and then ranks only the matching items.",
+            "bars": [
               {
-                "cells": [
-                  "items",
-                  "english",
-                  "items"
-                ],
-                "tone": "ok"
+                "label": "x",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "items",
-                  "english",
-                  "items"
-                ],
+                "label": "y",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Under exhaustive search, pre-filtering remains simple and exact.",
-            "rows": [
+            "at": "say2",
+            "caption": "It always returns the true top k among matching items, as long as there.",
+            "bars": [
               {
-                "cells": [
-                  "items",
-                  "english",
-                  "items"
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "items",
-                  "english",
-                  "english"
-                ],
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Pre-filtering is the correct default when you can afford it.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -285,134 +254,117 @@
       "partTitle": "Post-filtering and its pitfall",
       "codeHash": "86e7121101849af6a55f579bcdba71fd35f67e7a951f136ddf1a2bf4d080d3fb",
       "spec": {
-        "template": "table",
-        "title": "Post-filtering candidate truncation and result sparsity",
-        "columns": [
-          "ranked",
-          "lang",
-          "ranked"
-        ],
+        "template": "cells",
+        "title": "Post-filtering and its pitfall",
         "steps": [
           {
             "at": "say1",
-            "caption": "Post-filtering runs search first and removes candidates that fail.",
-            "rows": [
+            "caption": "Post-filtering runs the normal search first, fetching the top fetch_k.",
+            "items": {
+              "var": "ranked",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "ranked"
-                  },
-                  {
-                    "text": "lang"
-                  },
-                  {
-                    "text": "ranked"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "ranked"
-                  },
-                  {
-                    "text": "lang"
-                  },
-                  {
-                    "text": "ranked"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The pitfall occurs when few top results match the required filter.",
-            "rows": [
+            "at": "say2",
+            "caption": "It is easy to add to any index, which is why many systems once used it.",
+            "items": {
+              "var": "ranked",
+              "line": 4,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "ranked"
-                  },
-                  {
-                    "text": "lang"
-                  },
-                  {
-                    "text": "ranked"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Many databases now switch strategies automatically, but checking their.",
+            "items": {
+              "var": "ranked",
+              "line": 4,
+              "hit": 7
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "ranked"
-                  },
-                  {
-                    "text": "lang"
-                  },
-                  {
-                    "text": "lang"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Post-filtering candidate truncation and result sparsity",
-        "columns": [
-          "ranked",
-          "lang",
-          "ranked"
-        ],
+        "template": "cells",
+        "title": "Post-filtering and its pitfall",
         "steps": [
           {
             "at": "say1",
-            "caption": "Post-filtering runs search first and removes candidates that fail.",
-            "rows": [
+            "caption": "Post-filtering runs the normal search first, fetching the top fetch_k.",
+            "items": [
+              "'a'",
+              "'b'",
+              "'c'",
+              "'d'",
+              "'e'",
+              "'f'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "ranked",
-                  "lang",
-                  "ranked"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "ranked",
-                  "lang",
-                  "ranked"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The pitfall occurs when few top results match the required filter.",
-            "rows": [
+            "at": "say2",
+            "caption": "It is easy to add to any index, which is why many systems once used it.",
+            "items": [
+              "'a'",
+              "'b'",
+              "'c'",
+              "'d'",
+              "'e'",
+              "'f'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "ranked",
-                  "lang",
-                  "ranked"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Many databases now switch strategies automatically, but checking their.",
+            "items": [
+              "'a'",
+              "'b'",
+              "'c'",
+              "'d'",
+              "'e'",
+              "'f'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "ranked",
-                  "lang",
-                  "lang"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -423,78 +375,104 @@
       "partTitle": "Filter selectivity",
       "codeHash": "00ee264848866eeeb80eb47ffd58ba4bd0274bc0ad285be71cffbfc888e8afd7",
       "spec": {
-        "template": "table",
-        "title": "Filter selectivity ratios and candidate over-fetching",
-        "columns": [
-          "selectivity",
-          "fetch",
-          "selectivity"
-        ],
+        "template": "bars",
+        "title": "Filter selectivity",
         "steps": [
           {
             "at": "say1",
-            "caption": "Selectivity measures the fraction of items that pass a given filter.",
-            "rows": [
+            "caption": "Selectivity is the fraction of items that pass a filter.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "selectivity"
-                  },
-                  {
-                    "text": "fetch"
-                  },
-                  {
-                    "text": "selectivity"
-                  }
-                ],
-                "tone": "ok"
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "selectivity"
-                  },
-                  {
-                    "text": "fetch"
-                  },
-                  {
-                    "text": "selectivity"
-                  }
-                ],
+                "label": "selectivity",
+                "value": {
+                  "var": "selectivity",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fetch",
+                "value": {
+                  "var": "fetch",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Modern query planners estimate selectivity to choose an execution strategy.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how filter updates matching during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "selectivity"
-                  },
-                  {
-                    "text": "fetch"
-                  },
-                  {
-                    "text": "selectivity"
-                  }
-                ],
-                "tone": "data"
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "selectivity"
-                  },
-                  {
-                    "text": "fetch"
-                  },
-                  {
-                    "text": "fetch"
-                  }
-                ],
+                "label": "selectivity",
+                "value": {
+                  "var": "selectivity",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fetch",
+                "value": {
+                  "var": "fetch",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Monitoring how often results come back short is a simple way to spot.",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "selectivity",
+                "value": {
+                  "var": "selectivity",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fetch",
+                "value": {
+                  "var": "fetch",
+                  "line": 2,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +480,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Filter selectivity ratios and candidate over-fetching",
-        "columns": [
-          "selectivity",
-          "fetch",
-          "selectivity"
-        ],
+        "template": "bars",
+        "title": "Filter selectivity",
         "steps": [
           {
             "at": "say1",
-            "caption": "Selectivity measures the fraction of items that pass a given filter.",
-            "rows": [
+            "caption": "Selectivity is the fraction of items that pass a filter.",
+            "bars": [
               {
-                "cells": [
-                  "selectivity",
-                  "fetch",
-                  "selectivity"
-                ],
-                "tone": "ok"
+                "label": "k",
+                "value": 10,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "selectivity",
-                  "fetch",
-                  "selectivity"
-                ],
+                "label": "selectivity",
+                "value": 0.9,
+                "tone": "data"
+              },
+              {
+                "label": "fetch",
+                "value": 11.11111111111111,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Modern query planners estimate selectivity to choose an execution strategy.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how filter updates matching during execution.",
+            "bars": [
               {
-                "cells": [
-                  "selectivity",
-                  "fetch",
-                  "selectivity"
-                ],
-                "tone": "data"
+                "label": "k",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "selectivity",
-                  "fetch",
-                  "fetch"
-                ],
+                "label": "selectivity",
+                "value": 0.9,
+                "tone": "ok"
+              },
+              {
+                "label": "fetch",
+                "value": 11.11111111111111,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Monitoring how often results come back short is a simple way to spot.",
+            "bars": [
+              {
+                "label": "k",
+                "value": 10,
+                "tone": "ok"
+              },
+              {
+                "label": "selectivity",
+                "value": 0.9,
+                "tone": "ok"
+              },
+              {
+                "label": "fetch",
+                "value": 11.11111111111111,
                 "tone": "ok"
               }
             ]
@@ -562,110 +554,161 @@
       "codeHash": "f911b63a0893ea8adc07a6ab05ef7b15eca2006a011ac2e4c221844c5dabd755",
       "spec": {
         "template": "flow",
-        "title": "Richer filters — Execution Pipeline",
+        "title": "Richer filters",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "meta",
+            "label": "meta"
           },
           {
-            "id": "proc",
-            "label": "2. Richer filters",
-            "tappable": true
+            "id": "where",
+            "label": "where"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "cond",
+            "label": "cond"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Richer filters [Dnine.Pfive.Sone].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Richer filters [Dnine.Pfive.Stwo].",
+            "caption": "Real filters go beyond equality.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "meta": {
+                "var": "meta",
+                "line": 13,
+                "hit": 1
+              },
+              "where": {
+                "var": "where",
+                "line": 2,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 2,
+                "hit": 1
+              },
+              "cond": {
+                "var": "cond",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "meta": "data",
+              "where": "data",
+              "key": "data",
+              "cond": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "meta",
+                "where"
               ],
               [
-                "proc",
-                "out"
+                "where",
+                "key"
+              ],
+              [
+                "key",
+                "cond"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "A simple way to support them is a small expression format that maps each.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "meta": {
+                "var": "meta",
+                "line": 2,
+                "hit": 1
+              },
+              "where": {
+                "var": "where",
+                "line": 3,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 3,
+                "hit": 1
+              },
+              "cond": {
+                "var": "cond",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "meta": "data",
+              "where": "data",
+              "key": "data",
+              "cond": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "meta",
+                "where"
+              ],
+              [
+                "where",
+                "key"
+              ],
+              [
+                "key",
+                "cond"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Richer filters [Dnine.Pfive.Sfour].",
+            "at": "say11",
+            "caption": "Once equality works reliably, adding ranges and sets is a small.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "meta": {
+                "var": "meta",
+                "line": 3,
+                "hit": 1
+              },
+              "where": {
+                "var": "where",
+                "line": 4,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 1
+              },
+              "cond": {
+                "var": "cond",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "meta": "ok",
+              "where": "ok",
+              "key": "ok",
+              "cond": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "meta",
+                "where"
               ],
               [
-                "proc",
-                "out"
+                "where",
+                "key"
+              ],
+              [
+                "key",
+                "cond"
               ]
             ]
           }
@@ -673,110 +716,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Richer filters — Execution Pipeline",
+        "title": "Richer filters",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "meta",
+            "label": "meta"
           },
           {
-            "id": "proc",
-            "label": "2. Richer filters",
-            "tappable": true
+            "id": "where",
+            "label": "where"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "cond",
+            "label": "cond"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Richer filters [D9.P5.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Richer filters [D9.P5.S2].",
+            "caption": "Real filters go beyond equality.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "meta": "{'lang': 'de', 'year': 2024, 'type': 'p…",
+              "where": "{'lang': {'in': ['en', 'de']}, 'year': …",
+              "key": "'lang'",
+              "cond": "{'in': ['en', 'de']}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "meta": "data",
+              "where": "data",
+              "key": "data",
+              "cond": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "meta",
+                "where"
               ],
               [
-                "proc",
-                "out"
+                "where",
+                "key"
+              ],
+              [
+                "key",
+                "cond"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P5.S3].",
+            "at": "say2",
+            "caption": "A simple way to support them is a small expression format that maps each.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "meta": "{'lang': 'de', 'year': 2024, 'type': 'p…",
+              "where": "{'lang': {'in': ['en', 'de']}, 'year': …",
+              "key": "'lang'",
+              "cond": "{'in': ['en', 'de']}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "meta": "data",
+              "where": "data",
+              "key": "data",
+              "cond": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "meta",
+                "where"
+              ],
+              [
+                "where",
+                "key"
+              ],
+              [
+                "key",
+                "cond"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Richer filters [D9.P5.S4].",
+            "at": "say11",
+            "caption": "Once equality works reliably, adding ranges and sets is a small.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "meta": "{'lang': 'de', 'year': 2024, 'type': 'p…",
+              "where": "{'lang': {'in': ['en', 'de']}, 'year': …",
+              "key": "'lang'",
+              "cond": "{'in': ['en', 'de']}"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "meta": "ok",
+              "where": "ok",
+              "key": "ok",
+              "cond": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "meta",
+                "where"
               ],
               [
-                "proc",
-                "out"
+                "where",
+                "key"
+              ],
+              [
+                "key",
+                "cond"
               ]
             ]
           }
@@ -787,223 +833,106 @@
       "partTitle": "Practice time: filtering",
       "codeHash": "d304a140f7947f43f7dc137bef8fd2b99827cdd800779b03ecee6095a7bb7ca1",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: filtering — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: filt...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: filtering",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: filtering [Dnine.Psix.Sone].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: filt... [Dnine.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Filtered_search(query, items, where, k).",
+            "items": {
+              "var": "q",
+              "line": 4,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include one and two conditions, no filter and a filter.",
+            "items": {
+              "var": "q",
+              "line": 7,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: filtering.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "If filtered_search returns wrong items, print the matches before ranking.",
+            "items": {
+              "var": "q",
+              "line": 9,
+              "hit": 1
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: filtering — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: filt...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: filtering",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: filtering [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: filt... [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Filtered_search(query, items, where, k).",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include one and two conditions, no filter and a filter.",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: filtering [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If filtered_search returns wrong items, print the matches before ranking.",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]

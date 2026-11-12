@@ -2,269 +2,223 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 41,
-  "promptSha": "1c50ce4cd3b26f16a726a0e3dc778e31f0ca0d973812016c2ee32864ac38a910",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Classifier Threshold Calibration — Foundations & Mathematical Invariants",
-      "codeHash": "fc931ef688c457e08729035319ef3a7ac0e361e8303cf96556c20a506d78ea56",
+      "partTitle": "Classifier Calibration — Foundations & Mathematical Invariants",
+      "codeHash": "4fcf3a08522795def26fc3187dd85192673b859bd70862f4206bd385549691cb",
       "spec": {
-        "template": "flow",
-        "title": "Classifier Threshold Calibration — Foundations & Mathematical Invarian",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Classifier Calibration — Foundations & Mathematical Invariants",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Binary safety classifiers output continuous probability scores between 0.",
+            "bars": [
+              {
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "tp",
+                "value": {
+                  "var": "tp",
+                  "line": 2,
+                  "hit": 9
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fp",
+                "value": {
+                  "var": "fp",
+                  "line": 3,
+                  "hit": 9
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Converting this continuous probability into a discrete binary decision.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 2,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "tp",
+                "value": {
+                  "var": "tp",
+                  "line": 3,
+                  "hit": 9
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "fp",
+                "value": {
+                  "var": "fp",
+                  "line": 4,
+                  "hit": 9
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "p",
+                "value": {
+                  "var": "p",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "t",
+                "value": {
+                  "var": "t",
+                  "line": 2,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "tp",
+                "value": {
+                  "var": "tp",
+                  "line": 4,
+                  "hit": 9
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "fp",
+                "value": {
+                  "var": "fp",
+                  "line": 5,
+                  "hit": 9
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Classifier Threshold Calibration — Foundations & Mathematical Invarian",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Classifier Calibration — Foundations & Mathematical Invariants",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Binary safety classifiers output continuous probability scores between 0.",
+            "bars": [
+              {
+                "label": "p",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "t",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "tp",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "fp",
+                "value": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Converting this continuous probability into a discrete binary decision.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "p",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "t",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "tp",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "fp",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "p",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "t",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "tp",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "fp",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }
@@ -272,265 +226,219 @@
       }
     },
     {
-      "partTitle": "Classifier Threshold Calibration — Core Algorithm & State Representation",
-      "codeHash": "2236b7420028a4afdd14595acd33bea49b89490bf4f49a95638eadbabdff5605",
+      "partTitle": "Classifier Calibration — Core Algorithm & State Representation",
+      "codeHash": "381066f325607576e76e5686d2d1700734ccbe0115ceb0e23aa304f443a91606",
       "spec": {
-        "template": "flow",
-        "title": "Classifier Threshold Calibration — Core Algorithm & State Representati",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Classifier Calibration — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Precision measures the proportion of flagged requests that were truly.",
+            "bars": [
+              {
+                "label": "tp",
+                "value": {
+                  "var": "tp",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fp",
+                "value": {
+                  "var": "fp",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fn",
+                "value": {
+                  "var": "fn",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "precision",
+                "value": {
+                  "var": "precision",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "High precision implies that when the system blocks a request, it is almost.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tp",
+                "value": {
+                  "var": "tp",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "fp",
+                "value": {
+                  "var": "fp",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "fn",
+                "value": {
+                  "var": "fn",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "precision",
+                "value": {
+                  "var": "precision",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tp",
+                "value": {
+                  "var": "tp",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "fp",
+                "value": {
+                  "var": "fp",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "fn",
+                "value": {
+                  "var": "fn",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "precision",
+                "value": {
+                  "var": "precision",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Classifier Threshold Calibration — Core Algorithm & State Representati",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Classifier Calibration — Core Algorithm & State Representation",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Precision measures the proportion of flagged requests that were truly.",
+            "bars": [
+              {
+                "label": "tp",
+                "value": 35,
+                "tone": "data"
+              },
+              {
+                "label": "fp",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "fn",
+                "value": 10,
+                "tone": "data"
+              },
+              {
+                "label": "precision",
+                "value": 0.875,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "High precision implies that when the system blocks a request, it is almost.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "tp",
+                "value": 35,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "fp",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "fn",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "precision",
+                "value": 0.875,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "tp",
+                "value": 35,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "fp",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "fn",
+                "value": 10,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "precision",
+                "value": 0.875,
+                "tone": "ok"
               }
             ]
           }
@@ -538,798 +446,496 @@
       }
     },
     {
-      "partTitle": "Classifier Threshold Calibration — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "745195d4a1a08db9954466faab878c00703943a52c95dbcebe20b4094ad737ab",
+      "partTitle": "Classifier Calibration — Production Implementation & Boundary Mechanics",
+      "codeHash": "9c9d7f5239239a0095b1957305d5af839db86000680bb5fd6c5b94c8e5ee0898",
       "spec": {
-        "template": "flow",
-        "title": "Classifier Threshold Calibration — Throughput Optimization & Edge-Case",
-        "nodes": [
+        "template": "states",
+        "title": "Classifier Calibration — Production Implementation & Boundary Me",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "precision",
+            "label": "precision"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "recall",
+            "label": "recall"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "beta",
+            "label": "beta"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The F-beta score generalizes the harmonic mean of precision and recall.",
+            "currentState": "precision",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Standard F1 score weights precision and recall equally (beta = 1.",
+            "currentState": "recall",
+            "transition": {
+              "from": "precision",
+              "to": "recall",
+              "label": {
+                "var": "recall",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for classifier.",
+            "currentState": "beta",
+            "transition": {
+              "from": "recall",
+              "to": "beta",
+              "label": {
+                "var": "beta",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Classifier Threshold Calibration — Throughput Optimization & Edge-Case",
-        "nodes": [
+        "template": "states",
+        "title": "Classifier Calibration — Production Implementation & Boundary Me",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "precision",
+            "label": "precision"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "recall",
+            "label": "recall"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "beta",
+            "label": "beta"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The F-beta score generalizes the harmonic mean of precision and recall.",
+            "currentState": "precision",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Standard F1 score weights precision and recall equally (beta = 1.",
+            "currentState": "recall",
+            "transition": {
+              "from": "precision",
+              "to": "recall",
+              "label": "0.7"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for classifier.",
+            "currentState": "beta",
+            "transition": {
+              "from": "recall",
+              "to": "beta",
+              "label": "0.5"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Classifier Threshold Calibration — Resilience Guardrails & Failure Recovery",
-      "codeHash": "6ea05ad3910097865b9a43e1f33c94500e456e7d77f7e5cb1f8fb5d4e3e039da",
+      "partTitle": "Classifier Calibration — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "1d615ce37f66569bb252e76b5ffe6bf8093615476c8caa62b5512decc3038142",
       "spec": {
-        "template": "flow",
-        "title": "Classifier Threshold Calibration — Resilience Guardrails & Failure Rec",
-        "nodes": [
+        "template": "states",
+        "title": "Classifier Calibration — Failure Modes, Hardware Bottlenecks & D",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cm_model_a",
+            "label": "cm_model_a"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cm_model_b",
+            "label": "cm_model_b"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cm",
+            "label": "cm"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cost-weighted loss functions translate statistical errors directly.",
+            "currentState": "cm_model_a",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "In enterprise safety, a False Negative (leaking an exploit) can cause.",
+            "currentState": "cm_model_b",
+            "transition": {
+              "from": "cm_model_a",
+              "to": "cm_model_b",
+              "label": {
+                "var": "cm_model_b",
+                "line": 8,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "cm",
+            "transition": {
+              "from": "cm_model_b",
+              "to": "cm",
+              "label": {
+                "var": "cm",
+                "line": 3,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Classifier Threshold Calibration — Resilience Guardrails & Failure Rec",
-        "nodes": [
+        "template": "states",
+        "title": "Classifier Calibration — Failure Modes, Hardware Bottlenecks & D",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cm_model_a",
+            "label": "cm_model_a"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "cm_model_b",
+            "label": "cm_model_b"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "cm",
+            "label": "cm"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Cost-weighted loss functions translate statistical errors directly.",
+            "currentState": "cm_model_a",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "In enterprise safety, a False Negative (leaking an exploit) can cause.",
+            "currentState": "cm_model_b",
+            "transition": {
+              "from": "cm_model_a",
+              "to": "cm_model_b",
+              "label": "{'TP': 98, 'FP': 30, 'TN': 70, 'FN': 2}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "currentState": "cm",
+            "transition": {
+              "from": "cm_model_b",
+              "to": "cm",
+              "label": "{'TP': 98, 'FP': 30, 'TN': 70, 'FN': 2}"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Classifier Threshold Calibration — Production Telemetry & Verification Audit",
-      "codeHash": "9862d0f0157b58f5b707e8b24802d9f4da70729d8725df2f792166906bf45447",
+      "partTitle": "Classifier Calibration — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "01d579317c3c6972744c6ab8088813e45b4084cd74e44aa80495aafb9fe48d85",
       "spec": {
         "template": "flow",
-        "title": "Classifier Threshold Calibration — Production Telemetry & Verification",
+        "title": "Classifier Calibration — Production Capstone & Enterprise SRE In",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "trials",
+            "label": "trials"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "x",
+            "label": "x"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "threshold_trials",
+            "label": "threshold_trials"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "best",
+            "label": "best"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The optimal_threshold_picker function iterates across candidate threshold.",
+            "values": {
+              "trials": {
+                "var": "trials",
+                "line": 6,
+                "hit": 1
+              },
+              "x": {
+                "var": "x",
+                "line": 3,
+                "hit": 1
+              },
+              "threshold_trials": {
+                "var": "threshold_trials",
+                "line": 3,
+                "hit": 4
+              },
+              "best": {
+                "var": "best",
+                "line": 3,
+                "hit": 4
+              }
+            },
+            "tones": {
+              "trials": "data",
+              "x": "data",
+              "threshold_trials": "data",
+              "best": "data"
+            },
+            "arrows": [
+              [
+                "trials",
+                "x"
+              ],
+              [
+                "x",
+                "threshold_trials"
+              ],
+              [
+                "threshold_trials",
+                "best"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "This automated calibration routine runs continuously during model.",
+            "values": {
+              "trials": {
+                "var": "trials",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "x": {
+                "var": "x",
+                "line": 3,
+                "hit": 2
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "threshold_trials": {
+                "var": "threshold_trials",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "best": {
+                "var": "best",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "trials": "data",
+              "x": "data",
+              "threshold_trials": "data",
+              "best": "data"
+            },
+            "arrows": [
+              [
+                "trials",
+                "x"
+              ],
+              [
+                "x",
+                "threshold_trials"
+              ],
+              [
+                "threshold_trials",
+                "best"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "values": {
+              "trials": {
+                "var": "trials",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "x": {
+                "var": "x",
+                "line": 3,
+                "hit": 3
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "threshold_trials": {
+                "var": "threshold_trials",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "best": {
+                "var": "best",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "trials": "ok",
+              "x": "ok",
+              "threshold_trials": "ok",
+              "best": "ok"
+            },
+            "arrows": [
+              [
+                "trials",
+                "x"
+              ],
+              [
+                "x",
+                "threshold_trials"
+              ],
+              [
+                "threshold_trials",
+                "best"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Classifier Threshold Calibration — Production Telemetry & Verification",
+        "title": "Classifier Calibration — Production Capstone & Enterprise SRE In",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "trials",
+            "label": "trials"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "x",
+            "label": "x"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "threshold_trials",
+            "label": "threshold_trials"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "best",
+            "label": "best"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The optimal_threshold_picker function iterates across candidate threshold.",
+            "values": {
+              "trials": "[{'threshold': 0.3, 'cost': 120}, {'thr…",
+              "x": "{'threshold': 0.3, 'cost': 120}",
+              "threshold_trials": "[{'threshold': 0.3, 'cost': 120}, {'thr…",
+              "best": "{'threshold': 0.5, 'cost': 65}"
+            },
+            "tones": {
+              "trials": "data",
+              "x": "data",
+              "threshold_trials": "data",
+              "best": "data"
+            },
+            "arrows": [
+              [
+                "trials",
+                "x"
+              ],
+              [
+                "x",
+                "threshold_trials"
+              ],
+              [
+                "threshold_trials",
+                "best"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "This automated calibration routine runs continuously during model.",
+            "values": {
+              "trials": "[{'threshold': 0.3, 'cost': 120}, {'thr…",
+              "x": "{'threshold': 0.5, 'cost': 65}",
+              "threshold_trials": "[{'threshold': 0.3, 'cost': 120}, {'thr…",
+              "best": "{'threshold': 0.5, 'cost': 65}"
+            },
+            "tones": {
+              "trials": "data",
+              "x": "data",
+              "threshold_trials": "data",
+              "best": "data"
+            },
+            "arrows": [
+              [
+                "trials",
+                "x"
+              ],
+              [
+                "x",
+                "threshold_trials"
+              ],
+              [
+                "threshold_trials",
+                "best"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "values": {
+              "trials": "[{'threshold': 0.3, 'cost': 120}, {'thr…",
+              "x": "{'threshold': 0.7, 'cost': 95}",
+              "threshold_trials": "[{'threshold': 0.3, 'cost': 120}, {'thr…",
+              "best": "{'threshold': 0.5, 'cost': 65}"
+            },
+            "tones": {
+              "trials": "ok",
+              "x": "ok",
+              "threshold_trials": "ok",
+              "best": "ok"
+            },
+            "arrows": [
+              [
+                "trials",
+                "x"
+              ],
+              [
+                "x",
+                "threshold_trials"
+              ],
+              [
+                "threshold_trials",
+                "best"
+              ]
             ]
           }
         ]

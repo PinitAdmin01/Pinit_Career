@@ -2,269 +2,181 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 31,
-  "promptSha": "fa8d9d5e16f840f929373c19ff44ea80500f4743ed73eb0faa93b14640937fb4",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Matryoshka Representation Learning (MRL) — Foundations & Mathematical Invariants",
-      "codeHash": "5d4db28c12ef63057776da1c6e38086b85a9b26e6c4da5173f68e2a1af70c91c",
+      "codeHash": "1c136894bf10e5469163d4b02bcb9ccc3ce03494f2d83d25ac9aab2ee1a79a0a",
       "spec": {
-        "template": "flow",
-        "title": "Matryoshka Representation Learning (MRL) — Foundations & Mathematical ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Matryoshka Representation Learning (MRL) — Foundations & Mathema",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Matryoshka Representation Learning trains neural encoders to capture.",
+            "bars": [
+              {
+                "label": "prefix_dim",
+                "value": {
+                  "var": "prefix_dim",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "norm",
+                "value": {
+                  "var": "norm",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In traditional fixed-dimension dense embeddings, every dimension.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "prefix_dim",
+                "value": {
+                  "var": "prefix_dim",
+                  "line": 6,
+                  "hit": 6
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "norm",
+                "value": {
+                  "var": "norm",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "prefix_dim",
+                "value": {
+                  "var": "prefix_dim",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "norm",
+                "value": {
+                  "var": "norm",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Matryoshka Representation Learning (MRL) — Foundations & Mathematical ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Matryoshka Representation Learning (MRL) — Foundations & Mathema",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Matryoshka Representation Learning trains neural encoders to capture.",
+            "bars": [
+              {
+                "label": "prefix_dim",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "norm",
+                "value": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In traditional fixed-dimension dense embeddings, every dimension.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "prefix_dim",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "x",
+                "value": -0.5,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "norm",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "prefix_dim",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "x",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "norm",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           }
@@ -273,264 +185,113 @@
     },
     {
       "partTitle": "Matryoshka Representation Learning (MRL) — Core Algorithm & State Representation",
-      "codeHash": "843ed529be9726682e60fc0bc6c22c62597bf9984e8eedfa674344d961085ea6",
+      "codeHash": "60ad727566d8ad6d4d6afa894fea88b3d7d5bda60b5552d3e6e88419b8b8498a",
       "spec": {
-        "template": "flow",
-        "title": "Matryoshka Representation Learning (MRL) — Core Algorithm & State Repr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Matryoshka Representation Learning (MRL) — Core Algorithm & Stat",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core MRL retrieval algorithm operates by computing inner products.",
+            "items": {
+              "var": "q",
+              "line": 9,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Cosine similarity measures the angular distance between query and document.",
+            "items": {
+              "var": "q",
+              "line": 12,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "items": {
+              "var": "q",
+              "line": 14,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Matryoshka Representation Learning (MRL) — Core Algorithm & State Repr",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Matryoshka Representation Learning (MRL) — Core Algorithm & Stat",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The core MRL retrieval algorithm operates by computing inner products.",
+            "items": [
+              "0.6",
+              "0.8",
+              "0",
+              "0"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "Cosine similarity measures the angular distance between query and document.",
+            "items": [
+              "0.6",
+              "0.8",
+              "0",
+              "0"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "items": [
+              "0.6",
+              "0.8",
+              "0",
+              "0"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -539,264 +300,107 @@
     },
     {
       "partTitle": "Matryoshka Representation Learning (MRL) — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "9efcb319533697927d25771159756a03c6a3b26bb9e9db694c1ec5b30cc39f7b",
+      "codeHash": "f87f9b48722a6a859881e60323362ae43a2ddf1184bbc4cf78afa1e53b353e64",
       "spec": {
-        "template": "flow",
-        "title": "Matryoshka Representation Learning (MRL) — Throughput Optimization & E",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Matryoshka Representation Learning (MRL) — Throughput Optimizati",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Throughput optimization in MRL leverages multi-granular cascades to reduce.",
+            "items": {
+              "var": "q_pref",
+              "line": 14,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In a typical enterprise search cluster, millions of documents must be.",
+            "items": {
+              "var": "q_pref",
+              "line": 15,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "items": {
+              "var": "q_pref",
+              "line": 16,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Matryoshka Representation Learning (MRL) — Throughput Optimization & E",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Matryoshka Representation Learning (MRL) — Throughput Optimizati",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Throughput optimization in MRL leverages multi-granular cascades to reduce.",
+            "items": [
+              "0.7071",
+              "0.7071"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "In a typical enterprise search cluster, millions of documents must be.",
+            "items": [
+              "0.7071",
+              "0.7071"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "items": [
+              "0.7071",
+              "0.7071"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -805,265 +409,279 @@
     },
     {
       "partTitle": "Matryoshka Representation Learning (MRL) — Resilience Guardrails & Failure Recovery",
-      "codeHash": "33a7f7eb8428f02534cfc19623f6cf13e697832de47f42b098c708049c4eacc0",
+      "codeHash": "a763bd12eff9a7ad0802afaa72dc4c58d2ed2e009d8f0c47896448579bd99111",
       "spec": {
         "template": "flow",
-        "title": "Matryoshka Representation Learning (MRL) — Resilience Guardrails & Fai",
+        "title": "Matryoshka Representation Learning (MRL) — Resilience Guardrails",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "zero_v",
+            "label": "zero_v"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "vec",
+            "label": "vec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "target_dim",
+            "label": "target_dim"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sub",
+            "label": "sub"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production vector pipelines must gracefully handle zero vectors.",
+            "values": {
+              "zero_v": {
+                "var": "zero_v",
+                "line": 8,
+                "hit": 1
+              },
+              "vec": {
+                "var": "vec",
+                "line": 2,
+                "hit": 1
+              },
+              "target_dim": {
+                "var": "target_dim",
+                "line": 2,
+                "hit": 1
+              },
+              "sub": {
+                "var": "sub",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "zero_v": "data",
+              "vec": "data",
+              "target_dim": "data",
+              "sub": "data"
+            },
+            "arrows": [
+              [
+                "zero_v",
+                "vec"
+              ],
+              [
+                "vec",
+                "target_dim"
+              ],
+              [
+                "target_dim",
+                "sub"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If an upstream embedding model produces a vector of all zeros, standard L2.",
+            "values": {
+              "zero_v": {
+                "var": "zero_v",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "vec": {
+                "var": "vec",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "target_dim": {
+                "var": "target_dim",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sub": {
+                "var": "sub",
+                "line": 5,
+                "hit": 4
               }
+            },
+            "tones": {
+              "zero_v": "data",
+              "vec": "data",
+              "target_dim": "data",
+              "sub": "data"
+            },
+            "arrows": [
+              [
+                "zero_v",
+                "vec"
+              ],
+              [
+                "vec",
+                "target_dim"
+              ],
+              [
+                "target_dim",
+                "sub"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "zero_v": {
+                "var": "zero_v",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "vec": {
+                "var": "vec",
+                "line": 5,
+                "hit": 4
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "target_dim": {
+                "var": "target_dim",
+                "line": 5,
+                "hit": 4
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sub": {
+                "var": "sub",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "zero_v": "ok",
+              "vec": "ok",
+              "target_dim": "ok",
+              "sub": "ok"
+            },
+            "arrows": [
+              [
+                "zero_v",
+                "vec"
+              ],
+              [
+                "vec",
+                "target_dim"
+              ],
+              [
+                "target_dim",
+                "sub"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Matryoshka Representation Learning (MRL) — Resilience Guardrails & Fai",
+        "title": "Matryoshka Representation Learning (MRL) — Resilience Guardrails",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "zero_v",
+            "label": "zero_v"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "vec",
+            "label": "vec"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "target_dim",
+            "label": "target_dim"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sub",
+            "label": "sub"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production vector pipelines must gracefully handle zero vectors.",
+            "values": {
+              "zero_v": "[0, 0, 0, 0]",
+              "vec": "[0, 0, 0, 0]",
+              "target_dim": "2",
+              "sub": "[0, 0]"
+            },
+            "tones": {
+              "zero_v": "data",
+              "vec": "data",
+              "target_dim": "data",
+              "sub": "data"
+            },
+            "arrows": [
+              [
+                "zero_v",
+                "vec"
+              ],
+              [
+                "vec",
+                "target_dim"
+              ],
+              [
+                "target_dim",
+                "sub"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If an upstream embedding model produces a vector of all zeros, standard L2.",
+            "values": {
+              "zero_v": "[0, 0, 0, 0]",
+              "vec": "[0, 0, 0, 0]",
+              "target_dim": "2",
+              "sub": "[0, 0]"
+            },
+            "tones": {
+              "zero_v": "data",
+              "vec": "data",
+              "target_dim": "data",
+              "sub": "data"
+            },
+            "arrows": [
+              [
+                "zero_v",
+                "vec"
+              ],
+              [
+                "vec",
+                "target_dim"
+              ],
+              [
+                "target_dim",
+                "sub"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "zero_v": "[0, 0, 0, 0]",
+              "vec": "[0, 0, 0, 0]",
+              "target_dim": "2",
+              "sub": "[0, 0]"
+            },
+            "tones": {
+              "zero_v": "ok",
+              "vec": "ok",
+              "target_dim": "ok",
+              "sub": "ok"
+            },
+            "arrows": [
+              [
+                "zero_v",
+                "vec"
+              ],
+              [
+                "vec",
+                "target_dim"
+              ],
+              [
+                "target_dim",
+                "sub"
+              ]
             ]
           }
         ]
@@ -1071,264 +689,218 @@
     },
     {
       "partTitle": "Matryoshka Representation Learning (MRL) — Production Telemetry & Verification Audit",
-      "codeHash": "d7ca8a161ea14546a4a9d05027ff1f460a7d9d6dc0a6f283efa983c71aed5fdd",
+      "codeHash": "0acd67aed60d2f27e26ba3430e2a4b21a425d0cd6ba7db43969f2d0237b001de",
       "spec": {
-        "template": "flow",
-        "title": "Matryoshka Representation Learning (MRL) — Production Telemetry & Veri",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Matryoshka Representation Learning (MRL) — Production Telemetry ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production infrastructure requires continuous telemetry to monitor memory.",
+            "bars": [
+              {
+                "label": "full_dim",
+                "value": {
+                  "var": "full_dim",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "reduced_dim",
+                "value": {
+                  "var": "reduced_dim",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "num_docs",
+                "value": {
+                  "var": "num_docs",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fp32_bytes",
+                "value": {
+                  "var": "fp32_bytes",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Operating large-scale vector indexes in high-bandwidth memory (HBM) or RAM.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "full_dim",
+                "value": {
+                  "var": "full_dim",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "reduced_dim",
+                "value": {
+                  "var": "reduced_dim",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "num_docs",
+                "value": {
+                  "var": "num_docs",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "fp32_bytes",
+                "value": {
+                  "var": "fp32_bytes",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "full_dim",
+                "value": {
+                  "var": "full_dim",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "reduced_dim",
+                "value": {
+                  "var": "reduced_dim",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "num_docs",
+                "value": {
+                  "var": "num_docs",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "fp32_bytes",
+                "value": {
+                  "var": "fp32_bytes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Matryoshka Representation Learning (MRL) — Production Telemetry & Veri",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Matryoshka Representation Learning (MRL) — Production Telemetry ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production infrastructure requires continuous telemetry to monitor memory.",
+            "bars": [
+              {
+                "label": "full_dim",
+                "value": 1536,
+                "tone": "data"
+              },
+              {
+                "label": "reduced_dim",
+                "value": 256,
+                "tone": "data"
+              },
+              {
+                "label": "num_docs",
+                "value": 100000,
+                "tone": "data"
+              },
+              {
+                "label": "fp32_bytes",
+                "value": 4,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Operating large-scale vector indexes in high-bandwidth memory (HBM) or RAM.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "full_dim",
+                "value": 1536,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "reduced_dim",
+                "value": 256,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "num_docs",
+                "value": 100000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "fp32_bytes",
+                "value": 4,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "full_dim",
+                "value": 1536,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "reduced_dim",
+                "value": 256,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "num_docs",
+                "value": 100000,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "fp32_bytes",
+                "value": 4,
+                "tone": "ok"
               }
             ]
           }

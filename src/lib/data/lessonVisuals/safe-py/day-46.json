@@ -2,269 +2,139 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 46,
-  "promptSha": "71f956628e8ded29dcf203b3d6917802816235703b4016d9068f136a9b1e0153",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Human-in-the-Loop (HITL) Escalation Workflows — Foundations & Mathematical Invariants",
-      "codeHash": "58954e4d77ee87175e711ec03b29e89a8d3898ba5539b7b67c6a535e5537c92c",
+      "partTitle": "HITL Escalation Workflows — Foundations & Mathematical Invariants",
+      "codeHash": "a39f2ff6d2dfa1d93995ece60eb1544e7b9b387c69bd87cdc45e1193e16ea568",
       "spec": {
-        "template": "flow",
-        "title": "Human-in-the-Loop (HITL) Escalation Workflows — Foundations & Mathemat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "HITL Escalation Workflows — Foundations & Mathematical Invariant",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Human-in-the-Loop (HITL) architectures ensure that autonomous AI systems.",
+            "bars": [
+              {
+                "label": "row_count",
+                "value": {
+                  "var": "row_count",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "While routine low-risk actions proceed autonomously, high-consequence.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "row_count",
+                "value": {
+                  "var": "row_count",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say13",
+            "caption": "Architectural rigor in human-in-the-loop escalation ensures that formal.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "row_count",
+                "value": {
+                  "var": "row_count",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Human-in-the-Loop (HITL) Escalation Workflows — Foundations & Mathemat",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "HITL Escalation Workflows — Foundations & Mathematical Invariant",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Human-in-the-Loop (HITL) architectures ensure that autonomous AI systems.",
+            "bars": [
+              {
+                "label": "row_count",
+                "value": 5,
+                "tone": "data"
+              },
+              {
+                "label": "score",
+                "value": 4,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "While routine low-risk actions proceed autonomously, high-consequence.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "row_count",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "score",
+                "value": 4,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say13",
+            "caption": "Architectural rigor in human-in-the-loop escalation ensures that formal.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "row_count",
+                "value": 5,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "score",
+                "value": 4,
+                "tone": "ok"
               }
             ]
           }
@@ -272,1064 +142,570 @@
       }
     },
     {
-      "partTitle": "Human-in-the-Loop (HITL) Escalation Workflows — Core Algorithm & State Representation",
-      "codeHash": "d5e91ba647ba187c3ea59ae1e4820c5eb3a5d1b7a74763c5d074ace0f3606464",
+      "partTitle": "HITL Escalation Workflows — Core Algorithm & State Representation",
+      "codeHash": "57bdf8281dcb9f42abfa217f9dfdf952c91f2ebcf068be71693381aca4091f53",
       "spec": {
-        "template": "flow",
-        "title": "Human-in-the-Loop (HITL) Escalation Workflows — Core Algorithm & State",
-        "nodes": [
+        "template": "states",
+        "title": "HITL Escalation Workflows — Core Algorithm & State Representatio",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "mgr",
+            "label": "mgr"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "action_id",
+            "label": "action_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When an action requires human review, the system generates an ephemeral.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The ApprovalTokenManager class mints secure random hex tokens and binds.",
+            "currentState": "mgr",
+            "transition": {
+              "from": "self",
+              "to": "mgr",
+              "label": {
+                "var": "mgr",
+                "line": 17,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say13",
+            "caption": "Profiling memory allocations during human-in-the-loop escalation confirms.",
+            "currentState": "action_id",
+            "transition": {
+              "from": "mgr",
+              "to": "action_id",
+              "label": {
+                "var": "action_id",
+                "line": 9,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Human-in-the-Loop (HITL) Escalation Workflows — Core Algorithm & State",
-        "nodes": [
+        "template": "states",
+        "title": "HITL Escalation Workflows — Core Algorithm & State Representatio",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "mgr",
+            "label": "mgr"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "action_id",
+            "label": "action_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When an action requires human review, the system generates an ephemeral.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The ApprovalTokenManager class mints secure random hex tokens and binds.",
+            "currentState": "mgr",
+            "transition": {
+              "from": "self",
+              "to": "mgr",
+              "label": "<ApprovalTokenManager>"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say13",
+            "caption": "Profiling memory allocations during human-in-the-loop escalation confirms.",
+            "currentState": "action_id",
+            "transition": {
+              "from": "mgr",
+              "to": "action_id",
+              "label": "'ACTION-9901'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Human-in-the-Loop (HITL) Escalation Workflows — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "4bcc2855bebf5895849a6f85bff3d99d448d184e3012b6240665c94188e84a36",
+      "partTitle": "HITL Escalation Workflows — Production Implementation & Boundary Mechanics",
+      "codeHash": "fe967d137de8f75321dec6afaafd797d317d15937fe106fabd260f132d8834a6",
       "spec": {
-        "template": "flow",
-        "title": "Human-in-the-Loop (HITL) Escalation Workflows — Throughput Optimizatio",
-        "nodes": [
+        "template": "states",
+        "title": "HITL Escalation Workflows — Production Implementation & Boundary",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "blast_radius",
+            "label": "blast_radius"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "auto_approval_ceiling",
+            "label": "auto_approval_ceiling"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The hitl_escalation_gate function evaluates the calculated blast radius.",
+            "currentState": "blast_radius",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Actions scoring at or below the auto-approval ceiling (e.",
+            "currentState": "auto_approval_ceiling",
+            "transition": {
+              "from": "blast_radius",
+              "to": "auto_approval_ceiling",
+              "label": {
+                "var": "auto_approval_ceiling",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Human-in-the-Loop (HITL) Escalation Workflows — Throughput Optimizatio",
-        "nodes": [
+        "template": "states",
+        "title": "HITL Escalation Workflows — Production Implementation & Boundary",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "blast_radius",
+            "label": "blast_radius"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "auto_approval_ceiling",
+            "label": "auto_approval_ceiling"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The hitl_escalation_gate function evaluates the calculated blast radius.",
+            "currentState": "blast_radius",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "caption": "Actions scoring at or below the auto-approval ceiling (e.",
+            "currentState": "auto_approval_ceiling",
+            "transition": {
+              "from": "blast_radius",
+              "to": "auto_approval_ceiling",
+              "label": "4"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Human-in-the-Loop (HITL) Escalation Workflows — Resilience Guardrails & Failure Recovery",
-      "codeHash": "b5b96c52ddad672cd7b6dca40c0308c6335be3b6855e1b49c7201e2a10e85112",
+      "partTitle": "HITL Escalation Workflows — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "99cf5ecedc6bb8a08b132da2b3b6c9f7d06f52a4e4a3b65cdc04911ea0b92351",
       "spec": {
-        "template": "flow",
-        "title": "Human-in-the-Loop (HITL) Escalation Workflows — Resilience Guardrails ",
-        "nodes": [
+        "template": "states",
+        "title": "HITL Escalation Workflows — Failure Modes, Hardware Bottlenecks ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "q",
+            "label": "q"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "action",
+            "label": "action"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Stateful escalation queues manage pending approval tasks across.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "The EscalationWorkflowQueue class enqueues pending review items.",
+            "currentState": "q",
+            "transition": {
+              "from": "self",
+              "to": "q",
+              "label": {
+                "var": "q",
+                "line": 10,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say13",
+            "caption": "Comprehensive stress testing demonstrates that defensive fail-safes.",
+            "currentState": "action",
+            "transition": {
+              "from": "q",
+              "to": "action",
+              "label": {
+                "var": "action",
+                "line": 5,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Human-in-the-Loop (HITL) Escalation Workflows — Resilience Guardrails ",
-        "nodes": [
+        "template": "states",
+        "title": "HITL Escalation Workflows — Failure Modes, Hardware Bottlenecks ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "q",
+            "label": "q"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "action",
+            "label": "action"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Stateful escalation queues manage pending approval tasks across.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "The EscalationWorkflowQueue class enqueues pending review items.",
+            "currentState": "q",
+            "transition": {
+              "from": "self",
+              "to": "q",
+              "label": "<EscalationWorkflowQueue>"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say13",
+            "caption": "Comprehensive stress testing demonstrates that defensive fail-safes.",
+            "currentState": "action",
+            "transition": {
+              "from": "q",
+              "to": "action",
+              "label": "'REFUND_ORDER #8812'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
-      "partTitle": "Human-in-the-Loop (HITL) Escalation Workflows — Production Telemetry & Verification Audit",
-      "codeHash": "71dac6699d89044a04480f0fb5e647c4d94c4b1d4129d187f0e65154a182e214",
+      "partTitle": "HITL Escalation Workflows — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "191a8d95a2e6262515269ba850d3ed7d946e40cae20f3a6c56278b0fad3f8866",
       "spec": {
         "template": "flow",
-        "title": "Human-in-the-Loop (HITL) Escalation Workflows — Production Telemetry &",
+        "title": "HITL Escalation Workflows — Production Capstone & Enterprise SRE",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_escalations",
+            "label": "total_escalations"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "approved",
+            "label": "approved"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "rejected",
+            "label": "rejected"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "avg_wait_sec",
+            "label": "avg_wait_sec"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise compliance mandates strict Service Level Agreement (SLA).",
+            "values": {
+              "total_escalations": {
+                "var": "total_escalations",
+                "line": 2,
+                "hit": 1
+              },
+              "approved": {
+                "var": "approved",
+                "line": 2,
+                "hit": 1
+              },
+              "rejected": {
+                "var": "rejected",
+                "line": 2,
+                "hit": 1
+              },
+              "avg_wait_sec": {
+                "var": "avg_wait_sec",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "total_escalations": "data",
+              "approved": "data",
+              "rejected": "data",
+              "avg_wait_sec": "data"
+            },
+            "arrows": [
+              [
+                "total_escalations",
+                "approved"
+              ],
+              [
+                "approved",
+                "rejected"
+              ],
+              [
+                "rejected",
+                "avg_wait_sec"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The audit_hitl_sla_metrics function evaluates total escalations, approval.",
+            "values": {
+              "total_escalations": {
+                "var": "total_escalations",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "approved": {
+                "var": "approved",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "rejected": {
+                "var": "rejected",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "avg_wait_sec": {
+                "var": "avg_wait_sec",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "total_escalations": "data",
+              "approved": "data",
+              "rejected": "data",
+              "avg_wait_sec": "data"
+            },
+            "arrows": [
+              [
+                "total_escalations",
+                "approved"
+              ],
+              [
+                "approved",
+                "rejected"
+              ],
+              [
+                "rejected",
+                "avg_wait_sec"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say14",
+            "caption": "Automated compliance engines continuously validate human-in-the-loop.",
+            "values": {
+              "total_escalations": {
+                "var": "total_escalations",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "approved": {
+                "var": "approved",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "rejected": {
+                "var": "rejected",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "avg_wait_sec": {
+                "var": "avg_wait_sec",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "total_escalations": "ok",
+              "approved": "ok",
+              "rejected": "ok",
+              "avg_wait_sec": "ok"
+            },
+            "arrows": [
+              [
+                "total_escalations",
+                "approved"
+              ],
+              [
+                "approved",
+                "rejected"
+              ],
+              [
+                "rejected",
+                "avg_wait_sec"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Human-in-the-Loop (HITL) Escalation Workflows — Production Telemetry &",
+        "title": "HITL Escalation Workflows — Production Capstone & Enterprise SRE",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "total_escalations",
+            "label": "total_escalations"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "approved",
+            "label": "approved"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "rejected",
+            "label": "rejected"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "avg_wait_sec",
+            "label": "avg_wait_sec"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Enterprise compliance mandates strict Service Level Agreement (SLA).",
+            "values": {
+              "total_escalations": "50",
+              "approved": "42",
+              "rejected": "8",
+              "avg_wait_sec": "142.5"
+            },
+            "tones": {
+              "total_escalations": "data",
+              "approved": "data",
+              "rejected": "data",
+              "avg_wait_sec": "data"
+            },
+            "arrows": [
+              [
+                "total_escalations",
+                "approved"
+              ],
+              [
+                "approved",
+                "rejected"
+              ],
+              [
+                "rejected",
+                "avg_wait_sec"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The audit_hitl_sla_metrics function evaluates total escalations, approval.",
+            "values": {
+              "total_escalations": "50",
+              "approved": "42",
+              "rejected": "8",
+              "avg_wait_sec": "142.5"
+            },
+            "tones": {
+              "total_escalations": "data",
+              "approved": "data",
+              "rejected": "data",
+              "avg_wait_sec": "data"
+            },
+            "arrows": [
+              [
+                "total_escalations",
+                "approved"
+              ],
+              [
+                "approved",
+                "rejected"
+              ],
+              [
+                "rejected",
+                "avg_wait_sec"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say14",
+            "caption": "Automated compliance engines continuously validate human-in-the-loop.",
+            "values": {
+              "total_escalations": "50",
+              "approved": "42",
+              "rejected": "8",
+              "avg_wait_sec": "142.5"
+            },
+            "tones": {
+              "total_escalations": "ok",
+              "approved": "ok",
+              "rejected": "ok",
+              "avg_wait_sec": "ok"
+            },
+            "arrows": [
+              [
+                "total_escalations",
+                "approved"
+              ],
+              [
+                "approved",
+                "rejected"
+              ],
+              [
+                "rejected",
+                "avg_wait_sec"
+              ]
             ]
           }
         ]

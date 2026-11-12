@@ -2,405 +2,278 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 49,
-  "promptSha": "09c135231617e0b0946d4ae48ef952683e65aa9fa7bf3183815280b6d8322113",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Algorithmic Fairness — Foundations & Mathematical Invariants",
-      "codeHash": "3e6f6816555b2403be36696b0bdbf0854e40085296a3d3b8552a9bdcee261d39",
+      "codeHash": "38dd1a1add9e730c3c5b029134a3d3e9b66f79052e0a8b1741e407f1a3a64567",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "Algorithmic Fairness — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "positive_outcomes",
+            "label": "positive_outcomes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "total_applicants",
+            "label": "total_applicants"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rate_group_a",
+            "label": "rate_group_a"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When machine learning models automate hiring, credit lending,.",
+            "currentState": "positive_outcomes",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Legal frameworks such as the US Civil Rights Act and European.",
+            "currentState": "total_applicants",
+            "transition": {
+              "from": "positive_outcomes",
+              "to": "total_applicants",
+              "label": {
+                "var": "total_applicants",
+                "line": 3,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "rate_group_a",
+            "transition": {
+              "from": "total_applicants",
+              "to": "rate_group_a",
+              "label": {
+                "var": "rate_group_a",
+                "line": 7,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "Algorithmic Fairness — Foundations & Mathematical Invariants",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "positive_outcomes",
+            "label": "positive_outcomes"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "total_applicants",
+            "label": "total_applicants"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rate_group_a",
+            "label": "rate_group_a"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When machine learning models automate hiring, credit lending,.",
+            "currentState": "positive_outcomes",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Legal frameworks such as the US Civil Rights Act and European.",
+            "currentState": "total_applicants",
+            "transition": {
+              "from": "positive_outcomes",
+              "to": "total_applicants",
+              "label": "80"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "rate_group_a",
+            "transition": {
+              "from": "total_applicants",
+              "to": "rate_group_a",
+              "label": "0.8"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Algorithmic Fairness — Core Algorithm & State Representation",
-      "codeHash": "ca4187cb1bed7504deb5f965aa8df49dcdbe6b7eccd38fa1f909fe7b4cfb0b2c",
+      "codeHash": "b21107030d74842e674d0b723d1417a25e6f0f2b0f85348980993c3aa3968664",
       "spec": {
         "template": "flow",
         "title": "Algorithmic Fairness — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "protected_rate",
+            "label": "protected_rate"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "baseline_rate",
+            "label": "baseline_rate"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "ratio",
+            "label": "ratio"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "passes_four_fifths",
+            "label": "passes_four_fifths"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Four-Fifths Rule (80% Rule) is the primary legal benchmark used by.",
+            "values": {
+              "protected_rate": {
+                "var": "protected_rate",
+                "line": 3,
+                "hit": 1
+              },
+              "baseline_rate": {
+                "var": "baseline_rate",
+                "line": 3,
+                "hit": 1
+              },
+              "ratio": {
+                "var": "ratio",
+                "line": 6,
+                "hit": 1
+              },
+              "passes_four_fifths": {
+                "var": "passes_four_fifths",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "protected_rate": "data",
+              "baseline_rate": "data",
+              "ratio": "data",
+              "passes_four_fifths": "data"
+            },
+            "arrows": [
+              [
+                "protected_rate",
+                "baseline_rate"
+              ],
+              [
+                "baseline_rate",
+                "ratio"
+              ],
+              [
+                "ratio",
+                "passes_four_fifths"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The rule calculates the ratio of the selection rate for a protected.",
+            "values": {
+              "protected_rate": {
+                "var": "protected_rate",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "baseline_rate": {
+                "var": "baseline_rate",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "ratio": {
+                "var": "ratio",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "passes_four_fifths": {
+                "var": "passes_four_fifths",
+                "line": 8,
+                "hit": 1
               }
+            },
+            "tones": {
+              "protected_rate": "data",
+              "baseline_rate": "data",
+              "ratio": "data",
+              "passes_four_fifths": "data"
+            },
+            "arrows": [
+              [
+                "protected_rate",
+                "baseline_rate"
+              ],
+              [
+                "baseline_rate",
+                "ratio"
+              ],
+              [
+                "ratio",
+                "passes_four_fifths"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "values": {
+              "protected_rate": {
+                "var": "protected_rate",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "baseline_rate": {
+                "var": "baseline_rate",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "ratio": {
+                "var": "ratio",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "passes_four_fifths": {
+                "var": "passes_four_fifths",
+                "line": 8,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "protected_rate": "ok",
+              "baseline_rate": "ok",
+              "ratio": "ok",
+              "passes_four_fifths": "ok"
+            },
+            "arrows": [
+              [
+                "protected_rate",
+                "baseline_rate"
+              ],
+              [
+                "baseline_rate",
+                "ratio"
+              ],
+              [
+                "ratio",
+                "passes_four_fifths"
+              ]
             ]
           }
         ]
@@ -410,127 +283,288 @@
         "title": "Algorithmic Fairness — Core Algorithm & State Representation",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "protected_rate",
+            "label": "protected_rate"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "baseline_rate",
+            "label": "baseline_rate"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "ratio",
+            "label": "ratio"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "passes_four_fifths",
+            "label": "passes_four_fifths"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The Four-Fifths Rule (80% Rule) is the primary legal benchmark used by.",
+            "values": {
+              "protected_rate": "0.6",
+              "baseline_rate": "0.8",
+              "ratio": "0.75",
+              "passes_four_fifths": "False"
+            },
+            "tones": {
+              "protected_rate": "data",
+              "baseline_rate": "data",
+              "ratio": "data",
+              "passes_four_fifths": "data"
+            },
+            "arrows": [
+              [
+                "protected_rate",
+                "baseline_rate"
+              ],
+              [
+                "baseline_rate",
+                "ratio"
+              ],
+              [
+                "ratio",
+                "passes_four_fifths"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The rule calculates the ratio of the selection rate for a protected.",
+            "values": {
+              "protected_rate": "0.6",
+              "baseline_rate": "0.8",
+              "ratio": "0.75",
+              "passes_four_fifths": "False"
+            },
+            "tones": {
+              "protected_rate": "data",
+              "baseline_rate": "data",
+              "ratio": "data",
+              "passes_four_fifths": "data"
+            },
+            "arrows": [
+              [
+                "protected_rate",
+                "baseline_rate"
+              ],
+              [
+                "baseline_rate",
+                "ratio"
+              ],
+              [
+                "ratio",
+                "passes_four_fifths"
+              ]
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "values": {
+              "protected_rate": "0.6",
+              "baseline_rate": "0.8",
+              "ratio": "0.75",
+              "passes_four_fifths": "False"
+            },
+            "tones": {
+              "protected_rate": "ok",
+              "baseline_rate": "ok",
+              "ratio": "ok",
+              "passes_four_fifths": "ok"
+            },
+            "arrows": [
+              [
+                "protected_rate",
+                "baseline_rate"
+              ],
+              [
+                "baseline_rate",
+                "ratio"
+              ],
+              [
+                "ratio",
+                "passes_four_fifths"
+              ]
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Algorithmic Fairness — Production Implementation & Boundary Mechanics",
+      "codeHash": "f1c1f95f84f070d85a3c21ff285239f683b8bbbae6eac66ad5d9ad28980e2b61",
+      "spec": {
+        "template": "bars",
+        "title": "Algorithmic Fairness — Production Implementation & Boundary Mech",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Demographic Parity evaluates fairness from an absolute difference.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "rate_a",
+                "value": {
+                  "var": "rate_a",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "rate_b",
+                "value": {
+                  "var": "rate_b",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "diff",
+                "value": {
+                  "var": "diff",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say2",
+            "caption": "Demographic Parity Difference (DPD) measures the absolute arithmetic gap.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "rate_a",
+                "value": {
+                  "var": "rate_a",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "rate_b",
+                "value": {
+                  "var": "rate_b",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "diff",
+                "value": {
+                  "var": "diff",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for algorithmic.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "rate_a",
+                "value": {
+                  "var": "rate_a",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+                "label": "rate_b",
+                "value": {
+                  "var": "rate_b",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+                "label": "diff",
+                "value": {
+                  "var": "diff",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          }
+        ]
+      },
+      "filled": {
+        "template": "bars",
+        "title": "Algorithmic Fairness — Production Implementation & Boundary Mech",
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Demographic Parity evaluates fairness from an absolute difference.",
+            "bars": [
+              {
+                "label": "rate_a",
+                "value": 0.8,
+                "tone": "data"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "rate_b",
+                "value": 0.6,
+                "tone": "data"
+              },
+              {
+                "label": "diff",
+                "value": 0.2,
+                "tone": "data"
+              }
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "Demographic Parity Difference (DPD) measures the absolute arithmetic gap.",
+            "bars": [
+              {
+                "label": "rate_a",
+                "value": 0.8,
+                "tone": "ok"
+              },
+              {
+                "label": "rate_b",
+                "value": 0.6,
+                "tone": "ok"
+              },
+              {
+                "label": "diff",
+                "value": 0.2,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for algorithmic.",
+            "bars": [
+              {
+                "label": "rate_a",
+                "value": 0.8,
+                "tone": "ok"
+              },
+              {
+                "label": "rate_b",
+                "value": 0.6,
+                "tone": "ok"
+              },
+              {
+                "label": "diff",
+                "value": 0.2,
+                "tone": "ok"
               }
             ]
           }
@@ -538,265 +572,219 @@
       }
     },
     {
-      "partTitle": "Algorithmic Fairness — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "f2a09af9ef37468fd1459e6fecc106e5a9893f64a5d5c179e08b7908115e4a7f",
+      "partTitle": "Algorithmic Fairness — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "8c019b5fe175330b25bfed234c81377f95fdcaac2f6ca3077b80f4396773f877",
       "spec": {
-        "template": "flow",
-        "title": "Algorithmic Fairness — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Algorithmic Fairness — Failure Modes, Hardware Bottlenecks & Deb",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The FairnessAuditor class encapsulates dual-criteria fairness evaluation.",
+            "bars": [
+              {
+                "label": "min_di_ratio",
+                "value": {
+                  "var": "min_di_ratio",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "max_dp_diff",
+                "value": {
+                  "var": "max_dp_diff",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "baseline_rate",
+                "value": {
+                  "var": "baseline_rate",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "protected_rate",
+                "value": {
+                  "var": "protected_rate",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "It inspects baseline and protected selection rates, calculating both.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "min_di_ratio",
+                "value": {
+                  "var": "min_di_ratio",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_dp_diff",
+                "value": {
+                  "var": "max_dp_diff",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "baseline_rate",
+                "value": {
+                  "var": "baseline_rate",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "protected_rate",
+                "value": {
+                  "var": "protected_rate",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "min_di_ratio",
+                "value": {
+                  "var": "min_di_ratio",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_dp_diff",
+                "value": {
+                  "var": "max_dp_diff",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "baseline_rate",
+                "value": {
+                  "var": "baseline_rate",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "protected_rate",
+                "value": {
+                  "var": "protected_rate",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Algorithmic Fairness — Throughput Optimization & Edge-Case Handling",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Algorithmic Fairness — Failure Modes, Hardware Bottlenecks & Deb",
         "steps": [
           {
+            "at": "say1",
+            "caption": "The FairnessAuditor class encapsulates dual-criteria fairness evaluation.",
+            "bars": [
+              {
+                "label": "min_di_ratio",
+                "value": 0.8,
+                "tone": "data"
+              },
+              {
+                "label": "max_dp_diff",
+                "value": 0.1,
+                "tone": "data"
+              },
+              {
+                "label": "baseline_rate",
+                "value": 0.8,
+                "tone": "data"
+              },
+              {
+                "label": "protected_rate",
+                "value": 0.55,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "It inspects baseline and protected selection rates, calculating both.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "min_di_ratio",
+                "value": 0.8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_dp_diff",
+                "value": 0.1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "baseline_rate",
+                "value": 0.8,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "protected_rate",
+                "value": 0.55,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "min_di_ratio",
+                "value": 0.8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "max_dp_diff",
+                "value": 0.1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "baseline_rate",
+                "value": 0.8,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "protected_rate",
+                "value": 0.55,
+                "tone": "ok"
               }
             ]
           }
@@ -804,533 +792,109 @@
       }
     },
     {
-      "partTitle": "Algorithmic Fairness — Resilience Guardrails & Failure Recovery",
-      "codeHash": "eeadadef074ac809351f0761baff94e7453c42a922013b6d7aa08bc9f2bb010d",
+      "partTitle": "Algorithmic Fairness — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "39271b57548774ad16ed02e3e06d5510a70af78b0458cdda412117cba2d0dbb9",
       "spec": {
-        "template": "flow",
-        "title": "Algorithmic Fairness — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Algorithmic Fairness — Production Capstone & Enterprise SRE Inte",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cohorts",
+            "label": "cohorts"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "a",
+            "label": "a"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "audits",
+            "label": "audits"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The generate_eeoc_compliance_report function compiles fairness audits.",
+            "currentState": "cohorts",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "It tallies the total cohorts evaluated and counts any non-compliant.",
+            "currentState": "a",
+            "transition": {
+              "from": "cohorts",
+              "to": "a",
+              "label": {
+                "var": "a",
+                "line": 2,
+                "hit": 2
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "audits",
+            "transition": {
+              "from": "a",
+              "to": "audits",
+              "label": {
+                "var": "audits",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Algorithmic Fairness — Resilience Guardrails & Failure Recovery",
-        "nodes": [
+        "template": "states",
+        "title": "Algorithmic Fairness — Production Capstone & Enterprise SRE Inte",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "cohorts",
+            "label": "cohorts"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "a",
+            "label": "a"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "audits",
+            "label": "audits"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "The generate_eeoc_compliance_report function compiles fairness audits.",
+            "currentState": "cohorts",
+            "tone": "data"
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Algorithmic Fairness — Production Telemetry & Verification Audit",
-      "codeHash": "8408c0a94b3b867bad0b626c2a1d2faedacddd9ec95c3fd3b9433467f8aef95d",
-      "spec": {
-        "template": "flow",
-        "title": "Algorithmic Fairness — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "It tallies the total cohorts evaluated and counts any non-compliant.",
+            "currentState": "a",
+            "transition": {
+              "from": "cohorts",
+              "to": "a",
+              "label": "{'compliant': True}"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Algorithmic Fairness — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "audits",
+            "transition": {
+              "from": "a",
+              "to": "audits",
+              "label": "[{'compliant': True}, {'compliant': Tru…"
+            },
+            "tone": "ok"
           }
         ]
       }

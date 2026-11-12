@@ -2,143 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 9,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The confusion matrix",
       "codeHash": "6b2121d0e1fee6dc1ba9471f520272995d5c5586ce1619d3c59cad79009e0094",
       "spec": {
-        "template": "table",
-        "title": "Confusion matrix contingency table layout",
-        "columns": [
-          "y_true",
-          "y_pred",
-          "m"
+        "template": "states",
+        "title": "The confusion matrix",
+        "states": [
+          {
+            "id": "y_true",
+            "label": "y_true"
+          },
+          {
+            "id": "y_pred",
+            "label": "y_pred"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A confusion matrix arranges the four outcomes of a classifier in a table.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "y_true"
-                  },
-                  {
-                    "text": "y_pred"
-                  },
-                  {
-                    "text": "m"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "y_true"
-                  },
-                  {
-                    "text": "y_pred"
-                  },
-                  {
-                    "text": "m"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A confusion matrix arranges the four outcomes of a yes-or-no classifier.",
+            "currentState": "y_true",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "In safety evaluation positive classifications usually indicate harmful events.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "y_true"
-                  },
-                  {
-                    "text": "y_pred"
-                  },
-                  {
-                    "text": "m"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "y_true"
-                  },
-                  {
-                    "text": "y_pred"
-                  },
-                  {
-                    "text": "m"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "In safety work, \"positive\" usually means harmful.",
+            "currentState": "y_pred",
+            "transition": {
+              "from": "y_true",
+              "to": "y_pred",
+              "label": {
+                "var": "y_pred",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Every measure in this lesson is calculated from these four numbers.",
+            "currentState": "m",
+            "transition": {
+              "from": "y_pred",
+              "to": "m",
+              "label": {
+                "var": "m",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Confusion matrix contingency table layout",
-        "columns": [
-          "y_true",
-          "y_pred",
-          "m"
+        "template": "states",
+        "title": "The confusion matrix",
+        "states": [
+          {
+            "id": "y_true",
+            "label": "y_true"
+          },
+          {
+            "id": "y_pred",
+            "label": "y_pred"
+          },
+          {
+            "id": "m",
+            "label": "m"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A confusion matrix arranges the four outcomes of a classifier in a table.",
-            "rows": [
-              {
-                "cells": [
-                  "y_true",
-                  "y_pred",
-                  "m"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "y_true",
-                  "y_pred",
-                  "m"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A confusion matrix arranges the four outcomes of a yes-or-no classifier.",
+            "currentState": "y_true",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "In safety evaluation positive classifications usually indicate harmful events.",
-            "rows": [
-              {
-                "cells": [
-                  "y_true",
-                  "y_pred",
-                  "m"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "y_true",
-                  "y_pred",
-                  "m"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "In safety work, \"positive\" usually means harmful.",
+            "currentState": "y_pred",
+            "transition": {
+              "from": "y_true",
+              "to": "y_pred",
+              "label": "[True, False, True, True, False, False,…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Every measure in this lesson is calculated from these four numbers.",
+            "currentState": "m",
+            "transition": {
+              "from": "y_pred",
+              "to": "m",
+              "label": "{'tp': 0, 'fp': 0, 'fn': 0, 'tn': 0}"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -147,135 +117,277 @@
       "partTitle": "Precision",
       "codeHash": "54e9784654181670994087fe71a730322eeb3233db09f042f35debbb77e8e3b8",
       "spec": {
-        "template": "table",
-        "title": "Precision metrics and false positive avoidance",
-        "columns": [
-          "name",
-          "precision",
-          "name"
+        "template": "flow",
+        "title": "Precision",
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "tp",
+            "label": "tp"
+          },
+          {
+            "id": "fp",
+            "label": "fp"
+          },
+          {
+            "id": "precision",
+            "label": "precision"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Precision measures how much of flagged content was genuinely harmful.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "precision"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Precision answers.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "precision"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "data"
+              "tp": {
+                "var": "tp",
+                "line": 1,
+                "hit": 1
+              },
+              "fp": {
+                "var": "fp",
+                "line": 1,
+                "hit": 1
+              },
+              "precision": {
+                "var": "precision",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "name": "data",
+              "tp": "data",
+              "fp": "data",
+              "precision": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "tp"
+              ],
+              [
+                "tp",
+                "fp"
+              ],
+              [
+                "fp",
+                "precision"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "High precision means few false alarms when the classifier flags content.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "precision"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "It is TP divided by (TP + FP).",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "precision"
-                  },
-                  {
-                    "text": "name"
-                  }
-                ],
-                "tone": "ok"
+              "tp": {
+                "var": "tp",
+                "line": 2,
+                "hit": 1
+              },
+              "fp": {
+                "var": "fp",
+                "line": 2,
+                "hit": 1
+              },
+              "precision": {
+                "var": "precision",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "name": "data",
+              "tp": "data",
+              "fp": "data",
+              "precision": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "tp"
+              ],
+              [
+                "tp",
+                "fp"
+              ],
+              [
+                "fp",
+                "precision"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The next part introduces its partner, recall.",
+            "values": {
+              "name": {
+                "var": "name",
+                "line": 3,
+                "hit": 1
+              },
+              "tp": {
+                "var": "tp",
+                "line": 3,
+                "hit": 1
+              },
+              "fp": {
+                "var": "fp",
+                "line": 3,
+                "hit": 1
+              },
+              "precision": {
+                "var": "precision",
+                "line": 1,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "name": "ok",
+              "tp": "ok",
+              "fp": "ok",
+              "precision": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "tp"
+              ],
+              [
+                "tp",
+                "fp"
+              ],
+              [
+                "fp",
+                "precision"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Precision metrics and false positive avoidance",
-        "columns": [
-          "name",
-          "precision",
-          "name"
+        "template": "flow",
+        "title": "Precision",
+        "nodes": [
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "tp",
+            "label": "tp"
+          },
+          {
+            "id": "fp",
+            "label": "fp"
+          },
+          {
+            "id": "precision",
+            "label": "precision"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Precision measures how much of flagged content was genuinely harmful.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "precision",
-                  "name"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "name",
-                  "precision",
-                  "name"
-                ],
-                "tone": "data"
-              }
+            "caption": "Precision answers.",
+            "values": {
+              "name": "'strict'",
+              "tp": "9",
+              "fp": "1",
+              "precision": "0.9"
+            },
+            "tones": {
+              "name": "data",
+              "tp": "data",
+              "fp": "data",
+              "precision": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "tp"
+              ],
+              [
+                "tp",
+                "fp"
+              ],
+              [
+                "fp",
+                "precision"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "High precision means few false alarms when the classifier flags content.",
-            "rows": [
-              {
-                "cells": [
-                  "name",
-                  "precision",
-                  "name"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "name",
-                  "precision",
-                  "name"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "It is TP divided by (TP + FP).",
+            "values": {
+              "name": "'strict'",
+              "tp": "9",
+              "fp": "1",
+              "precision": "0.9"
+            },
+            "tones": {
+              "name": "data",
+              "tp": "data",
+              "fp": "data",
+              "precision": "data"
+            },
+            "arrows": [
+              [
+                "name",
+                "tp"
+              ],
+              [
+                "tp",
+                "fp"
+              ],
+              [
+                "fp",
+                "precision"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The next part introduces its partner, recall.",
+            "values": {
+              "name": "'strict'",
+              "tp": "9",
+              "fp": "1",
+              "precision": "0.9"
+            },
+            "tones": {
+              "name": "ok",
+              "tp": "ok",
+              "fp": "ok",
+              "precision": "ok"
+            },
+            "arrows": [
+              [
+                "name",
+                "tp"
+              ],
+              [
+                "tp",
+                "fp"
+              ],
+              [
+                "fp",
+                "precision"
+              ]
             ]
           }
         ]
@@ -285,78 +397,131 @@
       "partTitle": "Recall",
       "codeHash": "5ad740a7de2c7738dcb97e6651420fcc1114fc7a80617da5669e1fc4d20771e1",
       "spec": {
-        "template": "table",
-        "title": "Recall sensitivity across safety-critical failure scenarios",
-        "columns": [
-          "name",
-          "precision",
-          "recall"
-        ],
+        "template": "bars",
+        "title": "Recall",
         "steps": [
           {
             "at": "say1",
-            "caption": "Recall measures how much of all truly harmful content the classifier catches.",
-            "rows": [
+            "caption": "Of everything that was really harmful, how much did the classifier catch.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "precision"
-                  },
-                  {
-                    "text": "recall"
-                  }
-                ],
-                "tone": "ok"
+                "label": "harmful_total",
+                "value": {
+                  "var": "harmful_total",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "precision"
-                  },
-                  {
-                    "text": "recall"
-                  }
-                ],
+                "label": "tp",
+                "value": {
+                  "var": "tp",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fp",
+                "value": {
+                  "var": "fp",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "fn",
+                "value": {
+                  "var": "fn",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "High recall means few misses which is essential when potential harm is serious.",
-            "rows": [
+            "at": "say2",
+            "caption": "It is TP divided by (TP + FN).",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "precision"
-                  },
-                  {
-                    "text": "recall"
-                  }
-                ],
-                "tone": "data"
+                "label": "harmful_total",
+                "value": {
+                  "var": "harmful_total",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "name"
-                  },
-                  {
-                    "text": "precision"
-                  },
-                  {
-                    "text": "recall"
-                  }
-                ],
+                "label": "tp",
+                "value": {
+                  "var": "tp",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fp",
+                "value": {
+                  "var": "fp",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fn",
+                "value": {
+                  "var": "fn",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The next part combines both into one number.",
+            "bars": [
+              {
+                "label": "harmful_total",
+                "value": {
+                  "var": "harmful_total",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "tp",
+                "value": {
+                  "var": "tp",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fp",
+                "value": {
+                  "var": "fp",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "fn",
+                "value": {
+                  "var": "fn",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +529,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Recall sensitivity across safety-critical failure scenarios",
-        "columns": [
-          "name",
-          "precision",
-          "recall"
-        ],
+        "template": "bars",
+        "title": "Recall",
         "steps": [
           {
             "at": "say1",
-            "caption": "Recall measures how much of all truly harmful content the classifier catches.",
-            "rows": [
+            "caption": "Of everything that was really harmful, how much did the classifier catch.",
+            "bars": [
               {
-                "cells": [
-                  "name",
-                  "precision",
-                  "recall"
-                ],
-                "tone": "ok"
+                "label": "harmful_total",
+                "value": 20,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "name",
-                  "precision",
-                  "recall"
-                ],
+                "label": "tp",
+                "value": 9,
+                "tone": "data"
+              },
+              {
+                "label": "fp",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "fn",
+                "value": 11,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "High recall means few misses which is essential when potential harm is serious.",
-            "rows": [
+            "at": "say2",
+            "caption": "It is TP divided by (TP + FN).",
+            "bars": [
               {
-                "cells": [
-                  "name",
-                  "precision",
-                  "recall"
-                ],
-                "tone": "data"
+                "label": "harmful_total",
+                "value": 20,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "name",
-                  "precision",
-                  "recall"
-                ],
+                "label": "tp",
+                "value": 9,
+                "tone": "ok"
+              },
+              {
+                "label": "fp",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "fn",
+                "value": 11,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "The next part combines both into one number.",
+            "bars": [
+              {
+                "label": "harmful_total",
+                "value": 20,
+                "tone": "ok"
+              },
+              {
+                "label": "tp",
+                "value": 9,
+                "tone": "ok"
+              },
+              {
+                "label": "fp",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "fn",
+                "value": 11,
                 "tone": "ok"
               }
             ]
@@ -424,41 +618,45 @@
       "codeHash": "0607accd71d218c812d44930f7f2ab318fefd7fe053173904cc7d829454e3d7f",
       "spec": {
         "template": "table",
-        "title": "F1 harmonic mean synthesis balancing precision and recall",
+        "title": "F1: balancing both",
         "columns": [
-          "f1",
-          "f1",
-          "f1"
+          "Output",
+          "Printed Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Metric combines precision and recall into one number via harmonic mean.",
+            "caption": "F1 combines precision and recall into one number using the harmonic mean.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "f1"
+                    "text": "Line 1"
                   },
                   {
-                    "text": "f1"
-                  },
-                  {
-                    "text": "f1"
+                    "out": 1
                   }
                 ],
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "cells": [
                   {
-                    "text": "f1"
+                    "text": "Line 2"
                   },
                   {
-                    "text": "f1"
+                    "out": 2
+                  }
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Line 3"
                   },
                   {
-                    "text": "f1"
+                    "out": 3
                   }
                 ],
                 "tone": "data"
@@ -466,33 +664,38 @@
             ]
           },
           {
-            "at": "say3",
-            "caption": "The harmonic mean prevents hiding poor recall behind high precision scores.",
+            "at": "example",
+            "caption": "A chain is only as strong as its weakest link.",
             "rows": [
               {
                 "cells": [
                   {
-                    "text": "f1"
+                    "text": "Line 1"
                   },
                   {
-                    "text": "f1"
-                  },
-                  {
-                    "text": "f1"
+                    "out": 1
                   }
                 ],
-                "tone": "data"
+                "tone": "ok"
               },
               {
                 "cells": [
                   {
-                    "text": "f1"
+                    "text": "Line 2"
                   },
                   {
-                    "text": "f1"
+                    "out": 2
+                  }
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  {
+                    "text": "Line 3"
                   },
                   {
-                    "text": "f1"
+                    "out": 3
                   }
                 ],
                 "tone": "ok"
@@ -503,52 +706,61 @@
       },
       "filled": {
         "template": "table",
-        "title": "F1 harmonic mean synthesis balancing precision and recall",
+        "title": "F1: balancing both",
         "columns": [
-          "f1",
-          "f1",
-          "f1"
+          "Output",
+          "Printed Result"
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Metric combines precision and recall into one number via harmonic mean.",
+            "caption": "F1 combines precision and recall into one number using the harmonic mean.",
             "rows": [
               {
                 "cells": [
-                  "f1",
-                  "f1",
-                  "f1"
+                  "Line 1",
+                  "P=0.9 R=0.9  average=0.900  F1=0.900"
                 ],
-                "tone": "ok"
+                "tone": "data"
               },
               {
                 "cells": [
-                  "f1",
-                  "f1",
-                  "f1"
+                  "Line 2",
+                  "P=1.0 R=0.1  average=0.550  F1=0.182"
+                ],
+                "tone": "data"
+              },
+              {
+                "cells": [
+                  "Line 3",
+                  "P=0.6 R=0.8  average=0.700  F1=0.686"
                 ],
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "The harmonic mean prevents hiding poor recall behind high precision scores.",
+            "at": "example",
+            "caption": "A chain is only as strong as its weakest link.",
             "rows": [
               {
                 "cells": [
-                  "f1",
-                  "f1",
-                  "f1"
+                  "Line 1",
+                  "P=0.9 R=0.9  average=0.900  F1=0.900"
                 ],
-                "tone": "data"
+                "tone": "ok"
               },
               {
                 "cells": [
-                  "f1",
-                  "f1",
-                  "f1"
+                  "Line 2",
+                  "P=1.0 R=0.1  average=0.550  F1=0.182"
+                ],
+                "tone": "ok"
+              },
+              {
+                "cells": [
+                  "Line 3",
+                  "P=0.6 R=0.8  average=0.700  F1=0.686"
                 ],
                 "tone": "ok"
               }
@@ -561,224 +773,106 @@
       "partTitle": "Base rates and accuracy",
       "codeHash": "f0aede714ab395c35a6643a39402f20fc8e7dcf418cb32afec4e915b8c336735",
       "spec": {
-        "template": "flow",
-        "title": "Base rates and accuracy — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Base rates and accuracy",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "total",
+            "label": "total"
           },
           {
-            "id": "proc",
-            "label": "2. Base rates and accu...",
-            "tappable": true
+            "id": "harmful",
+            "label": "harmful"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Base rates and accuracy [Dnine.Pfive.Sone].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Base rates and accu... [Dnine.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Accuracy, the share of all predictions that were right, sounds like.",
+            "currentState": "total",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Harmful content is usually rare.",
+            "currentState": "harmful",
+            "transition": {
+              "from": "total",
+              "to": "harmful",
+              "label": {
+                "var": "harmful",
+                "line": 2,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Base rates and accuracy.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow moves to a new harm.",
+            "currentState": "name",
+            "transition": {
+              "from": "harmful",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 4,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Base rates and accuracy — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Base rates and accuracy",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "total",
+            "label": "total"
           },
           {
-            "id": "proc",
-            "label": "2. Base rates and accu...",
-            "tappable": true
+            "id": "harmful",
+            "label": "harmful"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "name",
+            "label": "name"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Base rates and accuracy [D9.P5.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Base rates and accu... [D9.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Accuracy, the share of all predictions that were right, sounds like.",
+            "currentState": "total",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Harmful content is usually rare.",
+            "currentState": "harmful",
+            "transition": {
+              "from": "total",
+              "to": "harmful",
+              "label": "100"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Base rates and accuracy [D9.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow moves to a new harm.",
+            "currentState": "name",
+            "transition": {
+              "from": "harmful",
+              "to": "name",
+              "label": "'never flags'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -787,224 +881,106 @@
       "partTitle": "Evaluating a safety check",
       "codeHash": "cc49ec51a2264dc5fec0eba5f760362892089cb6c3d585281ca615a157e58d6a",
       "spec": {
-        "template": "flow",
-        "title": "Evaluating a safety check — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Evaluating a safety check",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "tests",
+            "label": "tests"
           },
           {
-            "id": "proc",
-            "label": "2. Evaluating a safety...",
-            "tappable": true
+            "id": "pred",
+            "label": "pred"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "true",
+            "label": "true"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Evaluating a safety check [Dnine.Psix.Sone].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Evaluating a safety... [Dnine.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Putting it together, evaluating a safety check follows a fixed routine.",
+            "currentState": "tests",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dnine.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Gather a labelled test set that looks like real traffic, including tricky.",
+            "currentState": "pred",
+            "transition": {
+              "from": "tests",
+              "to": "pred",
+              "label": {
+                "var": "pred",
+                "line": 4,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Evaluating a safety check.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add confusion and prf to your pipeline's evaluation tools today.",
+            "currentState": "true",
+            "transition": {
+              "from": "pred",
+              "to": "true",
+              "label": {
+                "var": "true",
+                "line": 6,
+                "hit": 8
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Evaluating a safety check — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Evaluating a safety check",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "tests",
+            "label": "tests"
           },
           {
-            "id": "proc",
-            "label": "2. Evaluating a safety...",
-            "tappable": true
+            "id": "pred",
+            "label": "pred"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "true",
+            "label": "true"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Evaluating a safety check [D9.P6.S1].",
-            "values": {
-              "in": "Day 9 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Evaluating a safety... [D9.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Putting it together, evaluating a safety check follows a fixed routine.",
+            "currentState": "tests",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D9.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Gather a labelled test set that looks like real traffic, including tricky.",
+            "currentState": "pred",
+            "transition": {
+              "from": "tests",
+              "to": "pred",
+              "label": "[True, True, True, True, False, False]"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Evaluating a safety check [D9.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add confusion and prf to your pipeline's evaluation tools today.",
+            "currentState": "true",
+            "transition": {
+              "from": "pred",
+              "to": "true",
+              "label": "[True, False, True, False, True, False]"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

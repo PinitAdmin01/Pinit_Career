@@ -2,85 +2,138 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 11,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "From clusters to inverted lists",
       "codeHash": "526373e0faa49404ea60220b9062404dabe5f0e674583a8ae196953795fed8c4",
       "spec": {
-        "template": "table",
-        "title": "Centroid inverted list index organization",
-        "columns": [
-          "cents",
-          "vecs",
-          "lists"
-        ],
+        "template": "bars",
+        "title": "From clusters to inverted lists",
         "steps": [
           {
             "at": "say1",
-            "caption": "The index stores inverted lists of vectors assigned to each centroid.",
-            "rows": [
+            "caption": "An IVF index stores one list per centroid, containing the ids of.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "cents"
-                  },
-                  {
-                    "text": "vecs"
-                  },
-                  {
-                    "text": "lists"
-                  }
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "cents"
-                  },
-                  {
-                    "text": "vecs"
-                  },
-                  {
-                    "text": "lists"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 6,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Keeping empty lists ensures a predictable structure for every centroid.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how called updates inverted during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "cents"
-                  },
-                  {
-                    "text": "vecs"
-                  },
-                  {
-                    "text": "lists"
-                  }
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 6,
+                  "hit": 4
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "cents"
-                  },
-                  {
-                    "text": "vecs"
-                  },
-                  {
-                    "text": "cents"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "FAISS calls this index IndexIVFFlat, and many vector databases offer.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 6,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -88,54 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Centroid inverted list index organization",
-        "columns": [
-          "cents",
-          "vecs",
-          "lists"
-        ],
+        "template": "bars",
+        "title": "From clusters to inverted lists",
         "steps": [
           {
             "at": "say1",
-            "caption": "The index stores inverted lists of vectors assigned to each centroid.",
-            "rows": [
+            "caption": "An IVF index stores one list per centroid, containing the ids of.",
+            "bars": [
               {
-                "cells": [
-                  "cents",
-                  "vecs",
-                  "lists"
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "cents",
-                  "vecs",
-                  "lists"
-                ],
+                "label": "x",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Keeping empty lists ensures a predictable structure for every centroid.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how called updates inverted during execution.",
+            "bars": [
               {
-                "cells": [
-                  "cents",
-                  "vecs",
-                  "lists"
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "cents",
-                  "vecs",
-                  "cents"
-                ],
+                "label": "x",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "FAISS calls this index IndexIVFFlat, and many vector databases offer.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -147,78 +229,131 @@
       "partTitle": "Searching with nprobe",
       "codeHash": "2363fcbbd96570b5a3386e1adea09a4059da95f0f63e814b7e2dfc76d578dc6b",
       "spec": {
-        "template": "table",
-        "title": "Centroid probe candidate gathering and ranking",
-        "columns": [
-          "nprobe",
-          "probe",
-          "cand"
-        ],
+        "template": "bars",
+        "title": "Searching with nprobe",
         "steps": [
           {
             "at": "say1",
-            "caption": "The query first compares against every centroid to pick nearby lists.",
-            "rows": [
+            "caption": "At query time, IVF first compares the query with every centroid, which.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "nprobe"
-                  },
-                  {
-                    "text": "probe"
-                  },
-                  {
-                    "text": "cand"
-                  }
-                ],
-                "tone": "ok"
+                "label": "nprobe",
+                "value": {
+                  "var": "nprobe",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "nprobe"
-                  },
-                  {
-                    "text": "probe"
-                  },
-                  {
-                    "text": "cand"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Scanning lists of the nearest centroids compares vectors inside them.",
-            "rows": [
+            "caption": "It then scans only the lists of the nprobe nearest centroids, comparing.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "nprobe"
-                  },
-                  {
-                    "text": "probe"
-                  },
-                  {
-                    "text": "cand"
-                  }
-                ],
-                "tone": "data"
+                "label": "nprobe",
+                "value": {
+                  "var": "nprobe",
+                  "line": 7,
+                  "hit": 4
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "nprobe"
-                  },
-                  {
-                    "text": "probe"
-                  },
-                  {
-                    "text": "nprobe"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow compresses the vectors inside the lists to save memory as well.",
+            "bars": [
+              {
+                "label": "nprobe",
+                "value": {
+                  "var": "nprobe",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +361,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Centroid probe candidate gathering and ranking",
-        "columns": [
-          "nprobe",
-          "probe",
-          "cand"
-        ],
+        "template": "bars",
+        "title": "Searching with nprobe",
         "steps": [
           {
             "at": "say1",
-            "caption": "The query first compares against every centroid to pick nearby lists.",
-            "rows": [
+            "caption": "At query time, IVF first compares the query with every centroid, which.",
+            "bars": [
               {
-                "cells": [
-                  "nprobe",
-                  "probe",
-                  "cand"
-                ],
-                "tone": "ok"
+                "label": "nprobe",
+                "value": 1,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "nprobe",
-                  "probe",
-                  "cand"
-                ],
+                "label": "x",
+                "value": 6,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Scanning lists of the nearest centroids compares vectors inside them.",
-            "rows": [
+            "caption": "It then scans only the lists of the nprobe nearest centroids, comparing.",
+            "bars": [
               {
-                "cells": [
-                  "nprobe",
-                  "probe",
-                  "cand"
-                ],
-                "tone": "data"
+                "label": "nprobe",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "nprobe",
-                  "probe",
-                  "nprobe"
-                ],
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow compresses the vectors inside the lists to save memory as well.",
+            "bars": [
+              {
+                "label": "nprobe",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -285,78 +449,131 @@
       "partTitle": "Measuring the trade-off",
       "codeHash": "f43b73c137e538941c483997e73fde9dda8dce6a4acac1135c19e5bf13fd34b8",
       "spec": {
-        "template": "table",
-        "title": "Recall versus computation cost scaling curves",
-        "columns": [
-          "nprobe",
-          "hits",
-          "work"
-        ],
+        "template": "bars",
+        "title": "Measuring the trade-off",
         "steps": [
           {
             "at": "say1",
-            "caption": "Recall against exact search indicates how many true neighbours are found.",
-            "rows": [
+            "caption": "Recall against exact search (Day 5) tells us how many true neighbours IVF.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "nprobe"
-                  },
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "work"
-                  }
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "nprobe"
-                  },
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "work"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 9,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Recall rises quickly at first and then flattens as work grows steadily.",
-            "rows": [
+            "at": "say2",
+            "caption": "The number of distance computations tells us roughly how fast it is.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "nprobe"
-                  },
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "work"
-                  }
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 9,
+                  "hit": 6
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "nprobe"
-                  },
-                  {
-                    "text": "hits"
-                  },
-                  {
-                    "text": "hits"
-                  }
-                ],
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Seeing the curve yourself builds the intuition that every vector database.",
+            "bars": [
+              {
+                "label": "i",
+                "value": {
+                  "var": "i",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 9,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +581,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Recall versus computation cost scaling curves",
-        "columns": [
-          "nprobe",
-          "hits",
-          "work"
-        ],
+        "template": "bars",
+        "title": "Measuring the trade-off",
         "steps": [
           {
             "at": "say1",
-            "caption": "Recall against exact search indicates how many true neighbours are found.",
-            "rows": [
+            "caption": "Recall against exact search (Day 5) tells us how many true neighbours IVF.",
+            "bars": [
               {
-                "cells": [
-                  "nprobe",
-                  "hits",
-                  "work"
-                ],
-                "tone": "ok"
+                "label": "i",
+                "value": 0,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "nprobe",
-                  "hits",
-                  "work"
-                ],
+                "label": "x",
+                "value": -1.1788417512306717,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Recall rises quickly at first and then flattens as work grows steadily.",
-            "rows": [
+            "at": "say2",
+            "caption": "The number of distance computations tells us roughly how fast it is.",
+            "bars": [
               {
-                "cells": [
-                  "nprobe",
-                  "hits",
-                  "work"
-                ],
-                "tone": "data"
+                "label": "i",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "nprobe",
-                  "hits",
-                  "hits"
-                ],
+                "label": "x",
+                "value": -1.1481606807908016,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 1,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Seeing the curve yourself builds the intuition that every vector database.",
+            "bars": [
+              {
+                "label": "i",
+                "value": 1,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": -1.1481606807908016,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -423,134 +669,129 @@
       "partTitle": "Cost model and list balance",
       "codeHash": "1075d64fd66c49defbb3926d83b8931a70ca3ba7000b2e215bdf99a9194d4923",
       "spec": {
-        "template": "table",
-        "title": "Partition sizing cost models and bucket balancing",
-        "columns": [
-          "nlist",
-          "cost",
-          "nlist"
-        ],
+        "template": "cells",
+        "title": "Cost model and list balance",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Unbalanced lists break efficiency when a query probes an oversized list.",
-            "rows": [
+            "at": "say1",
+            "caption": "The cost of one IVF query is about nlist centroid comparisons plus nprobe.",
+            "items": {
+              "var": "balanced",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "nlist"
-                  },
-                  {
-                    "text": "cost"
-                  },
-                  {
-                    "text": "nlist"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "nlist"
-                  },
-                  {
-                    "text": "cost"
-                  },
-                  {
-                    "text": "nlist"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Training on representative data keeps candidate lists balanced.",
-            "rows": [
+            "at": "say2",
+            "caption": "Choosing nlist near n balances the two terms, which is where.",
+            "items": {
+              "var": "balanced",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "nlist"
-                  },
-                  {
-                    "text": "cost"
-                  },
-                  {
-                    "text": "nlist"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Understanding the cost model lets you predict latency before running.",
+            "items": {
+              "var": "balanced",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "nlist"
-                  },
-                  {
-                    "text": "cost"
-                  },
-                  {
-                    "text": "cost"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Partition sizing cost models and bucket balancing",
-        "columns": [
-          "nlist",
-          "cost",
-          "nlist"
-        ],
+        "template": "cells",
+        "title": "Cost model and list balance",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Unbalanced lists break efficiency when a query probes an oversized list.",
-            "rows": [
+            "at": "say1",
+            "caption": "The cost of one IVF query is about nlist centroid comparisons plus nprobe.",
+            "items": [
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "nlist",
-                  "cost",
-                  "nlist"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "nlist",
-                  "cost",
-                  "nlist"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Training on representative data keeps candidate lists balanced.",
-            "rows": [
+            "at": "say2",
+            "caption": "Choosing nlist near n balances the two terms, which is where.",
+            "items": [
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "nlist",
-                  "cost",
-                  "nlist"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Understanding the cost model lets you predict latency before running.",
+            "items": [
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100",
+              "100"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "nlist",
-                  "cost",
-                  "cost"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -562,110 +803,127 @@
       "codeHash": "2e4a4de665b865f6d7372a004f57dcc2ac03887d17d757ccb327d10304e711e7",
       "spec": {
         "template": "flow",
-        "title": "IVF in real systems — Execution Pipeline",
+        "title": "IVF in real systems",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "config",
+            "label": "config"
           },
           {
-            "id": "proc",
-            "label": "2. IVF in real systems",
-            "tappable": true
+            "id": "key",
+            "label": "key"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "value",
+            "label": "value"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for IVF in real systems [Deleven.Pfive.Sone].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in IVF in real systems [Deleven.Pfive.Stwo].",
+            "caption": "In FAISS, an IVF index is created with a number of lists, trained.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "config": {
+                "var": "config",
+                "line": 1,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "config": "data",
+              "key": "data",
+              "value": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "config",
+                "key"
               ],
               [
-                "proc",
-                "out"
+                "key",
+                "value"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Pgvector offers an ivfflat index for PostgreSQL with a lists parameter.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "config": {
+                "var": "config",
+                "line": 4,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 5,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "config": "data",
+              "key": "data",
+              "value": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "config",
+                "key"
+              ],
+              [
+                "key",
+                "value"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for IVF in real systems.",
+            "at": "say10",
+            "caption": "Knowing IVF well makes every vector database's documentation easier to read.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "config": {
+                "var": "config",
+                "line": 5,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 2
+              },
+              "value": {
+                "var": "value",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "config": "ok",
+              "key": "ok",
+              "value": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "config",
+                "key"
               ],
               [
-                "proc",
-                "out"
+                "key",
+                "value"
               ]
             ]
           }
@@ -673,110 +931,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "IVF in real systems — Execution Pipeline",
+        "title": "IVF in real systems",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "config",
+            "label": "config"
           },
           {
-            "id": "proc",
-            "label": "2. IVF in real systems",
-            "tappable": true
+            "id": "key",
+            "label": "key"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "value",
+            "label": "value"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for IVF in real systems [D11.P5.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in IVF in real systems [D11.P5.S2].",
+            "caption": "In FAISS, an IVF index is created with a number of lists, trained.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "config": "[['train on', '50,000 sample vectors'],…",
+              "key": "'train on'",
+              "value": "'50,000 sample vectors'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "config": "data",
+              "key": "data",
+              "value": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "config",
+                "key"
               ],
               [
-                "proc",
-                "out"
+                "key",
+                "value"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P5.S3].",
+            "at": "say2",
+            "caption": "Pgvector offers an ivfflat index for PostgreSQL with a lists parameter.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "config": "[['train on', '50,000 sample vectors'],…",
+              "key": "'train on'",
+              "value": "'50,000 sample vectors'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "config": "data",
+              "key": "data",
+              "value": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "config",
+                "key"
+              ],
+              [
+                "key",
+                "value"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for IVF in real systems [D11.P5.S4].",
+            "at": "say10",
+            "caption": "Knowing IVF well makes every vector database's documentation easier to read.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "config": "[['train on', '50,000 sample vectors'],…",
+              "key": "'nlist'",
+              "value": "'1,000 lists for 1M vectors'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "config": "ok",
+              "key": "ok",
+              "value": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "config",
+                "key"
               ],
               [
-                "proc",
-                "out"
+                "key",
+                "value"
               ]
             ]
           }
@@ -788,110 +1027,161 @@
       "codeHash": "6dc6f171b46b84a6616f02f11d41bfb3a845988ed4cfb94b720d63db5fa1cf71",
       "spec": {
         "template": "flow",
-        "title": "Practice time: IVF — Execution Pipeline",
+        "title": "Practice time: IVF",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "cents",
+            "label": "cents"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: IVF",
-            "tappable": true
+            "id": "vecs",
+            "label": "vecs"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "lists",
+            "label": "lists"
+          },
+          {
+            "id": "i",
+            "label": "i"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: IVF [Deleven.Psix.Sone].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: IVF [Deleven.Psix.Stwo].",
+            "caption": "Ivf_build(vectors, centroids).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "cents": {
+                "var": "cents",
+                "line": 1,
+                "hit": 1
+              },
+              "vecs": {
+                "var": "vecs",
+                "line": 2,
+                "hit": 1
+              },
+              "lists": {
+                "var": "lists",
+                "line": 4,
+                "hit": 4
+              },
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "cents": "data",
+              "vecs": "data",
+              "lists": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cents",
+                "vecs"
               ],
               [
-                "proc",
-                "out"
+                "vecs",
+                "lists"
+              ],
+              [
+                "lists",
+                "i"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The checks include three centroids with five vectors and an empty.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "cents": {
+                "var": "cents",
+                "line": 2,
+                "hit": 1
+              },
+              "vecs": {
+                "var": "vecs",
+                "line": 3,
+                "hit": 1
+              },
+              "lists": {
+                "var": "lists",
+                "line": 5,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 6,
+                "hit": 4
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "cents": "data",
+              "vecs": "data",
+              "lists": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "cents",
+                "vecs"
+              ],
+              [
+                "vecs",
+                "lists"
+              ],
+              [
+                "lists",
+                "i"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: IVF [Deleven.Psix.Sfour].",
+            "at": "say10",
+            "caption": "If ivf_search returns too many results, check that you slice to k at the end.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "cents": {
+                "var": "cents",
+                "line": 3,
+                "hit": 1
+              },
+              "vecs": {
+                "var": "vecs",
+                "line": 4,
+                "hit": 1
+              },
+              "lists": {
+                "var": "lists",
+                "line": 6,
+                "hit": 4
+              },
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "cents": "ok",
+              "vecs": "ok",
+              "lists": "ok",
+              "i": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cents",
+                "vecs"
               ],
               [
-                "proc",
-                "out"
+                "vecs",
+                "lists"
+              ],
+              [
+                "lists",
+                "i"
               ]
             ]
           }
@@ -899,110 +1189,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: IVF — Execution Pipeline",
+        "title": "Practice time: IVF",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "cents",
+            "label": "cents"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: IVF",
-            "tappable": true
+            "id": "vecs",
+            "label": "vecs"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "lists",
+            "label": "lists"
+          },
+          {
+            "id": "i",
+            "label": "i"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: IVF [D11.P6.S1].",
-            "values": {
-              "in": "Day 11 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: IVF [D11.P6.S2].",
+            "caption": "Ivf_build(vectors, centroids).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "cents": "[[0, 0], [10, 0], [0, 10]]",
+              "vecs": "[[1, 1], [9, 1], [0, 9], [2, 0], [8, 0]…",
+              "lists": "{0: [], 1: [], 2: []}",
+              "i": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "cents": "data",
+              "vecs": "data",
+              "lists": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cents",
+                "vecs"
               ],
               [
-                "proc",
-                "out"
+                "vecs",
+                "lists"
+              ],
+              [
+                "lists",
+                "i"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D11.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include three centroids with five vectors and an empty.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "cents": "[[0, 0], [10, 0], [0, 10]]",
+              "vecs": "[[1, 1], [9, 1], [0, 9], [2, 0], [8, 0]…",
+              "lists": "{0: [], 1: [], 2: []}",
+              "i": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "cents": "data",
+              "vecs": "data",
+              "lists": "data",
+              "i": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "cents",
+                "vecs"
+              ],
+              [
+                "vecs",
+                "lists"
+              ],
+              [
+                "lists",
+                "i"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: IVF [D11.P6.S4].",
+            "at": "say10",
+            "caption": "If ivf_search returns too many results, check that you slice to k at the end.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "cents": "[[0, 0], [10, 0], [0, 10]]",
+              "vecs": "[[1, 1], [9, 1], [0, 9], [2, 0], [8, 0]…",
+              "lists": "{0: [0], 1: [], 2: []}",
+              "i": "1"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "cents": "ok",
+              "vecs": "ok",
+              "lists": "ok",
+              "i": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "cents",
+                "vecs"
               ],
               [
-                "proc",
-                "out"
+                "vecs",
+                "lists"
+              ],
+              [
+                "lists",
+                "i"
               ]
             ]
           }

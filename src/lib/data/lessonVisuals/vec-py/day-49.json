@@ -2,269 +2,112 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 49,
-  "promptSha": "b080179e080591591b2654d2ce6522df8f26f33a5441351852443b7d8259eeb7",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Scatter-Gather Query Coordinator — Foundations & Mathematical Invariants",
-      "codeHash": "aca36508a354a3c8ff3047b0c8d7d8997796d29edf212fa3baeea7287d7dcc9c",
+      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Foundations & Mathematical Invariants",
+      "codeHash": "2a7b56241991f2e6ad20fd96314a92b47e46e6029e323ab0f8ae211f2d8c4901",
       "spec": {
-        "template": "flow",
-        "title": "Scatter-Gather Query Coordinator — Foundations & Mathematical Invarian",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In a sharded vector database where each shard stores a slice of the global.",
+            "items": {
+              "var": "shards",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The Scatter-Gather pattern coordinates distributed query execution through.",
+            "items": {
+              "var": "shards",
+              "line": 3,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": {
+              "var": "shards",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Scatter-Gather Query Coordinator — Foundations & Mathematical Invarian",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
         "steps": [
           {
+            "at": "say1",
+            "caption": "In a sharded vector database where each shard stores a slice of the global.",
+            "items": [
+              "'shard_0'",
+              "'shard_1'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "The Scatter-Gather pattern coordinates distributed query execution through.",
+            "items": [
+              "'shard_0'",
+              "'shard_1'"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "items": [
+              "'shard_0'",
+              "'shard_1'"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -272,265 +115,108 @@
       }
     },
     {
-      "partTitle": "Scatter-Gather Query Coordinator — Core Algorithm & State Representation",
-      "codeHash": "b87c15e27092cb91174c481bb00c12176d237cfaaa2d4d876c2620a949ef0026",
+      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Core Algorithm & State Representation",
+      "codeHash": "59b693070d35b226e739010f20e7274ba3c10e1559a4b802d53ac639ba643364",
       "spec": {
-        "template": "flow",
-        "title": "Scatter-Gather Query Coordinator — Core Algorithm & State Representati",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once target shards complete their local search loops, they transmit their.",
+            "items": {
+              "var": "x",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The Gather phase aggregates candidate lists from all responding shards.",
+            "items": {
+              "var": "x",
+              "line": 5,
+              "hit": 3
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "items": {
+              "var": "x",
+              "line": 5,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Scatter-Gather Query Coordinator — Core Algorithm & State Representati",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "cells",
+        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once target shards complete their local search loops, they transmit their.",
+            "items": [
+              "0.12",
+              "101"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
+            "caption": "The Gather phase aggregates candidate lists from all responding shards.",
+            "items": [
+              "0.08",
+              "201"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "items": [
+              "0.33",
+              "202"
             ],
-            "nodes": [
+            "pointers": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -538,797 +224,723 @@
       }
     },
     {
-      "partTitle": "Scatter-Gather Query Coordinator — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "845bf8f6a3b8aac5d11568383bdc2edc6253d1b0850aa2dff8186e50a9cabbaa",
+      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Throughput Optimization & Edge-Case Handling",
+      "codeHash": "16dff22e2ca634d0f8c41e8c22f9cdf9c235f4ee65183e6ceee634934c56490e",
       "spec": {
         "template": "flow",
-        "title": "Scatter-Gather Query Coordinator — Throughput Optimization & Edge-Case",
+        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "resps",
+            "label": "resps"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "shard_responses",
+            "label": "shard_responses"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "timeout_ms",
+            "label": "timeout_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "valid_responses",
+            "label": "valid_responses"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In large distributed clusters, overall query latency is bounded by.",
+            "values": {
+              "resps": {
+                "var": "resps",
+                "line": 11,
+                "hit": 1
+              },
+              "shard_responses": {
+                "var": "shard_responses",
+                "line": 2,
+                "hit": 1
+              },
+              "timeout_ms": {
+                "var": "timeout_ms",
+                "line": 2,
+                "hit": 1
+              },
+              "valid_responses": {
+                "var": "valid_responses",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "resps": "data",
+              "shard_responses": "data",
+              "timeout_ms": "data",
+              "valid_responses": "data"
+            },
+            "arrows": [
+              [
+                "resps",
+                "shard_responses"
+              ],
+              [
+                "shard_responses",
+                "timeout_ms"
+              ],
+              [
+                "timeout_ms",
+                "valid_responses"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If seven out of eight shards respond in 4ms, but one straggler takes 500ms.",
+            "values": {
+              "resps": {
+                "var": "resps",
+                "line": 15,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "shard_responses": {
+                "var": "shard_responses",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "timeout_ms": {
+                "var": "timeout_ms",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "valid_responses": {
+                "var": "valid_responses",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "resps": "data",
+              "shard_responses": "data",
+              "timeout_ms": "data",
+              "valid_responses": "data"
+            },
+            "arrows": [
+              [
+                "resps",
+                "shard_responses"
+              ],
+              [
+                "shard_responses",
+                "timeout_ms"
+              ],
+              [
+                "timeout_ms",
+                "valid_responses"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "resps": {
+                "var": "resps",
+                "line": 16,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "shard_responses": {
+                "var": "shard_responses",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "timeout_ms": {
+                "var": "timeout_ms",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "valid_responses": {
+                "var": "valid_responses",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "resps": "ok",
+              "shard_responses": "ok",
+              "timeout_ms": "ok",
+              "valid_responses": "ok"
+            },
+            "arrows": [
+              [
+                "resps",
+                "shard_responses"
+              ],
+              [
+                "shard_responses",
+                "timeout_ms"
+              ],
+              [
+                "timeout_ms",
+                "valid_responses"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Scatter-Gather Query Coordinator — Throughput Optimization & Edge-Case",
+        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "resps",
+            "label": "resps"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "shard_responses",
+            "label": "shard_responses"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "timeout_ms",
+            "label": "timeout_ms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "valid_responses",
+            "label": "valid_responses"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In large distributed clusters, overall query latency is bounded by.",
+            "values": {
+              "resps": "[{'shard': 's0', 'latency_ms': 8.2, 're…",
+              "shard_responses": "[{'shard': 's0', 'latency_ms': 8.2, 're…",
+              "timeout_ms": "15",
+              "valid_responses": "[]"
+            },
+            "tones": {
+              "resps": "data",
+              "shard_responses": "data",
+              "timeout_ms": "data",
+              "valid_responses": "data"
+            },
+            "arrows": [
+              [
+                "resps",
+                "shard_responses"
+              ],
+              [
+                "shard_responses",
+                "timeout_ms"
+              ],
+              [
+                "timeout_ms",
+                "valid_responses"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If seven out of eight shards respond in 4ms, but one straggler takes 500ms.",
+            "values": {
+              "resps": "[{'shard': 's0', 'latency_ms': 8.2, 're…",
+              "shard_responses": "[{'shard': 's0', 'latency_ms': 8.2, 're…",
+              "timeout_ms": "15",
+              "valid_responses": "[]"
+            },
+            "tones": {
+              "resps": "data",
+              "shard_responses": "data",
+              "timeout_ms": "data",
+              "valid_responses": "data"
+            },
+            "arrows": [
+              [
+                "resps",
+                "shard_responses"
+              ],
+              [
+                "shard_responses",
+                "timeout_ms"
+              ],
+              [
+                "timeout_ms",
+                "valid_responses"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "values": {
+              "resps": "[{'shard': 's0', 'latency_ms': 8.2, 're…",
+              "shard_responses": "[{'shard': 's0', 'latency_ms': 8.2, 're…",
+              "timeout_ms": "15",
+              "valid_responses": "[]"
+            },
+            "tones": {
+              "resps": "ok",
+              "shard_responses": "ok",
+              "timeout_ms": "ok",
+              "valid_responses": "ok"
+            },
+            "arrows": [
+              [
+                "resps",
+                "shard_responses"
+              ],
+              [
+                "shard_responses",
+                "timeout_ms"
+              ],
+              [
+                "timeout_ms",
+                "valid_responses"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Scatter-Gather Query Coordinator — Resilience Guardrails & Failure Recovery",
-      "codeHash": "46c16a9aa95ff90d43e06bac37a279b643f46ff9656dfc1090a224f9d8d61808",
+      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Resilience Guardrails & Failure Recovery",
+      "codeHash": "4f26c2534b4bdd29e83b080604f0e08d2c64edb0aa28bb10290186660cacfe5f",
       "spec": {
         "template": "flow",
-        "title": "Scatter-Gather Query Coordinator — Resilience Guardrails & Failure Rec",
+        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "shard_lists",
+            "label": "shard_lists"
           },
           {
             "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
+            "label": "out"
           },
           {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sub",
+            "label": "sub"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Defensive list concatenation in the query coordinator protects against.",
+            "values": {
+              "shard_lists": {
+                "var": "shard_lists",
+                "line": 2,
+                "hit": 1
+              },
+              "out": {
+                "var": "out",
+                "line": 4,
+                "hit": 1
+              },
+              "sub": {
+                "var": "sub",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "shard_lists": "data",
+              "out": "data",
+              "sub": "data"
+            },
+            "arrows": [
+              [
+                "shard_lists",
+                "out"
+              ],
+              [
+                "out",
+                "sub"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "If a shard crashes mid-query or returns an empty payload, attempting.",
+            "values": {
+              "shard_lists": {
+                "var": "shard_lists",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "out": {
+                "var": "out",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sub": {
+                "var": "sub",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "shard_lists": "data",
+              "out": "data",
+              "sub": "data"
+            },
+            "arrows": [
+              [
+                "shard_lists",
+                "out"
+              ],
+              [
+                "out",
+                "sub"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "shard_lists": {
+                "var": "shard_lists",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "out": {
+                "var": "out",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "sub": {
+                "var": "sub",
+                "line": 5,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "shard_lists": "ok",
+              "out": "ok",
+              "sub": "ok"
+            },
+            "arrows": [
+              [
+                "shard_lists",
+                "out"
+              ],
+              [
+                "out",
+                "sub"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Scatter-Gather Query Coordinator — Resilience Guardrails & Failure Rec",
+        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "shard_lists",
+            "label": "shard_lists"
           },
           {
             "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
+            "label": "out"
           },
           {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "sub",
+            "label": "sub"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Defensive list concatenation in the query coordinator protects against.",
+            "values": {
+              "shard_lists": "[[], [1, 2]]",
+              "out": "[]",
+              "sub": "[]"
+            },
+            "tones": {
+              "shard_lists": "data",
+              "out": "data",
+              "sub": "data"
+            },
+            "arrows": [
+              [
+                "shard_lists",
+                "out"
+              ],
+              [
+                "out",
+                "sub"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "If a shard crashes mid-query or returns an empty payload, attempting.",
+            "values": {
+              "shard_lists": "[[], [1, 2]]",
+              "out": "[]",
+              "sub": "[]"
+            },
+            "tones": {
+              "shard_lists": "data",
+              "out": "data",
+              "sub": "data"
+            },
+            "arrows": [
+              [
+                "shard_lists",
+                "out"
+              ],
+              [
+                "out",
+                "sub"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "values": {
+              "shard_lists": "[[], [1, 2]]",
+              "out": "[]",
+              "sub": "[1, 2]"
+            },
+            "tones": {
+              "shard_lists": "ok",
+              "out": "ok",
+              "sub": "ok"
+            },
+            "arrows": [
+              [
+                "shard_lists",
+                "out"
+              ],
+              [
+                "out",
+                "sub"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Scatter-Gather Query Coordinator — Production Telemetry & Verification Audit",
-      "codeHash": "58e4a50ac0b9859e800faad9cbf6121524762798239d675b673e3cbd478d5ca6",
+      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Production Telemetry & Verification Audit",
+      "codeHash": "a0bbd6539d1a4445e151396f7d3f8f22116f1e59efe015400da64c48d9544636",
       "spec": {
-        "template": "flow",
-        "title": "Scatter-Gather Query Coordinator — Production Telemetry & Verification",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Coordinator telemetry tracks cluster coverage percentages, straggler.",
+            "bars": [
+              {
+                "label": "total_shards",
+                "value": {
+                  "var": "total_shards",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "successful_sha",
+                "value": {
+                  "var": "successful_shards",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "p99_latency_ms",
+                "value": {
+                  "var": "p99_latency_ms",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "coverage_pct",
+                "value": {
+                  "var": "coverage_pct",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Coverage percentage measures the proportion of cluster shards.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_shards",
+                "value": {
+                  "var": "total_shards",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "successful_sha",
+                "value": {
+                  "var": "successful_shards",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "p99_latency_ms",
+                "value": {
+                  "var": "p99_latency_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "coverage_pct",
+                "value": {
+                  "var": "coverage_pct",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_shards",
+                "value": {
+                  "var": "total_shards",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "successful_sha",
+                "value": {
+                  "var": "successful_shards",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "p99_latency_ms",
+                "value": {
+                  "var": "p99_latency_ms",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "coverage_pct",
+                "value": {
+                  "var": "coverage_pct",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Scatter-Gather Query Coordinator — Production Telemetry & Verification",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Coordinator telemetry tracks cluster coverage percentages, straggler.",
+            "bars": [
+              {
+                "label": "total_shards",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "successful_sha",
+                "value": 8,
+                "tone": "data"
+              },
+              {
+                "label": "p99_latency_ms",
+                "value": 4.8,
+                "tone": "data"
+              },
+              {
+                "label": "coverage_pct",
+                "value": 100,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Coverage percentage measures the proportion of cluster shards.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total_shards",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "successful_sha",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "p99_latency_ms",
+                "value": 4.8,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "coverage_pct",
+                "value": 100,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total_shards",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "successful_sha",
+                "value": 8,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "p99_latency_ms",
+                "value": 4.8,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "coverage_pct",
+                "value": 100,
+                "tone": "ok"
               }
             ]
           }

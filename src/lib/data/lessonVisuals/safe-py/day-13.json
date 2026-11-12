@@ -2,143 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 13,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "From text to actions",
       "codeHash": "771f12b17993a5ad5528937d7864ebde98584c949a956511b116d6fb761ea759",
       "spec": {
-        "template": "table",
-        "title": "Excessive agency mitigations in agent architectures",
-        "columns": [
-          "proposed",
-          "allowed",
-          "proposed"
+        "template": "states",
+        "title": "From text to actions",
+        "states": [
+          {
+            "id": "proposed",
+            "label": "proposed"
+          },
+          {
+            "id": "allowed",
+            "label": "allowed"
+          },
+          {
+            "id": "call",
+            "label": "call"
+          }
         ],
         "steps": [
           {
-            "at": "say6",
-            "caption": "The core defence is that code, not the model, decides what is allowed.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "proposed"
-                  },
-                  {
-                    "text": "allowed"
-                  },
-                  {
-                    "text": "proposed"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "proposed"
-                  },
-                  {
-                    "text": "allowed"
-                  },
-                  {
-                    "text": "proposed"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "An agent is a system where the model decides which tools to call and.",
+            "currentState": "proposed",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "The model proposes calls but the system executes only those passing checks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "proposed"
-                  },
-                  {
-                    "text": "allowed"
-                  },
-                  {
-                    "text": "proposed"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "proposed"
-                  },
-                  {
-                    "text": "allowed"
-                  },
-                  {
-                    "text": "proposed"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The model usually outputs a structured tool call, such as {\"tool\".",
+            "currentState": "allowed",
+            "transition": {
+              "from": "proposed",
+              "to": "allowed",
+              "label": {
+                "var": "allowed",
+                "line": 7,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow adds human approval for risky actions.",
+            "currentState": "call",
+            "transition": {
+              "from": "allowed",
+              "to": "call",
+              "label": {
+                "var": "call",
+                "line": 7,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Excessive agency mitigations in agent architectures",
-        "columns": [
-          "proposed",
-          "allowed",
-          "proposed"
+        "template": "states",
+        "title": "From text to actions",
+        "states": [
+          {
+            "id": "proposed",
+            "label": "proposed"
+          },
+          {
+            "id": "allowed",
+            "label": "allowed"
+          },
+          {
+            "id": "call",
+            "label": "call"
+          }
         ],
         "steps": [
           {
-            "at": "say6",
-            "caption": "The core defence is that code, not the model, decides what is allowed.",
-            "rows": [
-              {
-                "cells": [
-                  "proposed",
-                  "allowed",
-                  "proposed"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "proposed",
-                  "allowed",
-                  "proposed"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "An agent is a system where the model decides which tools to call and.",
+            "currentState": "proposed",
+            "tone": "data"
           },
           {
-            "at": "say7",
-            "caption": "The model proposes calls but the system executes only those passing checks.",
-            "rows": [
-              {
-                "cells": [
-                  "proposed",
-                  "allowed",
-                  "proposed"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "proposed",
-                  "allowed",
-                  "proposed"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The model usually outputs a structured tool call, such as {\"tool\".",
+            "currentState": "allowed",
+            "transition": {
+              "from": "proposed",
+              "to": "allowed",
+              "label": "{'search_orders', 'send_email'}"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Tomorrow adds human approval for risky actions.",
+            "currentState": "call",
+            "transition": {
+              "from": "allowed",
+              "to": "call",
+              "label": "{'tool': 'send_email', 'args': {'to': '…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -147,136 +117,106 @@
       "partTitle": "A tool registry",
       "codeHash": "86ce5b4ff8fc41568241e4671c2fafd4883009e581590bf027fc4dfc7e9085d1",
       "spec": {
-        "template": "table",
-        "title": "Tool registry schema definition and argument constraints",
-        "columns": [
-          "registry",
-          "optional",
-          "registry"
+        "template": "states",
+        "title": "A tool registry",
+        "states": [
+          {
+            "id": "registry",
+            "label": "registry"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "spec",
+            "label": "spec"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A tool registry specifies permitted tools, argument types and requirements.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "registry"
-                  },
-                  {
-                    "text": "optional"
-                  },
-                  {
-                    "text": "registry"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "registry"
-                  },
-                  {
-                    "text": "optional"
-                  },
-                  {
-                    "text": "registry"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A tool registry describes every tool the agent may use.",
+            "currentState": "registry",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "An allowlist naming what is permitted is much safer than a blocklist.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "registry"
-                  },
-                  {
-                    "text": "optional"
-                  },
-                  {
-                    "text": "registry"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "registry"
-                  },
-                  {
-                    "text": "optional"
-                  },
-                  {
-                    "text": "registry"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "It is the single source of truth for what the agent can do.",
+            "currentState": "name",
+            "transition": {
+              "from": "registry",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 6,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Extra arguments are a common trick.",
+            "currentState": "spec",
+            "transition": {
+              "from": "name",
+              "to": "spec",
+              "label": {
+                "var": "spec",
+                "line": 6,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Tool registry schema definition and argument constraints",
-        "columns": [
-          "registry",
-          "optional",
-          "registry"
+        "template": "states",
+        "title": "A tool registry",
+        "states": [
+          {
+            "id": "registry",
+            "label": "registry"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "spec",
+            "label": "spec"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A tool registry specifies permitted tools, argument types and requirements.",
-            "rows": [
-              {
-                "cells": [
-                  "registry",
-                  "optional",
-                  "registry"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "registry",
-                  "optional",
-                  "registry"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A tool registry describes every tool the agent may use.",
+            "currentState": "registry",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "An allowlist naming what is permitted is much safer than a blocklist.",
-            "rows": [
-              {
-                "cells": [
-                  "registry",
-                  "optional",
-                  "registry"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "registry",
-                  "optional",
-                  "registry"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "It is the single source of truth for what the agent can do.",
+            "currentState": "name",
+            "transition": {
+              "from": "registry",
+              "to": "name",
+              "label": "'search_orders'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Extra arguments are a common trick.",
+            "currentState": "spec",
+            "transition": {
+              "from": "name",
+              "to": "spec",
+              "label": "{'args': {'customer_id': 'str', 'limit'…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -285,135 +225,277 @@
       "partTitle": "Validating a tool call",
       "codeHash": "10511107084a32d93ec5c7fd74b3acac115d729969d3387e79d51e5721b860e3",
       "spec": {
-        "template": "table",
-        "title": "Action parameter validation and type enforcement",
-        "columns": [
-          "args",
-          "errors",
-          "args"
+        "template": "flow",
+        "title": "Validating a tool call",
+        "nodes": [
+          {
+            "id": "TYPES",
+            "label": "TYPES"
+          },
+          {
+            "id": "spec",
+            "label": "spec"
+          },
+          {
+            "id": "args",
+            "label": "args"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The validator reports missing required arguments and unexpected parameters.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "args"
-                  },
-                  {
-                    "text": "errors"
-                  },
-                  {
-                    "text": "args"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Practice 1 is check_tool_call(call, registry), which returns a sorted list.",
+            "values": {
+              "TYPES": {
+                "var": "TYPES",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "args"
-                  },
-                  {
-                    "text": "errors"
-                  },
-                  {
-                    "text": "args"
-                  }
-                ],
-                "tone": "data"
+              "spec": {
+                "var": "spec",
+                "line": 2,
+                "hit": 1
+              },
+              "args": {
+                "var": "args",
+                "line": 13,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "TYPES": "data",
+              "spec": "data",
+              "args": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "TYPES",
+                "spec"
+              ],
+              [
+                "spec",
+                "args"
+              ],
+              [
+                "args",
+                "a"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If the tool is not registered, the only error is unknown_tool, because.",
+            "values": {
+              "TYPES": {
+                "var": "TYPES",
+                "line": 2,
+                "hit": 1
+              },
+              "spec": {
+                "var": "spec",
+                "line": 4,
+                "hit": 1
+              },
+              "args": {
+                "var": "args",
+                "line": 5,
+                "hit": 1
+              },
+              "a": {
+                "var": "a",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "TYPES": "data",
+              "spec": "data",
+              "args": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "TYPES",
+                "spec"
+              ],
+              [
+                "spec",
+                "args"
+              ],
+              [
+                "args",
+                "a"
+              ]
             ]
           },
           {
             "at": "say10",
-            "caption": "Always validate on the server side without trusting model self-assertions.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "args"
-                  },
-                  {
-                    "text": "errors"
-                  },
-                  {
-                    "text": "args"
-                  }
-                ],
-                "tone": "data"
+            "caption": "Always validate on the server side, never trusting any check the model.",
+            "values": {
+              "TYPES": {
+                "var": "TYPES",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "args"
-                  },
-                  {
-                    "text": "errors"
-                  },
-                  {
-                    "text": "args"
-                  }
-                ],
-                "tone": "ok"
+              "spec": {
+                "var": "spec",
+                "line": 13,
+                "hit": 1
+              },
+              "args": {
+                "var": "args",
+                "line": 5,
+                "hit": 2
+              },
+              "a": {
+                "var": "a",
+                "line": 7,
+                "hit": 1
               }
+            },
+            "tones": {
+              "TYPES": "ok",
+              "spec": "ok",
+              "args": "ok",
+              "a": "ok"
+            },
+            "arrows": [
+              [
+                "TYPES",
+                "spec"
+              ],
+              [
+                "spec",
+                "args"
+              ],
+              [
+                "args",
+                "a"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Action parameter validation and type enforcement",
-        "columns": [
-          "args",
-          "errors",
-          "args"
+        "template": "flow",
+        "title": "Validating a tool call",
+        "nodes": [
+          {
+            "id": "TYPES",
+            "label": "TYPES"
+          },
+          {
+            "id": "spec",
+            "label": "spec"
+          },
+          {
+            "id": "args",
+            "label": "args"
+          },
+          {
+            "id": "a",
+            "label": "a"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "The validator reports missing required arguments and unexpected parameters.",
-            "rows": [
-              {
-                "cells": [
-                  "args",
-                  "errors",
-                  "args"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "args",
-                  "errors",
-                  "args"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Practice 1 is check_tool_call(call, registry), which returns a sorted list.",
+            "values": {
+              "TYPES": "{'str': {'__other__': 'type'}, 'int': {…",
+              "spec": "{'args': {'customer_id': 'str', 'limit'…",
+              "args": "{'customer_id': 'c-1'}",
+              "a": "'customer_id'"
+            },
+            "tones": {
+              "TYPES": "data",
+              "spec": "data",
+              "args": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "TYPES",
+                "spec"
+              ],
+              [
+                "spec",
+                "args"
+              ],
+              [
+                "args",
+                "a"
+              ]
+            ]
+          },
+          {
+            "at": "say2",
+            "caption": "If the tool is not registered, the only error is unknown_tool, because.",
+            "values": {
+              "TYPES": "{'str': {'__other__': 'type'}, 'int': {…",
+              "spec": "{'args': {'customer_id': 'str', 'limit'…",
+              "args": "{'customer_id': 'c-1'}",
+              "a": "'customer_id'"
+            },
+            "tones": {
+              "TYPES": "data",
+              "spec": "data",
+              "args": "data",
+              "a": "data"
+            },
+            "arrows": [
+              [
+                "TYPES",
+                "spec"
+              ],
+              [
+                "spec",
+                "args"
+              ],
+              [
+                "args",
+                "a"
+              ]
             ]
           },
           {
             "at": "say10",
-            "caption": "Always validate on the server side without trusting model self-assertions.",
-            "rows": [
-              {
-                "cells": [
-                  "args",
-                  "errors",
-                  "args"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "args",
-                  "errors",
-                  "args"
-                ],
-                "tone": "ok"
-              }
+            "caption": "Always validate on the server side, never trusting any check the model.",
+            "values": {
+              "TYPES": "{'str': {'__other__': 'type'}, 'int': {…",
+              "spec": "{'args': {'customer_id': 'str', 'limit'…",
+              "args": "{'customer_id': 'c-1'}",
+              "a": "'customer_id'"
+            },
+            "tones": {
+              "TYPES": "ok",
+              "spec": "ok",
+              "args": "ok",
+              "a": "ok"
+            },
+            "arrows": [
+              [
+                "TYPES",
+                "spec"
+              ],
+              [
+                "spec",
+                "args"
+              ],
+              [
+                "args",
+                "a"
+              ]
             ]
           }
         ]
@@ -423,136 +505,106 @@
       "partTitle": "Path traversal",
       "codeHash": "14e6420b3960891ac72f0af5fbdd0b929aa9742d38441e852725e985bae299c1",
       "spec": {
-        "template": "table",
-        "title": "Path normalization and boundary breakout prevention",
-        "columns": [
-          "user_path",
-          "joined",
-          "user_path"
+        "template": "states",
+        "title": "Path traversal",
+        "states": [
+          {
+            "id": "base",
+            "label": "base"
+          },
+          {
+            "id": "user_path",
+            "label": "user_path"
+          },
+          {
+            "id": "joined",
+            "label": "joined"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Path traversal escapes the working folder when relative segments climb up.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "user_path"
-                  },
-                  {
-                    "text": "joined"
-                  },
-                  {
-                    "text": "user_path"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "user_path"
-                  },
-                  {
-                    "text": "joined"
-                  },
-                  {
-                    "text": "user_path"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Many agents get a file tool that reads or writes files inside a working folder.",
+            "currentState": "base",
+            "tone": "data"
           },
           {
-            "at": "say9",
-            "caption": "Applications must normalise path strings first and verify where they land.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "user_path"
-                  },
-                  {
-                    "text": "joined"
-                  },
-                  {
-                    "text": "user_path"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "user_path"
-                  },
-                  {
-                    "text": "joined"
-                  },
-                  {
-                    "text": "user_path"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "The danger is that the model, or an injected instruction, asks for a path.",
+            "currentState": "user_path",
+            "transition": {
+              "from": "base",
+              "to": "user_path",
+              "label": {
+                "var": "user_path",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The next part turns this into a safe join function.",
+            "currentState": "joined",
+            "transition": {
+              "from": "user_path",
+              "to": "joined",
+              "label": {
+                "var": "joined",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Path normalization and boundary breakout prevention",
-        "columns": [
-          "user_path",
-          "joined",
-          "user_path"
+        "template": "states",
+        "title": "Path traversal",
+        "states": [
+          {
+            "id": "base",
+            "label": "base"
+          },
+          {
+            "id": "user_path",
+            "label": "user_path"
+          },
+          {
+            "id": "joined",
+            "label": "joined"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Path traversal escapes the working folder when relative segments climb up.",
-            "rows": [
-              {
-                "cells": [
-                  "user_path",
-                  "joined",
-                  "user_path"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "user_path",
-                  "joined",
-                  "user_path"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "Many agents get a file tool that reads or writes files inside a working folder.",
+            "currentState": "base",
+            "tone": "data"
           },
           {
-            "at": "say9",
-            "caption": "Applications must normalise path strings first and verify where they land.",
-            "rows": [
-              {
-                "cells": [
-                  "user_path",
-                  "joined",
-                  "user_path"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "user_path",
-                  "joined",
-                  "user_path"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "The danger is that the model, or an injected instruction, asks for a path.",
+            "currentState": "user_path",
+            "transition": {
+              "from": "base",
+              "to": "user_path",
+              "label": "'notes/todo.txt'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The next part turns this into a safe join function.",
+            "currentState": "joined",
+            "transition": {
+              "from": "user_path",
+              "to": "joined",
+              "label": "'/srv/agent/files/notes/todo.txt'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -561,224 +613,106 @@
       "partTitle": "A safe join",
       "codeHash": "01dca2ca7b5d51339f98a4675ff4c1872de7f5c021c1a3924e32a1b2c8b7a21e",
       "spec": {
-        "template": "flow",
-        "title": "A safe join — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "A safe join",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "proc",
-            "label": "2. A safe join",
-            "tappable": true
+            "id": "base",
+            "label": "base"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "full",
+            "label": "full"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for A safe join [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in A safe join [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Trace how practice updates base during execution.",
+            "currentState": "p",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "First, reject absolute paths.",
+            "currentState": "base",
+            "transition": {
+              "from": "p",
+              "to": "base",
+              "label": {
+                "var": "base",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for A safe join [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "The path check is cheap, clear and easy to test, so it is always worth having.",
+            "currentState": "full",
+            "transition": {
+              "from": "base",
+              "to": "full",
+              "label": {
+                "var": "full",
+                "line": 9,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "A safe join — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "A safe join",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "proc",
-            "label": "2. A safe join",
-            "tappable": true
+            "id": "base",
+            "label": "base"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "full",
+            "label": "full"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for A safe join [D13.P5.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in A safe join [D13.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Trace how practice updates base during execution.",
+            "currentState": "p",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "First, reject absolute paths.",
+            "currentState": "base",
+            "transition": {
+              "from": "p",
+              "to": "base",
+              "label": "'/srv/agent/files'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for A safe join [D13.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "The path check is cheap, clear and easy to test, so it is always worth having.",
+            "currentState": "full",
+            "transition": {
+              "from": "base",
+              "to": "full",
+              "label": "'/srv/agent/files/a/b.txt'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -787,224 +721,106 @@
       "partTitle": "Tool safety in the pipeline",
       "codeHash": "b94c2bde9a26b85135fb65027a5d7c28c3ef36ad6f5f02ea5ff0c9c22cf3b338",
       "spec": {
-        "template": "flow",
-        "title": "Tool safety in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Tool safety in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "REGISTRY",
+            "label": "REGISTRY"
           },
           {
-            "id": "proc",
-            "label": "2. Tool safety in the ...",
-            "tappable": true
+            "id": "BASE",
+            "label": "BASE"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "c",
+            "label": "c"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Tool safety in the pipeline [D.Psix.Sone].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Tool safety in the ... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Every tool call from the model passes through the same gate before it runs.",
+            "currentState": "REGISTRY",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The gate checks the registry, then argument-specific rules such.",
+            "currentState": "BASE",
+            "transition": {
+              "from": "REGISTRY",
+              "to": "BASE",
+              "label": {
+                "var": "BASE",
+                "line": 6,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Tool safety in the pipeline.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add check_tool_call and safe_join to your pipeline today.",
+            "currentState": "c",
+            "transition": {
+              "from": "BASE",
+              "to": "c",
+              "label": {
+                "var": "c",
+                "line": 15,
+                "hit": 3
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Tool safety in the pipeline — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Tool safety in the pipeline",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "REGISTRY",
+            "label": "REGISTRY"
           },
           {
-            "id": "proc",
-            "label": "2. Tool safety in the ...",
-            "tappable": true
+            "id": "BASE",
+            "label": "BASE"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "c",
+            "label": "c"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Tool safety in the pipeline [D13.P6.S1].",
-            "values": {
-              "in": "Day 13 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Tool safety in the ... [D13.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Every tool call from the model passes through the same gate before it runs.",
+            "currentState": "REGISTRY",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D13.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The gate checks the registry, then argument-specific rules such.",
+            "currentState": "BASE",
+            "transition": {
+              "from": "REGISTRY",
+              "to": "BASE",
+              "label": "'/work'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Tool safety in the pipeline [D13.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Add check_tool_call and safe_join to your pipeline today.",
+            "currentState": "c",
+            "transition": {
+              "from": "BASE",
+              "to": "c",
+              "label": "{'tool': 'read_file', 'args': {'path': …"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

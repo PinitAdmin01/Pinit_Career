@@ -2,85 +2,138 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 12,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The memory problem",
       "codeHash": "21abe1d1a8cb73e284eac8811eb927f486267ef614efb633bd3df888ae58b491",
       "spec": {
-        "template": "table",
-        "title": "Memory consumption comparison under vector quantization",
-        "columns": [
-          "code_bytes",
-          "full_tb",
-          "code_bytes"
-        ],
+        "template": "bars",
+        "title": "The memory problem",
         "steps": [
           {
-            "at": "say6",
-            "caption": "Compressed vectors allow large indices to fit directly in fast memory caches.",
-            "rows": [
+            "at": "say1",
+            "caption": "Trace how dimensional updates vector during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "code_bytes"
-                  },
-                  {
-                    "text": "full_tb"
-                  },
-                  {
-                    "text": "code_bytes"
-                  }
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "code_bytes"
-                  },
-                  {
-                    "text": "full_tb"
-                  },
-                  {
-                    "text": "code_bytes"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "full_tb",
+                "value": {
+                  "var": "full_tb",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "code_bytes",
+                "value": {
+                  "var": "code_bytes",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Splitting each vector into parts maps subvectors to a prototype.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how billion updates such during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "code_bytes"
-                  },
-                  {
-                    "text": "full_tb"
-                  },
-                  {
-                    "text": "code_bytes"
-                  }
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "code_bytes"
-                  },
-                  {
-                    "text": "full_tb"
-                  },
-                  {
-                    "text": "full_tb"
-                  }
-                ],
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "full_tb",
+                "value": {
+                  "var": "full_tb",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "code_bytes",
+                "value": {
+                  "var": "code_bytes",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we implement both encoding and distance computation.",
+            "bars": [
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "full_tb",
+                "value": {
+                  "var": "full_tb",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "code_bytes",
+                "value": {
+                  "var": "code_bytes",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -88,54 +141,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Memory consumption comparison under vector quantization",
-        "columns": [
-          "code_bytes",
-          "full_tb",
-          "code_bytes"
-        ],
+        "template": "bars",
+        "title": "The memory problem",
         "steps": [
           {
-            "at": "say6",
-            "caption": "Compressed vectors allow large indices to fit directly in fast memory caches.",
-            "rows": [
+            "at": "say1",
+            "caption": "Trace how dimensional updates vector during execution.",
+            "bars": [
               {
-                "cells": [
-                  "code_bytes",
-                  "full_tb",
-                  "code_bytes"
-                ],
-                "tone": "ok"
+                "label": "n",
+                "value": 1000000000,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "code_bytes",
-                  "full_tb",
-                  "code_bytes"
-                ],
+                "label": "d",
+                "value": 768,
+                "tone": "data"
+              },
+              {
+                "label": "full_tb",
+                "value": 3.072,
+                "tone": "data"
+              },
+              {
+                "label": "code_bytes",
+                "value": 64,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say9",
-            "caption": "Splitting each vector into parts maps subvectors to a prototype.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how billion updates such during execution.",
+            "bars": [
               {
-                "cells": [
-                  "code_bytes",
-                  "full_tb",
-                  "code_bytes"
-                ],
-                "tone": "data"
+                "label": "n",
+                "value": 1000000000,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "code_bytes",
-                  "full_tb",
-                  "full_tb"
-                ],
+                "label": "d",
+                "value": 768,
+                "tone": "ok"
+              },
+              {
+                "label": "full_tb",
+                "value": 3.072,
+                "tone": "ok"
+              },
+              {
+                "label": "code_bytes",
+                "value": 64,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today we implement both encoding and distance computation.",
+            "bars": [
+              {
+                "label": "n",
+                "value": 1000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 768,
+                "tone": "ok"
+              },
+              {
+                "label": "full_tb",
+                "value": 3.072,
+                "tone": "ok"
+              },
+              {
+                "label": "code_bytes",
+                "value": 32,
                 "tone": "ok"
               }
             ]
@@ -147,78 +229,77 @@
       "partTitle": "Sub-vectors and codebooks",
       "codeHash": "891aead988895ce9eddbe511f7a7f0dc50e3e50d38e2224c68e42ebab1ed13a8",
       "spec": {
-        "template": "table",
-        "title": "Vector dimension splitting and prototype codebook learning",
-        "columns": [
-          "parts",
-          "d_sub",
-          "parts"
-        ],
+        "template": "bars",
+        "title": "Sub-vectors and codebooks",
         "steps": [
           {
             "at": "say1",
-            "caption": "Product quantisation splits input dimensions into equal subvector parts.",
-            "rows": [
+            "caption": "PQ splits each vector of d dimensions into m equal parts, called.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "d_sub"
-                  },
-                  {
-                    "text": "parts"
-                  }
-                ],
-                "tone": "ok"
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "d_sub"
-                  },
-                  {
-                    "text": "parts"
-                  }
-                ],
+                "label": "d_sub",
+                "value": {
+                  "var": "d_sub",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Each codeword serves as a shared prototype across all stored vectors.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how each updates part during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "d_sub"
-                  },
-                  {
-                    "text": "parts"
-                  }
-                ],
-                "tone": "data"
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "parts"
-                  },
-                  {
-                    "text": "d_sub"
-                  },
-                  {
-                    "text": "d_sub"
-                  }
-                ],
+                "label": "d_sub",
+                "value": {
+                  "var": "d_sub",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Encoding is the next step.",
+            "bars": [
+              {
+                "label": "m",
+                "value": {
+                  "var": "m",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d_sub",
+                "value": {
+                  "var": "d_sub",
+                  "line": 4,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +307,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Vector dimension splitting and prototype codebook learning",
-        "columns": [
-          "parts",
-          "d_sub",
-          "parts"
-        ],
+        "template": "bars",
+        "title": "Sub-vectors and codebooks",
         "steps": [
           {
             "at": "say1",
-            "caption": "Product quantisation splits input dimensions into equal subvector parts.",
-            "rows": [
+            "caption": "PQ splits each vector of d dimensions into m equal parts, called.",
+            "bars": [
               {
-                "cells": [
-                  "parts",
-                  "d_sub",
-                  "parts"
-                ],
-                "tone": "ok"
+                "label": "m",
+                "value": 4,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "parts",
-                  "d_sub",
-                  "parts"
-                ],
+                "label": "d_sub",
+                "value": 2,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Each codeword serves as a shared prototype across all stored vectors.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how each updates part during execution.",
+            "bars": [
               {
-                "cells": [
-                  "parts",
-                  "d_sub",
-                  "parts"
-                ],
-                "tone": "data"
+                "label": "m",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "parts",
-                  "d_sub",
-                  "d_sub"
-                ],
+                "label": "d_sub",
+                "value": 2,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Encoding is the next step.",
+            "bars": [
+              {
+                "label": "m",
+                "value": 4,
+                "tone": "ok"
+              },
+              {
+                "label": "d_sub",
+                "value": 2,
                 "tone": "ok"
               }
             ]
@@ -285,134 +365,111 @@
       "partTitle": "Encoding",
       "codeHash": "bf2534080a4729780eaa84dce71886e507f762eaa22546169ef1326b7101f153",
       "spec": {
-        "template": "table",
-        "title": "Codeword index assignment and quantization reconstruction",
-        "columns": [
-          "code",
-          "decoded",
-          "books"
-        ],
+        "template": "cells",
+        "title": "Encoding",
         "steps": [
           {
             "at": "say1",
-            "caption": "Encoding compares subvectors with codewords in the matching codebook.",
-            "rows": [
+            "caption": "To encode a vector, compare each of its sub-vectors with every codeword.",
+            "items": {
+              "var": "v",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "code"
-                  },
-                  {
-                    "text": "decoded"
-                  },
-                  {
-                    "text": "books"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "code"
-                  },
-                  {
-                    "text": "decoded"
-                  },
-                  {
-                    "text": "books"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The difference between original and decoded representations is the error.",
-            "rows": [
+            "at": "say2",
+            "caption": "The result is a list of m small integers.",
+            "items": {
+              "var": "v",
+              "line": 4,
+              "hit": 8
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "code"
-                  },
-                  {
-                    "text": "decoded"
-                  },
-                  {
-                    "text": "books"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Keeping the original vectors somewhere also makes it possible to re-encode.",
+            "items": {
+              "var": "v",
+              "line": 6,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "code"
-                  },
-                  {
-                    "text": "decoded"
-                  },
-                  {
-                    "text": "code"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Codeword index assignment and quantization reconstruction",
-        "columns": [
-          "code",
-          "decoded",
-          "books"
-        ],
+        "template": "cells",
+        "title": "Encoding",
         "steps": [
           {
             "at": "say1",
-            "caption": "Encoding compares subvectors with codewords in the matching codebook.",
-            "rows": [
+            "caption": "To encode a vector, compare each of its sub-vectors with every codeword.",
+            "items": [
+              "0.9",
+              "1.2",
+              "1.8",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "code",
-                  "decoded",
-                  "books"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "code",
-                  "decoded",
-                  "books"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "The difference between original and decoded representations is the error.",
-            "rows": [
+            "at": "say2",
+            "caption": "The result is a list of m small integers.",
+            "items": [
+              "0.9",
+              "1.2",
+              "1.8",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "code",
-                  "decoded",
-                  "books"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Keeping the original vectors somewhere also makes it possible to re-encode.",
+            "items": [
+              "0.9",
+              "1.2",
+              "1.8",
+              "0.1"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "code",
-                  "decoded",
-                  "code"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -423,134 +480,111 @@
       "partTitle": "Asymmetric distance computation",
       "codeHash": "0dee066585db0df00dc35995804dcbbb48efdcf0cb21f570f0b258f75aea959d",
       "spec": {
-        "template": "table",
-        "title": "Asymmetric distance table lookups and additions",
-        "columns": [
-          "table",
-          "code",
-          "table"
-        ],
+        "template": "cells",
+        "title": "Asymmetric distance computation",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Asymmetric distance keeps the query exact while looking up codewords.",
-            "rows": [
+            "at": "say1",
+            "caption": "To search, we need the distance between a full query vector and many.",
+            "items": {
+              "var": "q",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "table"
-                  },
-                  {
-                    "text": "code"
-                  },
-                  {
-                    "text": "table"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "table"
-                  },
-                  {
-                    "text": "code"
-                  },
-                  {
-                    "text": "table"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Precomputing distances to every codeword builds an efficient lookup table.",
-            "rows": [
+            "at": "say2",
+            "caption": "Asymmetric distance keeps the query exact and compares each query part.",
+            "items": {
+              "var": "q",
+              "line": 4,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "table"
-                  },
-                  {
-                    "text": "code"
-                  },
-                  {
-                    "text": "table"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Re-scoring the top candidates with full vectors fixes most of those errors.",
+            "items": {
+              "var": "q",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "table"
-                  },
-                  {
-                    "text": "code"
-                  },
-                  {
-                    "text": "code"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Asymmetric distance table lookups and additions",
-        "columns": [
-          "table",
-          "code",
-          "table"
-        ],
+        "template": "cells",
+        "title": "Asymmetric distance computation",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Asymmetric distance keeps the query exact while looking up codewords.",
-            "rows": [
+            "at": "say1",
+            "caption": "To search, we need the distance between a full query vector and many.",
+            "items": [
+              "1",
+              "1",
+              "2",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "table",
-                  "code",
-                  "table"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "table",
-                  "code",
-                  "table"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "Precomputing distances to every codeword builds an efficient lookup table.",
-            "rows": [
+            "at": "say2",
+            "caption": "Asymmetric distance keeps the query exact and compares each query part.",
+            "items": [
+              "1",
+              "1",
+              "2",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "table",
-                  "code",
-                  "table"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Re-scoring the top candidates with full vectors fixes most of those errors.",
+            "items": [
+              "1",
+              "1",
+              "2",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "table",
-                  "code",
-                  "code"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -562,110 +596,161 @@
       "codeHash": "f709150090d2c77583e73cf1b884f9656ab5f6a22fa69a3a7bf7a608571f4b0f",
       "spec": {
         "template": "flow",
-        "title": "Accuracy and tuning — Execution Pipeline",
+        "title": "Accuracy and tuning",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rng",
+            "label": "rng"
           },
           {
-            "id": "proc",
-            "label": "2. Accuracy and tuning",
-            "tappable": true
+            "id": "data",
+            "label": "data"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "size",
+            "label": "size"
+          },
+          {
+            "id": "codebook",
+            "label": "codebook"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Accuracy and tuning [Dtwelve.Pfive.Sone].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Accuracy and tuning [Dtwelve.Pfive.Stwo].",
+            "caption": "PQ accuracy depends on m (number of parts), the codebook size and how well.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "rng": {
+                "var": "rng",
+                "line": 3,
+                "hit": 1
+              },
+              "data": {
+                "var": "data",
+                "line": 4,
+                "hit": 401
+              },
+              "size": {
+                "var": "size",
+                "line": 6,
+                "hit": 1
+              },
+              "codebook": {
+                "var": "codebook",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "rng": "data",
+              "data": "data",
+              "size": "data",
+              "codebook": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "data"
               ],
               [
-                "proc",
-                "out"
+                "data",
+                "size"
+              ],
+              [
+                "size",
+                "codebook"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "Larger m gives smaller quantisation error but longer codes.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "rng": {
+                "var": "rng",
+                "line": 4,
+                "hit": 1
+              },
+              "data": {
+                "var": "data",
+                "line": 5,
+                "hit": 1
+              },
+              "size": {
+                "var": "size",
+                "line": 7,
+                "hit": 1
+              },
+              "codebook": {
+                "var": "codebook",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "rng": "data",
+              "data": "data",
+              "size": "data",
+              "codebook": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "rng",
+                "data"
+              ],
+              [
+                "data",
+                "size"
+              ],
+              [
+                "size",
+                "codebook"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Accuracy and tuning.",
+            "at": "say10",
+            "caption": "Tomorrow looks at simpler compression methods that are popular in modern.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "rng": {
+                "var": "rng",
+                "line": 4,
+                "hit": 2
+              },
+              "data": {
+                "var": "data",
+                "line": 6,
+                "hit": 1
+              },
+              "size": {
+                "var": "size",
+                "line": 7,
+                "hit": 1
+              },
+              "codebook": {
+                "var": "codebook",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "rng": "ok",
+              "data": "ok",
+              "size": "ok",
+              "codebook": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "data"
               ],
               [
-                "proc",
-                "out"
+                "data",
+                "size"
+              ],
+              [
+                "size",
+                "codebook"
               ]
             ]
           }
@@ -673,110 +758,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Accuracy and tuning — Execution Pipeline",
+        "title": "Accuracy and tuning",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rng",
+            "label": "rng"
           },
           {
-            "id": "proc",
-            "label": "2. Accuracy and tuning",
-            "tappable": true
+            "id": "data",
+            "label": "data"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "size",
+            "label": "size"
+          },
+          {
+            "id": "codebook",
+            "label": "codebook"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Accuracy and tuning [D12.P5.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Accuracy and tuning [D12.P5.S2].",
+            "caption": "PQ accuracy depends on m (number of parts), the codebook size and how well.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "rng": "<Random>",
+              "data": "[[0.9560342718892494, 0.947827487059349…",
+              "size": "2",
+              "codebook": "[[0.9560342718892494, 0.947827487059349…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "rng": "data",
+              "data": "data",
+              "size": "data",
+              "codebook": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "data"
               ],
               [
-                "proc",
-                "out"
+                "data",
+                "size"
+              ],
+              [
+                "size",
+                "codebook"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P5.S3].",
+            "at": "say2",
+            "caption": "Larger m gives smaller quantisation error but longer codes.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "rng": "<Random>",
+              "data": "[[0.9560342718892494, 0.947827487059349…",
+              "size": "2",
+              "codebook": "[[0.9560342718892494, 0.947827487059349…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "rng": "data",
+              "data": "data",
+              "size": "data",
+              "codebook": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "rng",
+                "data"
+              ],
+              [
+                "data",
+                "size"
+              ],
+              [
+                "size",
+                "codebook"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Accuracy and tuning [D12.P5.S4].",
+            "at": "say10",
+            "caption": "Tomorrow looks at simpler compression methods that are popular in modern.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "rng": "<Random>",
+              "data": "[[0.9560342718892494, 0.947827487059349…",
+              "size": "2",
+              "codebook": "[[0.9560342718892494, 0.947827487059349…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "rng": "ok",
+              "data": "ok",
+              "size": "ok",
+              "codebook": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "data"
               ],
               [
-                "proc",
-                "out"
+                "data",
+                "size"
+              ],
+              [
+                "size",
+                "codebook"
               ]
             ]
           }
@@ -787,223 +875,175 @@
       "partTitle": "Practice time: product quantisation",
       "codeHash": "a49b60e9c5ebdfafb9472c449d89aa45417f6c3d414db321782f8f846a2e0dbe",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: product quantisation — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: prod...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: product quantisation",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: product quantisation.",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: prod... [Dtwelve.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Pq_encode(vector, codebooks).",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include two ordinary vectors, a tie and a wrong length.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: product quantisation.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If pq_encode picks the wrong codeword, check that you slice the correct.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 6,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 6,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": {
+                  "var": "c",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: product quantisation — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: prod...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Practice time: product quantisation",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: product quantisation [D12.P6.S1].",
-            "values": {
-              "in": "Day 12 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: prod... [D12.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Pq_encode(vector, codebooks).",
+            "bars": [
+              {
+                "label": "x",
+                "value": 0.9068234375241953,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "c",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D12.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include two ordinary vectors, a tie and a wrong length.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 3.8491801433375312,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 1,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: product quantisation [D12.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "If pq_encode picks the wrong codeword, check that you slice the correct.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 3.8491801433375312,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "c",
+                "value": 2,
+                "tone": "ok"
+              }
             ]
           }
         ]

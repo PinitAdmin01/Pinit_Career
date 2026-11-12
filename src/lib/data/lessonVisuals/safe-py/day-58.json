@@ -2,269 +2,121 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 58,
-  "promptSha": "02a9721766f8e9a2975e054ba509cae016bf2dae02c7b3357e716a59e43f56dd",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Constitutional AI (CAI) — Foundations & Mathematical Invariants",
-      "codeHash": "1ea7218e95d2bf79c24a8ee4237ee3c3e74570e93796acf0086eac4352bf3589",
+      "codeHash": "088e3ea584e6c44f0955bc10e781276a41150d23a4c5220333c3b5861ca4e059",
       "spec": {
-        "template": "flow",
+        "template": "table",
         "title": "Constitutional AI (CAI) — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Constitutional AI grounds alignment in explicit, human-readable principles.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "constitution"
+                  },
+                  {
+                    "var": "constitution",
+                    "line": 11,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A constitution consists of structured rules defining safety, fairness.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "constitution"
+                  },
+                  {
+                    "var": "constitution",
+                    "line": 28,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "table",
         "title": "Constitutional AI (CAI) — Foundations & Mathematical Invariants",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Constitutional AI grounds alignment in explicit, human-readable principles.",
+            "rows": [
+              {
+                "cells": [
+                  "constitution",
+                  "[<ConstitutionalRule>, <ConstitutionalR…"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "A constitution consists of structured rules defining safety, fairness.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "constitution",
+                  "[<ConstitutionalRule>, <ConstitutionalR…"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "Loaded 2 constitutional rules. Top: RULE_01"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -273,531 +125,387 @@
     },
     {
       "partTitle": "Constitutional AI (CAI) — Core Algorithm & State Representation",
-      "codeHash": "ee39921fc1b26520d04d5f453ff964403c4758254473563581fd40ee6d0c93d4",
+      "codeHash": "250685c6d250d7efb56074512452d3f8bbb81871b2eb55719e50184cf83c1b9e",
       "spec": {
-        "template": "flow",
+        "template": "states",
         "title": "Constitutional AI (CAI) — Core Algorithm & State Representation",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_resp",
+            "label": "sample_resp"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "response",
+            "label": "response"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rule_id",
+            "label": "rule_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The first stage of CAI execution is automated self-critique generation.",
+            "currentState": "sample_resp",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Given a draft response and a constitutional rule, the model evaluates its.",
+            "currentState": "response",
+            "transition": {
+              "from": "sample_resp",
+              "to": "response",
+              "label": {
+                "var": "response",
+                "line": 3,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "rule_id",
+            "transition": {
+              "from": "response",
+              "to": "rule_id",
+              "label": {
+                "var": "rule_id",
+                "line": 3,
+                "hit": 2
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
+        "template": "states",
         "title": "Constitutional AI (CAI) — Core Algorithm & State Representation",
-        "nodes": [
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "sample_resp",
+            "label": "sample_resp"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "response",
+            "label": "response"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "rule_id",
+            "label": "rule_id"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "The first stage of CAI execution is automated self-critique generation.",
+            "currentState": "sample_resp",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Given a draft response and a constitutional rule, the model evaluates its.",
+            "currentState": "response",
+            "transition": {
+              "from": "sample_resp",
+              "to": "response",
+              "label": "'Here is how to exploit authentication …"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "rule_id",
+            "transition": {
+              "from": "response",
+              "to": "rule_id",
+              "label": "'RULE_01'"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Constitutional AI (CAI) — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "1689d1c27ee939351348b490c4955ce3f2c24b77691d755038fe687681dd237c",
+      "codeHash": "bbe35db9702f6b8a47224dbacc1638e0348885758985c4e455993687be8bef02",
       "spec": {
         "template": "flow",
-        "title": "Constitutional AI (CAI) — Throughput Optimization & Edge-Case Handling",
+        "title": "Constitutional AI (CAI) — Throughput Optimization & Edge-Case Ha",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "orig",
+            "label": "orig"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "crit",
+            "label": "crit"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "original",
+            "label": "original"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "critique",
+            "label": "critique"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once a critique identifies policy violations, the model executes a guided.",
+            "values": {
+              "orig": {
+                "var": "orig",
+                "line": 6,
+                "hit": 1
+              },
+              "crit": {
+                "var": "crit",
+                "line": 7,
+                "hit": 1
+              },
+              "original": {
+                "var": "original",
+                "line": 2,
+                "hit": 1
+              },
+              "critique": {
+                "var": "critique",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "orig": "data",
+              "crit": "data",
+              "original": "data",
+              "critique": "data"
+            },
+            "arrows": [
+              [
+                "orig",
+                "crit"
+              ],
+              [
+                "crit",
+                "original"
+              ],
+              [
+                "original",
+                "critique"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "The revision prompt instructs the model to rewrite the response.",
+            "values": {
+              "orig": {
+                "var": "orig",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "crit": {
+                "var": "crit",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "original": {
+                "var": "original",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "critique": {
+                "var": "critique",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "orig": "data",
+              "crit": "data",
+              "original": "data",
+              "critique": "data"
+            },
+            "arrows": [
+              [
+                "orig",
+                "crit"
+              ],
+              [
+                "crit",
+                "original"
+              ],
+              [
+                "original",
+                "critique"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for constitutional.",
+            "values": {
+              "orig": {
+                "var": "orig",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "crit": {
+                "var": "crit",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "original": {
+                "var": "original",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "critique": {
+                "var": "critique",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "orig": "ok",
+              "crit": "ok",
+              "original": "ok",
+              "critique": "ok"
+            },
+            "arrows": [
+              [
+                "orig",
+                "crit"
+              ],
+              [
+                "crit",
+                "original"
+              ],
+              [
+                "original",
+                "critique"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Constitutional AI (CAI) — Throughput Optimization & Edge-Case Handling",
+        "title": "Constitutional AI (CAI) — Throughput Optimization & Edge-Case Ha",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "orig",
+            "label": "orig"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "crit",
+            "label": "crit"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "original",
+            "label": "original"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "critique",
+            "label": "critique"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Once a critique identifies policy violations, the model executes a guided.",
+            "values": {
+              "orig": "'Here is how to exploit authentication …",
+              "crit": "'CRITIQUE [RULE_01]: Contains prohibite…",
+              "original": "'Here is how to exploit authentication …",
+              "critique": "'CRITIQUE [RULE_01]: Contains prohibite…"
+            },
+            "tones": {
+              "orig": "data",
+              "crit": "data",
+              "original": "data",
+              "critique": "data"
+            },
+            "arrows": [
+              [
+                "orig",
+                "crit"
+              ],
+              [
+                "crit",
+                "original"
+              ],
+              [
+                "original",
+                "critique"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "The revision prompt instructs the model to rewrite the response.",
+            "values": {
+              "orig": "'Here is how to exploit authentication …",
+              "crit": "'CRITIQUE [RULE_01]: Contains prohibite…",
+              "original": "'Here is how to exploit authentication …",
+              "critique": "'CRITIQUE [RULE_01]: Contains prohibite…"
+            },
+            "tones": {
+              "orig": "data",
+              "crit": "data",
+              "original": "data",
+              "critique": "data"
+            },
+            "arrows": [
+              [
+                "orig",
+                "crit"
+              ],
+              [
+                "crit",
+                "original"
+              ],
+              [
+                "original",
+                "critique"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for constitutional.",
+            "values": {
+              "orig": "'Here is how to exploit authentication …",
+              "crit": "'CRITIQUE [RULE_01]: Contains prohibite…",
+              "original": "'Here is how to exploit authentication …",
+              "critique": "'CRITIQUE [RULE_01]: Contains prohibite…"
+            },
+            "tones": {
+              "orig": "ok",
+              "crit": "ok",
+              "original": "ok",
+              "critique": "ok"
+            },
+            "arrows": [
+              [
+                "orig",
+                "crit"
+              ],
+              [
+                "crit",
+                "original"
+              ],
+              [
+                "original",
+                "critique"
+              ]
             ]
           }
         ]
@@ -805,264 +513,134 @@
     },
     {
       "partTitle": "Constitutional AI (CAI) — Resilience Guardrails & Failure Recovery",
-      "codeHash": "761a068ff1d5e4dfc5369360cf0d08c248d08b865845cf6a67cda8aec75676b8",
+      "codeHash": "6a63706f879ae80082c1e955be33dd41e07c208afdeaa4ab4fd09a11e53b8abf",
       "spec": {
-        "template": "flow",
-        "title": "Constitutional AI (CAI) — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Constitutional AI (CAI) — Resilience Guardrails & Failure Recove",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Complex queries may violate multiple constitutional principles simultaneously.",
+            "bars": [
+              {
+                "label": "max_rounds",
+                "value": {
+                  "var": "max_rounds",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The cai_loop function executes recursive critique-and-revision cycles.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_rounds",
+                "value": {
+                  "var": "max_rounds",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 5,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_rounds",
+                "value": {
+                  "var": "max_rounds",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "r",
+                "value": {
+                  "var": "r",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Constitutional AI (CAI) — Resilience Guardrails & Failure Recovery",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Constitutional AI (CAI) — Resilience Guardrails & Failure Recove",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Complex queries may violate multiple constitutional principles simultaneously.",
+            "bars": [
+              {
+                "label": "max_rounds",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "r",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The cai_loop function executes recursive critique-and-revision cycles.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_rounds",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "r",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_rounds",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "r",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           }
@@ -1071,264 +649,176 @@
     },
     {
       "partTitle": "Constitutional AI (CAI) — Production Telemetry & Verification Audit",
-      "codeHash": "b26b1b655a80b2f29362eb6e7792e16af4ae96b9f41883226374ddb26afe565e",
+      "codeHash": "fb4dd64a50bbd0634587decd936255c570cedb0f7f3337b0de93d52639fd5743",
       "spec": {
-        "template": "flow",
-        "title": "Constitutional AI (CAI) — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Constitutional AI (CAI) — Production Telemetry & Verification Au",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantifying alignment improvement requires benchmarking pre-revision.",
+            "bars": [
+              {
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "pre_safe",
+                "value": {
+                  "var": "pre_safe",
+                  "line": 3,
+                  "hit": 5
+                },
+                "tone": "data"
+              },
+              {
+                "label": "post_safe",
+                "value": {
+                  "var": "post_safe",
+                  "line": 4,
+                  "hit": 5
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The evaluate_cai_benchmark function analyzes safety pass rates across test.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 3,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "pre_safe",
+                "value": {
+                  "var": "pre_safe",
+                  "line": 4,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "post_safe",
+                "value": {
+                  "var": "post_safe",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total",
+                "value": {
+                  "var": "total",
+                  "line": 4,
+                  "hit": 5
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "pre_safe",
+                "value": {
+                  "var": "pre_safe",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "post_safe",
+                "value": {
+                  "var": "post_safe",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Constitutional AI (CAI) — Production Telemetry & Verification Audit",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Constitutional AI (CAI) — Production Telemetry & Verification Au",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Quantifying alignment improvement requires benchmarking pre-revision.",
+            "bars": [
+              {
+                "label": "total",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "pre_safe",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "post_safe",
+                "value": 3,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The evaluate_cai_benchmark function analyzes safety pass rates across test.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "total",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "pre_safe",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "post_safe",
+                "value": 3,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "total",
+                "value": 3,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "pre_safe",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "post_safe",
+                "value": 3,
+                "tone": "ok"
               }
             ]
           }

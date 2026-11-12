@@ -2,142 +2,284 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 30,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "The capstone design",
       "codeHash": "022373c5a4bac6d6ba2e7452222e113c5b9498b31a1fb3405ca474b7d87d912c",
       "spec": {
-        "template": "table",
-        "title": "Hybrid search pipeline stages and execution order",
-        "columns": [
-          "pipeline",
-          "pipeline",
-          "pipeline"
+        "template": "flow",
+        "title": "The capstone design",
+        "nodes": [
+          {
+            "id": "pipeline",
+            "label": "pipeline"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "stage",
+            "label": "stage"
+          },
+          {
+            "id": "what",
+            "label": "what"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The engine stores documents with tokens, a vector and metadata records.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pipeline"
-                  },
-                  {
-                    "text": "pipeline"
-                  },
-                  {
-                    "text": "pipeline"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The engine stores documents with tokens, a vector and metadata, as in.",
+            "values": {
+              "pipeline": {
+                "var": "pipeline",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "pipeline"
-                  },
-                  {
-                    "text": "pipeline"
-                  },
-                  {
-                    "text": "pipeline"
-                  }
-                ],
-                "tone": "data"
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 1
+              },
+              "stage": {
+                "var": "stage",
+                "line": 4,
+                "hit": 1
+              },
+              "what": {
+                "var": "what",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "pipeline": "data",
+              "i": "data",
+              "stage": "data",
+              "what": "data"
+            },
+            "arrows": [
+              [
+                "pipeline",
+                "i"
+              ],
+              [
+                "i",
+                "stage"
+              ],
+              [
+                "stage",
+                "what"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Filtering happens first so only allowed documents are scored.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "pipeline"
-                  },
-                  {
-                    "text": "pipeline"
-                  },
-                  {
-                    "text": "pipeline"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "A query brings its own tokens and vector, plus optional metadata filters.",
+            "values": {
+              "pipeline": {
+                "var": "pipeline",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "pipeline"
-                  },
-                  {
-                    "text": "pipeline"
-                  },
-                  {
-                    "text": "pipeline"
-                  }
-                ],
-                "tone": "ok"
+              "i": {
+                "var": "i",
+                "line": 5,
+                "hit": 1
+              },
+              "stage": {
+                "var": "stage",
+                "line": 5,
+                "hit": 1
+              },
+              "what": {
+                "var": "what",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "pipeline": "data",
+              "i": "data",
+              "stage": "data",
+              "what": "data"
+            },
+            "arrows": [
+              [
+                "pipeline",
+                "i"
+              ],
+              [
+                "i",
+                "stage"
+              ],
+              [
+                "stage",
+                "what"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Building the simplest complete version first, then improving the weakest.",
+            "values": {
+              "pipeline": {
+                "var": "pipeline",
+                "line": 5,
+                "hit": 1
+              },
+              "i": {
+                "var": "i",
+                "line": 4,
+                "hit": 2
+              },
+              "stage": {
+                "var": "stage",
+                "line": 4,
+                "hit": 2
+              },
+              "what": {
+                "var": "what",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "pipeline": "ok",
+              "i": "ok",
+              "stage": "ok",
+              "what": "ok"
+            },
+            "arrows": [
+              [
+                "pipeline",
+                "i"
+              ],
+              [
+                "i",
+                "stage"
+              ],
+              [
+                "stage",
+                "what"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Hybrid search pipeline stages and execution order",
-        "columns": [
-          "pipeline",
-          "pipeline",
-          "pipeline"
+        "template": "flow",
+        "title": "The capstone design",
+        "nodes": [
+          {
+            "id": "pipeline",
+            "label": "pipeline"
+          },
+          {
+            "id": "i",
+            "label": "i"
+          },
+          {
+            "id": "stage",
+            "label": "stage"
+          },
+          {
+            "id": "what",
+            "label": "what"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The engine stores documents with tokens, a vector and metadata records.",
-            "rows": [
-              {
-                "cells": [
-                  "pipeline",
-                  "pipeline",
-                  "pipeline"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "pipeline",
-                  "pipeline",
-                  "pipeline"
-                ],
-                "tone": "data"
-              }
+            "caption": "The engine stores documents with tokens, a vector and metadata, as in.",
+            "values": {
+              "pipeline": "[['filter', 'keep documents whose metad…",
+              "i": "1",
+              "stage": "'filter'",
+              "what": "'keep documents whose metadata matches'"
+            },
+            "tones": {
+              "pipeline": "data",
+              "i": "data",
+              "stage": "data",
+              "what": "data"
+            },
+            "arrows": [
+              [
+                "pipeline",
+                "i"
+              ],
+              [
+                "i",
+                "stage"
+              ],
+              [
+                "stage",
+                "what"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Filtering happens first so only allowed documents are scored.",
-            "rows": [
-              {
-                "cells": [
-                  "pipeline",
-                  "pipeline",
-                  "pipeline"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "pipeline",
-                  "pipeline",
-                  "pipeline"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "A query brings its own tokens and vector, plus optional metadata filters.",
+            "values": {
+              "pipeline": "[['filter', 'keep documents whose metad…",
+              "i": "1",
+              "stage": "'filter'",
+              "what": "'keep documents whose metadata matches'"
+            },
+            "tones": {
+              "pipeline": "data",
+              "i": "data",
+              "stage": "data",
+              "what": "data"
+            },
+            "arrows": [
+              [
+                "pipeline",
+                "i"
+              ],
+              [
+                "i",
+                "stage"
+              ],
+              [
+                "stage",
+                "what"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Building the simplest complete version first, then improving the weakest.",
+            "values": {
+              "pipeline": "[['filter', 'keep documents whose metad…",
+              "i": "2",
+              "stage": "'vector score'",
+              "what": "'cosine(query_vec, doc_vec)'"
+            },
+            "tones": {
+              "pipeline": "ok",
+              "i": "ok",
+              "stage": "ok",
+              "what": "ok"
+            },
+            "arrows": [
+              [
+                "pipeline",
+                "i"
+              ],
+              [
+                "i",
+                "stage"
+              ],
+              [
+                "stage",
+                "what"
+              ]
             ]
           }
         ]
@@ -147,78 +289,131 @@
       "partTitle": "Hybrid scoring",
       "codeHash": "287c0e2396c9832d67b29bc79f96de64a53422730c0f35df2ef1d7fa4a951a8a",
       "spec": {
-        "template": "table",
-        "title": "Alpha fusion weighting vector similarity and keyword overlap",
-        "columns": [
-          "docs",
-          "overlap",
-          "docs"
-        ],
+        "template": "bars",
+        "title": "Hybrid scoring",
         "steps": [
           {
             "at": "say1",
-            "caption": "The vector part captures meaning while keyword parts reward exact words.",
-            "rows": [
+            "caption": "The vector part captures meaning.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "overlap"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
-                "tone": "ok"
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "overlap"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 2
+                },
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Keyword overlap here is the fraction of distinct query tokens found.",
-            "rows": [
+            "caption": "Keyword overlap here is the fraction of distinct query tokens found in.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "overlap"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
-                "tone": "data"
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "overlap"
-                  },
-                  {
-                    "text": "docs"
-                  }
-                ],
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Printing both parts of the score, as the example does, makes surprising.",
+            "bars": [
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 4
+                },
                 "tone": "ok"
               }
             ]
@@ -226,54 +421,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Alpha fusion weighting vector similarity and keyword overlap",
-        "columns": [
-          "docs",
-          "overlap",
-          "docs"
-        ],
+        "template": "bars",
+        "title": "Hybrid scoring",
         "steps": [
           {
             "at": "say1",
-            "caption": "The vector part captures meaning while keyword parts reward exact words.",
-            "rows": [
+            "caption": "The vector part captures meaning.",
+            "bars": [
               {
-                "cells": [
-                  "docs",
-                  "overlap",
-                  "docs"
-                ],
-                "tone": "ok"
+                "label": "alpha",
+                "value": 0.5,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "docs",
-                  "overlap",
-                  "docs"
-                ],
+                "label": "overlap",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 1,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "Keyword overlap here is the fraction of distinct query tokens found.",
-            "rows": [
+            "caption": "Keyword overlap here is the fraction of distinct query tokens found in.",
+            "bars": [
               {
-                "cells": [
-                  "docs",
-                  "overlap",
-                  "docs"
-                ],
-                "tone": "data"
+                "label": "alpha",
+                "value": 0.5,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "docs",
-                  "overlap",
-                  "docs"
-                ],
+                "label": "overlap",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Printing both parts of the score, as the example does, makes surprising.",
+            "bars": [
+              {
+                "label": "alpha",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "overlap",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
                 "tone": "ok"
               }
             ]
@@ -285,135 +509,277 @@
       "partTitle": "Evaluating the engine",
       "codeHash": "6736041a8b9c0e71ef1bb675abd570e6a096eda28a1e9a353d0abfb953960646",
       "spec": {
-        "template": "table",
-        "title": "Capstone golden set evaluation and failed query analysis",
-        "columns": [
-          "golden",
-          "runs",
-          "golden"
+        "template": "flow",
+        "title": "Evaluating the engine",
+        "nodes": [
+          {
+            "id": "golden",
+            "label": "golden"
+          },
+          {
+            "id": "runs",
+            "label": "runs"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "recall",
+            "label": "recall"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The evaluation report runs every golden query and computes recall and MRR.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "golden"
-                  },
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "golden"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The evaluation report runs every golden query and computes recall@k, MRR.",
+            "values": {
+              "golden": {
+                "var": "golden",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "golden"
-                  },
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "golden"
-                  }
-                ],
-                "tone": "data"
+              "runs": {
+                "var": "runs",
+                "line": 2,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 3,
+                "hit": 1
+              },
+              "recall": {
+                "var": "recall",
+                "line": 4,
+                "hit": 4
               }
+            },
+            "tones": {
+              "golden": "data",
+              "runs": "data",
+              "k": "data",
+              "recall": "data"
+            },
+            "arrows": [
+              [
+                "golden",
+                "runs"
+              ],
+              [
+                "runs",
+                "k"
+              ],
+              [
+                "k",
+                "recall"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Failed queries are listed explicitly because they are actionable.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "golden"
-                  },
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "golden"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Trace how practice updates runs during execution.",
+            "values": {
+              "golden": {
+                "var": "golden",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "golden"
-                  },
-                  {
-                    "text": "runs"
-                  },
-                  {
-                    "text": "golden"
-                  }
-                ],
-                "tone": "ok"
+              "runs": {
+                "var": "runs",
+                "line": 3,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 4,
+                "hit": 1
+              },
+              "recall": {
+                "var": "recall",
+                "line": 5,
+                "hit": 2
               }
+            },
+            "tones": {
+              "golden": "data",
+              "runs": "data",
+              "k": "data",
+              "recall": "data"
+            },
+            "arrows": [
+              [
+                "golden",
+                "runs"
+              ],
+              [
+                "runs",
+                "k"
+              ],
+              [
+                "k",
+                "recall"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Running the same report after every change shows clearly whether.",
+            "values": {
+              "golden": {
+                "var": "golden",
+                "line": 3,
+                "hit": 1
+              },
+              "runs": {
+                "var": "runs",
+                "line": 4,
+                "hit": 1
+              },
+              "k": {
+                "var": "k",
+                "line": 4,
+                "hit": 2
+              },
+              "recall": {
+                "var": "recall",
+                "line": 5,
+                "hit": 5
+              }
+            },
+            "tones": {
+              "golden": "ok",
+              "runs": "ok",
+              "k": "ok",
+              "recall": "ok"
+            },
+            "arrows": [
+              [
+                "golden",
+                "runs"
+              ],
+              [
+                "runs",
+                "k"
+              ],
+              [
+                "k",
+                "recall"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Capstone golden set evaluation and failed query analysis",
-        "columns": [
-          "golden",
-          "runs",
-          "golden"
+        "template": "flow",
+        "title": "Evaluating the engine",
+        "nodes": [
+          {
+            "id": "golden",
+            "label": "golden"
+          },
+          {
+            "id": "runs",
+            "label": "runs"
+          },
+          {
+            "id": "k",
+            "label": "k"
+          },
+          {
+            "id": "recall",
+            "label": "recall"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The evaluation report runs every golden query and computes recall and MRR.",
-            "rows": [
-              {
-                "cells": [
-                  "golden",
-                  "runs",
-                  "golden"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "golden",
-                  "runs",
-                  "golden"
-                ],
-                "tone": "data"
-              }
+            "caption": "The evaluation report runs every golden query and computes recall@k, MRR.",
+            "values": {
+              "golden": "{'refund': {'a', 'b'}, 'shipping': {'c'…",
+              "runs": "{'refund': ['b', 'x', 'a'], 'shipping':…",
+              "k": "2",
+              "recall": "{'refund': 0.5, 'shipping': 1, 'warrant…"
+            },
+            "tones": {
+              "golden": "data",
+              "runs": "data",
+              "k": "data",
+              "recall": "data"
+            },
+            "arrows": [
+              [
+                "golden",
+                "runs"
+              ],
+              [
+                "runs",
+                "k"
+              ],
+              [
+                "k",
+                "recall"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Failed queries are listed explicitly because they are actionable.",
-            "rows": [
-              {
-                "cells": [
-                  "golden",
-                  "runs",
-                  "golden"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "golden",
-                  "runs",
-                  "golden"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Trace how practice updates runs during execution.",
+            "values": {
+              "golden": "{'refund': {'a', 'b'}, 'shipping': {'c'…",
+              "runs": "{'refund': ['b', 'x', 'a'], 'shipping':…",
+              "k": "2",
+              "recall": "{'refund': 0.5, 'shipping': 1, 'warrant…"
+            },
+            "tones": {
+              "golden": "data",
+              "runs": "data",
+              "k": "data",
+              "recall": "data"
+            },
+            "arrows": [
+              [
+                "golden",
+                "runs"
+              ],
+              [
+                "runs",
+                "k"
+              ],
+              [
+                "k",
+                "recall"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Running the same report after every change shows clearly whether.",
+            "values": {
+              "golden": "{'refund': {'a', 'b'}, 'shipping': {'c'…",
+              "runs": "{'refund': ['b', 'x', 'a'], 'shipping':…",
+              "k": "2",
+              "recall": "{'refund': 0.5, 'shipping': 1, 'warrant…"
+            },
+            "tones": {
+              "golden": "ok",
+              "runs": "ok",
+              "k": "ok",
+              "recall": "ok"
+            },
+            "arrows": [
+              [
+                "golden",
+                "runs"
+              ],
+              [
+                "runs",
+                "k"
+              ],
+              [
+                "k",
+                "recall"
+              ]
             ]
           }
         ]
@@ -423,135 +789,221 @@
       "partTitle": "Writing the report",
       "codeHash": "df13e94aef7cd56e14978db1806662cb350e07a0ab36917de897edeabc621847",
       "spec": {
-        "template": "table",
-        "title": "Capstone synthesis reporting and executive summaries",
-        "columns": [
-          "report",
-          "report",
-          "report"
+        "template": "flow",
+        "title": "Writing the report",
+        "nodes": [
+          {
+            "id": "report",
+            "label": "report"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "value",
+            "label": "value"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A good report fits on one page showing what was built and its results.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "report"
-                  },
-                  {
-                    "text": "report"
-                  },
-                  {
-                    "text": "report"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A good report fits on one page.",
+            "values": {
+              "report": {
+                "var": "report",
+                "line": 1,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "report"
-                  },
-                  {
-                    "text": "report"
-                  },
-                  {
-                    "text": "report"
-                  }
-                ],
-                "tone": "data"
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "report": "data",
+              "key": "data",
+              "value": "data"
+            },
+            "arrows": [
+              [
+                "report",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Clear reports earn trust and make decisions easy for engineering teams.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "report"
-                  },
-                  {
-                    "text": "report"
-                  },
-                  {
-                    "text": "report"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "State the golden set size, k and metrics, so readers can judge the numbers.",
+            "values": {
+              "report": {
+                "var": "report",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "report"
-                  },
-                  {
-                    "text": "report"
-                  },
-                  {
-                    "text": "report"
-                  }
-                ],
-                "tone": "ok"
+              "key": {
+                "var": "key",
+                "line": 5,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "report": "data",
+              "key": "data",
+              "value": "data"
+            },
+            "arrows": [
+              [
+                "report",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A short report that is read beats a long one that is not.",
+            "values": {
+              "report": {
+                "var": "report",
+                "line": 5,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 2
+              },
+              "value": {
+                "var": "value",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "report": "ok",
+              "key": "ok",
+              "value": "ok"
+            },
+            "arrows": [
+              [
+                "report",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Capstone synthesis reporting and executive summaries",
-        "columns": [
-          "report",
-          "report",
-          "report"
+        "template": "flow",
+        "title": "Writing the report",
+        "nodes": [
+          {
+            "id": "report",
+            "label": "report"
+          },
+          {
+            "id": "key",
+            "label": "key"
+          },
+          {
+            "id": "value",
+            "label": "value"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A good report fits on one page showing what was built and its results.",
-            "rows": [
-              {
-                "cells": [
-                  "report",
-                  "report",
-                  "report"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "report",
-                  "report",
-                  "report"
-                ],
-                "tone": "data"
-              }
+            "caption": "A good report fits on one page.",
+            "values": {
+              "report": "{'engine': 'hybrid (alpha 0.5) with met…",
+              "key": "'engine'",
+              "value": "'hybrid (alpha 0.5) with metadata filte…"
+            },
+            "tones": {
+              "report": "data",
+              "key": "data",
+              "value": "data"
+            },
+            "arrows": [
+              [
+                "report",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
             ]
           },
           {
-            "at": "say9",
-            "caption": "Clear reports earn trust and make decisions easy for engineering teams.",
-            "rows": [
-              {
-                "cells": [
-                  "report",
-                  "report",
-                  "report"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "report",
-                  "report",
-                  "report"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "State the golden set size, k and metrics, so readers can judge the numbers.",
+            "values": {
+              "report": "{'engine': 'hybrid (alpha 0.5) with met…",
+              "key": "'engine'",
+              "value": "'hybrid (alpha 0.5) with metadata filte…"
+            },
+            "tones": {
+              "report": "data",
+              "key": "data",
+              "value": "data"
+            },
+            "arrows": [
+              [
+                "report",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A short report that is read beats a long one that is not.",
+            "values": {
+              "report": "{'engine': 'hybrid (alpha 0.5) with met…",
+              "key": "'golden set'",
+              "value": "'3 queries, k = 2'"
+            },
+            "tones": {
+              "report": "ok",
+              "key": "ok",
+              "value": "ok"
+            },
+            "arrows": [
+              [
+                "report",
+                "key"
+              ],
+              [
+                "key",
+                "value"
+              ]
             ]
           }
         ]
@@ -562,110 +1014,127 @@
       "codeHash": "2ea04c593e8c803e2a06793780bc0b66423962a196b2cf3f07479e555774f97f",
       "spec": {
         "template": "flow",
-        "title": "What you have built — Execution Pipeline",
+        "title": "What you have built",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "toolkit",
+            "label": "toolkit"
           },
           {
-            "id": "proc",
-            "label": "2. What you have built",
-            "tappable": true
+            "id": "theme",
+            "label": "theme"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "tools",
+            "label": "tools"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for What you have built [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in What you have built [D.Pfive.Stwo].",
+            "caption": "Over thirty days you built every part of a vector search engine in Python.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "toolkit": {
+                "var": "toolkit",
+                "line": 1,
+                "hit": 2
+              },
+              "theme": {
+                "var": "theme",
+                "line": 5,
+                "hit": 1
+              },
+              "tools": {
+                "var": "tools",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "toolkit": "data",
+              "theme": "data",
+              "tools": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "toolkit",
+                "theme"
               ],
               [
-                "proc",
-                "out"
+                "theme",
+                "tools"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Bag-of-words, hashing, normalisation and similarity measures.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "toolkit": {
+                "var": "toolkit",
+                "line": 5,
+                "hit": 1
+              },
+              "theme": {
+                "var": "theme",
+                "line": 6,
+                "hit": 1
+              },
+              "tools": {
+                "var": "tools",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "toolkit": "data",
+              "theme": "data",
+              "tools": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "toolkit",
+                "theme"
+              ],
+              [
+                "theme",
+                "tools"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for What you have built [D.Pfive.Sfour].",
+            "at": "say11",
+            "caption": "Keep your search engine project.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "toolkit": {
+                "var": "toolkit",
+                "line": 6,
+                "hit": 1
+              },
+              "theme": {
+                "var": "theme",
+                "line": 5,
+                "hit": 2
+              },
+              "tools": {
+                "var": "tools",
+                "line": 5,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "toolkit": "ok",
+              "theme": "ok",
+              "tools": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "toolkit",
+                "theme"
               ],
               [
-                "proc",
-                "out"
+                "theme",
+                "tools"
               ]
             ]
           }
@@ -673,110 +1142,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "What you have built — Execution Pipeline",
+        "title": "What you have built",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "toolkit",
+            "label": "toolkit"
           },
           {
-            "id": "proc",
-            "label": "2. What you have built",
-            "tappable": true
+            "id": "theme",
+            "label": "theme"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "tools",
+            "label": "tools"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for What you have built [D30.P5.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in What you have built [D30.P5.S2].",
+            "caption": "Over thirty days you built every part of a vector search engine in Python.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "toolkit": "{'represent': ['bow_vector', 'hashed_ve…",
+              "theme": "'represent'",
+              "tools": "['bow_vector', 'hashed_vector', 'cosine…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "toolkit": "data",
+              "theme": "data",
+              "tools": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "toolkit",
+                "theme"
               ],
               [
-                "proc",
-                "out"
+                "theme",
+                "tools"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P5.S3].",
+            "at": "say2",
+            "caption": "Bag-of-words, hashing, normalisation and similarity measures.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "toolkit": "{'represent': ['bow_vector', 'hashed_ve…",
+              "theme": "'represent'",
+              "tools": "['bow_vector', 'hashed_vector', 'cosine…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "toolkit": "data",
+              "theme": "data",
+              "tools": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "toolkit",
+                "theme"
+              ],
+              [
+                "theme",
+                "tools"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for What you have built [D30.P5.S4].",
+            "at": "say11",
+            "caption": "Keep your search engine project.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "toolkit": "{'represent': ['bow_vector', 'hashed_ve…",
+              "theme": "'retrieve'",
+              "tools": "['knn', 'bm25', 'rrf', 'chunk_sentences…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "toolkit": "ok",
+              "theme": "ok",
+              "tools": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "toolkit",
+                "theme"
               ],
               [
-                "proc",
-                "out"
+                "theme",
+                "tools"
               ]
             ]
           }
@@ -787,223 +1237,217 @@
       "partTitle": "Capstone practice: engine and report",
       "codeHash": "98994c032196898228733cb7c4b556335d885baec2772e38699c696a7c96b012",
       "spec": {
-        "template": "flow",
-        "title": "Capstone practice: engine and report — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone practice: ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Capstone practice: engine and report",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Capstone practice: engine and report.",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Capstone practice: ... [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Hybrid_search(query_tokens, query_vec, docs, where, k, alpha).",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 2
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a filtered search, a search without filters where.",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Capstone practice: engine and rep.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Search and retrieval will remain at the heart of AI products.",
+            "bars": [
+              {
+                "label": "k",
+                "value": {
+                  "var": "k",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": {
+                  "var": "alpha",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 3,
+                  "hit": 4
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Capstone practice: engine and report — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Capstone practice: ...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Capstone practice: engine and report",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Capstone practice: engine and report [D30.P6.S1].",
-            "values": {
-              "in": "Day 30 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Capstone practice: ... [D30.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Hybrid_search(query_tokens, query_vec, docs, where, k, alpha).",
+            "bars": [
+              {
+                "label": "k",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "alpha",
+                "value": 0.5,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "y",
+                "value": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D30.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a filtered search, a search without filters where.",
+            "bars": [
+              {
+                "label": "k",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Capstone practice: engine and rep.. [D30.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say10",
+            "caption": "Search and retrieval will remain at the heart of AI products.",
+            "bars": [
+              {
+                "label": "k",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "alpha",
+                "value": 0.5,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]

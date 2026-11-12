@@ -2,269 +2,139 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 57,
-  "promptSha": "8e80f4c47fe7e9aca1b858a93169e89d77a5de60e2a38ae43be5949384e873e0",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Reward Hacking & Goodhart's Law — Foundations & Mathematical Invariants",
-      "codeHash": "0682e61f2d1fc40ce722684ee23d94a5b35b9fc95171ef3019eb7b3eb2edb5eb",
+      "codeHash": "54e46cfd493e9a3500a21367f149c0e8ed75d88ed2543e79514a1825f7996810",
       "spec": {
-        "template": "flow",
-        "title": "Reward Hacking & Goodhart's Law — Foundations & Mathematical Invariant",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Reward Hacking & Goodhart's Law — Foundations & Mathematical Inv",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Goodhart's Law states that when a measure becomes a target, it ceases.",
+            "bars": [
+              {
+                "label": "conciseness_pe",
+                "value": {
+                  "var": "conciseness_penalty",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "substance",
+                "value": {
+                  "var": "substance",
+                  "line": 8,
+                  "hit": 10
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In RLHF, proxy reward models approximate human preferences using finite.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "conciseness_pe",
+                "value": {
+                  "var": "conciseness_penalty",
+                  "line": 8,
+                  "hit": 10
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "substance",
+                "value": {
+                  "var": "substance",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "conciseness_pe",
+                "value": {
+                  "var": "conciseness_penalty",
+                  "line": 9,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "substance",
+                "value": {
+                  "var": "substance",
+                  "line": 8,
+                  "hit": 20
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reward Hacking & Goodhart's Law — Foundations & Mathematical Invariant",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Reward Hacking & Goodhart's Law — Foundations & Mathematical Inv",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Goodhart's Law states that when a measure becomes a target, it ceases.",
+            "bars": [
+              {
+                "label": "conciseness_pe",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "substance",
+                "value": 7,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "In RLHF, proxy reward models approximate human preferences using finite.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "conciseness_pe",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "substance",
+                "value": 7,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "conciseness_pe",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "substance",
+                "value": 7,
+                "tone": "ok"
               }
             ]
           }
@@ -273,797 +143,495 @@
     },
     {
       "partTitle": "Reward Hacking & Goodhart's Law — Core Algorithm & State Representation",
-      "codeHash": "e501543c7babb388b466afdc5faeb6ba6176bab886241301b5911db543cfe03a",
+      "codeHash": "c04136f4700c52d47baf3b4160f3d66554110f49f6f9b211c47f8f2a9f3e28bf",
       "spec": {
-        "template": "flow",
-        "title": "Reward Hacking & Goodhart's Law — Core Algorithm & State Representatio",
-        "nodes": [
+        "template": "states",
+        "title": "Reward Hacking & Goodhart's Law — Core Algorithm & State Represe",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "q",
+            "label": "q"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "p_probs",
+            "label": "p_probs"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "To prevent policy drift, RLHF algorithms penalize divergence from a frozen.",
+            "currentState": "p",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Kullback-Leibler (KL) divergence quantifies the statistical relative.",
+            "currentState": "q",
+            "transition": {
+              "from": "p",
+              "to": "q",
+              "label": {
+                "var": "q",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "p_probs",
+            "transition": {
+              "from": "q",
+              "to": "p_probs",
+              "label": {
+                "var": "p_probs",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reward Hacking & Goodhart's Law — Core Algorithm & State Representatio",
-        "nodes": [
+        "template": "states",
+        "title": "Reward Hacking & Goodhart's Law — Core Algorithm & State Represe",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "p",
+            "label": "p"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "q",
+            "label": "q"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "p_probs",
+            "label": "p_probs"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "To prevent policy drift, RLHF algorithms penalize divergence from a frozen.",
+            "currentState": "p",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Kullback-Leibler (KL) divergence quantifies the statistical relative.",
+            "currentState": "q",
+            "transition": {
+              "from": "p",
+              "to": "q",
+              "label": "0.33"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "p_probs",
+            "transition": {
+              "from": "q",
+              "to": "p_probs",
+              "label": "[0.7, 0.2, 0.1]"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Reward Hacking & Goodhart's Law — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "bdc2b78017907816e2e7ea42c959b007c3d689913442fd8d0fdede70679240ee",
+      "codeHash": "646783f6c0d929d8dc33e32d784f735ec596294ccab97d999be5e7f9191e6185",
       "spec": {
-        "template": "flow",
-        "title": "Reward Hacking & Goodhart's Law — Throughput Optimization & Edge-Case ",
-        "nodes": [
+        "template": "states",
+        "title": "Reward Hacking & Goodhart's Law — Throughput Optimization & Edge",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "init_beta",
+            "label": "init_beta"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "target_kl",
+            "label": "target_kl"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Static KL penalty coefficients either over-constrain learning or fail.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Adaptive KL penalty controllers dynamically scale beta based on observed.",
+            "currentState": "init_beta",
+            "transition": {
+              "from": "self",
+              "to": "init_beta",
+              "label": {
+                "var": "init_beta",
+                "line": 4,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for reward hacking &.",
+            "currentState": "target_kl",
+            "transition": {
+              "from": "init_beta",
+              "to": "target_kl",
+              "label": {
+                "var": "target_kl",
+                "line": 5,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reward Hacking & Goodhart's Law — Throughput Optimization & Edge-Case ",
-        "nodes": [
+        "template": "states",
+        "title": "Reward Hacking & Goodhart's Law — Throughput Optimization & Edge",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "init_beta",
+            "label": "init_beta"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "target_kl",
+            "label": "target_kl"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Static KL penalty coefficients either over-constrain learning or fail.",
+            "currentState": "self",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Adaptive KL penalty controllers dynamically scale beta based on observed.",
+            "currentState": "init_beta",
+            "transition": {
+              "from": "self",
+              "to": "init_beta",
+              "label": "0.2"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for reward hacking &.",
+            "currentState": "target_kl",
+            "transition": {
+              "from": "init_beta",
+              "to": "target_kl",
+              "label": "0.04"
+            },
+            "tone": "ok"
           }
         ]
       }
     },
     {
       "partTitle": "Reward Hacking & Goodhart's Law — Resilience Guardrails & Failure Recovery",
-      "codeHash": "d0ba2b6232ffe3ad481ff3b62c68bf9fed3e6e4b0898dba48874232c483da13b",
+      "codeHash": "223b2e88f0822317388481453dc4f9a58d7be5384005603349d72834aa03031d",
       "spec": {
         "template": "flow",
-        "title": "Reward Hacking & Goodhart's Law — Resilience Guardrails & Failure Reco",
+        "title": "Reward Hacking & Goodhart's Law — Resilience Guardrails & Failur",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "agreement",
+            "label": "agreement"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "conflict",
+            "label": "conflict"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "scores",
+            "label": "scores"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "mean_r",
+            "label": "mean_r"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Single reward models possess systematic blind spots that policies.",
+            "values": {
+              "agreement": {
+                "var": "agreement",
+                "line": 11,
+                "hit": 1
+              },
+              "conflict": {
+                "var": "conflict",
+                "line": 12,
+                "hit": 1
+              },
+              "scores": {
+                "var": "scores",
+                "line": 4,
+                "hit": 1
+              },
+              "mean_r": {
+                "var": "mean_r",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "agreement": "data",
+              "conflict": "data",
+              "scores": "data",
+              "mean_r": "data"
+            },
+            "arrows": [
+              [
+                "agreement",
+                "conflict"
+              ],
+              [
+                "conflict",
+                "scores"
+              ],
+              [
+                "scores",
+                "mean_r"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Ensemble reward models aggregate predictions across multiple diverse.",
+            "values": {
+              "agreement": {
+                "var": "agreement",
+                "line": 12,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "conflict": {
+                "var": "conflict",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "scores": {
+                "var": "scores",
+                "line": 5,
+                "hit": 5
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "mean_r": {
+                "var": "mean_r",
+                "line": 5,
+                "hit": 5
               }
+            },
+            "tones": {
+              "agreement": "data",
+              "conflict": "data",
+              "scores": "data",
+              "mean_r": "data"
+            },
+            "arrows": [
+              [
+                "agreement",
+                "conflict"
+              ],
+              [
+                "conflict",
+                "scores"
+              ],
+              [
+                "scores",
+                "mean_r"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "values": {
+              "agreement": {
+                "var": "agreement",
+                "line": 13,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "conflict": {
+                "var": "conflict",
+                "line": 14,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "scores": {
+                "var": "scores",
+                "line": 6,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "mean_r": {
+                "var": "mean_r",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "agreement": "ok",
+              "conflict": "ok",
+              "scores": "ok",
+              "mean_r": "ok"
+            },
+            "arrows": [
+              [
+                "agreement",
+                "conflict"
+              ],
+              [
+                "conflict",
+                "scores"
+              ],
+              [
+                "scores",
+                "mean_r"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Reward Hacking & Goodhart's Law — Resilience Guardrails & Failure Reco",
+        "title": "Reward Hacking & Goodhart's Law — Resilience Guardrails & Failur",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "agreement",
+            "label": "agreement"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "conflict",
+            "label": "conflict"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "scores",
+            "label": "scores"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "mean_r",
+            "label": "mean_r"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Single reward models possess systematic blind spots that policies.",
+            "values": {
+              "agreement": "[4.2, 4.1, 4.3]",
+              "conflict": "[4.8, 1.2, 3.9]",
+              "scores": "[4.2, 4.1, 4.3]",
+              "mean_r": "4.2"
+            },
+            "tones": {
+              "agreement": "data",
+              "conflict": "data",
+              "scores": "data",
+              "mean_r": "data"
+            },
+            "arrows": [
+              [
+                "agreement",
+                "conflict"
+              ],
+              [
+                "conflict",
+                "scores"
+              ],
+              [
+                "scores",
+                "mean_r"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Ensemble reward models aggregate predictions across multiple diverse.",
+            "values": {
+              "agreement": "[4.2, 4.1, 4.3]",
+              "conflict": "[4.8, 1.2, 3.9]",
+              "scores": "[4.2, 4.1, 4.3]",
+              "mean_r": "4.2"
+            },
+            "tones": {
+              "agreement": "data",
+              "conflict": "data",
+              "scores": "data",
+              "mean_r": "data"
+            },
+            "arrows": [
+              [
+                "agreement",
+                "conflict"
+              ],
+              [
+                "conflict",
+                "scores"
+              ],
+              [
+                "scores",
+                "mean_r"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "values": {
+              "agreement": "[4.2, 4.1, 4.3]",
+              "conflict": "[4.8, 1.2, 3.9]",
+              "scores": "[4.2, 4.1, 4.3]",
+              "mean_r": "4.2"
+            },
+            "tones": {
+              "agreement": "ok",
+              "conflict": "ok",
+              "scores": "ok",
+              "mean_r": "ok"
+            },
+            "arrows": [
+              [
+                "agreement",
+                "conflict"
+              ],
+              [
+                "conflict",
+                "scores"
+              ],
+              [
+                "scores",
+                "mean_r"
+              ]
             ]
           }
         ]
@@ -1071,264 +639,218 @@
     },
     {
       "partTitle": "Reward Hacking & Goodhart's Law — Production Telemetry & Verification Audit",
-      "codeHash": "5f2d41c1a9d4059d2115cb1d3a06a15960afd210b0381d416f804f0ef55155a6",
+      "codeHash": "0d148a42d28c625c190e7c33db245a2a50e624d3f6282fa62a33ec420fc3a483",
       "spec": {
-        "template": "flow",
-        "title": "Reward Hacking & Goodhart's Law — Production Telemetry & Verification ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Reward Hacking & Goodhart's Law — Production Telemetry & Verific",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production alignment pipelines continuously monitor policy health metrics.",
+            "bars": [
+              {
+                "label": "max_kl",
+                "value": {
+                  "var": "max_kl",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "kl",
+                "value": {
+                  "var": "kl",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "avg_len",
+                "value": {
+                  "var": "avg_len",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The PolicyHealthMonitor class inspects step-level KL divergence and output.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_kl",
+                "value": {
+                  "var": "max_kl",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "kl",
+                "value": {
+                  "var": "kl",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "avg_len",
+                "value": {
+                  "var": "avg_len",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_kl",
+                "value": {
+                  "var": "max_kl",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "step",
+                "value": {
+                  "var": "step",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "kl",
+                "value": {
+                  "var": "kl",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "avg_len",
+                "value": {
+                  "var": "avg_len",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Reward Hacking & Goodhart's Law — Production Telemetry & Verification ",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Reward Hacking & Goodhart's Law — Production Telemetry & Verific",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Production alignment pipelines continuously monitor policy health metrics.",
+            "bars": [
+              {
+                "label": "max_kl",
+                "value": 0.15,
+                "tone": "data"
+              },
+              {
+                "label": "step",
+                "value": 1,
+                "tone": "data"
+              },
+              {
+                "label": "kl",
+                "value": 0.08,
+                "tone": "data"
+              },
+              {
+                "label": "avg_len",
+                "value": 14.5,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "The PolicyHealthMonitor class inspects step-level KL divergence and output.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "max_kl",
+                "value": 0.15,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "step",
+                "value": 1,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+                "label": "kl",
+                "value": 0.08,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "avg_len",
+                "value": 14.5,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "max_kl",
+                "value": 0.15,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+                "label": "step",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+                "label": "kl",
+                "value": 0.19,
+                "tone": "ok"
               },
               {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "avg_len",
+                "value": 45.2,
+                "tone": "ok"
               }
             ]
           }

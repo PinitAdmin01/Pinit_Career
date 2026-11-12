@@ -2,1335 +2,717 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 37,
-  "promptSha": "4aab92149bed7f40135ca3d4b011dac9e50965464e8da26cef1f2d375540d460",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
-      "partTitle": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Stripping — Foundations & Mathematical Invariants",
-      "codeHash": "6a814734146f974ea6d7c9b18a3ff29726ee2928db54eb5836bad50d98d1fb0c",
+      "partTitle": "Output Schema Validation — Foundations & Mathematical Invariants",
+      "codeHash": "2bee3805966439ccccc9bf4128f6b1d6e13d94c2fbdaaef373b6b82f44c0c492",
       "spec": {
-        "template": "flow",
-        "title": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Str",
-        "nodes": [
+        "template": "states",
+        "title": "Output Schema Validation — Foundations & Mathematical Invariants",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "valid_json",
+            "label": "valid_json"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "invalid_json",
+            "label": "invalid_json"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "output_str",
+            "label": "output_str"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "When integrating generative language models into enterprise software.",
+            "currentState": "valid_json",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Downstream databases, microservices, and user interfaces require.",
+            "currentState": "invalid_json",
+            "transition": {
+              "from": "valid_json",
+              "to": "invalid_json",
+              "label": {
+                "var": "invalid_json",
+                "line": 17,
+                "hit": 1
               }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "output_str",
+            "transition": {
+              "from": "invalid_json",
+              "to": "output_str",
+              "label": {
+                "var": "output_str",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Output Schema Validation — Foundations & Mathematical Invariants",
+        "states": [
+          {
+            "id": "valid_json",
+            "label": "valid_json"
+          },
+          {
+            "id": "invalid_json",
+            "label": "invalid_json"
+          },
+          {
+            "id": "output_str",
+            "label": "output_str"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "When integrating generative language models into enterprise software.",
+            "currentState": "valid_json",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Downstream databases, microservices, and user interfaces require.",
+            "currentState": "invalid_json",
+            "transition": {
+              "from": "valid_json",
+              "to": "invalid_json",
+              "label": "'{\"answer\": \"Paris\"}'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Validating these foundational guarantees early protects downstream.",
+            "currentState": "output_str",
+            "transition": {
+              "from": "invalid_json",
+              "to": "output_str",
+              "label": "'{\"answer\": \"Paris\", \"confidence\": 0.99…"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Output Schema Validation — Core Algorithm & State Representation",
+      "codeHash": "ed9bfff4b8c84c8aa2eef0f6ac3e65f7ce304a33c546d5a6f85ee2facf371431",
+      "spec": {
+        "template": "states",
+        "title": "Output Schema Validation — Core Algorithm & State Representation",
+        "states": [
+          {
+            "id": "allowed",
+            "label": "allowed"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "allowed_domains",
+            "label": "allowed_domains"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Foundation models frequently hallucinate external URLs, fabricating.",
+            "currentState": "allowed",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "If an enterprise chatbot delivers hallucinated hyperlinks to customers, it.",
+            "currentState": "text",
+            "transition": {
+              "from": "allowed",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "allowed_domains",
+            "transition": {
+              "from": "text",
+              "to": "allowed_domains",
+              "label": {
+                "var": "allowed_domains",
+                "line": 10,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Output Schema Validation — Core Algorithm & State Representation",
+        "states": [
+          {
+            "id": "allowed",
+            "label": "allowed"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          },
+          {
+            "id": "allowed_domains",
+            "label": "allowed_domains"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Foundation models frequently hallucinate external URLs, fabricating.",
+            "currentState": "allowed",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "If an enterprise chatbot delivers hallucinated hyperlinks to customers, it.",
+            "currentState": "text",
+            "transition": {
+              "from": "allowed",
+              "to": "text",
+              "label": "'See documentation at https://docs.pyth…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Carefully designed state transitions ensure zero memory leaks.",
+            "currentState": "allowed_domains",
+            "transition": {
+              "from": "text",
+              "to": "allowed_domains",
+              "label": "{'docs.python.org', 'pinit.io'}"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Output Schema Validation — Production Implementation & Boundary Mechanics",
+      "codeHash": "987a426fd7e23974c1e60984a37fcb5b24f71fba21bbbfeabf5727e2a81fa25b",
+      "spec": {
+        "template": "states",
+        "title": "Output Schema Validation — Production Implementation & Boundary ",
+        "states": [
+          {
+            "id": "bad",
+            "label": "bad"
+          },
+          {
+            "id": "malformed",
+            "label": "malformed"
+          },
+          {
+            "id": "cleaned",
+            "label": "cleaned"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "When a model produces a minor syntax error like a trailing comma.",
+            "currentState": "bad",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how generating updates token during execution.",
+            "currentState": "malformed",
+            "transition": {
+              "from": "bad",
+              "to": "malformed",
+              "label": {
+                "var": "malformed",
+                "line": 4,
+                "hit": 1
+              }
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for output schema.",
+            "currentState": "cleaned",
+            "transition": {
+              "from": "malformed",
+              "to": "cleaned",
+              "label": {
+                "var": "cleaned",
+                "line": 6,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
+          }
+        ]
+      },
+      "filled": {
+        "template": "states",
+        "title": "Output Schema Validation — Production Implementation & Boundary ",
+        "states": [
+          {
+            "id": "bad",
+            "label": "bad"
+          },
+          {
+            "id": "malformed",
+            "label": "malformed"
+          },
+          {
+            "id": "cleaned",
+            "label": "cleaned"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "When a model produces a minor syntax error like a trailing comma.",
+            "currentState": "bad",
+            "tone": "data"
+          },
+          {
+            "at": "say2",
+            "caption": "Trace how generating updates token during execution.",
+            "currentState": "malformed",
+            "transition": {
+              "from": "bad",
+              "to": "malformed",
+              "label": "'{\"status\": \"ok\", \"code\": 200,'"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say12",
+            "caption": "Thorough latency profiling confirms that P99 overhead for output schema.",
+            "currentState": "cleaned",
+            "transition": {
+              "from": "malformed",
+              "to": "cleaned",
+              "label": "'{\"status\": \"ok\", \"code\": 200,'"
+            },
+            "tone": "ok"
+          }
+        ]
+      }
+    },
+    {
+      "partTitle": "Output Schema Validation — Failure Modes, Hardware Bottlenecks & Debugging",
+      "codeHash": "82eb69e8240529222368aa6381dd017f78222956e8e369e6abddccbe78d4fd55",
+      "spec": {
+        "template": "flow",
+        "title": "Output Schema Validation — Failure Modes, Hardware Bottlenecks &",
+        "nodes": [
+          {
+            "id": "self",
+            "label": "self"
+          },
+          {
+            "id": "allowed_keys",
+            "label": "allowed_keys"
+          },
+          {
+            "id": "gate",
+            "label": "gate"
+          },
+          {
+            "id": "raw_data",
+            "label": "raw_data"
+          }
+        ],
+        "steps": [
+          {
+            "at": "say1",
+            "caption": "Beyond syntax and URL validation, output enforcement gates prevent.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 3,
+                "hit": 1
+              },
+              "allowed_keys": {
+                "var": "allowed_keys",
+                "line": 3,
+                "hit": 1
+              },
+              "gate": {
+                "var": "gate",
+                "line": 7,
+                "hit": 1
+              },
+              "raw_data": {
+                "var": "raw_data",
+                "line": 8,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "self": "data",
+              "allowed_keys": "data",
+              "gate": "data",
+              "raw_data": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "allowed_keys"
+              ],
+              [
+                "allowed_keys",
+                "gate"
+              ],
+              [
+                "gate",
+                "raw_data"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say2",
+            "caption": "In multi-agent systems, models may inadvertently include intermediate.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "allowed_keys": {
+                "var": "allowed_keys",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "gate": {
+                "var": "gate",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "raw_data": {
+                "var": "raw_data",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "data",
+              "allowed_keys": "data",
+              "gate": "data",
+              "raw_data": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "allowed_keys"
+              ],
+              [
+                "allowed_keys",
+                "gate"
+              ],
+              [
+                "gate",
+                "raw_data"
+              ]
             ]
           },
           {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "values": {
+              "self": {
+                "var": "self",
+                "line": 5,
+                "hit": 2
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
+              "allowed_keys": {
+                "var": "allowed_keys",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
+              "gate": {
+                "var": "gate",
+                "line": 9,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+              "raw_data": {
+                "var": "raw_data",
+                "line": 9,
+                "hit": 1
               }
+            },
+            "tones": {
+              "self": "ok",
+              "allowed_keys": "ok",
+              "gate": "ok",
+              "raw_data": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "allowed_keys"
+              ],
+              [
+                "allowed_keys",
+                "gate"
+              ],
+              [
+                "gate",
+                "raw_data"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Str",
+        "title": "Output Schema Validation — Failure Modes, Hardware Bottlenecks &",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "self",
+            "label": "self"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "allowed_keys",
+            "label": "allowed_keys"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "gate",
+            "label": "gate"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "raw_data",
+            "label": "raw_data"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Beyond syntax and URL validation, output enforcement gates prevent.",
+            "values": {
+              "self": "<OutputEnforcementGate>",
+              "allowed_keys": "{'id', 'score', 'summary'}",
+              "gate": "<OutputEnforcementGate>",
+              "raw_data": "{'id': 101, 'summary': 'Complete', 'sco…"
+            },
+            "tones": {
+              "self": "data",
+              "allowed_keys": "data",
+              "gate": "data",
+              "raw_data": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "allowed_keys"
+              ],
+              [
+                "allowed_keys",
+                "gate"
+              ],
+              [
+                "gate",
+                "raw_data"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "In multi-agent systems, models may inadvertently include intermediate.",
+            "values": {
+              "self": "<OutputEnforcementGate>",
+              "allowed_keys": "{'id', 'score', 'summary'}",
+              "gate": "<OutputEnforcementGate>",
+              "raw_data": "{'id': 101, 'summary': 'Complete', 'sco…"
+            },
+            "tones": {
+              "self": "data",
+              "allowed_keys": "data",
+              "gate": "data",
+              "raw_data": "data"
+            },
+            "arrows": [
+              [
+                "self",
+                "allowed_keys"
+              ],
+              [
+                "allowed_keys",
+                "gate"
+              ],
+              [
+                "gate",
+                "raw_data"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Simulating adversarial penetration and node failover validates.",
+            "values": {
+              "self": "<OutputEnforcementGate>",
+              "allowed_keys": "{'id', 'score', 'summary'}",
+              "gate": "<OutputEnforcementGate>",
+              "raw_data": "{'id': 101, 'summary': 'Complete', 'sco…"
+            },
+            "tones": {
+              "self": "ok",
+              "allowed_keys": "ok",
+              "gate": "ok",
+              "raw_data": "ok"
+            },
+            "arrows": [
+              [
+                "self",
+                "allowed_keys"
+              ],
+              [
+                "allowed_keys",
+                "gate"
+              ],
+              [
+                "gate",
+                "raw_data"
+              ]
             ]
           }
         ]
       }
     },
     {
-      "partTitle": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Stripping — Core Algorithm & State Representation",
-      "codeHash": "192def7e0cd60ff171865852f3c56f3c3674b9efb48b3fb04d96bac145bcdaa6",
+      "partTitle": "Output Schema Validation — Production Capstone & Enterprise SRE Integration",
+      "codeHash": "3aa6dfe9c3e5988dac25ffb22d838ca953cf28f542f4ae9aa7e12790a92ac70a",
       "spec": {
-        "template": "flow",
-        "title": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Str",
-        "nodes": [
+        "template": "states",
+        "title": "Output Schema Validation — Production Capstone & Enterprise SRE ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "doc_ids",
+            "label": "doc_ids"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "report",
+            "label": "report"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "text",
+            "label": "text"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "In Retrieval-Augmented Generation (RAG) systems, hallucinated citations.",
+            "currentState": "doc_ids",
+            "tone": "data"
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "caption": "Models frequently generate fictitious citation markers like [DOC-999].",
+            "currentState": "report",
+            "transition": {
+              "from": "doc_ids",
+              "to": "report",
+              "label": {
+                "var": "report",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "text",
+            "transition": {
+              "from": "report",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Str",
-        "nodes": [
+        "template": "states",
+        "title": "Output Schema Validation — Production Capstone & Enterprise SRE ",
+        "states": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "doc_ids",
+            "label": "doc_ids"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "report",
+            "label": "report"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "text",
+            "label": "text"
           }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "at": "say1",
+            "caption": "In Retrieval-Augmented Generation (RAG) systems, hallucinated citations.",
+            "currentState": "doc_ids",
+            "tone": "data"
           },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Stripping — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "0b472ff2ee2e0b3c7cf18456c734a6ae2d81b647cbc19cde156bc6948490955b",
-      "spec": {
-        "template": "flow",
-        "title": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Str",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
           {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
+            "caption": "Models frequently generate fictitious citation markers like [DOC-999].",
+            "currentState": "report",
+            "transition": {
+              "from": "doc_ids",
+              "to": "report",
+              "label": "'According to [DOC-001] and [DOC-999], …"
+            },
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Str",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Stripping — Resilience Guardrails & Failure Recovery",
-      "codeHash": "483f6d26a8c8e51a80beefc37400195c9d9da0dbe483d4f6d8ff4b83047dd26b",
-      "spec": {
-        "template": "flow",
-        "title": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Str",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Str",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "partTitle": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Stripping — Production Telemetry & Verification Audit",
-      "codeHash": "9b1a2e90a97d0dfe6972b42f71c76f645151ca2815df0c22a8a1ece51da12915",
-      "spec": {
-        "template": "flow",
-        "title": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Str",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
-          }
-        ]
-      },
-      "filled": {
-        "template": "flow",
-        "title": "Output Schema Validation, Repair Loops & Hallucinated URL/Citation Str",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
-        "steps": [
-          {
-            "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
-            ]
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark model alignment and guardrail.",
+            "currentState": "text",
+            "transition": {
+              "from": "report",
+              "to": "text",
+              "label": "'According to [DOC-001] and [DOC-999], …"
+            },
+            "tone": "ok"
           }
         ]
       }

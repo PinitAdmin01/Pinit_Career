@@ -2,142 +2,228 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 22,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why queries need help",
       "codeHash": "5fa74da59ceb31851f40ec8df1cc1461632c9c1c7c2051b58cc87d9e7859fab9",
       "spec": {
-        "template": "table",
-        "title": "User query degradation analysis and intent normalization",
-        "columns": [
-          "queries",
-          "typed",
-          "meant"
+        "template": "flow",
+        "title": "Why queries need help",
+        "nodes": [
+          {
+            "id": "queries",
+            "label": "queries"
+          },
+          {
+            "id": "typed",
+            "label": "typed"
+          },
+          {
+            "id": "meant",
+            "label": "meant"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Keyword and vector search both degrade when queries contain typos.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "queries"
-                  },
-                  {
-                    "text": "typed"
-                  },
-                  {
-                    "text": "meant"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Real queries are short, messy and often misspelt.",
+            "values": {
+              "queries": {
+                "var": "queries",
+                "line": 1,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "queries"
-                  },
-                  {
-                    "text": "typed"
-                  },
-                  {
-                    "text": "meant"
-                  }
-                ],
-                "tone": "data"
+              "typed": {
+                "var": "typed",
+                "line": 4,
+                "hit": 1
+              },
+              "meant": {
+                "var": "meant",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "queries": "data",
+              "typed": "data",
+              "meant": "data"
+            },
+            "arrows": [
+              [
+                "queries",
+                "typed"
+              ],
+              [
+                "typed",
+                "meant"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Query understanding techniques enrich input text prior to search execution.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "queries"
-                  },
-                  {
-                    "text": "typed"
-                  },
-                  {
-                    "text": "meant"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "They use the user's words, which may differ from the documents' words.",
+            "values": {
+              "queries": {
+                "var": "queries",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "queries"
-                  },
-                  {
-                    "text": "typed"
-                  },
-                  {
-                    "text": "queries"
-                  }
-                ],
-                "tone": "ok"
+              "typed": {
+                "var": "typed",
+                "line": 5,
+                "hit": 1
+              },
+              "meant": {
+                "var": "meant",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "queries": "data",
+              "typed": "data",
+              "meant": "data"
+            },
+            "arrows": [
+              [
+                "queries",
+                "typed"
+              ],
+              [
+                "typed",
+                "meant"
+              ]
+            ]
+          },
+          {
+            "at": "say14",
+            "caption": "Rule-based fixes are also transparent.",
+            "values": {
+              "queries": {
+                "var": "queries",
+                "line": 5,
+                "hit": 1
+              },
+              "typed": {
+                "var": "typed",
+                "line": 4,
+                "hit": 2
+              },
+              "meant": {
+                "var": "meant",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "queries": "ok",
+              "typed": "ok",
+              "meant": "ok"
+            },
+            "arrows": [
+              [
+                "queries",
+                "typed"
+              ],
+              [
+                "typed",
+                "meant"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "User query degradation analysis and intent normalization",
-        "columns": [
-          "queries",
-          "typed",
-          "meant"
+        "template": "flow",
+        "title": "Why queries need help",
+        "nodes": [
+          {
+            "id": "queries",
+            "label": "queries"
+          },
+          {
+            "id": "typed",
+            "label": "typed"
+          },
+          {
+            "id": "meant",
+            "label": "meant"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "Keyword and vector search both degrade when queries contain typos.",
-            "rows": [
-              {
-                "cells": [
-                  "queries",
-                  "typed",
-                  "meant"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "queries",
-                  "typed",
-                  "meant"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Real queries are short, messy and often misspelt.",
+            "values": {
+              "queries": "{'refnd for brokn phone': 'refund for b…",
+              "typed": "'refnd for brokn phone'",
+              "meant": "'refund for broken phone'"
+            },
+            "tones": {
+              "queries": "data",
+              "typed": "data",
+              "meant": "data"
+            },
+            "arrows": [
+              [
+                "queries",
+                "typed"
+              ],
+              [
+                "typed",
+                "meant"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Query understanding techniques enrich input text prior to search execution.",
-            "rows": [
-              {
-                "cells": [
-                  "queries",
-                  "typed",
-                  "meant"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "queries",
-                  "typed",
-                  "queries"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "They use the user's words, which may differ from the documents' words.",
+            "values": {
+              "queries": "{'refnd for brokn phone': 'refund for b…",
+              "typed": "'refnd for brokn phone'",
+              "meant": "'refund for broken phone'"
+            },
+            "tones": {
+              "queries": "data",
+              "typed": "data",
+              "meant": "data"
+            },
+            "arrows": [
+              [
+                "queries",
+                "typed"
+              ],
+              [
+                "typed",
+                "meant"
+              ]
+            ]
+          },
+          {
+            "at": "say14",
+            "caption": "Rule-based fixes are also transparent.",
+            "values": {
+              "queries": "{'refnd for brokn phone': 'refund for b…",
+              "typed": "'money back damaged'",
+              "meant": "'refund for damaged item'"
+            },
+            "tones": {
+              "queries": "ok",
+              "typed": "ok",
+              "meant": "ok"
+            },
+            "arrows": [
+              [
+                "queries",
+                "typed"
+              ],
+              [
+                "typed",
+                "meant"
+              ]
             ]
           }
         ]
@@ -147,134 +233,120 @@
       "partTitle": "Normalising queries",
       "codeHash": "ab0eede36ac4039bd436124d09528c155fe124bfb27763ff9d79227df0a726a0",
       "spec": {
-        "template": "table",
-        "title": "Spelling correction dictionary lookup and stopword removal",
-        "columns": [
-          "stop",
-          "spell",
-          "tokens"
-        ],
+        "template": "cells",
+        "title": "Normalising queries",
         "steps": [
           {
             "at": "say1",
-            "caption": "Query normalisation ensures text is consistent with how documents were indexed.",
-            "rows": [
+            "caption": "Normalisation makes queries consistent with how documents were indexed.",
+            "items": {
+              "var": "tokens",
+              "line": 6,
+              "hit": 8
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "stop"
-                  },
-                  {
-                    "text": "spell"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "stop"
-                  },
-                  {
-                    "text": "spell"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Correcting spelling before removing stopwords ensures clean token parsing.",
-            "rows": [
+            "at": "say2",
+            "caption": "Lower-case, split into tokens, fix known misspellings with a dictionary.",
+            "items": {
+              "var": "tokens",
+              "line": 7,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "stop"
-                  },
-                  {
-                    "text": "spell"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A mismatch here, such as stemming documents but not queries, silently.",
+            "items": {
+              "var": "tokens",
+              "line": 8,
+              "hit": 9
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "stop"
-                  },
-                  {
-                    "text": "spell"
-                  },
-                  {
-                    "text": "spell"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Spelling correction dictionary lookup and stopword removal",
-        "columns": [
-          "stop",
-          "spell",
-          "tokens"
-        ],
+        "template": "cells",
+        "title": "Normalising queries",
         "steps": [
           {
             "at": "say1",
-            "caption": "Query normalisation ensures text is consistent with how documents were indexed.",
-            "rows": [
+            "caption": "Normalisation makes queries consistent with how documents were indexed.",
+            "items": [
+              "'the'",
+              "'best'",
+              "'vector'",
+              "'search'",
+              "'for'",
+              "'my'",
+              "'refund'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "stop",
-                  "spell",
-                  "tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "stop",
-                  "spell",
-                  "tokens"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Correcting spelling before removing stopwords ensures clean token parsing.",
-            "rows": [
+            "at": "say2",
+            "caption": "Lower-case, split into tokens, fix known misspellings with a dictionary.",
+            "items": [
+              "'the'",
+              "'best'",
+              "'vector'",
+              "'search'",
+              "'for'",
+              "'my'",
+              "'refund'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "stop",
-                  "spell",
-                  "tokens"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A mismatch here, such as stemming documents but not queries, silently.",
+            "items": [
+              "'the'",
+              "'best'",
+              "'vector'",
+              "'search'",
+              "'for'",
+              "'my'",
+              "'refund'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "stop",
-                  "spell",
-                  "spell"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -285,134 +357,108 @@
       "partTitle": "Synonym expansion",
       "codeHash": "626d16c23e3a84caeb9dbbf7daf8bcb561cfbfa219eac66272d094778ab8464e",
       "spec": {
-        "template": "table",
-        "title": "Single-substitution synonym expansion and variant generation",
-        "columns": [
-          "tokens",
-          "variants",
-          "tokens"
-        ],
+        "template": "cells",
+        "title": "Synonym expansion",
         "steps": [
           {
             "at": "say1",
-            "caption": "Synonym expansion adds alternative vocabulary to match diverse documents.",
-            "rows": [
+            "caption": "Synonym expansion adds alternative words so documents using different.",
+            "items": {
+              "var": "tokens",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "variants"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "variants"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The expansion creates query variants by replacing terms with valid synonyms.",
-            "rows": [
+            "caption": "One approach creates query variants, each replacing one word with one.",
+            "items": {
+              "var": "tokens",
+              "line": 6,
+              "hit": 2
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "variants"
-                  },
-                  {
-                    "text": "tokens"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Three to five variants is a common limit that captures most of the benefit.",
+            "items": {
+              "var": "tokens",
+              "line": 5,
+              "hit": 5
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "variants"
-                  },
-                  {
-                    "text": "variants"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Single-substitution synonym expansion and variant generation",
-        "columns": [
-          "tokens",
-          "variants",
-          "tokens"
-        ],
+        "template": "cells",
+        "title": "Synonym expansion",
         "steps": [
           {
             "at": "say1",
-            "caption": "Synonym expansion adds alternative vocabulary to match diverse documents.",
-            "rows": [
+            "caption": "Synonym expansion adds alternative words so documents using different.",
+            "items": [
+              "'cheap'",
+              "'flights'",
+              "'paris'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "variants",
-                  "tokens"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "tokens",
-                  "variants",
-                  "tokens"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
             "at": "say2",
-            "caption": "The expansion creates query variants by replacing terms with valid synonyms.",
-            "rows": [
+            "caption": "One approach creates query variants, each replacing one word with one.",
+            "items": [
+              "'cheap'",
+              "'flights'",
+              "'paris'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "variants",
-                  "tokens"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Three to five variants is a common limit that captures most of the benefit.",
+            "items": [
+              "'cheap'",
+              "'flights'",
+              "'paris'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "tokens",
-                  "variants",
-                  "variants"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -423,134 +469,108 @@
       "partTitle": "Searching with several variants",
       "codeHash": "106da89e509dfa4008321a51033967f53abbf548b95e9c5164d3bac4da377640",
       "spec": {
-        "template": "table",
-        "title": "Multi-query reciprocal rank fusion across query variants",
-        "columns": [
-          "variants",
-          "scores",
-          "ranked"
-        ],
+        "template": "cells",
+        "title": "Searching with several variants",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Multi-query results are combined with rank fusion across all search variants.",
-            "rows": [
+            "at": "say1",
+            "caption": "Once there are several query variants, each is searched separately.",
+            "items": {
+              "var": "variants",
+              "line": 2,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "variants"
-                  },
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "ranked"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "variants"
-                  },
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "ranked"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "A document matching only a synonym variant still appears in the output.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how result updates lists during execution.",
+            "items": {
+              "var": "variants",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "variants"
-                  },
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "ranked"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Logging which variant found each result shows whether expansion is really.",
+            "items": {
+              "var": "variants",
+              "line": 7,
+              "hit": 4
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "variants"
-                  },
-                  {
-                    "text": "scores"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Multi-query reciprocal rank fusion across query variants",
-        "columns": [
-          "variants",
-          "scores",
-          "ranked"
-        ],
+        "template": "cells",
+        "title": "Searching with several variants",
         "steps": [
           {
-            "at": "say2",
-            "caption": "Multi-query results are combined with rank fusion across all search variants.",
-            "rows": [
+            "at": "say1",
+            "caption": "Once there are several query variants, each is searched separately.",
+            "items": [
+              "'cheap flights paris'",
+              "'budget flights paris'",
+              "'cheap airfare paris'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "variants",
-                  "scores",
-                  "ranked"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "variants",
-                  "scores",
-                  "ranked"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say5",
-            "caption": "A document matching only a synonym variant still appears in the output.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how result updates lists during execution.",
+            "items": [
+              "'cheap flights paris'",
+              "'budget flights paris'",
+              "'cheap airfare paris'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "variants",
-                  "scores",
-                  "ranked"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Logging which variant found each result shows whether expansion is really.",
+            "items": [
+              "'cheap flights paris'",
+              "'budget flights paris'",
+              "'cheap airfare paris'"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "variants",
-                  "scores",
-                  "scores"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -562,110 +582,161 @@
       "codeHash": "d03f2367e9603b8ae9bd2ce487887ed23893a2034be4ded305ec51a2dd892287",
       "spec": {
         "template": "flow",
-        "title": "Learning from query logs — Execution Pipeline",
+        "title": "Learning from query logs",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "log",
+            "label": "log"
           },
           {
-            "id": "proc",
-            "label": "2. Learning from query...",
-            "tappable": true
+            "id": "user_a",
+            "label": "user_a"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "q_a",
+            "label": "q_a"
+          },
+          {
+            "id": "hits_a",
+            "label": "hits_a"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Learning from query logs [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Learning from query... [D.Pfive.Stwo].",
+            "caption": "Query logs show what users actually ask, which is often surprising.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "log": {
+                "var": "log",
+                "line": 1,
+                "hit": 1
+              },
+              "user_a": {
+                "var": "user_a",
+                "line": 3,
+                "hit": 1
+              },
+              "q_a": {
+                "var": "q_a",
+                "line": 3,
+                "hit": 1
+              },
+              "hits_a": {
+                "var": "hits_a",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "log": "data",
+              "user_a": "data",
+              "q_a": "data",
+              "hits_a": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "log",
+                "user_a"
               ],
               [
-                "proc",
-                "out"
+                "user_a",
+                "q_a"
+              ],
+              [
+                "q_a",
+                "hits_a"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Queries with zero results, or where users immediately rephrase, point.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "log": {
+                "var": "log",
+                "line": 3,
+                "hit": 1
+              },
+              "user_a": {
+                "var": "user_a",
+                "line": 4,
+                "hit": 1
+              },
+              "q_a": {
+                "var": "q_a",
+                "line": 4,
+                "hit": 1
+              },
+              "hits_a": {
+                "var": "hits_a",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "log": "data",
+              "user_a": "data",
+              "q_a": "data",
+              "hits_a": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "log",
+                "user_a"
+              ],
+              [
+                "user_a",
+                "q_a"
+              ],
+              [
+                "q_a",
+                "hits_a"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Learning from query logs [D.Pfive.Sfour].",
+            "at": "say11",
+            "caption": "Treat query logs as a product signal.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "log": {
+                "var": "log",
+                "line": 4,
+                "hit": 1
+              },
+              "user_a": {
+                "var": "user_a",
+                "line": 5,
+                "hit": 1
+              },
+              "q_a": {
+                "var": "q_a",
+                "line": 5,
+                "hit": 1
+              },
+              "hits_a": {
+                "var": "hits_a",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "log": "ok",
+              "user_a": "ok",
+              "q_a": "ok",
+              "hits_a": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "log",
+                "user_a"
               ],
               [
-                "proc",
-                "out"
+                "user_a",
+                "q_a"
+              ],
+              [
+                "q_a",
+                "hits_a"
               ]
             ]
           }
@@ -673,110 +744,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Learning from query logs — Execution Pipeline",
+        "title": "Learning from query logs",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "log",
+            "label": "log"
           },
           {
-            "id": "proc",
-            "label": "2. Learning from query...",
-            "tappable": true
+            "id": "user_a",
+            "label": "user_a"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "q_a",
+            "label": "q_a"
+          },
+          {
+            "id": "hits_a",
+            "label": "hits_a"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Learning from query logs [D22.P5.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Learning from query... [D22.P5.S2].",
+            "caption": "Query logs show what users actually ask, which is often surprising.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "log": "[['u1', 'wfh policy', 0], ['u1', 'work …",
+              "user_a": "'u1'",
+              "q_a": "'wfh policy'",
+              "hits_a": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "log": "data",
+              "user_a": "data",
+              "q_a": "data",
+              "hits_a": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "log",
+                "user_a"
               ],
               [
-                "proc",
-                "out"
+                "user_a",
+                "q_a"
+              ],
+              [
+                "q_a",
+                "hits_a"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P5.S3].",
+            "at": "say2",
+            "caption": "Queries with zero results, or where users immediately rephrase, point.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "log": "[['u1', 'wfh policy', 0], ['u1', 'work …",
+              "user_a": "'u1'",
+              "q_a": "'wfh policy'",
+              "hits_a": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "log": "data",
+              "user_a": "data",
+              "q_a": "data",
+              "hits_a": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "log",
+                "user_a"
+              ],
+              [
+                "user_a",
+                "q_a"
+              ],
+              [
+                "q_a",
+                "hits_a"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Learning from query logs [D22.P5.S4].",
+            "at": "say11",
+            "caption": "Treat query logs as a product signal.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "log": "[['u1', 'wfh policy', 0], ['u1', 'work …",
+              "user_a": "'u1'",
+              "q_a": "'wfh policy'",
+              "hits_a": "0"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "log": "ok",
+              "user_a": "ok",
+              "q_a": "ok",
+              "hits_a": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "log",
+                "user_a"
               ],
               [
-                "proc",
-                "out"
+                "user_a",
+                "q_a"
+              ],
+              [
+                "q_a",
+                "hits_a"
               ]
             ]
           }
@@ -787,223 +861,106 @@
       "partTitle": "Practice time: queries",
       "codeHash": "a0d264452ecc6f23ab4cfc897ebb3274dca92589305c1d553cf856e07ac9608c",
       "spec": {
-        "template": "flow",
-        "title": "Practice time: queries — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: queries",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: queries",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: queries [D.Psix.Sone].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: queries [D.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+            "caption": "Normalize_query(text, stopwords, spelling).",
+            "items": {
+              "var": "variants",
+              "line": 8,
+              "hit": 4
             },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "The checks include a messy query, a blank query and a query made only.",
+            "items": {
+              "var": "variants",
+              "line": 9,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: queries [D.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say11",
+            "caption": "Order of operations matters in text processing, and small differences.",
+            "items": {
+              "var": "variants",
+              "line": 7,
+              "hit": 2
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Practice time: queries — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Practice time: queries",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "cells",
+        "title": "Practice time: queries",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: queries [D22.P6.S1].",
-            "values": {
-              "in": "Day 22 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: queries [D22.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Normalize_query(text, stopwords, spelling).",
+            "items": [
+              "'wfh rules'",
+              "'work from home rules'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D22.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "The checks include a messy query, a blank query and a query made only.",
+            "items": [
+              "'wfh rules'",
+              "'work from home rules'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: queries [D22.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Order of operations matters in text processing, and small differences.",
+            "items": [
+              "'wfh rules'",
+              "'work from home rules'"
+            ],
+            "pointers": [
+              {
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
+              }
             ]
           }
         ]

@@ -2,270 +2,284 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 52,
-  "promptSha": "bc251348d6b99afce1b9dd127b40b2489cc1a351d5358b118bd52650258d5f7a",
-  "model": "gate-v2-verified",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Foundations & Mathematical Invariants",
-      "codeHash": "321dbd52683539903f500b2bd5106341136d8eb168fa2daba88e176ffc9142df",
+      "codeHash": "141d389f79e8ec5131bf4d8f135ded5eb99a6d10cfef610bd347b62a3f9b984d",
       "spec": {
         "template": "flow",
-        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Founda",
+        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "syn_map",
+            "label": "syn_map"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "raw_query",
+            "label": "raw_query"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "synonyms",
+            "label": "synonyms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "tokens",
+            "label": "tokens"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "User search queries are frequently short, ambiguous, or phrased.",
+            "values": {
+              "syn_map": {
+                "var": "syn_map",
+                "line": 9,
+                "hit": 1
+              },
+              "raw_query": {
+                "var": "raw_query",
+                "line": 2,
+                "hit": 1
+              },
+              "synonyms": {
+                "var": "synonyms",
+                "line": 2,
+                "hit": 1
+              },
+              "tokens": {
+                "var": "tokens",
+                "line": 2,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "syn_map": "data",
+              "raw_query": "data",
+              "synonyms": "data",
+              "tokens": "data"
+            },
+            "arrows": [
+              [
+                "syn_map",
+                "raw_query"
+              ],
+              [
+                "raw_query",
+                "synonyms"
+              ],
+              [
+                "synonyms",
+                "tokens"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Query rewriting bridges this semantic gap by analyzing query intent.",
+            "values": {
+              "syn_map": {
+                "var": "syn_map",
+                "line": 10,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "raw_query": {
+                "var": "raw_query",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "synonyms": {
+                "var": "synonyms",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "tokens": {
+                "var": "tokens",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "syn_map": "data",
+              "raw_query": "data",
+              "synonyms": "data",
+              "tokens": "data"
+            },
+            "arrows": [
+              [
+                "syn_map",
+                "raw_query"
+              ],
+              [
+                "raw_query",
+                "synonyms"
+              ],
+              [
+                "synonyms",
+                "tokens"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "values": {
+              "syn_map": {
+                "var": "syn_map",
+                "line": 11,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "raw_query": {
+                "var": "raw_query",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "synonyms": {
+                "var": "synonyms",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "tokens": {
+                "var": "tokens",
+                "line": 4,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "syn_map": "ok",
+              "raw_query": "ok",
+              "synonyms": "ok",
+              "tokens": "ok"
+            },
+            "arrows": [
+              [
+                "syn_map",
+                "raw_query"
+              ],
+              [
+                "raw_query",
+                "synonyms"
+              ],
+              [
+                "synonyms",
+                "tokens"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Founda",
+        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "syn_map",
+            "label": "syn_map"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "raw_query",
+            "label": "raw_query"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "synonyms",
+            "label": "synonyms"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "tokens",
+            "label": "tokens"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "User search queries are frequently short, ambiguous, or phrased.",
+            "values": {
+              "syn_map": "{'vector': ['embedding', 'dense'], 'sea…",
+              "raw_query": "'vector search'",
+              "synonyms": "{'vector': ['embedding', 'dense'], 'sea…",
+              "tokens": "['vector', 'search']"
+            },
+            "tones": {
+              "syn_map": "data",
+              "raw_query": "data",
+              "synonyms": "data",
+              "tokens": "data"
+            },
+            "arrows": [
+              [
+                "syn_map",
+                "raw_query"
+              ],
+              [
+                "raw_query",
+                "synonyms"
+              ],
+              [
+                "synonyms",
+                "tokens"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Query rewriting bridges this semantic gap by analyzing query intent.",
+            "values": {
+              "syn_map": "{'vector': ['embedding', 'dense'], 'sea…",
+              "raw_query": "'vector search'",
+              "synonyms": "{'vector': ['embedding', 'dense'], 'sea…",
+              "tokens": "['vector', 'search']"
+            },
+            "tones": {
+              "syn_map": "data",
+              "raw_query": "data",
+              "synonyms": "data",
+              "tokens": "data"
+            },
+            "arrows": [
+              [
+                "syn_map",
+                "raw_query"
+              ],
+              [
+                "raw_query",
+                "synonyms"
+              ],
+              [
+                "synonyms",
+                "tokens"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Validating these mathematical guarantees early prevents subtle ranking.",
+            "values": {
+              "syn_map": "{'vector': ['embedding', 'dense'], 'sea…",
+              "raw_query": "'vector search'",
+              "synonyms": "{'vector': ['embedding', 'dense'], 'sea…",
+              "tokens": "['vector', 'search']"
+            },
+            "tones": {
+              "syn_map": "ok",
+              "raw_query": "ok",
+              "synonyms": "ok",
+              "tokens": "ok"
+            },
+            "arrows": [
+              [
+                "syn_map",
+                "raw_query"
+              ],
+              [
+                "raw_query",
+                "synonyms"
+              ],
+              [
+                "synonyms",
+                "tokens"
+              ]
             ]
           }
         ]
@@ -273,264 +287,134 @@
     },
     {
       "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Core Algorithm & State Representation",
-      "codeHash": "62fa1c513aad52a43e56061b3a3e0b69732de6c41d43a42fbe83345ceb3393ea",
+      "codeHash": "b175771e16bf8967e7e5b8ba1da4aca11fb9fc91642b3fcb4c54caf90d606e00",
       "spec": {
-        "template": "flow",
-        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Core A",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Bi-encoders encode queries and documents into independent vector.",
+            "bars": [
+              {
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "However, bi-encoders cannot capture deep token-level cross-attention.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "score",
+                "value": {
+                  "var": "score",
+                  "line": 6,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Core A",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Bi-encoders encode queries and documents into independent vector.",
+            "bars": [
+              {
+                "label": "overlap",
+                "value": 4,
+                "tone": "data"
+              },
+              {
+                "label": "score",
+                "value": 1,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "However, bi-encoders cannot capture deep token-level cross-attention.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "overlap",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "score",
+                "value": 1,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Hardware prefetching directives keep CPU pipelines fully saturated while.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "overlap",
+                "value": 4,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "score",
+                "value": 0.25,
+                "tone": "ok"
               }
             ]
           }
@@ -539,264 +423,134 @@
     },
     {
       "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Throughput Optimization & Edge-Case Handling",
-      "codeHash": "82ac632e3f5fc6aecedfd3355d7de1974116484d7d156428a72a0994cc15b298",
+      "codeHash": "50e349a6324e1e9f72a220054b12da43f7d162c884ec15892dec64ee390049fe",
       "spec": {
-        "template": "flow",
-        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Throug",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Because cross-encoders require full forward passes over concatenated text.",
+            "bars": [
+              {
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 10,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Production search architectures deploy a cascaded ranking pattern.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 11,
+                  "hit": 1
+                },
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "overlap",
+                "value": {
+                  "var": "overlap",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "s",
+                "value": {
+                  "var": "s",
+                  "line": 9,
+                  "hit": 2
+                },
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Throug",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
-        ],
+        "template": "bars",
+        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — ",
         "steps": [
           {
+            "at": "say1",
+            "caption": "Because cross-encoders require full forward passes over concatenated text.",
+            "bars": [
+              {
+                "label": "overlap",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "s",
+                "value": 0,
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "Production search architectures deploy a cascaded ranking pattern.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+                "label": "overlap",
+                "value": 0,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "label": "s",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Thorough microbenchmarking confirms that branch misprediction rates.",
+            "bars": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+                "label": "overlap",
+                "value": 2,
+                "tone": "ok"
               },
               {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "label": "s",
+                "value": 0,
+                "tone": "ok"
               }
             ]
           }
@@ -805,264 +559,116 @@
     },
     {
       "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Resilience Guardrails & Failure Recovery",
-      "codeHash": "3176a2e5d4102436edf0bc5531f5534555c5ea4054d5f9dfb92d6798f5835011",
+      "codeHash": "70dd9cee023552103318d1596305b3d121e0cbc165615a519689742d49ba1036",
       "spec": {
-        "template": "flow",
-        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Resili",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — ",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Query normalization guardrails clean up erratic whitespace, control.",
+            "rows": [
+              {
+                "cells": [
+                  {
+                    "text": "text"
+                  },
+                  {
+                    "var": "text",
+                    "line": 2,
+                    "hit": 1
+                  }
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If a user submits text with leading spaces, trailing carriage returns,.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  {
+                    "text": "text"
+                  },
+                  {
+                    "var": "text",
+                    "line": 4,
+                    "hit": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  {
+                    "text": "out 1"
+                  },
+                  {
+                    "out": 1
+                  }
+                ],
+                "tone": "ok"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Resili",
-        "nodes": [
-          {
-            "id": "input",
-            "label": "Input Stream"
-          },
-          {
-            "id": "core",
-            "label": "Core Engine"
-          },
-          {
-            "id": "verify",
-            "label": "Safety Gate"
-          },
-          {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
-          }
+        "template": "table",
+        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — ",
+        "columns": [
+          "Symbol",
+          "Executed Value"
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Query normalization guardrails clean up erratic whitespace, control.",
+            "rows": [
+              {
+                "cells": [
+                  "text",
+                  "'   Vector   Search   '"
+                ],
+                "tone": "data"
+              }
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
+            "caption": "If a user submits text with leading spaces, trailing carriage returns,.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+                "cells": [
+                  "text",
+                  "'   Vector   Search   '"
+                ],
+                "tone": "ok"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
+            "at": "say12",
+            "caption": "Simulating network partitions and node crashes under load validates.",
+            "rows": [
               {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
+                "cells": [
+                  "out 1",
+                  "Normalized Text: 'vector search'"
+                ],
+                "tone": "ok"
               }
             ]
           }
@@ -1071,265 +677,279 @@
     },
     {
       "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Production Telemetry & Verification Audit",
-      "codeHash": "78b8cd5b6eff74212ffaf85bcb03f3512d45313f6f0814d4223adbb83a5a6ce2",
+      "codeHash": "e7e4108770e15a78c68aaddcea9464ac1d885542bb95cf38c5eeec3e6437c245",
       "spec": {
         "template": "flow",
-        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Produc",
+        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "baseline_recall",
+            "label": "baseline_recall"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "reranked_recall",
+            "label": "reranked_recall"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "lift_pct",
+            "label": "lift_pct"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lift_info",
+            "label": "lift_info"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Retrieval telemetry audits quantify the recall lift and NDCG improvement.",
+            "values": {
+              "baseline_recall": {
+                "var": "baseline_recall",
+                "line": 2,
+                "hit": 1
+              },
+              "reranked_recall": {
+                "var": "reranked_recall",
+                "line": 2,
+                "hit": 1
+              },
+              "lift_pct": {
+                "var": "lift_pct",
+                "line": 2,
+                "hit": 1
+              },
+              "lift_info": {
+                "var": "lift_info",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "baseline_recall": "data",
+              "reranked_recall": "data",
+              "lift_pct": "data",
+              "lift_info": "data"
+            },
+            "arrows": [
+              [
+                "baseline_recall",
+                "reranked_recall"
+              ],
+              [
+                "reranked_recall",
+                "lift_pct"
+              ],
+              [
+                "lift_pct",
+                "lift_info"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
+            "caption": "Trace how production updates reranking during execution.",
+            "values": {
+              "baseline_recall": {
+                "var": "baseline_recall",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "reranked_recall": {
+                "var": "reranked_recall",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
+              "lift_pct": {
+                "var": "lift_pct",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lift_info": {
+                "var": "lift_info",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "baseline_recall": "data",
+              "reranked_recall": "data",
+              "lift_pct": "data",
+              "lift_info": "data"
+            },
+            "arrows": [
+              [
+                "baseline_recall",
+                "reranked_recall"
+              ],
+              [
+                "reranked_recall",
+                "lift_pct"
+              ],
+              [
+                "lift_pct",
+                "lift_info"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "baseline_recall": {
+                "var": "baseline_recall",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
+              "reranked_recall": {
+                "var": "reranked_recall",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
+              "lift_pct": {
+                "var": "lift_pct",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
+              "lift_info": {
+                "var": "lift_info",
+                "line": 6,
+                "hit": 1
               }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            },
+            "tones": {
+              "baseline_recall": "ok",
+              "reranked_recall": "ok",
+              "lift_pct": "ok",
+              "lift_info": "ok"
+            },
+            "arrows": [
+              [
+                "baseline_recall",
+                "reranked_recall"
+              ],
+              [
+                "reranked_recall",
+                "lift_pct"
+              ],
+              [
+                "lift_pct",
+                "lift_info"
+              ]
             ]
           }
         ]
       },
       "filled": {
         "template": "flow",
-        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Produc",
+        "title": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — ",
         "nodes": [
           {
-            "id": "input",
-            "label": "Input Stream"
+            "id": "baseline_recall",
+            "label": "baseline_recall"
           },
           {
-            "id": "core",
-            "label": "Core Engine"
+            "id": "reranked_recall",
+            "label": "reranked_recall"
           },
           {
-            "id": "verify",
-            "label": "Safety Gate"
+            "id": "lift_pct",
+            "label": "lift_pct"
           },
           {
-            "id": "out",
-            "label": "Verified Output"
-          }
-        ],
-        "edges": [
-          {
-            "from": "input",
-            "to": "core",
-            "label": "ingest"
-          },
-          {
-            "from": "core",
-            "to": "verify",
-            "label": "evaluate"
-          },
-          {
-            "from": "verify",
-            "to": "out",
-            "label": "commit"
+            "id": "lift_info",
+            "label": "lift_info"
           }
         ],
         "steps": [
           {
+            "at": "say1",
+            "caption": "Retrieval telemetry audits quantify the recall lift and NDCG improvement.",
+            "values": {
+              "baseline_recall": "0.82",
+              "reranked_recall": "0.94",
+              "lift_pct": "14.63",
+              "lift_info": "{'baseline_recall': 0.82, 'reranked_rec…"
+            },
+            "tones": {
+              "baseline_recall": "data",
+              "reranked_recall": "data",
+              "lift_pct": "data",
+              "lift_info": "data"
+            },
+            "arrows": [
+              [
+                "baseline_recall",
+                "reranked_recall"
+              ],
+              [
+                "reranked_recall",
+                "lift_pct"
+              ],
+              [
+                "lift_pct",
+                "lift_info"
+              ]
+            ]
+          },
+          {
             "at": "say2",
-            "caption": "Incoming parameters enter the validation pipeline.",
-            "activeNodes": [
-              "input",
-              "core"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "active"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "idle"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
+            "caption": "Trace how production updates reranking during execution.",
+            "values": {
+              "baseline_recall": "0.82",
+              "reranked_recall": "0.94",
+              "lift_pct": "14.63",
+              "lift_info": "{'baseline_recall': 0.82, 'reranked_rec…"
+            },
+            "tones": {
+              "baseline_recall": "data",
+              "reranked_recall": "data",
+              "lift_pct": "data",
+              "lift_info": "data"
+            },
+            "arrows": [
+              [
+                "baseline_recall",
+                "reranked_recall"
+              ],
+              [
+                "reranked_recall",
+                "lift_pct"
+              ],
+              [
+                "lift_pct",
+                "lift_info"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "The core engine evaluates thresholds and safety invariants.",
-            "activeNodes": [
-              "core",
-              "verify"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "active"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "active"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "idle"
-              }
-            ]
-          },
-          {
-            "at": "say6",
-            "caption": "Verified telemetry and status flags are emitted downstream.",
-            "activeNodes": [
-              "verify",
-              "out"
-            ],
-            "nodes": [
-              {
-                "id": "input",
-                "label": "Input Stream",
-                "tone": "done"
-              },
-              {
-                "id": "core",
-                "label": "Core Engine",
-                "tone": "done"
-              },
-              {
-                "id": "verify",
-                "label": "Safety Gate",
-                "tone": "done"
-              },
-              {
-                "id": "out",
-                "label": "Verified Output",
-                "tone": "active"
-              }
+            "at": "say12",
+            "caption": "Continuous regression test suites benchmark recall and QPS across golden.",
+            "values": {
+              "baseline_recall": "0.82",
+              "reranked_recall": "0.94",
+              "lift_pct": "14.63",
+              "lift_info": "{'baseline_recall': 0.82, 'reranked_rec…"
+            },
+            "tones": {
+              "baseline_recall": "ok",
+              "reranked_recall": "ok",
+              "lift_pct": "ok",
+              "lift_info": "ok"
+            },
+            "arrows": [
+              [
+                "baseline_recall",
+                "reranked_recall"
+              ],
+              [
+                "reranked_recall",
+                "lift_pct"
+              ],
+              [
+                "lift_pct",
+                "lift_info"
+              ]
             ]
           }
         ]

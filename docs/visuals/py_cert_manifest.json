@@ -7220,11 +7220,11 @@
     },
     "vec-py:1:4": {
       "partTitle": "Learned embeddings",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:1:5": {
       "partTitle": "Practice time: making vectors",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:2:0": {
       "partTitle": "The dot product",
@@ -7244,11 +7244,11 @@
     },
     "vec-py:2:4": {
       "partTitle": "Similarity in practice",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:2:5": {
       "partTitle": "Practice time: similarity",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:3:0": {
       "partTitle": "k-nearest neighbours",
@@ -7268,11 +7268,11 @@
     },
     "vec-py:3:4": {
       "partTitle": "A tiny search service",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:3:5": {
       "partTitle": "Practice time: exact search",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:4:0": {
       "partTitle": "Why not just sort?",
@@ -7292,11 +7292,11 @@
     },
     "vec-py:4:4": {
       "partTitle": "Top-k in real systems",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:4:5": {
       "partTitle": "Practice time: top-k",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:5:0": {
       "partTitle": "Relevance judgements",
@@ -7316,11 +7316,11 @@
     },
     "vec-py:5:4": {
       "partTitle": "Reading the numbers",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:5:5": {
       "partTitle": "Practice time: metrics",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:6:0": {
       "partTitle": "The inverted index",
@@ -7340,11 +7340,11 @@
     },
     "vec-py:6:4": {
       "partTitle": "When keywords beat vectors",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:6:5": {
       "partTitle": "Practice time: keyword search",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:7:0": {
       "partTitle": "Why hybrid search",
@@ -7364,11 +7364,11 @@
     },
     "vec-py:7:4": {
       "partTitle": "Hybrid search in a pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:7:5": {
       "partTitle": "Practice time: fusion",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:8:0": {
       "partTitle": "Why chunk",
@@ -7388,11 +7388,11 @@
     },
     "vec-py:8:4": {
       "partTitle": "Chunk metadata",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:8:5": {
       "partTitle": "Practice time: chunking",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:9:0": {
       "partTitle": "Filters in search",
@@ -7412,11 +7412,11 @@
     },
     "vec-py:9:4": {
       "partTitle": "Richer filters",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:9:5": {
       "partTitle": "Practice time: filtering",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:10:0": {
       "partTitle": "The idea of clustering",
@@ -7436,11 +7436,11 @@
     },
     "vec-py:10:4": {
       "partTitle": "Evaluating a clustering",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:10:5": {
       "partTitle": "Practice time: clustering",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:11:0": {
       "partTitle": "From clusters to inverted lists",
@@ -7460,11 +7460,11 @@
     },
     "vec-py:11:4": {
       "partTitle": "IVF in real systems",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:11:5": {
       "partTitle": "Practice time: IVF",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:12:0": {
       "partTitle": "The memory problem",
@@ -7484,11 +7484,11 @@
     },
     "vec-py:12:4": {
       "partTitle": "Accuracy and tuning",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:12:5": {
       "partTitle": "Practice time: product quantisation",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:13:0": {
       "partTitle": "Scalar quantisation",
@@ -7508,11 +7508,11 @@
     },
     "vec-py:13:4": {
       "partTitle": "Choosing a compression method",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:13:5": {
       "partTitle": "Practice time: compact codes",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:14:0": {
       "partTitle": "Locality-sensitive hashing",
@@ -7532,11 +7532,11 @@
     },
     "vec-py:14:4": {
       "partTitle": "LSH in practice",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:14:5": {
       "partTitle": "Practice time: hashing",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:15:0": {
       "partTitle": "Proximity graphs",
@@ -7556,11 +7556,11 @@
     },
     "vec-py:15:4": {
       "partTitle": "Cost and recall",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:15:5": {
       "partTitle": "Practice time: graph search",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:16:0": {
       "partTitle": "Layers like a skip list",
@@ -7580,11 +7580,11 @@
     },
     "vec-py:16:4": {
       "partTitle": "Searching all the layers",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:16:5": {
       "partTitle": "Practice time: HNSW pieces",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:17:0": {
       "partTitle": "Benchmarking a configuration",
@@ -7604,11 +7604,11 @@
     },
     "vec-py:17:4": {
       "partTitle": "Beyond recall and latency",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:17:5": {
       "partTitle": "Practice time: tuning",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:18:0": {
       "partTitle": "Upserts and versions",
@@ -7628,11 +7628,11 @@
     },
     "vec-py:18:4": {
       "partTitle": "Consistency for readers",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:18:5": {
       "partTitle": "Practice time: operations",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:19:0": {
       "partTitle": "Why shard",
@@ -7652,11 +7652,11 @@
     },
     "vec-py:19:4": {
       "partTitle": "Operating a sharded cluster",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:19:5": {
       "partTitle": "Practice time: shards",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:20:0": {
       "partTitle": "Tenants and namespaces",
@@ -7676,11 +7676,11 @@
     },
     "vec-py:20:4": {
       "partTitle": "Testing isolation",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:20:5": {
       "partTitle": "Practice time: access control",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:21:0": {
       "partTitle": "Two-stage retrieval",
@@ -7700,11 +7700,11 @@
     },
     "vec-py:21:4": {
       "partTitle": "Putting the pipeline together",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:21:5": {
       "partTitle": "Practice time: re-ranking",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:22:0": {
       "partTitle": "Why queries need help",
@@ -7724,11 +7724,11 @@
     },
     "vec-py:22:4": {
       "partTitle": "Learning from query logs",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:22:5": {
       "partTitle": "Practice time: queries",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:23:0": {
       "partTitle": "Retrieval-augmented generation",
@@ -7748,11 +7748,11 @@
     },
     "vec-py:23:4": {
       "partTitle": "Evaluating RAG answers",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:23:5": {
       "partTitle": "Practice time: context and citations",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:24:0": {
       "partTitle": "Why cache semantically",
@@ -7772,11 +7772,11 @@
     },
     "vec-py:24:4": {
       "partTitle": "Freshness and safety",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:24:5": {
       "partTitle": "Practice time: caching",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:25:0": {
       "partTitle": "Keeping indexes fresh",
@@ -7796,11 +7796,11 @@
     },
     "vec-py:25:4": {
       "partTitle": "Versioning everything",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:25:5": {
       "partTitle": "Practice time: freshness and migration",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:26:0": {
       "partTitle": "Graded relevance",
@@ -7820,11 +7820,11 @@
     },
     "vec-py:26:4": {
       "partTitle": "Building a golden set that lasts",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:26:5": {
       "partTitle": "Practice time: evaluation",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:27:0": {
       "partTitle": "Why averages hide slow queries",
@@ -7844,11 +7844,11 @@
     },
     "vec-py:27:4": {
       "partTitle": "Alerts that help",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:27:5": {
       "partTitle": "Practice time: monitoring",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:28:0": {
       "partTitle": "Bytes per vector",
@@ -7868,11 +7868,11 @@
     },
     "vec-py:28:4": {
       "partTitle": "Planning for growth",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:28:5": {
       "partTitle": "Practice time: capacity",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:29:0": {
       "partTitle": "Personal data in vector search",
@@ -7892,11 +7892,11 @@
     },
     "vec-py:29:4": {
       "partTitle": "Security threats specific to RAG",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:29:5": {
       "partTitle": "Practice time: privacy",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:30:0": {
       "partTitle": "The capstone design",
@@ -7916,11 +7916,11 @@
     },
     "vec-py:30:4": {
       "partTitle": "What you have built",
-      "status": "none"
+      "status": "passed"
     },
     "vec-py:30:5": {
       "partTitle": "Capstone practice: engine and report",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:1:0": {
       "partTitle": "Safety is an engineering job",
@@ -7940,11 +7940,11 @@
     },
     "safe-py:1:4": {
       "partTitle": "Controls and residual risk",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:1:5": {
       "partTitle": "Where this course goes",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:2:0": {
       "partTitle": "What threat modelling is",
@@ -7964,11 +7964,11 @@
     },
     "safe-py:2:4": {
       "partTitle": "Finding gaps",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:2:5": {
       "partTitle": "Threat modelling in practice",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:3:0": {
       "partTitle": "Why validate input",
@@ -7988,11 +7988,11 @@
     },
     "safe-py:3:4": {
       "partTitle": "Truncating to a budget",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:3:5": {
       "partTitle": "Validation in a pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:4:0": {
       "partTitle": "What prompt injection is",
@@ -8012,11 +8012,11 @@
     },
     "safe-py:4:4": {
       "partTitle": "Limits of pattern matching",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:4:5": {
       "partTitle": "Putting the detector in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:5:0": {
       "partTitle": "Indirect prompt injection",
@@ -8036,11 +8036,11 @@
     },
     "safe-py:5:4": {
       "partTitle": "Stripping hidden characters",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:5:5": {
       "partTitle": "Defending against indirect injection",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:6:0": {
       "partTitle": "Model output is untrusted",
@@ -8060,11 +8060,11 @@
     },
     "safe-py:6:4": {
       "partTitle": "The boolean trap",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:6:5": {
       "partTitle": "Output validation in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:7:0": {
       "partTitle": "Why card numbers are special",
@@ -8084,11 +8084,11 @@
     },
     "safe-py:7:4": {
       "partTitle": "Masking in place",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:7:5": {
       "partTitle": "Personal data on both sides",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:8:0": {
       "partTitle": "Moderation classifiers",
@@ -8108,11 +8108,11 @@
     },
     "safe-py:8:4": {
       "partTitle": "Moderation in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:8:5": {
       "partTitle": "Where moderation goes wrong",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:9:0": {
       "partTitle": "The confusion matrix",
@@ -8132,11 +8132,11 @@
     },
     "safe-py:9:4": {
       "partTitle": "Base rates and accuracy",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:9:5": {
       "partTitle": "Evaluating a safety check",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:10:0": {
       "partTitle": "What hallucination is",
@@ -8156,11 +8156,11 @@
     },
     "safe-py:10:4": {
       "partTitle": "Stronger groundedness checks",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:10:5": {
       "partTitle": "Groundedness in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:11:0": {
       "partTitle": "Why citations can mislead",
@@ -8180,11 +8180,11 @@
     },
     "safe-py:11:4": {
       "partTitle": "Measuring citation coverage",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:11:5": {
       "partTitle": "Citations in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:12:0": {
       "partTitle": "Two ways to get refusal wrong",
@@ -8204,11 +8204,11 @@
     },
     "safe-py:12:4": {
       "partTitle": "Refusing well",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:12:5": {
       "partTitle": "Refusal testing in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:13:0": {
       "partTitle": "From text to actions",
@@ -8228,11 +8228,11 @@
     },
     "safe-py:13:4": {
       "partTitle": "A safe join",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:13:5": {
       "partTitle": "Tool safety in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:14:0": {
       "partTitle": "Human in the loop",
@@ -8252,11 +8252,11 @@
     },
     "safe-py:14:4": {
       "partTitle": "Making approval meaningful",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:14:5": {
       "partTitle": "Approval in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:15:0": {
       "partTitle": "Why limit usage",
@@ -8276,11 +8276,11 @@
     },
     "safe-py:15:4": {
       "partTitle": "Detecting abuse",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:15:5": {
       "partTitle": "Limits and abuse in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:16:0": {
       "partTitle": "What red-teaming is",
@@ -8300,11 +8300,11 @@
     },
     "safe-py:16:4": {
       "partTitle": "Automated red-teaming",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:16:5": {
       "partTitle": "Red-teaming in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:17:0": {
       "partTitle": "How attackers disguise text",
@@ -8324,11 +8324,11 @@
     },
     "safe-py:17:4": {
       "partTitle": "Finding banned words",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:17:5": {
       "partTitle": "Normalisation in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:18:0": {
       "partTitle": "Why fairness is a safety issue",
@@ -8348,11 +8348,11 @@
     },
     "safe-py:18:4": {
       "partTitle": "Fairness for language models",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:18:5": {
       "partTitle": "Fairness checks in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:19:0": {
       "partTitle": "What calibration means",
@@ -8372,11 +8372,11 @@
     },
     "safe-py:19:4": {
       "partTitle": "Fixing calibration",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:19:5": {
       "partTitle": "Calibration in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:20:0": {
       "partTitle": "Knowing when not to answer",
@@ -8396,11 +8396,11 @@
     },
     "safe-py:20:4": {
       "partTitle": "What to do instead of answering",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:20:5": {
       "partTitle": "Abstention in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:21:0": {
       "partTitle": "Why an evaluation harness",
@@ -8420,11 +8420,11 @@
     },
     "safe-py:21:4": {
       "partTitle": "What to measure in the gate",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:21:5": {
       "partTitle": "The harness in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:22:0": {
       "partTitle": "Why audit logs",
@@ -8444,11 +8444,11 @@
     },
     "safe-py:22:4": {
       "partTitle": "Summarising the log",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:22:5": {
       "partTitle": "Audit logs in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:23:0": {
       "partTitle": "What an AI incident looks like",
@@ -8468,11 +8468,11 @@
     },
     "safe-py:23:4": {
       "partTitle": "Communicating during an incident",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:23:5": {
       "partTitle": "Blameless post-mortems",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:24:0": {
       "partTitle": "Why document AI systems",
@@ -8492,11 +8492,11 @@
     },
     "safe-py:24:4": {
       "partTitle": "Keeping cards up to date",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:24:5": {
       "partTitle": "Cards in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:25:0": {
       "partTitle": "Why governance matters",
@@ -8516,11 +8516,11 @@
     },
     "safe-py:25:4": {
       "partTitle": "Checking framework coverage",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:25:5": {
       "partTitle": "Governance in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:26:0": {
       "partTitle": "Data is where behaviour comes from",
@@ -8540,11 +8540,11 @@
     },
     "safe-py:26:4": {
       "partTitle": "Filtering by licence",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:26:5": {
       "partTitle": "Data hygiene in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:27:0": {
       "partTitle": "Why mark AI-generated text",
@@ -8564,11 +8564,11 @@
     },
     "safe-py:27:4": {
       "partTitle": "Limits of watermarking",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:27:5": {
       "partTitle": "Watermarking in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:28:0": {
       "partTitle": "Learning from preferences",
@@ -8588,11 +8588,11 @@
     },
     "safe-py:28:4": {
       "partTitle": "Reward hacking",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:28:5": {
       "partTitle": "Preferences in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:29:0": {
       "partTitle": "Why monitor in production",
@@ -8612,11 +8612,11 @@
     },
     "safe-py:29:4": {
       "partTitle": "Alerts people trust",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:29:5": {
       "partTitle": "Monitoring in the pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:30:0": {
       "partTitle": "Looking back",
@@ -8636,11 +8636,11 @@
     },
     "safe-py:30:4": {
       "partTitle": "The safety scorecard",
-      "status": "none"
+      "status": "passed"
     },
     "safe-py:30:5": {
       "partTitle": "Your safety pipeline",
-      "status": "none"
+      "status": "passed"
     },
     "dsa-py:31:0": {
       "partTitle": "Binary Indexed Tree Foundations: The Least Significant Bit Invariant",
@@ -14760,6 +14760,1206 @@
     },
     "train-py:60:4": {
       "partTitle": "Master Orchestrator — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:31:0": {
+      "partTitle": "Matryoshka Representation Learning (MRL) — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:31:1": {
+      "partTitle": "Matryoshka Representation Learning (MRL) — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:31:2": {
+      "partTitle": "Matryoshka Representation Learning (MRL) — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:31:3": {
+      "partTitle": "Matryoshka Representation Learning (MRL) — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:31:4": {
+      "partTitle": "Matryoshka Representation Learning (MRL) — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:32:0": {
+      "partTitle": "Sparse-Dense Hybrid Scoring — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:32:1": {
+      "partTitle": "Sparse-Dense Hybrid Scoring — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:32:2": {
+      "partTitle": "Sparse-Dense Hybrid Scoring — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:32:3": {
+      "partTitle": "Sparse-Dense Hybrid Scoring — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:32:4": {
+      "partTitle": "Sparse-Dense Hybrid Scoring — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:33:0": {
+      "partTitle": "SPLADE & Learned Sparse Representations — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:33:1": {
+      "partTitle": "SPLADE & Learned Sparse Representations — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:33:2": {
+      "partTitle": "SPLADE & Learned Sparse Representations — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:33:3": {
+      "partTitle": "SPLADE & Learned Sparse Representations — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:33:4": {
+      "partTitle": "SPLADE & Learned Sparse Representations — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:34:0": {
+      "partTitle": "ColBERT Late Interaction — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:34:1": {
+      "partTitle": "ColBERT Late Interaction — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:34:2": {
+      "partTitle": "ColBERT Late Interaction — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:34:3": {
+      "partTitle": "ColBERT Late Interaction — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:34:4": {
+      "partTitle": "ColBERT Late Interaction — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:35:0": {
+      "partTitle": "Milestone 7 — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:35:1": {
+      "partTitle": "Milestone 7 — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:35:2": {
+      "partTitle": "Milestone 7 — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:35:3": {
+      "partTitle": "Milestone 7 — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:35:4": {
+      "partTitle": "Milestone 7 — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:36:0": {
+      "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:36:1": {
+      "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:36:2": {
+      "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:36:3": {
+      "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:36:4": {
+      "partTitle": "IVF (Inverted File Index) Coarse Centroid Training & Multi-Probe nprobe Tradeoffs — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:37:0": {
+      "partTitle": "Product Quantization (PQ) — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:37:1": {
+      "partTitle": "Product Quantization (PQ) — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:37:2": {
+      "partTitle": "Product Quantization (PQ) — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:37:3": {
+      "partTitle": "Product Quantization (PQ) — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:37:4": {
+      "partTitle": "Product Quantization (PQ) — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:38:0": {
+      "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:38:1": {
+      "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:38:2": {
+      "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:38:3": {
+      "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:38:4": {
+      "partTitle": "IVF-PQ Composite Indexes & Residual Vector Quantization Error Reduction — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:39:0": {
+      "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:39:1": {
+      "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:39:2": {
+      "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:39:3": {
+      "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:39:4": {
+      "partTitle": "Scalar Quantization (SQ8/SQ4) & RaBitQ Binary Quantization with Asymmetric Oversampling — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:40:0": {
+      "partTitle": "Milestone 8 — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:40:1": {
+      "partTitle": "Milestone 8 — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:40:2": {
+      "partTitle": "Milestone 8 — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:40:3": {
+      "partTitle": "Milestone 8 — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:40:4": {
+      "partTitle": "Milestone 8 — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:41:0": {
+      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:41:1": {
+      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:41:2": {
+      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:41:3": {
+      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:41:4": {
+      "partTitle": "HNSW Graph Construction: Exponential Layer Assignment & Heuristic Neighbor Pruning — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:42:0": {
+      "partTitle": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:42:1": {
+      "partTitle": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:42:2": {
+      "partTitle": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:42:3": {
+      "partTitle": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:42:4": {
+      "partTitle": "HNSW Search Tuning: efConstruction vs efSearch Recall-Latency Pareto Frontier — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:43:0": {
+      "partTitle": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:43:1": {
+      "partTitle": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:43:2": {
+      "partTitle": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:43:3": {
+      "partTitle": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:43:4": {
+      "partTitle": "DiskANN & Vamana Graphs: SSD Page-Aligned Node Layout & Beam Search — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:44:0": {
+      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:44:1": {
+      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:44:2": {
+      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:44:3": {
+      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:44:4": {
+      "partTitle": "Filtered HNSW: Pre-Filtering vs Post-Filtering vs Single-Stage Predicate Traversal — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:45:0": {
+      "partTitle": "Milestone 9 — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:45:1": {
+      "partTitle": "Milestone 9 — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:45:2": {
+      "partTitle": "Milestone 9 — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:45:3": {
+      "partTitle": "Milestone 9 — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:45:4": {
+      "partTitle": "Milestone 9 — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:46:0": {
+      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:46:1": {
+      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:46:2": {
+      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:46:3": {
+      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:46:4": {
+      "partTitle": "LSM-Vector Segment Architecture: Append-Only MemTables, Tombstone Bitmaps & Compaction — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:47:0": {
+      "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:47:1": {
+      "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:47:2": {
+      "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:47:3": {
+      "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:47:4": {
+      "partTitle": "Write-Ahead Logging (WAL), Crash Recovery & Snapshot Isolation for Vector Upserts — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:48:0": {
+      "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:48:1": {
+      "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:48:2": {
+      "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:48:3": {
+      "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:48:4": {
+      "partTitle": "Consistent Hash Sharding vs Tenant-Key Routing for Multi-Tenant Vector Clusters — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:49:0": {
+      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:49:1": {
+      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:49:2": {
+      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:49:3": {
+      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:49:4": {
+      "partTitle": "Scatter-Gather Query Coordinator: Tail-Latency Cutoffs & Partial Result Merging — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:50:0": {
+      "partTitle": "Milestone 10 — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:50:1": {
+      "partTitle": "Milestone 10 — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:50:2": {
+      "partTitle": "Milestone 10 — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:50:3": {
+      "partTitle": "Milestone 10 — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:50:4": {
+      "partTitle": "Milestone 10 — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:51:0": {
+      "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:51:1": {
+      "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:51:2": {
+      "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:51:3": {
+      "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:51:4": {
+      "partTitle": "Multi-Tenant Namespace Isolation, Row-Level ACLs & Per-Tenant Quota Throttling — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:52:0": {
+      "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:52:1": {
+      "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:52:2": {
+      "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:52:3": {
+      "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:52:4": {
+      "partTitle": "Query Rewriting, Expansion & Cross-Encoder Reranking Cascades — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:53:0": {
+      "partTitle": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:53:1": {
+      "partTitle": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:53:2": {
+      "partTitle": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:53:3": {
+      "partTitle": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:53:4": {
+      "partTitle": "MMR (Maximal Marginal Relevance) Diversity Reranking to Eliminate Redundant Chunks — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:54:0": {
+      "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:54:1": {
+      "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:54:2": {
+      "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:54:3": {
+      "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:54:4": {
+      "partTitle": "Semantic Cache Lookup with Adaptive Similarity Thresholds & Staleness Eviction — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:55:0": {
+      "partTitle": "Milestone 11 — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:55:1": {
+      "partTitle": "Milestone 11 — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:55:2": {
+      "partTitle": "Milestone 11 — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:55:3": {
+      "partTitle": "Milestone 11 — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:55:4": {
+      "partTitle": "Milestone 11 — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:56:0": {
+      "partTitle": "Retrieval Evaluation Suite — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:56:1": {
+      "partTitle": "Retrieval Evaluation Suite — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:56:2": {
+      "partTitle": "Retrieval Evaluation Suite — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:56:3": {
+      "partTitle": "Retrieval Evaluation Suite — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:56:4": {
+      "partTitle": "Retrieval Evaluation Suite — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:57:0": {
+      "partTitle": "Embedding Drift Detection — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:57:1": {
+      "partTitle": "Embedding Drift Detection — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:57:2": {
+      "partTitle": "Embedding Drift Detection — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:57:3": {
+      "partTitle": "Embedding Drift Detection — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:57:4": {
+      "partTitle": "Embedding Drift Detection — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:58:0": {
+      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:58:1": {
+      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:58:2": {
+      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:58:3": {
+      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:58:4": {
+      "partTitle": "Zero-Downtime Dual-Write Index Migrations — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:59:0": {
+      "partTitle": "Capacity Planning — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:59:1": {
+      "partTitle": "Capacity Planning — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:59:2": {
+      "partTitle": "Capacity Planning — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:59:3": {
+      "partTitle": "Capacity Planning — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:59:4": {
+      "partTitle": "Capacity Planning — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "vec-py:60:0": {
+      "partTitle": "Milestone 12 Capstone — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "vec-py:60:1": {
+      "partTitle": "Milestone 12 Capstone — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "vec-py:60:2": {
+      "partTitle": "Milestone 12 Capstone — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "vec-py:60:3": {
+      "partTitle": "Milestone 12 Capstone — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "vec-py:60:4": {
+      "partTitle": "Milestone 12 Capstone — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "safe-py:31:0": {
+      "partTitle": "OWASP LLM Top 10 Threat Matrix — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:31:1": {
+      "partTitle": "OWASP LLM Top 10 Threat Matrix — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:31:2": {
+      "partTitle": "OWASP LLM Top 10 Threat Matrix — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:31:3": {
+      "partTitle": "OWASP LLM Top 10 Threat Matrix — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:31:4": {
+      "partTitle": "OWASP LLM Top 10 Threat Matrix — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:32:0": {
+      "partTitle": "Input Guardrails — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:32:1": {
+      "partTitle": "Input Guardrails — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:32:2": {
+      "partTitle": "Input Guardrails — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:32:3": {
+      "partTitle": "Input Guardrails — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:32:4": {
+      "partTitle": "Input Guardrails — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:33:0": {
+      "partTitle": "Prompt Injection Detection — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:33:1": {
+      "partTitle": "Prompt Injection Detection — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:33:2": {
+      "partTitle": "Prompt Injection Detection — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:33:3": {
+      "partTitle": "Prompt Injection Detection — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:33:4": {
+      "partTitle": "Prompt Injection Detection — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:34:0": {
+      "partTitle": "Instruction Hierarchy — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:34:1": {
+      "partTitle": "Instruction Hierarchy — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:34:2": {
+      "partTitle": "Instruction Hierarchy — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:34:3": {
+      "partTitle": "Instruction Hierarchy — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:34:4": {
+      "partTitle": "Instruction Hierarchy — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:35:0": {
+      "partTitle": "Input Firewall Architecture — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:35:1": {
+      "partTitle": "Input Firewall Architecture — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:35:2": {
+      "partTitle": "Input Firewall Architecture — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:35:3": {
+      "partTitle": "Input Firewall Architecture — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:35:4": {
+      "partTitle": "Input Firewall Architecture — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:36:0": {
+      "partTitle": "PII Detection & Pseudonymization — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:36:1": {
+      "partTitle": "PII Detection & Pseudonymization — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:36:2": {
+      "partTitle": "PII Detection & Pseudonymization — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:36:3": {
+      "partTitle": "PII Detection & Pseudonymization — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:36:4": {
+      "partTitle": "PII Detection & Pseudonymization — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:37:0": {
+      "partTitle": "Output Schema Validation — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:37:1": {
+      "partTitle": "Output Schema Validation — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:37:2": {
+      "partTitle": "Output Schema Validation — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:37:3": {
+      "partTitle": "Output Schema Validation — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:37:4": {
+      "partTitle": "Output Schema Validation — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:38:0": {
+      "partTitle": "Faithfulness & Groundedness — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:38:1": {
+      "partTitle": "Faithfulness & Groundedness — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:38:2": {
+      "partTitle": "Faithfulness & Groundedness — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:38:3": {
+      "partTitle": "Faithfulness & Groundedness — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:38:4": {
+      "partTitle": "Faithfulness & Groundedness — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:39:0": {
+      "partTitle": "Calibrated Refusal — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:39:1": {
+      "partTitle": "Calibrated Refusal — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:39:2": {
+      "partTitle": "Calibrated Refusal — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:39:3": {
+      "partTitle": "Calibrated Refusal — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:39:4": {
+      "partTitle": "Calibrated Refusal — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:40:0": {
+      "partTitle": "Output Safety Pipeline — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:40:1": {
+      "partTitle": "Output Safety Pipeline — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:40:2": {
+      "partTitle": "Output Safety Pipeline — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:40:3": {
+      "partTitle": "Output Safety Pipeline — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:40:4": {
+      "partTitle": "Output Safety Pipeline — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:41:0": {
+      "partTitle": "Classifier Calibration — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:41:1": {
+      "partTitle": "Classifier Calibration — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:41:2": {
+      "partTitle": "Classifier Calibration — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:41:3": {
+      "partTitle": "Classifier Calibration — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:41:4": {
+      "partTitle": "Classifier Calibration — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:42:0": {
+      "partTitle": "Selective Prediction — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:42:1": {
+      "partTitle": "Selective Prediction — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:42:2": {
+      "partTitle": "Selective Prediction — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:42:3": {
+      "partTitle": "Selective Prediction — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:42:4": {
+      "partTitle": "Selective Prediction — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:43:0": {
+      "partTitle": "ECE & Temperature Scaling — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:43:1": {
+      "partTitle": "ECE & Temperature Scaling — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:43:2": {
+      "partTitle": "ECE & Temperature Scaling — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:43:3": {
+      "partTitle": "ECE & Temperature Scaling — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:43:4": {
+      "partTitle": "ECE & Temperature Scaling — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:44:0": {
+      "partTitle": "Safe Tool Sandboxes — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:44:1": {
+      "partTitle": "Safe Tool Sandboxes — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:44:2": {
+      "partTitle": "Safe Tool Sandboxes — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:44:3": {
+      "partTitle": "Safe Tool Sandboxes — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:44:4": {
+      "partTitle": "Safe Tool Sandboxes — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:45:0": {
+      "partTitle": "Uncertainty-Gated Execution — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:45:1": {
+      "partTitle": "Uncertainty-Gated Execution — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:45:2": {
+      "partTitle": "Uncertainty-Gated Execution — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:45:3": {
+      "partTitle": "Uncertainty-Gated Execution — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:45:4": {
+      "partTitle": "Uncertainty-Gated Execution — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:46:0": {
+      "partTitle": "HITL Escalation Workflows — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:46:1": {
+      "partTitle": "HITL Escalation Workflows — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:46:2": {
+      "partTitle": "HITL Escalation Workflows — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:46:3": {
+      "partTitle": "HITL Escalation Workflows — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:46:4": {
+      "partTitle": "HITL Escalation Workflows — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:47:0": {
+      "partTitle": "Adversarial Red-Teaming — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:47:1": {
+      "partTitle": "Adversarial Red-Teaming — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:47:2": {
+      "partTitle": "Adversarial Red-Teaming — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:47:3": {
+      "partTitle": "Adversarial Red-Teaming — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:47:4": {
+      "partTitle": "Adversarial Red-Teaming — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:48:0": {
+      "partTitle": "Safety Regression Gates — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:48:1": {
+      "partTitle": "Safety Regression Gates — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:48:2": {
+      "partTitle": "Safety Regression Gates — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:48:3": {
+      "partTitle": "Safety Regression Gates — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:48:4": {
+      "partTitle": "Safety Regression Gates — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:49:0": {
+      "partTitle": "Algorithmic Fairness — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:49:1": {
+      "partTitle": "Algorithmic Fairness — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:49:2": {
+      "partTitle": "Algorithmic Fairness — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:49:3": {
+      "partTitle": "Algorithmic Fairness — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:49:4": {
+      "partTitle": "Algorithmic Fairness — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:50:0": {
+      "partTitle": "Governance Control Plane — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:50:1": {
+      "partTitle": "Governance Control Plane — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:50:2": {
+      "partTitle": "Governance Control Plane — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:50:3": {
+      "partTitle": "Governance Control Plane — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:50:4": {
+      "partTitle": "Governance Control Plane — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:51:0": {
+      "partTitle": "Immutable Audit Logs — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:51:1": {
+      "partTitle": "Immutable Audit Logs — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:51:2": {
+      "partTitle": "Immutable Audit Logs — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:51:3": {
+      "partTitle": "Immutable Audit Logs — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:51:4": {
+      "partTitle": "Immutable Audit Logs — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:52:0": {
+      "partTitle": "AI Incident Response — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:52:1": {
+      "partTitle": "AI Incident Response — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:52:2": {
+      "partTitle": "AI Incident Response — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:52:3": {
+      "partTitle": "AI Incident Response — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:52:4": {
+      "partTitle": "AI Incident Response — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:53:0": {
+      "partTitle": "Regulatory Frameworks — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:53:1": {
+      "partTitle": "Regulatory Frameworks — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:53:2": {
+      "partTitle": "Regulatory Frameworks — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:53:3": {
+      "partTitle": "Regulatory Frameworks — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:53:4": {
+      "partTitle": "Regulatory Frameworks — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:54:0": {
+      "partTitle": "Data Hygiene — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:54:1": {
+      "partTitle": "Data Hygiene — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:54:2": {
+      "partTitle": "Data Hygiene — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:54:3": {
+      "partTitle": "Data Hygiene — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:54:4": {
+      "partTitle": "Data Hygiene — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:55:0": {
+      "partTitle": "Regulatory Ledger — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:55:1": {
+      "partTitle": "Regulatory Ledger — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:55:2": {
+      "partTitle": "Regulatory Ledger — Production Implementation & Boundary Mechanics",
+      "status": "passed"
+    },
+    "safe-py:55:3": {
+      "partTitle": "Regulatory Ledger — Failure Modes, Hardware Bottlenecks & Debugging",
+      "status": "passed"
+    },
+    "safe-py:55:4": {
+      "partTitle": "Regulatory Ledger — Production Capstone & Enterprise SRE Integration",
+      "status": "passed"
+    },
+    "safe-py:56:0": {
+      "partTitle": "Statistical LLM Watermarking — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:56:1": {
+      "partTitle": "Statistical LLM Watermarking — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:56:2": {
+      "partTitle": "Statistical LLM Watermarking — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "safe-py:56:3": {
+      "partTitle": "Statistical LLM Watermarking — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "safe-py:56:4": {
+      "partTitle": "Statistical LLM Watermarking — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "safe-py:57:0": {
+      "partTitle": "Reward Hacking & Goodhart's Law — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:57:1": {
+      "partTitle": "Reward Hacking & Goodhart's Law — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:57:2": {
+      "partTitle": "Reward Hacking & Goodhart's Law — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "safe-py:57:3": {
+      "partTitle": "Reward Hacking & Goodhart's Law — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "safe-py:57:4": {
+      "partTitle": "Reward Hacking & Goodhart's Law — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "safe-py:58:0": {
+      "partTitle": "Constitutional AI (CAI) — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:58:1": {
+      "partTitle": "Constitutional AI (CAI) — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:58:2": {
+      "partTitle": "Constitutional AI (CAI) — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "safe-py:58:3": {
+      "partTitle": "Constitutional AI (CAI) — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "safe-py:58:4": {
+      "partTitle": "Constitutional AI (CAI) — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "safe-py:59:0": {
+      "partTitle": "Production Safety Drift Monitoring — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:59:1": {
+      "partTitle": "Production Safety Drift Monitoring — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:59:2": {
+      "partTitle": "Production Safety Drift Monitoring — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "safe-py:59:3": {
+      "partTitle": "Production Safety Drift Monitoring — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "safe-py:59:4": {
+      "partTitle": "Production Safety Drift Monitoring — Production Telemetry & Verification Audit",
+      "status": "passed"
+    },
+    "safe-py:60:0": {
+      "partTitle": "Milestone 12 Capstone — Foundations & Mathematical Invariants",
+      "status": "passed"
+    },
+    "safe-py:60:1": {
+      "partTitle": "Milestone 12 Capstone — Core Algorithm & State Representation",
+      "status": "passed"
+    },
+    "safe-py:60:2": {
+      "partTitle": "Milestone 12 Capstone — Throughput Optimization & Edge-Case Handling",
+      "status": "passed"
+    },
+    "safe-py:60:3": {
+      "partTitle": "Milestone 12 Capstone — Resilience Guardrails & Failure Recovery",
+      "status": "passed"
+    },
+    "safe-py:60:4": {
+      "partTitle": "Milestone 12 Capstone — Production Telemetry & Verification Audit",
       "status": "passed"
     }
   },

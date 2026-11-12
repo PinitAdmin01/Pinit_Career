@@ -2,141 +2,112 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 3,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "k-nearest neighbours",
       "codeHash": "0b064adde6582f6cd6006f50c31c4b8cfbbb3d795c4185f8890cae074f3838a8",
       "spec": {
-        "template": "table",
-        "title": "Flat search baseline computing pairwise candidate similarity",
-        "columns": [
-          "vecs",
-          "q",
-          "scored"
-        ],
+        "template": "cells",
+        "title": "k-nearest neighbours",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Flat search exhaustively compares query vectors against all candidates.",
-            "rows": [
+            "at": "say1",
+            "caption": "The k-nearest-neighbour (k-NN) problem asks.",
+            "items": {
+              "var": "q",
+              "line": 8,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "vecs"
-                  },
-                  {
-                    "text": "q"
-                  },
-                  {
-                    "text": "scored"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "vecs"
-                  },
-                  {
-                    "text": "q"
-                  },
-                  {
-                    "text": "scored"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Exact search always finds the true answer serving as our evaluation baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "The exact solution computes the similarity to every stored vector.",
+            "items": {
+              "var": "q",
+              "line": 9,
+              "hit": 12
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "vecs"
-                  },
-                  {
-                    "text": "q"
-                  },
-                  {
-                    "text": "scored"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "It is also the easiest method to explain to colleagues, which matters when.",
+            "items": {
+              "var": "q",
+              "line": 10,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "vecs"
-                  },
-                  {
-                    "text": "q"
-                  },
-                  {
-                    "text": "vecs"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Flat search baseline computing pairwise candidate similarity",
-        "columns": [
-          "vecs",
-          "q",
-          "scored"
-        ],
+        "template": "cells",
+        "title": "k-nearest neighbours",
         "steps": [
           {
-            "at": "say3",
-            "caption": "Flat search exhaustively compares query vectors against all candidates.",
-            "rows": [
+            "at": "say1",
+            "caption": "The k-nearest-neighbour (k-NN) problem asks.",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "vecs",
-                  "q",
-                  "scored"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "vecs",
-                  "q",
-                  "scored"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Exact search always finds the true answer serving as our evaluation baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "The exact solution computes the similarity to every stored vector.",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "vecs",
-                  "q",
-                  "scored"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "It is also the easiest method to explain to colleagues, which matters when.",
+            "items": [
+              "1",
+              "0"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "vecs",
-                  "q",
-                  "vecs"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 1,
+                "tone": "data"
               }
             ]
           }
@@ -147,135 +118,277 @@
       "partTitle": "Normalise once, dot many times",
       "codeHash": "12399805b39e367677e4e039c9c5c986cff38ac42f9a4ec5fe9be38d8d157263",
       "spec": {
-        "template": "table",
-        "title": "Pre-normalized dot product search accelerating query throughput",
-        "columns": [
-          "units",
-          "q",
-          "dots"
+        "template": "flow",
+        "title": "Normalise once, dot many times",
+        "nodes": [
+          {
+            "id": "raw",
+            "label": "raw"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Pre-normalising stored vectors ensures each unit length equals unity.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "units"
-                  },
-                  {
-                    "text": "q"
-                  },
-                  {
-                    "text": "dots"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Cosine similarity needs two lengths for every comparison.",
+            "values": {
+              "raw": {
+                "var": "raw",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "units"
-                  },
-                  {
-                    "text": "q"
-                  },
-                  {
-                    "text": "dots"
-                  }
-                ],
-                "tone": "data"
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 1
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 1
+              },
+              "v": {
+                "var": "v",
+                "line": 4,
+                "hit": 4
               }
+            },
+            "tones": {
+              "raw": "data",
+              ".0": "data",
+              "x": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "raw",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
+              ],
+              [
+                "x",
+                "v"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Normalising the query once means a plain dot product yields cosine similarity.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "units"
-                  },
-                  {
-                    "text": "q"
-                  },
-                  {
-                    "text": "dots"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "If every stored vector is normalised to unit length when inserted,.",
+            "values": {
+              "raw": {
+                "var": "raw",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "units"
-                  },
-                  {
-                    "text": "q"
-                  },
-                  {
-                    "text": "units"
-                  }
-                ],
-                "tone": "ok"
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 2
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 2
+              },
+              "v": {
+                "var": "v",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "raw": "data",
+              ".0": "data",
+              "x": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "raw",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
+              ],
+              [
+                "x",
+                "v"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "This small optimisation is the first of many that make vector search fast.",
+            "values": {
+              "raw": {
+                "var": "raw",
+                "line": 8,
+                "hit": 2
+              },
+              ".0": {
+                "var": ".0",
+                "line": 4,
+                "hit": 3
+              },
+              "x": {
+                "var": "x",
+                "line": 4,
+                "hit": 3
+              },
+              "v": {
+                "var": "v",
+                "line": 5,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "raw": "ok",
+              ".0": "ok",
+              "x": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "raw",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
+              ],
+              [
+                "x",
+                "v"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Pre-normalized dot product search accelerating query throughput",
-        "columns": [
-          "units",
-          "q",
-          "dots"
+        "template": "flow",
+        "title": "Normalise once, dot many times",
+        "nodes": [
+          {
+            "id": "raw",
+            "label": "raw"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "x",
+            "label": "x"
+          },
+          {
+            "id": "v",
+            "label": "v"
+          }
         ],
         "steps": [
           {
-            "at": "say2",
-            "caption": "Pre-normalising stored vectors ensures each unit length equals unity.",
-            "rows": [
-              {
-                "cells": [
-                  "units",
-                  "q",
-                  "dots"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "units",
-                  "q",
-                  "dots"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Cosine similarity needs two lengths for every comparison.",
+            "values": {
+              "raw": "[[3, 4], [0, 2], [1, 1], [5, 0]]",
+              ".0": "{'__other__': 'list_iterator'}",
+              "x": "3",
+              "v": "[3, 4]"
+            },
+            "tones": {
+              "raw": "data",
+              ".0": "data",
+              "x": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "raw",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
+              ],
+              [
+                "x",
+                "v"
+              ]
             ]
           },
           {
-            "at": "say3",
-            "caption": "Normalising the query once means a plain dot product yields cosine similarity.",
-            "rows": [
-              {
-                "cells": [
-                  "units",
-                  "q",
-                  "dots"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "units",
-                  "q",
-                  "units"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "If every stored vector is normalised to unit length when inserted,.",
+            "values": {
+              "raw": "[[3, 4], [0, 2], [1, 1], [5, 0]]",
+              ".0": "{'__other__': 'list_iterator'}",
+              "x": "4",
+              "v": "[3, 4]"
+            },
+            "tones": {
+              "raw": "data",
+              ".0": "data",
+              "x": "data",
+              "v": "data"
+            },
+            "arrows": [
+              [
+                "raw",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
+              ],
+              [
+                "x",
+                "v"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "This small optimisation is the first of many that make vector search fast.",
+            "values": {
+              "raw": "[[3, 4], [0, 2], [1, 1], [5, 0]]",
+              ".0": "{'__other__': 'list_iterator'}",
+              "x": "4",
+              "v": "[3, 4]"
+            },
+            "tones": {
+              "raw": "ok",
+              ".0": "ok",
+              "x": "ok",
+              "v": "ok"
+            },
+            "arrows": [
+              [
+                "raw",
+                ".0"
+              ],
+              [
+                ".0",
+                "x"
+              ],
+              [
+                "x",
+                "v"
+              ]
             ]
           }
         ]
@@ -285,78 +398,77 @@
       "partTitle": "Matrix form",
       "codeHash": "dafa1ce947c41c9262a41812452e55a30c0d8bba7793e6fdd3b7ba65a52c9be0",
       "spec": {
-        "template": "table",
-        "title": "Batch matrix multiplication expressing multi-query search",
-        "columns": [
-          "matrix",
-          "queries",
-          "scores"
-        ],
+        "template": "bars",
+        "title": "Matrix form",
         "steps": [
           {
             "at": "say1",
-            "caption": "Vector search expresses scoring as matrix-vector multiplication over rows.",
-            "rows": [
+            "caption": "Searching many stored vectors is a matrix-vector multiplication.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "matrix"
-                  },
-                  {
-                    "text": "queries"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "ok"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "matrix"
-                  },
-                  {
-                    "text": "queries"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Batched queries formulate search as matrix-matrix multiplication.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each row's result is one dot product, one similarity score.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "matrix"
-                  },
-                  {
-                    "text": "queries"
-                  },
-                  {
-                    "text": "scores"
-                  }
-                ],
-                "tone": "data"
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "matrix"
-                  },
-                  {
-                    "text": "queries"
-                  },
-                  {
-                    "text": "matrix"
-                  }
-                ],
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Those libraries also use special CPU instructions that process many.",
+            "bars": [
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": {
+                  "var": "b",
+                  "line": 4,
+                  "hit": 3
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +476,53 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Batch matrix multiplication expressing multi-query search",
-        "columns": [
-          "matrix",
-          "queries",
-          "scores"
-        ],
+        "template": "bars",
+        "title": "Matrix form",
         "steps": [
           {
             "at": "say1",
-            "caption": "Vector search expresses scoring as matrix-vector multiplication over rows.",
-            "rows": [
+            "caption": "Searching many stored vectors is a matrix-vector multiplication.",
+            "bars": [
               {
-                "cells": [
-                  "matrix",
-                  "queries",
-                  "scores"
-                ],
-                "tone": "ok"
+                "label": "a",
+                "value": 0.6,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "matrix",
-                  "queries",
-                  "scores"
-                ],
+                "label": "b",
+                "value": 0.894,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say4",
-            "caption": "Batched queries formulate search as matrix-matrix multiplication.",
-            "rows": [
+            "at": "say2",
+            "caption": "Each row's result is one dot product, one similarity score.",
+            "bars": [
               {
-                "cells": [
-                  "matrix",
-                  "queries",
-                  "scores"
-                ],
-                "tone": "data"
+                "label": "a",
+                "value": 0.8,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "matrix",
-                  "queries",
-                  "matrix"
-                ],
+                "label": "b",
+                "value": 0.447,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Those libraries also use special CPU instructions that process many.",
+            "bars": [
+              {
+                "label": "a",
+                "value": 0.8,
+                "tone": "ok"
+              },
+              {
+                "label": "b",
+                "value": 0.447,
                 "tone": "ok"
               }
             ]
@@ -423,78 +534,131 @@
       "partTitle": "Why exact search stops scaling",
       "codeHash": "be7290f9390d5470dad2ea5b0b83d076b861511a5f600f7de97d39ecae1c5af5",
       "spec": {
-        "template": "table",
-        "title": "Brute-force linear scaling limits motivating approximate indexing",
-        "columns": [
-          "ops_per_sec",
-          "ms",
-          "gb"
-        ],
+        "template": "bars",
+        "title": "Why exact search stops scaling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Exact search costs multiplications proportional to collection dimensions.",
-            "rows": [
+            "caption": "Exact search costs n d multiplications per query for n vectors of d dimensions.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "ops_per_sec"
-                  },
-                  {
-                    "text": "ms"
-                  },
-                  {
-                    "text": "gb"
-                  }
-                ],
-                "tone": "ok"
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "ops_per_sec"
-                  },
-                  {
-                    "text": "ms"
-                  },
-                  {
-                    "text": "gb"
-                  }
-                ],
+                "label": "ops_per_sec",
+                "value": {
+                  "var": "ops_per_sec",
+                  "line": 1,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 3,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Approximate nearest neighbour indexes trade small accuracy for speed.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how million updates vectors during execution.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "ops_per_sec"
-                  },
-                  {
-                    "text": "ms"
-                  },
-                  {
-                    "text": "gb"
-                  }
-                ],
-                "tone": "data"
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "ops_per_sec"
-                  },
-                  {
-                    "text": "ms"
-                  },
-                  {
-                    "text": "ops_per_sec"
-                  }
-                ],
+                "label": "ops_per_sec",
+                "value": {
+                  "var": "ops_per_sec",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A quick benchmark with a realistic number of vectors answers the question.",
+            "bars": [
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ops_per_sec",
+                "value": {
+                  "var": "ops_per_sec",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": {
+                  "var": "ms",
+                  "line": 5,
+                  "hit": 1
+                },
                 "tone": "ok"
               }
             ]
@@ -502,54 +666,83 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Brute-force linear scaling limits motivating approximate indexing",
-        "columns": [
-          "ops_per_sec",
-          "ms",
-          "gb"
-        ],
+        "template": "bars",
+        "title": "Why exact search stops scaling",
         "steps": [
           {
             "at": "say1",
-            "caption": "Exact search costs multiplications proportional to collection dimensions.",
-            "rows": [
+            "caption": "Exact search costs n d multiplications per query for n vectors of d dimensions.",
+            "bars": [
               {
-                "cells": [
-                  "ops_per_sec",
-                  "ms",
-                  "gb"
-                ],
-                "tone": "ok"
+                "label": "d",
+                "value": 768,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "ops_per_sec",
-                  "ms",
-                  "gb"
-                ],
+                "label": "ops_per_sec",
+                "value": 50000000000,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 10000,
+                "tone": "data"
+              },
+              {
+                "label": "ms",
+                "value": 0.1536,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say6",
-            "caption": "Approximate nearest neighbour indexes trade small accuracy for speed.",
-            "rows": [
+            "at": "say2",
+            "caption": "Trace how million updates vectors during execution.",
+            "bars": [
               {
-                "cells": [
-                  "ops_per_sec",
-                  "ms",
-                  "gb"
-                ],
-                "tone": "data"
+                "label": "d",
+                "value": 768,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "ops_per_sec",
-                  "ms",
-                  "ops_per_sec"
-                ],
+                "label": "ops_per_sec",
+                "value": 50000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 10000,
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": 0.1536,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "A quick benchmark with a realistic number of vectors answers the question.",
+            "bars": [
+              {
+                "label": "d",
+                "value": 768,
+                "tone": "ok"
+              },
+              {
+                "label": "ops_per_sec",
+                "value": 50000000000,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 10000,
+                "tone": "ok"
+              },
+              {
+                "label": "ms",
+                "value": 0.1536,
                 "tone": "ok"
               }
             ]
@@ -561,223 +754,217 @@
       "partTitle": "A tiny search service",
       "codeHash": "b4f18ce120bbd4751088091577a80bac2c0fe34456991fb9c5d9a536fc8ae55e",
       "spec": {
-        "template": "flow",
-        "title": "A tiny search service — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A tiny search service",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "A tiny search service",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for A tiny search service [Dthree.Pfive.Sone].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in A tiny search service [Dthree.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Putting the pieces together gives a complete, if simple, search service.",
+            "bars": [
+              {
+                "label": "dims",
+                "value": {
+                  "var": "dims",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 7,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 7,
+                  "hit": 34
+                },
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 12,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Embed the text, normalise the vector and store it with an id.",
+            "bars": [
+              {
+                "label": "dims",
+                "value": {
+                  "var": "dims",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 7,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 12,
+                  "hit": 2
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for A tiny search service.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Every extra component adds settings to tune and new ways to fail, so.",
+            "bars": [
+              {
+                "label": "dims",
+                "value": {
+                  "var": "dims",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 7,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": {
+                  "var": "n",
+                  "line": 8,
+                  "hit": 2
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": {
+                  "var": "a",
+                  "line": 12,
+                  "hit": 3
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "A tiny search service — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. A tiny search service",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "A tiny search service",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for A tiny search service [D3.P5.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in A tiny search service [D3.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "Putting the pieces together gives a complete, if simple, search service.",
+            "bars": [
+              {
+                "label": "dims",
+                "value": 32,
+                "tone": "data"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "n",
+                "value": 2,
+                "tone": "data"
+              },
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Embed the text, normalise the vector and store it with an id.",
+            "bars": [
+              {
+                "label": "dims",
+                "value": 32,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for A tiny search service [D3.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Every extra component adds settings to tune and new ways to fail, so.",
+            "bars": [
+              {
+                "label": "dims",
+                "value": 32,
+                "tone": "ok"
+              },
+              {
+                "label": "x",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "n",
+                "value": 2,
+                "tone": "ok"
+              },
+              {
+                "label": "a",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -788,110 +975,93 @@
       "codeHash": "c9a5d7856336b10306cbf0024a42d9b533f65f182ada9a12784edc2cf87bff96",
       "spec": {
         "template": "flow",
-        "title": "Practice time: exact search — Execution Pipeline",
+        "title": "Practice time: exact search",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "d",
+            "label": "d"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: exac...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "n",
+            "label": "n"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: exact search [Dthree.Psix.Sone].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: exac... [Dthree.Psix.Stwo].",
+            "caption": "Knn(query, vectors, k).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "d": {
+                "var": "d",
+                "line": 1,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 2,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "d": "data",
+              "n": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "d",
+                "n"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants.",
+            "at": "say2",
+            "caption": "The checks include two queries, k larger than the collection and an empty.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "d": {
+                "var": "d",
+                "line": 2,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 3,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "d": "data",
+              "n": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "d",
+                "n"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: exact search.",
+            "at": "say10",
+            "caption": "If your ties come out in the wrong order, sort by (score, index), not.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "d": {
+                "var": "d",
+                "line": 3,
+                "hit": 1
+              },
+              "n": {
+                "var": "n",
+                "line": 2,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "d": "ok",
+              "n": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "d",
+                "n"
               ]
             ]
           }
@@ -899,110 +1069,69 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: exact search — Execution Pipeline",
+        "title": "Practice time: exact search",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "d",
+            "label": "d"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: exac...",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "n",
+            "label": "n"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: exact search [D3.P6.S1].",
-            "values": {
-              "in": "Day 3 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: exac... [D3.P6.S2].",
+            "caption": "Knn(query, vectors, k).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "d": "64",
+              "n": "1000"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "d": "data",
+              "n": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "d",
+                "n"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D3.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include two queries, k larger than the collection and an empty.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "d": "64",
+              "n": "1000"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "d": "data",
+              "n": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "d",
+                "n"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: exact search [D3.P6.S4].",
+            "at": "say10",
+            "caption": "If your ties come out in the wrong order, sort by (score, index), not.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "d": "64",
+              "n": "100000"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "d": "ok",
+              "n": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
+                "d",
+                "n"
               ]
             ]
           }

@@ -2,142 +2,228 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 10,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "What hallucination is",
       "codeHash": "476f2a7af403ca655ebeb1e1c05414a8e40dc9cd4b1a24ab93befae0d75309d2",
       "spec": {
-        "template": "table",
-        "title": "Groundedness verification against authoritative source chunks",
-        "columns": [
-          "source",
-          "answer",
-          "source"
+        "template": "flow",
+        "title": "What hallucination is",
+        "nodes": [
+          {
+            "id": "source",
+            "label": "source"
+          },
+          {
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "sentence",
+            "label": "sentence"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A hallucination is a statement from a model that is not supported by sources.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "source"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A hallucination is a confident statement from a model that is false or not.",
+            "values": {
+              "source": {
+                "var": "source",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "source"
-                  }
-                ],
-                "tone": "data"
+              "answer": {
+                "var": "answer",
+                "line": 2,
+                "hit": 2
+              },
+              "sentence": {
+                "var": "sentence",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "source": "data",
+              "answer": "data",
+              "sentence": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "answer"
+              ],
+              [
+                "answer",
+                "sentence"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Groundedness requires every claim in the answer to be supported by sources.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "source"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Models generate the most likely next words, and likely-sounding words are.",
+            "values": {
+              "source": {
+                "var": "source",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "source"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "source"
-                  }
-                ],
-                "tone": "ok"
+              "answer": {
+                "var": "answer",
+                "line": 4,
+                "hit": 1
+              },
+              "sentence": {
+                "var": "sentence",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "source": "data",
+              "answer": "data",
+              "sentence": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "answer"
+              ],
+              [
+                "answer",
+                "sentence"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today's checks use simple word overlap.",
+            "values": {
+              "source": {
+                "var": "source",
+                "line": 3,
+                "hit": 1
+              },
+              "answer": {
+                "var": "answer",
+                "line": 5,
+                "hit": 1
+              },
+              "sentence": {
+                "var": "sentence",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "source": "ok",
+              "answer": "ok",
+              "sentence": "ok"
+            },
+            "arrows": [
+              [
+                "source",
+                "answer"
+              ],
+              [
+                "answer",
+                "sentence"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Groundedness verification against authoritative source chunks",
-        "columns": [
-          "source",
-          "answer",
-          "source"
+        "template": "flow",
+        "title": "What hallucination is",
+        "nodes": [
+          {
+            "id": "source",
+            "label": "source"
+          },
+          {
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "sentence",
+            "label": "sentence"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A hallucination is a statement from a model that is not supported by sources.",
-            "rows": [
-              {
-                "cells": [
-                  "source",
-                  "answer",
-                  "source"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "source",
-                  "answer",
-                  "source"
-                ],
-                "tone": "data"
-              }
+            "caption": "A hallucination is a confident statement from a model that is false or not.",
+            "values": {
+              "source": "'Refunds are available within 30 days o…",
+              "answer": "['Refunds are available within 30 days …",
+              "sentence": "'Refunds are available within 30 days w…"
+            },
+            "tones": {
+              "source": "data",
+              "answer": "data",
+              "sentence": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "answer"
+              ],
+              [
+                "answer",
+                "sentence"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Groundedness requires every claim in the answer to be supported by sources.",
-            "rows": [
-              {
-                "cells": [
-                  "source",
-                  "answer",
-                  "source"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "source",
-                  "answer",
-                  "source"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Models generate the most likely next words, and likely-sounding words are.",
+            "values": {
+              "source": "'Refunds are available within 30 days o…",
+              "answer": "['Refunds are available within 30 days …",
+              "sentence": "'Refunds are available within 30 days w…"
+            },
+            "tones": {
+              "source": "data",
+              "answer": "data",
+              "sentence": "data"
+            },
+            "arrows": [
+              [
+                "source",
+                "answer"
+              ],
+              [
+                "answer",
+                "sentence"
+              ]
+            ]
+          },
+          {
+            "at": "say10",
+            "caption": "Today's checks use simple word overlap.",
+            "values": {
+              "source": "'Refunds are available within 30 days o…",
+              "answer": "['Refunds are available within 30 days …",
+              "sentence": "'Refunds are given for 90 days without …"
+            },
+            "tones": {
+              "source": "ok",
+              "answer": "ok",
+              "sentence": "ok"
+            },
+            "arrows": [
+              [
+                "source",
+                "answer"
+              ],
+              [
+                "answer",
+                "sentence"
+              ]
             ]
           }
         ]
@@ -147,136 +233,106 @@
       "partTitle": "Content words",
       "codeHash": "b34dcf11eb29023261e28a9d220599d84ac311cf20ac1de508fc1139424c698e",
       "spec": {
-        "template": "table",
-        "title": "Content token extraction and stop-word filtering heuristic",
-        "columns": [
-          "sentence",
-          "tokens",
-          "content"
+        "template": "states",
+        "title": "Content words",
+        "states": [
+          {
+            "id": "sentence",
+            "label": "sentence"
+          },
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "content",
+            "label": "content"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "To compare a sentence with a source algorithms isolate informative words.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "content"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "content"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "To compare a sentence with a source we need the words that carry meaning.",
+            "currentState": "sentence",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "A simple rule keeps words longer than three characters as content words.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "content"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sentence"
-                  },
-                  {
-                    "text": "tokens"
-                  },
-                  {
-                    "text": "content"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Short words like \"the\", \"is\", \"and\" and \"of\" appear everywhere, so they.",
+            "currentState": "tokens",
+            "transition": {
+              "from": "sentence",
+              "to": "tokens",
+              "label": {
+                "var": "tokens",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The practice uses the simple rule so results are exact and testable.",
+            "currentState": "content",
+            "transition": {
+              "from": "tokens",
+              "to": "content",
+              "label": {
+                "var": "content",
+                "line": 7,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Content token extraction and stop-word filtering heuristic",
-        "columns": [
-          "sentence",
-          "tokens",
-          "content"
+        "template": "states",
+        "title": "Content words",
+        "states": [
+          {
+            "id": "sentence",
+            "label": "sentence"
+          },
+          {
+            "id": "tokens",
+            "label": "tokens"
+          },
+          {
+            "id": "content",
+            "label": "content"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "To compare a sentence with a source algorithms isolate informative words.",
-            "rows": [
-              {
-                "cells": [
-                  "sentence",
-                  "tokens",
-                  "content"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sentence",
-                  "tokens",
-                  "content"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "To compare a sentence with a source we need the words that carry meaning.",
+            "currentState": "sentence",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "A simple rule keeps words longer than three characters as content words.",
-            "rows": [
-              {
-                "cells": [
-                  "sentence",
-                  "tokens",
-                  "content"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sentence",
-                  "tokens",
-                  "content"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Short words like \"the\", \"is\", \"and\" and \"of\" appear everywhere, so they.",
+            "currentState": "tokens",
+            "transition": {
+              "from": "sentence",
+              "to": "tokens",
+              "label": "['refunds', 'are', 'available', 'within…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The practice uses the simple rule so results are exact and testable.",
+            "currentState": "content",
+            "transition": {
+              "from": "tokens",
+              "to": "content",
+              "label": "['refunds', 'available', 'within', 'day…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -285,136 +341,106 @@
       "partTitle": "Scoring support",
       "codeHash": "e49e1acf87dea2aa2f401195aa5297749b5a45e67f8da30078cf26acf81d99a7",
       "spec": {
-        "template": "table",
-        "title": "Sentence-level support threshold scoring and overlap ratios",
-        "columns": [
-          "sources",
-          "best",
-          "sources"
+        "template": "states",
+        "title": "Scoring support",
+        "states": [
+          {
+            "id": "sources",
+            "label": "sources"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A sentence is supported if half its content words appear in one single source.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "best"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "best"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A sentence is supported if at least half of its content words appear.",
+            "currentState": "sources",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Requiring support from one single source avoids stitching unverified claims.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "best"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "best"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Requiring one source matters.",
+            "currentState": "s",
+            "transition": {
+              "from": "sources",
+              "to": "s",
+              "label": {
+                "var": "s",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Some products highlight unsupported sentences in the interface so users.",
+            "currentState": "text",
+            "transition": {
+              "from": "s",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 4,
+                "hit": 3
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Sentence-level support threshold scoring and overlap ratios",
-        "columns": [
-          "sources",
-          "best",
-          "sources"
+        "template": "states",
+        "title": "Scoring support",
+        "states": [
+          {
+            "id": "sources",
+            "label": "sources"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A sentence is supported if half its content words appear in one single source.",
-            "rows": [
-              {
-                "cells": [
-                  "sources",
-                  "best",
-                  "sources"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sources",
-                  "best",
-                  "sources"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A sentence is supported if at least half of its content words appear.",
+            "currentState": "sources",
+            "tone": "data"
           },
           {
             "at": "say2",
-            "caption": "Requiring support from one single source avoids stitching unverified claims.",
-            "rows": [
-              {
-                "cells": [
-                  "sources",
-                  "best",
-                  "sources"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sources",
-                  "best",
-                  "sources"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "caption": "Requiring one source matters.",
+            "currentState": "s",
+            "transition": {
+              "from": "sources",
+              "to": "s",
+              "label": "'Refunds are available within 30 days w…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Some products highlight unsupported sentences in the interface so users.",
+            "currentState": "text",
+            "transition": {
+              "from": "s",
+              "to": "text",
+              "label": "'Refunds are available within 30 days w…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -423,136 +449,106 @@
       "partTitle": "Numbers are where it hurts",
       "codeHash": "ef433c1e461da702014a1d07f2e1d128ac4cdd759d5f5a011127fe81e8eb94cb",
       "spec": {
-        "template": "table",
-        "title": "Unsupported numerical factoid validation and discrepancy flagging",
-        "columns": [
-          "sources",
-          "answer",
-          "sources"
+        "template": "states",
+        "title": "Numbers are where it hurts",
+        "states": [
+          {
+            "id": "NUM",
+            "label": "NUM"
+          },
+          {
+            "id": "sources",
+            "label": "sources"
+          },
+          {
+            "id": "answer",
+            "label": "answer"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The most damaging hallucinations often involve small numerical discrepancies.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "The most damaging hallucinations are often small changes to numbers.",
+            "currentState": "NUM",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "A focused safety check compares numbers directly between answer and source.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "sources"
-                  },
-                  {
-                    "text": "answer"
-                  },
-                  {
-                    "text": "sources"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Word overlap barely notices this, because only one token changed.",
+            "currentState": "sources",
+            "transition": {
+              "from": "NUM",
+              "to": "sources",
+              "label": {
+                "var": "sources",
+                "line": 5,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "For medical doses and prices, a flagged number might block the answer entirely.",
+            "currentState": "answer",
+            "transition": {
+              "from": "sources",
+              "to": "answer",
+              "label": {
+                "var": "answer",
+                "line": 6,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Unsupported numerical factoid validation and discrepancy flagging",
-        "columns": [
-          "sources",
-          "answer",
-          "sources"
+        "template": "states",
+        "title": "Numbers are where it hurts",
+        "states": [
+          {
+            "id": "NUM",
+            "label": "NUM"
+          },
+          {
+            "id": "sources",
+            "label": "sources"
+          },
+          {
+            "id": "answer",
+            "label": "answer"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "The most damaging hallucinations often involve small numerical discrepancies.",
-            "rows": [
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "sources"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "sources"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "The most damaging hallucinations are often small changes to numbers.",
+            "currentState": "NUM",
+            "tone": "data"
           },
           {
-            "at": "say3",
-            "caption": "A focused safety check compares numbers directly between answer and source.",
-            "rows": [
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "sources"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "sources",
-                  "answer",
-                  "sources"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Word overlap barely notices this, because only one token changed.",
+            "currentState": "sources",
+            "transition": {
+              "from": "NUM",
+              "to": "sources",
+              "label": "['The dose is 2.5 mg twice a day for 7 …"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "For medical doses and prices, a flagged number might block the answer entirely.",
+            "currentState": "answer",
+            "transition": {
+              "from": "sources",
+              "to": "answer",
+              "label": "'Take 25 mg twice a day for 7 days.'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -561,224 +557,106 @@
       "partTitle": "Stronger groundedness checks",
       "codeHash": "6b1b3b1543de4cd46d2a9475ff7971d8ba14163efcf01efb46da2fb81b76cefc",
       "spec": {
-        "template": "flow",
-        "title": "Stronger groundedness checks — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Stronger groundedness checks",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "proc",
-            "label": "2. Stronger groundedne...",
-            "tappable": true
+            "id": "t",
+            "label": "t"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "source",
+            "label": "source"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Stronger groundedness checks [Dten.Pfive.Sone].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Stronger groundedne... [Dten.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Word overlap is fast and transparent, but it can be fooled.",
+            "currentState": "text",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "A sentence can reuse the source's words and still reverse its meaning,.",
+            "currentState": "t",
+            "transition": {
+              "from": "text",
+              "to": "t",
+              "label": {
+                "var": "t",
+                "line": 4,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Stronger groundedness checks.",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow checks another kind of grounding.",
+            "currentState": "source",
+            "transition": {
+              "from": "t",
+              "to": "source",
+              "label": {
+                "var": "source",
+                "line": 8,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Stronger groundedness checks — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Stronger groundedness checks",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "text",
+            "label": "text"
           },
           {
-            "id": "proc",
-            "label": "2. Stronger groundedne...",
-            "tappable": true
+            "id": "t",
+            "label": "t"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "source",
+            "label": "source"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Stronger groundedness checks [D10.P5.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Stronger groundedne... [D10.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "Word overlap is fast and transparent, but it can be fooled.",
+            "currentState": "text",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "A sentence can reuse the source's words and still reverse its meaning,.",
+            "currentState": "t",
+            "transition": {
+              "from": "text",
+              "to": "t",
+              "label": "'are'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Stronger groundedness checks [D10.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Tomorrow checks another kind of grounding.",
+            "currentState": "source",
+            "transition": {
+              "from": "t",
+              "to": "source",
+              "label": "{'available', 'days', 'purchase', 'refu…"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }
@@ -788,110 +666,161 @@
       "codeHash": "0e37ce42811e60f48424d36b507e567f47e1130571df46c95a6d8028ba05fa6e",
       "spec": {
         "template": "flow",
-        "title": "Groundedness in the pipeline — Execution Pipeline",
+        "title": "Groundedness in the pipeline",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "NUM",
+            "label": "NUM"
           },
           {
-            "id": "proc",
-            "label": "2. Groundedness in the...",
-            "tappable": true
+            "id": "sources",
+            "label": "sources"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "t",
+            "label": "t"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Groundedness in the pipeline [Dten.Psix.Sone].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Groundedness in the... [Dten.Psix.Stwo].",
+            "caption": "In a RAG pipeline, groundedness checks run after the answer is generated.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "NUM": {
+                "var": "NUM",
+                "line": 3,
+                "hit": 1
+              },
+              "sources": {
+                "var": "sources",
+                "line": 7,
+                "hit": 1
+              },
+              "answer": {
+                "var": "answer",
+                "line": 8,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "NUM": "data",
+              "sources": "data",
+              "answer": "data",
+              "t": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "NUM",
+                "sources"
               ],
               [
-                "proc",
-                "out"
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "t"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Dten.Psix.object-storage].",
+            "at": "say2",
+            "caption": "If the score is below a threshold or any number is unsupported, add.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "NUM": {
+                "var": "NUM",
+                "line": 4,
+                "hit": 1
+              },
+              "sources": {
+                "var": "sources",
+                "line": 8,
+                "hit": 1
+              },
+              "answer": {
+                "var": "answer",
+                "line": 9,
+                "hit": 5
+              },
+              "t": {
+                "var": "t",
+                "line": 5,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "NUM": "data",
+              "sources": "data",
+              "answer": "data",
+              "t": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "NUM",
+                "sources"
+              ],
+              [
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "t"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Groundedness in the pipeline.",
+            "at": "say10",
+            "caption": "Add groundedness and unsupported_numbers to your pipeline today.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "NUM": {
+                "var": "NUM",
+                "line": 7,
+                "hit": 1
+              },
+              "sources": {
+                "var": "sources",
+                "line": 9,
+                "hit": 5
+              },
+              "answer": {
+                "var": "answer",
+                "line": 10,
+                "hit": 1
+              },
+              "t": {
+                "var": "t",
+                "line": 5,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "NUM": "ok",
+              "sources": "ok",
+              "answer": "ok",
+              "t": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "NUM",
+                "sources"
               ],
               [
-                "proc",
-                "out"
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "t"
               ]
             ]
           }
@@ -899,110 +828,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Groundedness in the pipeline — Execution Pipeline",
+        "title": "Groundedness in the pipeline",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "NUM",
+            "label": "NUM"
           },
           {
-            "id": "proc",
-            "label": "2. Groundedness in the...",
-            "tappable": true
+            "id": "sources",
+            "label": "sources"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "answer",
+            "label": "answer"
+          },
+          {
+            "id": "t",
+            "label": "t"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Groundedness in the pipeline [D10.P6.S1].",
-            "values": {
-              "in": "Day 10 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Groundedness in the... [D10.P6.S2].",
+            "caption": "In a RAG pipeline, groundedness checks run after the answer is generated.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "NUM": "'\\d+(?:\\.\\d+)?'",
+              "sources": "['Refunds are available within 30 days …",
+              "answer": "['Refunds are available within 60 days …",
+              "t": "'Refunds are available within 60 days w…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "NUM": "data",
+              "sources": "data",
+              "answer": "data",
+              "t": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "NUM",
+                "sources"
               ],
               [
-                "proc",
-                "out"
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "t"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D10.P6.S3].",
+            "at": "say2",
+            "caption": "If the score is below a threshold or any number is unsupported, add.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "NUM": "'\\d+(?:\\.\\d+)?'",
+              "sources": "['Refunds are available within 30 days …",
+              "answer": "['Refunds are available within 60 days …",
+              "t": "'Refunds are available within 60 days w…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "NUM": "data",
+              "sources": "data",
+              "answer": "data",
+              "t": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "NUM",
+                "sources"
+              ],
+              [
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "t"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Groundedness in the pipeline [D10.P6.S4].",
+            "at": "say10",
+            "caption": "Add groundedness and unsupported_numbers to your pipeline today.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "NUM": "'\\d+(?:\\.\\d+)?'",
+              "sources": "['Refunds are available within 30 days …",
+              "answer": "['Refunds are available within 60 days …",
+              "t": "'Refunds are available within 60 days w…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "NUM": "ok",
+              "sources": "ok",
+              "answer": "ok",
+              "t": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "NUM",
+                "sources"
               ],
               [
-                "proc",
-                "out"
+                "sources",
+                "answer"
+              ],
+              [
+                "answer",
+                "t"
               ]
             ]
           }

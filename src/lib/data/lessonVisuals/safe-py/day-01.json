@@ -2,143 +2,113 @@
   "schemaVersion": 1,
   "prefix": "safe-py",
   "day": 1,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Safety is an engineering job",
       "codeHash": "79e8192c376c011c77374ea82fa06a88a67957d670bc0e6e6a75e55bd76df223",
       "spec": {
-        "template": "table",
-        "title": "Defense in depth guardrail layers across production pipelines",
-        "columns": [
-          "layers",
-          "layers",
-          "layers"
+        "template": "states",
+        "title": "Safety is an engineering job",
+        "states": [
+          {
+            "id": "layers",
+            "label": "layers"
+          },
+          {
+            "id": "number",
+            "label": "number"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Safety engineers find failures before users do and build controls to stop them.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "layers"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "layers"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "When people hear \"AI safety\" they often think of science fiction, but most.",
+            "currentState": "layers",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "No single control is perfect so production systems stack defences in depth.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "layers"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "layers"
-                  },
-                  {
-                    "text": "layers"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "A chatbot that gives dangerous medical advice, leaks a customer's address.",
+            "currentState": "number",
+            "transition": {
+              "from": "layers",
+              "to": "number",
+              "label": {
+                "var": "number",
+                "line": 9,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how will updates join during execution.",
+            "currentState": "name",
+            "transition": {
+              "from": "number",
+              "to": "name",
+              "label": {
+                "var": "name",
+                "line": 8,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Defense in depth guardrail layers across production pipelines",
-        "columns": [
-          "layers",
-          "layers",
-          "layers"
+        "template": "states",
+        "title": "Safety is an engineering job",
+        "states": [
+          {
+            "id": "layers",
+            "label": "layers"
+          },
+          {
+            "id": "number",
+            "label": "number"
+          },
+          {
+            "id": "name",
+            "label": "name"
+          }
         ],
         "steps": [
           {
-            "at": "say4",
-            "caption": "Safety engineers find failures before users do and build controls to stop them.",
-            "rows": [
-              {
-                "cells": [
-                  "layers",
-                  "layers",
-                  "layers"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "layers",
-                  "layers",
-                  "layers"
-                ],
-                "tone": "data"
-              }
-            ]
+            "at": "say1",
+            "caption": "When people hear \"AI safety\" they often think of science fiction, but most.",
+            "currentState": "layers",
+            "tone": "data"
           },
           {
-            "at": "say6",
-            "caption": "No single control is perfect so production systems stack defences in depth.",
-            "rows": [
-              {
-                "cells": [
-                  "layers",
-                  "layers",
-                  "layers"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "layers",
-                  "layers",
-                  "layers"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "A chatbot that gives dangerous medical advice, leaks a customer's address.",
+            "currentState": "number",
+            "transition": {
+              "from": "layers",
+              "to": "number",
+              "label": "1"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Trace how will updates join during execution.",
+            "currentState": "name",
+            "transition": {
+              "from": "number",
+              "to": "name",
+              "label": "'the model'"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -147,136 +117,106 @@
       "partTitle": "Kinds of harm",
       "codeHash": "f32ad6c8c20f52ecf597aba7733fd9cc533637875514158d6165f7ff34fcaa9d",
       "spec": {
-        "template": "table",
-        "title": "Taxonomies of harm and empirical failure categorization",
-        "columns": [
-          "reports",
-          "counts",
-          "reports"
+        "template": "states",
+        "title": "Kinds of harm",
+        "states": [
+          {
+            "id": "reports",
+            "label": "reports"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Teams need names for specific harms to reduce risk across deployments.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "reports"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "reports"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "reports"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "reports"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Before you can reduce risk you need names for the harms you are worried about.",
+            "currentState": "reports",
+            "tone": "data"
           },
           {
-            "at": "say9",
-            "caption": "Grouping failures shows where a product is weakest to prioritize safety effort.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "reports"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "reports"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "reports"
-                  },
-                  {
-                    "text": "counts"
-                  },
-                  {
-                    "text": "reports"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Harmful content covers answers that help someone hurt themselves.",
+            "currentState": "counts",
+            "transition": {
+              "from": "reports",
+              "to": "counts",
+              "label": {
+                "var": "counts",
+                "line": 10,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Later days build a detector or a measurement for every one of these harm types.",
+            "currentState": "text",
+            "transition": {
+              "from": "counts",
+              "to": "text",
+              "label": {
+                "var": "text",
+                "line": 10,
+                "hit": 2
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Taxonomies of harm and empirical failure categorization",
-        "columns": [
-          "reports",
-          "counts",
-          "reports"
+        "template": "states",
+        "title": "Kinds of harm",
+        "states": [
+          {
+            "id": "reports",
+            "label": "reports"
+          },
+          {
+            "id": "counts",
+            "label": "counts"
+          },
+          {
+            "id": "text",
+            "label": "text"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Teams need names for specific harms to reduce risk across deployments.",
-            "rows": [
-              {
-                "cells": [
-                  "reports",
-                  "counts",
-                  "reports"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "reports",
-                  "counts",
-                  "reports"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Before you can reduce risk you need names for the harms you are worried about.",
+            "currentState": "reports",
+            "tone": "data"
           },
           {
-            "at": "say9",
-            "caption": "Grouping failures shows where a product is weakest to prioritize safety effort.",
-            "rows": [
-              {
-                "cells": [
-                  "reports",
-                  "counts",
-                  "reports"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "reports",
-                  "counts",
-                  "reports"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Harmful content covers answers that help someone hurt themselves.",
+            "currentState": "counts",
+            "transition": {
+              "from": "reports",
+              "to": "counts",
+              "label": "{}"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "Later days build a detector or a measurement for every one of these harm types.",
+            "currentState": "text",
+            "transition": {
+              "from": "counts",
+              "to": "text",
+              "label": "\"bot printed another customer's email a…"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -285,136 +225,106 @@
       "partTitle": "Likelihood times impact",
       "codeHash": "ba90e75a97feae19d7e7c2090dcfd03529296a36a1ee093496a971a188352a86",
       "spec": {
-        "template": "table",
-        "title": "Likelihood times impact severity matrix scoring",
-        "columns": [
-          "likelihood",
-          "impact",
-          "likelihood"
+        "template": "states",
+        "title": "Likelihood times impact",
+        "states": [
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "likelihood",
+            "label": "likelihood"
+          },
+          {
+            "id": "impact",
+            "label": "impact"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Not every risk deserves identical attention so engineering teams score them.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "likelihood"
-                  },
-                  {
-                    "text": "impact"
-                  },
-                  {
-                    "text": "likelihood"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "likelihood"
-                  },
-                  {
-                    "text": "impact"
-                  },
-                  {
-                    "text": "likelihood"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Not every risk deserves the same attention, so teams score them.",
+            "currentState": "name",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Overall risk score equals likelihood multiplied by potential impact severity.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "likelihood"
-                  },
-                  {
-                    "text": "impact"
-                  },
-                  {
-                    "text": "likelihood"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "likelihood"
-                  },
-                  {
-                    "text": "impact"
-                  },
-                  {
-                    "text": "likelihood"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "Trace how likelihood updates says during execution.",
+            "currentState": "likelihood",
+            "transition": {
+              "from": "name",
+              "to": "likelihood",
+              "label": {
+                "var": "likelihood",
+                "line": 11,
+                "hit": 1
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The numbers are judgement calls, so the real value is the discussion they.",
+            "currentState": "impact",
+            "transition": {
+              "from": "likelihood",
+              "to": "impact",
+              "label": {
+                "var": "impact",
+                "line": 12,
+                "hit": 1
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Likelihood times impact severity matrix scoring",
-        "columns": [
-          "likelihood",
-          "impact",
-          "likelihood"
+        "template": "states",
+        "title": "Likelihood times impact",
+        "states": [
+          {
+            "id": "name",
+            "label": "name"
+          },
+          {
+            "id": "likelihood",
+            "label": "likelihood"
+          },
+          {
+            "id": "impact",
+            "label": "impact"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Not every risk deserves identical attention so engineering teams score them.",
-            "rows": [
-              {
-                "cells": [
-                  "likelihood",
-                  "impact",
-                  "likelihood"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "likelihood",
-                  "impact",
-                  "likelihood"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "Not every risk deserves the same attention, so teams score them.",
+            "currentState": "name",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Overall risk score equals likelihood multiplied by potential impact severity.",
-            "rows": [
-              {
-                "cells": [
-                  "likelihood",
-                  "impact",
-                  "likelihood"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "likelihood",
-                  "impact",
-                  "likelihood"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "Trace how likelihood updates says during execution.",
+            "currentState": "likelihood",
+            "transition": {
+              "from": "name",
+              "to": "likelihood",
+              "label": "4"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "The numbers are judgement calls, so the real value is the discussion they.",
+            "currentState": "impact",
+            "transition": {
+              "from": "likelihood",
+              "to": "impact",
+              "label": "3"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -423,136 +333,106 @@
       "partTitle": "The risk register",
       "codeHash": "d52cb0f3660cc4712e2e6e7405caf29ad19506142ca0fb2d876524a82d3abd38",
       "spec": {
-        "template": "table",
-        "title": "Risk register tracking and tie-breaker sorting",
-        "columns": [
-          "register",
-          "rows",
-          "register"
+        "template": "states",
+        "title": "The risk register",
+        "states": [
+          {
+            "id": "register",
+            "label": "register"
+          },
+          {
+            "id": "rows",
+            "label": "rows"
+          },
+          {
+            "id": "row",
+            "label": "row"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A risk register maintains a shared list of known risks with scored controls.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "register"
-                  },
-                  {
-                    "text": "rows"
-                  },
-                  {
-                    "text": "register"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "register"
-                  },
-                  {
-                    "text": "rows"
-                  },
-                  {
-                    "text": "register"
-                  }
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A risk register is a shared list of every known risk, with its score, its.",
+            "currentState": "register",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Sorting the register by score tells the team what priorities to address first.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "register"
-                  },
-                  {
-                    "text": "rows"
-                  },
-                  {
-                    "text": "register"
-                  }
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "register"
-                  },
-                  {
-                    "text": "rows"
-                  },
-                  {
-                    "text": "register"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say2",
+            "caption": "It lives in a spreadsheet, a ticket system or a database, and it.",
+            "currentState": "rows",
+            "transition": {
+              "from": "register",
+              "to": "rows",
+              "label": {
+                "var": "rows",
+                "line": 7,
+                "hit": 4
               }
-            ]
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "In Python, isinstance(value, int) tells you whether a value is a whole number.",
+            "currentState": "row",
+            "transition": {
+              "from": "rows",
+              "to": "row",
+              "label": {
+                "var": "row",
+                "line": 7,
+                "hit": 3
+              }
+            },
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Risk register tracking and tie-breaker sorting",
-        "columns": [
-          "register",
-          "rows",
-          "register"
+        "template": "states",
+        "title": "The risk register",
+        "states": [
+          {
+            "id": "register",
+            "label": "register"
+          },
+          {
+            "id": "rows",
+            "label": "rows"
+          },
+          {
+            "id": "row",
+            "label": "row"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "A risk register maintains a shared list of known risks with scored controls.",
-            "rows": [
-              {
-                "cells": [
-                  "register",
-                  "rows",
-                  "register"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "register",
-                  "rows",
-                  "register"
-                ],
-                "tone": "data"
-              }
-            ]
+            "caption": "A risk register is a shared list of every known risk, with its score, its.",
+            "currentState": "register",
+            "tone": "data"
           },
           {
-            "at": "say4",
-            "caption": "Sorting the register by score tells the team what priorities to address first.",
-            "rows": [
-              {
-                "cells": [
-                  "register",
-                  "rows",
-                  "register"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "register",
-                  "rows",
-                  "register"
-                ],
-                "tone": "ok"
-              }
-            ]
+            "at": "say2",
+            "caption": "It lives in a spreadsheet, a ticket system or a database, and it.",
+            "currentState": "rows",
+            "transition": {
+              "from": "register",
+              "to": "rows",
+              "label": "[['data leak', 12], ['toxic replies', 1…"
+            },
+            "tone": "data"
+          },
+          {
+            "at": "say10",
+            "caption": "In Python, isinstance(value, int) tells you whether a value is a whole number.",
+            "currentState": "row",
+            "transition": {
+              "from": "rows",
+              "to": "row",
+              "label": "['data leak', 12]"
+            },
+            "tone": "ok"
           }
         ]
       }
@@ -562,110 +442,161 @@
       "codeHash": "aa57e86d64668481e125b33a3d073a882254ff1b7ca0048ba9c904da21467d26",
       "spec": {
         "template": "flow",
-        "title": "Controls and residual risk — Execution Pipeline",
+        "title": "Controls and residual risk",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "score",
+            "label": "score"
           },
           {
-            "id": "proc",
-            "label": "2. Controls and residu...",
-            "tappable": true
+            "id": "effects",
+            "label": "effects"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "remaining",
+            "label": "remaining"
+          },
+          {
+            "id": "e",
+            "label": "e"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Controls and residual risk [Done.Pfive.Sone].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Controls and residu... [Done.Pfive.Stwo].",
+            "caption": "Once a risk is listed, the team adds controls to reduce it.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "score": {
+                "var": "score",
+                "line": 1,
+                "hit": 1
+              },
+              "effects": {
+                "var": "effects",
+                "line": 2,
+                "hit": 1
+              },
+              "remaining": {
+                "var": "remaining",
+                "line": 3,
+                "hit": 1
+              },
+              "e": {
+                "var": "e",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "score": "data",
+              "effects": "data",
+              "remaining": "data",
+              "e": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "score",
+                "effects"
               ],
               [
-                "proc",
-                "out"
+                "effects",
+                "remaining"
+              ],
+              [
+                "remaining",
+                "e"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Each control removes some fraction of the risk.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "score": {
+                "var": "score",
+                "line": 2,
+                "hit": 1
+              },
+              "effects": {
+                "var": "effects",
+                "line": 3,
+                "hit": 1
+              },
+              "remaining": {
+                "var": "remaining",
+                "line": 4,
+                "hit": 1
+              },
+              "e": {
+                "var": "e",
+                "line": 6,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "score": "data",
+              "effects": "data",
+              "remaining": "data",
+              "e": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "score",
+                "effects"
+              ],
+              [
+                "effects",
+                "remaining"
+              ],
+              [
+                "remaining",
+                "e"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Controls and residual risk.",
+            "at": "say10",
+            "caption": "Residual risk is never zero, which is why monitoring and incident response.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "score": {
+                "var": "score",
+                "line": 3,
+                "hit": 1
+              },
+              "effects": {
+                "var": "effects",
+                "line": 4,
+                "hit": 1
+              },
+              "remaining": {
+                "var": "remaining",
+                "line": 5,
+                "hit": 1
+              },
+              "e": {
+                "var": "e",
+                "line": 7,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "score": "ok",
+              "effects": "ok",
+              "remaining": "ok",
+              "e": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "score",
+                "effects"
               ],
               [
-                "proc",
-                "out"
+                "effects",
+                "remaining"
+              ],
+              [
+                "remaining",
+                "e"
               ]
             ]
           }
@@ -673,110 +604,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Controls and residual risk — Execution Pipeline",
+        "title": "Controls and residual risk",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "score",
+            "label": "score"
           },
           {
-            "id": "proc",
-            "label": "2. Controls and residu...",
-            "tappable": true
+            "id": "effects",
+            "label": "effects"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "remaining",
+            "label": "remaining"
+          },
+          {
+            "id": "e",
+            "label": "e"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Controls and residual risk [D1.P5.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Controls and residu... [D1.P5.S2].",
+            "caption": "Once a risk is listed, the team adds controls to reduce it.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "score": "20",
+              "effects": "[0.6, 0.5, 0.3]",
+              "remaining": "20",
+              "e": "0.6"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "score": "data",
+              "effects": "data",
+              "remaining": "data",
+              "e": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "score",
+                "effects"
               ],
               [
-                "proc",
-                "out"
+                "effects",
+                "remaining"
+              ],
+              [
+                "remaining",
+                "e"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P5.S3].",
+            "at": "say2",
+            "caption": "Each control removes some fraction of the risk.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "score": "20",
+              "effects": "[0.6, 0.5, 0.3]",
+              "remaining": "20",
+              "e": "0.6"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "score": "data",
+              "effects": "data",
+              "remaining": "data",
+              "e": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "score",
+                "effects"
+              ],
+              [
+                "effects",
+                "remaining"
+              ],
+              [
+                "remaining",
+                "e"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Controls and residual risk [D1.P5.S4].",
+            "at": "say10",
+            "caption": "Residual risk is never zero, which is why monitoring and incident response.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "score": "20",
+              "effects": "[0.6, 0.5, 0.3]",
+              "remaining": "20",
+              "e": "0.6"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "score": "ok",
+              "effects": "ok",
+              "remaining": "ok",
+              "e": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "score",
+                "effects"
               ],
               [
-                "proc",
-                "out"
+                "effects",
+                "remaining"
+              ],
+              [
+                "remaining",
+                "e"
               ]
             ]
           }
@@ -787,224 +721,106 @@
       "partTitle": "Where this course goes",
       "codeHash": "d7958af7dc0a820331310d4e3d0797487b3a1712ca9572c612aa06eea51cb774",
       "spec": {
-        "template": "flow",
-        "title": "Where this course goes — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Where this course goes",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "plan",
+            "label": "plan"
           },
           {
-            "id": "proc",
-            "label": "2. Where this course goes",
-            "tappable": true
+            "id": "days",
+            "label": "days"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "topic",
+            "label": "topic"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Where this course goes [Done.Psix.Sone].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Where this course goes [Done.Psix.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "The course follows the path a message takes through a production AI system.",
+            "currentState": "plan",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [Done.Psix.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Validation, prompt injection, untrusted documents, schemas and payment data.",
+            "currentState": "days",
+            "transition": {
+              "from": "plan",
+              "to": "days",
+              "label": {
+                "var": "days",
+                "line": 10,
+                "hit": 1
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Where this course goes [Done.Psix.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Keep today's risk register.",
+            "currentState": "topic",
+            "transition": {
+              "from": "days",
+              "to": "topic",
+              "label": {
+                "var": "topic",
+                "line": 9,
+                "hit": 2
+              }
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Where this course goes — Execution Pipeline",
-        "nodes": [
+        "template": "states",
+        "title": "Where this course goes",
+        "states": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "plan",
+            "label": "plan"
           },
           {
-            "id": "proc",
-            "label": "2. Where this course goes",
-            "tappable": true
+            "id": "days",
+            "label": "days"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "topic",
+            "label": "topic"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Where this course goes [D1.P6.S1].",
-            "values": {
-              "in": "Day 1 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Where this course goes [D1.P6.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "caption": "The course follows the path a message takes through a production AI system.",
+            "currentState": "plan",
+            "tone": "data"
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D1.P6.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+            "at": "say2",
+            "caption": "Validation, prompt injection, untrusted documents, schemas and payment data.",
+            "currentState": "days",
+            "transition": {
+              "from": "plan",
+              "to": "days",
+              "label": "'Days 1-7'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "data"
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Where this course goes [D1.P6.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+            "at": "say10",
+            "caption": "Keep today's risk register.",
+            "currentState": "topic",
+            "transition": {
+              "from": "days",
+              "to": "topic",
+              "label": "'measuring answers'"
             },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
-            ]
+            "tone": "ok"
           }
         ]
       }

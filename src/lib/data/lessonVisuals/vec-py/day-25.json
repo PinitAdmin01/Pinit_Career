@@ -2,142 +2,284 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 25,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Keeping indexes fresh",
       "codeHash": "02b50f90e4bdfea7d399269f69ee37608c0b85a2b679226c30da83275c56328d",
       "spec": {
-        "template": "table",
-        "title": "Document modification timestamp tracking and staleness",
-        "columns": [
-          "docs",
-          "updated",
-          "indexed"
+        "template": "flow",
+        "title": "Keeping indexes fresh",
+        "nodes": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "doc",
+            "label": "doc"
+          },
+          {
+            "id": "updated",
+            "label": "updated"
+          },
+          {
+            "id": "indexed",
+            "label": "indexed"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "A document is stale when updated after its last indexed timestamp.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "updated"
-                  },
-                  {
-                    "text": "indexed"
-                  }
-                ],
-                "tone": "ok"
+            "at": "say1",
+            "caption": "Documents are added, edited and deleted all the time in the source systems.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "updated"
-                  },
-                  {
-                    "text": "indexed"
-                  }
-                ],
-                "tone": "data"
+              "doc": {
+                "var": "doc",
+                "line": 3,
+                "hit": 1
+              },
+              "updated": {
+                "var": "updated",
+                "line": 3,
+                "hit": 1
+              },
+              "indexed": {
+                "var": "indexed",
+                "line": 3,
+                "hit": 1
               }
+            },
+            "tones": {
+              "docs": "data",
+              "doc": "data",
+              "updated": "data",
+              "indexed": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "doc"
+              ],
+              [
+                "doc",
+                "updated"
+              ],
+              [
+                "updated",
+                "indexed"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Incremental indexing processes only changed documents to maintain freshness.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "updated"
-                  },
-                  {
-                    "text": "indexed"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "The index must follow.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 3,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "docs"
-                  },
-                  {
-                    "text": "updated"
-                  },
-                  {
-                    "text": "updated"
-                  }
-                ],
-                "tone": "ok"
+              "doc": {
+                "var": "doc",
+                "line": 4,
+                "hit": 1
+              },
+              "updated": {
+                "var": "updated",
+                "line": 4,
+                "hit": 1
+              },
+              "indexed": {
+                "var": "indexed",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "docs": "data",
+              "doc": "data",
+              "updated": "data",
+              "indexed": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "doc"
+              ],
+              [
+                "doc",
+                "updated"
+              ],
+              [
+                "updated",
+                "indexed"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Users notice stale answers quickly, so freshness problems damage trust.",
+            "values": {
+              "docs": {
+                "var": "docs",
+                "line": 4,
+                "hit": 1
+              },
+              "doc": {
+                "var": "doc",
+                "line": 5,
+                "hit": 1
+              },
+              "updated": {
+                "var": "updated",
+                "line": 5,
+                "hit": 1
+              },
+              "indexed": {
+                "var": "indexed",
+                "line": 5,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "docs": "ok",
+              "doc": "ok",
+              "updated": "ok",
+              "indexed": "ok"
+            },
+            "arrows": [
+              [
+                "docs",
+                "doc"
+              ],
+              [
+                "doc",
+                "updated"
+              ],
+              [
+                "updated",
+                "indexed"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Document modification timestamp tracking and staleness",
-        "columns": [
-          "docs",
-          "updated",
-          "indexed"
+        "template": "flow",
+        "title": "Keeping indexes fresh",
+        "nodes": [
+          {
+            "id": "docs",
+            "label": "docs"
+          },
+          {
+            "id": "doc",
+            "label": "doc"
+          },
+          {
+            "id": "updated",
+            "label": "updated"
+          },
+          {
+            "id": "indexed",
+            "label": "indexed"
+          }
         ],
         "steps": [
           {
-            "at": "say3",
-            "caption": "A document is stale when updated after its last indexed timestamp.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "updated",
-                  "indexed"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "docs",
-                  "updated",
-                  "indexed"
-                ],
-                "tone": "data"
-              }
+            "at": "say1",
+            "caption": "Documents are added, edited and deleted all the time in the source systems.",
+            "values": {
+              "docs": "[['p1', '2026-09-01', '2026-09-02'], ['…",
+              "doc": "'p1'",
+              "updated": "'2026-09-01'",
+              "indexed": "'2026-09-02'"
+            },
+            "tones": {
+              "docs": "data",
+              "doc": "data",
+              "updated": "data",
+              "indexed": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "doc"
+              ],
+              [
+                "doc",
+                "updated"
+              ],
+              [
+                "updated",
+                "indexed"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Incremental indexing processes only changed documents to maintain freshness.",
-            "rows": [
-              {
-                "cells": [
-                  "docs",
-                  "updated",
-                  "indexed"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "docs",
-                  "updated",
-                  "updated"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "The index must follow.",
+            "values": {
+              "docs": "[['p1', '2026-09-01', '2026-09-02'], ['…",
+              "doc": "'p1'",
+              "updated": "'2026-09-01'",
+              "indexed": "'2026-09-02'"
+            },
+            "tones": {
+              "docs": "data",
+              "doc": "data",
+              "updated": "data",
+              "indexed": "data"
+            },
+            "arrows": [
+              [
+                "docs",
+                "doc"
+              ],
+              [
+                "doc",
+                "updated"
+              ],
+              [
+                "updated",
+                "indexed"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Users notice stale answers quickly, so freshness problems damage trust.",
+            "values": {
+              "docs": "[['p1', '2026-09-01', '2026-09-02'], ['…",
+              "doc": "'p1'",
+              "updated": "'2026-09-01'",
+              "indexed": "'2026-09-02'"
+            },
+            "tones": {
+              "docs": "ok",
+              "doc": "ok",
+              "updated": "ok",
+              "indexed": "ok"
+            },
+            "arrows": [
+              [
+                "docs",
+                "doc"
+              ],
+              [
+                "doc",
+                "updated"
+              ],
+              [
+                "updated",
+                "indexed"
+              ]
             ]
           }
         ]
@@ -147,134 +289,108 @@
       "partTitle": "Why models do not mix",
       "codeHash": "a4d41f7afd59dab52bda2945293e2c41908330e05628bd6c4500255929f9dea1",
       "spec": {
-        "template": "table",
-        "title": "Model space incompatibility and vector divergence",
-        "columns": [
-          "model_a",
-          "model_b",
-          "model_a"
-        ],
+        "template": "cells",
+        "title": "Why models do not mix",
         "steps": [
           {
             "at": "say1",
-            "caption": "Each embedding model defines distinct spaces with incompatible vectors.",
-            "rows": [
+            "caption": "Each embedding model defines its own space.",
+            "items": {
+              "var": "a",
+              "line": 3,
+              "hit": 14
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "model_a"
-                  },
-                  {
-                    "text": "model_b"
-                  },
-                  {
-                    "text": "model_a"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "model_a"
-                  },
-                  {
-                    "text": "model_b"
-                  },
-                  {
-                    "text": "model_a"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Queries must always use the exact same embedding model as the index.",
-            "rows": [
+            "at": "say2",
+            "caption": "Even models with the same number of dimensions are incompatible, because.",
+            "items": {
+              "var": "a",
+              "line": 3,
+              "hit": 27
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "model_a"
-                  },
-                  {
-                    "text": "model_b"
-                  },
-                  {
-                    "text": "model_a"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "A simple safeguard is to refuse any query whose model name differs.",
+            "items": {
+              "var": "a",
+              "line": 3,
+              "hit": 40
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "model_a"
-                  },
-                  {
-                    "text": "model_b"
-                  },
-                  {
-                    "text": "model_b"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Model space incompatibility and vector divergence",
-        "columns": [
-          "model_a",
-          "model_b",
-          "model_a"
-        ],
+        "template": "cells",
+        "title": "Why models do not mix",
         "steps": [
           {
             "at": "say1",
-            "caption": "Each embedding model defines distinct spaces with incompatible vectors.",
-            "rows": [
+            "caption": "Each embedding model defines its own space.",
+            "items": [
+              "0.9",
+              "0.1",
+              "0.2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "model_a",
-                  "model_b",
-                  "model_a"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "model_a",
-                  "model_b",
-                  "model_a"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say8",
-            "caption": "Queries must always use the exact same embedding model as the index.",
-            "rows": [
+            "at": "say2",
+            "caption": "Even models with the same number of dimensions are incompatible, because.",
+            "items": [
+              "0.1",
+              "0.7",
+              "0.7"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "model_a",
-                  "model_b",
-                  "model_a"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say12",
+            "caption": "A simple safeguard is to refuse any query whose model name differs.",
+            "items": [
+              "0.9",
+              "0.1",
+              "0.2"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "model_a",
-                  "model_b",
-                  "model_b"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -285,135 +401,277 @@
       "partTitle": "Blue-green index migration",
       "codeHash": "bb51383453cb95e23790612641c33c09c67ab3e060abdfe198468505e60fa400",
       "spec": {
-        "template": "table",
-        "title": "Zero-downtime blue-green index transition states",
-        "columns": [
-          "states",
-          "state",
-          "serving"
+        "template": "flow",
+        "title": "Blue-green index migration",
+        "nodes": [
+          {
+            "id": "states",
+            "label": "states"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          },
+          {
+            "id": "state",
+            "label": "state"
+          },
+          {
+            "id": "serving",
+            "label": "serving"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Blue-green migration builds the target index alongside active traffic.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "states"
-                  },
-                  {
-                    "text": "state"
-                  },
-                  {
-                    "text": "serving"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "A blue-green migration builds the new index (green) alongside the current.",
+            "values": {
+              "states": {
+                "var": "states",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "states"
-                  },
-                  {
-                    "text": "state"
-                  },
-                  {
-                    "text": "serving"
-                  }
-                ],
-                "tone": "data"
+              "step": {
+                "var": "step",
+                "line": 4,
+                "hit": 1
+              },
+              "state": {
+                "var": "state",
+                "line": 4,
+                "hit": 1
+              },
+              "serving": {
+                "var": "serving",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "states": "data",
+              "step": "data",
+              "state": "data",
+              "serving": "data"
+            },
+            "arrows": [
+              [
+                "states",
+                "step"
+              ],
+              [
+                "step",
+                "state"
+              ],
+              [
+                "state",
+                "serving"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Once evaluated and ready, queries switch instantly with rollback safety.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "states"
-                  },
-                  {
-                    "text": "state"
-                  },
-                  {
-                    "text": "serving"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Search keeps using blue while green is built with the new model.",
+            "values": {
+              "states": {
+                "var": "states",
+                "line": 4,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "states"
-                  },
-                  {
-                    "text": "state"
-                  },
-                  {
-                    "text": "state"
-                  }
-                ],
-                "tone": "ok"
+              "step": {
+                "var": "step",
+                "line": 5,
+                "hit": 1
+              },
+              "state": {
+                "var": "state",
+                "line": 5,
+                "hit": 1
+              },
+              "serving": {
+                "var": "serving",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "states": "data",
+              "step": "data",
+              "state": "data",
+              "serving": "data"
+            },
+            "arrows": [
+              [
+                "states",
+                "step"
+              ],
+              [
+                "step",
+                "state"
+              ],
+              [
+                "state",
+                "serving"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Practising the switch and the rollback on a small test index first removes.",
+            "values": {
+              "states": {
+                "var": "states",
+                "line": 5,
+                "hit": 1
+              },
+              "step": {
+                "var": "step",
+                "line": 4,
+                "hit": 2
+              },
+              "state": {
+                "var": "state",
+                "line": 4,
+                "hit": 2
+              },
+              "serving": {
+                "var": "serving",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "states": "ok",
+              "step": "ok",
+              "state": "ok",
+              "serving": "ok"
+            },
+            "arrows": [
+              [
+                "states",
+                "step"
+              ],
+              [
+                "step",
+                "state"
+              ],
+              [
+                "state",
+                "serving"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Zero-downtime blue-green index transition states",
-        "columns": [
-          "states",
-          "state",
-          "serving"
+        "template": "flow",
+        "title": "Blue-green index migration",
+        "nodes": [
+          {
+            "id": "states",
+            "label": "states"
+          },
+          {
+            "id": "step",
+            "label": "step"
+          },
+          {
+            "id": "state",
+            "label": "state"
+          },
+          {
+            "id": "serving",
+            "label": "serving"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Blue-green migration builds the target index alongside active traffic.",
-            "rows": [
-              {
-                "cells": [
-                  "states",
-                  "state",
-                  "serving"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "states",
-                  "state",
-                  "serving"
-                ],
-                "tone": "data"
-              }
+            "caption": "A blue-green migration builds the new index (green) alongside the current.",
+            "values": {
+              "states": "[['blue ready, green building', 'blue']…",
+              "step": "1",
+              "state": "'blue ready, green building'",
+              "serving": "'blue'"
+            },
+            "tones": {
+              "states": "data",
+              "step": "data",
+              "state": "data",
+              "serving": "data"
+            },
+            "arrows": [
+              [
+                "states",
+                "step"
+              ],
+              [
+                "step",
+                "state"
+              ],
+              [
+                "state",
+                "serving"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Once evaluated and ready, queries switch instantly with rollback safety.",
-            "rows": [
-              {
-                "cells": [
-                  "states",
-                  "state",
-                  "serving"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "states",
-                  "state",
-                  "state"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Search keeps using blue while green is built with the new model.",
+            "values": {
+              "states": "[['blue ready, green building', 'blue']…",
+              "step": "1",
+              "state": "'blue ready, green building'",
+              "serving": "'blue'"
+            },
+            "tones": {
+              "states": "data",
+              "step": "data",
+              "state": "data",
+              "serving": "data"
+            },
+            "arrows": [
+              [
+                "states",
+                "step"
+              ],
+              [
+                "step",
+                "state"
+              ],
+              [
+                "state",
+                "serving"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Practising the switch and the rollback on a small test index first removes.",
+            "values": {
+              "states": "[['blue ready, green building', 'blue']…",
+              "step": "2",
+              "state": "'dual writes to both'",
+              "serving": "'blue'"
+            },
+            "tones": {
+              "states": "ok",
+              "step": "ok",
+              "state": "ok",
+              "serving": "ok"
+            },
+            "arrows": [
+              [
+                "states",
+                "step"
+              ],
+              [
+                "step",
+                "state"
+              ],
+              [
+                "state",
+                "serving"
+              ]
             ]
           }
         ]
@@ -423,135 +681,277 @@
       "partTitle": "Migration costs",
       "codeHash": "b23f611dd5b724681effa6e5e1145c72892f28a64ff9428d87786fc2abed0dec",
       "spec": {
-        "template": "table",
-        "title": "Re-embedding resource estimation and batch checkpointing",
-        "columns": [
-          "chunks",
-          "workers",
-          "hours"
+        "template": "flow",
+        "title": "Migration costs",
+        "nodes": [
+          {
+            "id": "chunks",
+            "label": "chunks"
+          },
+          {
+            "id": "per_second",
+            "label": "per_second"
+          },
+          {
+            "id": "workers",
+            "label": "workers"
+          },
+          {
+            "id": "price_per_million",
+            "label": "price_per_million"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Re-embedding a large collection requires planning compute and token cost.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "workers"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Re-embedding a large collection takes time and money.",
+            "values": {
+              "chunks": {
+                "var": "chunks",
+                "line": 1,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "workers"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "data"
+              "per_second": {
+                "var": "per_second",
+                "line": 1,
+                "hit": 1
+              },
+              "workers": {
+                "var": "workers",
+                "line": 1,
+                "hit": 1
+              },
+              "price_per_million": {
+                "var": "price_per_million",
+                "line": 1,
+                "hit": 1
               }
+            },
+            "tones": {
+              "chunks": "data",
+              "per_second": "data",
+              "workers": "data",
+              "price_per_million": "data"
+            },
+            "arrows": [
+              [
+                "chunks",
+                "per_second"
+              ],
+              [
+                "per_second",
+                "workers"
+              ],
+              [
+                "workers",
+                "price_per_million"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Running migration jobs in batches with checkpoints protects against failures.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "workers"
-                  },
-                  {
-                    "text": "hours"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Throughput depends on the model, hardware and batch size.",
+            "values": {
+              "chunks": {
+                "var": "chunks",
+                "line": 2,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "chunks"
-                  },
-                  {
-                    "text": "workers"
-                  },
-                  {
-                    "text": "chunks"
-                  }
-                ],
-                "tone": "ok"
+              "per_second": {
+                "var": "per_second",
+                "line": 2,
+                "hit": 1
+              },
+              "workers": {
+                "var": "workers",
+                "line": 2,
+                "hit": 1
+              },
+              "price_per_million": {
+                "var": "price_per_million",
+                "line": 2,
+                "hit": 1
               }
+            },
+            "tones": {
+              "chunks": "data",
+              "per_second": "data",
+              "workers": "data",
+              "price_per_million": "data"
+            },
+            "arrows": [
+              [
+                "chunks",
+                "per_second"
+              ],
+              [
+                "per_second",
+                "workers"
+              ],
+              [
+                "workers",
+                "price_per_million"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Teams that migrate regularly tend to have scripts for each step,.",
+            "values": {
+              "chunks": {
+                "var": "chunks",
+                "line": 3,
+                "hit": 1
+              },
+              "per_second": {
+                "var": "per_second",
+                "line": 3,
+                "hit": 1
+              },
+              "workers": {
+                "var": "workers",
+                "line": 3,
+                "hit": 1
+              },
+              "price_per_million": {
+                "var": "price_per_million",
+                "line": 3,
+                "hit": 1
+              }
+            },
+            "tones": {
+              "chunks": "ok",
+              "per_second": "ok",
+              "workers": "ok",
+              "price_per_million": "ok"
+            },
+            "arrows": [
+              [
+                "chunks",
+                "per_second"
+              ],
+              [
+                "per_second",
+                "workers"
+              ],
+              [
+                "workers",
+                "price_per_million"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Re-embedding resource estimation and batch checkpointing",
-        "columns": [
-          "chunks",
-          "workers",
-          "hours"
+        "template": "flow",
+        "title": "Migration costs",
+        "nodes": [
+          {
+            "id": "chunks",
+            "label": "chunks"
+          },
+          {
+            "id": "per_second",
+            "label": "per_second"
+          },
+          {
+            "id": "workers",
+            "label": "workers"
+          },
+          {
+            "id": "price_per_million",
+            "label": "price_per_million"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Re-embedding a large collection requires planning compute and token cost.",
-            "rows": [
-              {
-                "cells": [
-                  "chunks",
-                  "workers",
-                  "hours"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "chunks",
-                  "workers",
-                  "hours"
-                ],
-                "tone": "data"
-              }
+            "caption": "Re-embedding a large collection takes time and money.",
+            "values": {
+              "chunks": "50000000",
+              "per_second": "400",
+              "workers": "8",
+              "price_per_million": "0.02"
+            },
+            "tones": {
+              "chunks": "data",
+              "per_second": "data",
+              "workers": "data",
+              "price_per_million": "data"
+            },
+            "arrows": [
+              [
+                "chunks",
+                "per_second"
+              ],
+              [
+                "per_second",
+                "workers"
+              ],
+              [
+                "workers",
+                "price_per_million"
+              ]
             ]
           },
           {
-            "at": "say4",
-            "caption": "Running migration jobs in batches with checkpoints protects against failures.",
-            "rows": [
-              {
-                "cells": [
-                  "chunks",
-                  "workers",
-                  "hours"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "chunks",
-                  "workers",
-                  "chunks"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Throughput depends on the model, hardware and batch size.",
+            "values": {
+              "chunks": "50000000",
+              "per_second": "400",
+              "workers": "8",
+              "price_per_million": "0.02"
+            },
+            "tones": {
+              "chunks": "data",
+              "per_second": "data",
+              "workers": "data",
+              "price_per_million": "data"
+            },
+            "arrows": [
+              [
+                "chunks",
+                "per_second"
+              ],
+              [
+                "per_second",
+                "workers"
+              ],
+              [
+                "workers",
+                "price_per_million"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Teams that migrate regularly tend to have scripts for each step,.",
+            "values": {
+              "chunks": "50000000",
+              "per_second": "400",
+              "workers": "8",
+              "price_per_million": "0.02"
+            },
+            "tones": {
+              "chunks": "ok",
+              "per_second": "ok",
+              "workers": "ok",
+              "price_per_million": "ok"
+            },
+            "arrows": [
+              [
+                "chunks",
+                "per_second"
+              ],
+              [
+                "per_second",
+                "workers"
+              ],
+              [
+                "workers",
+                "price_per_million"
+              ]
             ]
           }
         ]
@@ -562,110 +962,127 @@
       "codeHash": "26749b7c2c5092005f50626ffe7822ef5d7bbc837003529e3b3915f54a7a3ded",
       "spec": {
         "template": "flow",
-        "title": "Versioning everything — Execution Pipeline",
+        "title": "Versioning everything",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "version",
+            "label": "version"
           },
           {
-            "id": "proc",
-            "label": "2. Versioning everything",
-            "tappable": true
+            "id": "key",
+            "label": "key"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "value",
+            "label": "value"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Versioning everything [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Versioning everything [D.Pfive.Stwo].",
+            "caption": "An index is defined by more than its vectors.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "version": {
+                "var": "version",
+                "line": 1,
+                "hit": 2
+              },
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 4,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "version": "data",
+              "key": "data",
+              "value": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "version",
+                "key"
               ],
               [
-                "proc",
-                "out"
+                "key",
+                "value"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
+            "at": "say2",
+            "caption": "Recording all of these as a version makes indexes reproducible and comparable.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "version": {
+                "var": "version",
+                "line": 4,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 5,
+                "hit": 1
+              },
+              "value": {
+                "var": "value",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "version": "data",
+              "key": "data",
+              "value": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "version",
+                "key"
+              ],
+              [
+                "key",
+                "value"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Versioning everything [D.Pfive.Sfour].",
+            "at": "say11",
+            "caption": "It also makes onboarding easier, because new team members can see exactly.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "version": {
+                "var": "version",
+                "line": 5,
+                "hit": 1
+              },
+              "key": {
+                "var": "key",
+                "line": 4,
+                "hit": 2
+              },
+              "value": {
+                "var": "value",
+                "line": 4,
+                "hit": 2
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "version": "ok",
+              "key": "ok",
+              "value": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "version",
+                "key"
               ],
               [
-                "proc",
-                "out"
+                "key",
+                "value"
               ]
             ]
           }
@@ -673,110 +1090,91 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Versioning everything — Execution Pipeline",
+        "title": "Versioning everything",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "version",
+            "label": "version"
           },
           {
-            "id": "proc",
-            "label": "2. Versioning everything",
-            "tappable": true
+            "id": "key",
+            "label": "key"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "value",
+            "label": "value"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Versioning everything [D25.P5.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Versioning everything [D25.P5.S2].",
+            "caption": "An index is defined by more than its vectors.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "version": "{'name': 'docs-v3', 'embedding_model': …",
+              "key": "'name'",
+              "value": "'docs-v3'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "version": "data",
+              "key": "data",
+              "value": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "version",
+                "key"
               ],
               [
-                "proc",
-                "out"
+                "key",
+                "value"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P5.S3].",
+            "at": "say2",
+            "caption": "Recording all of these as a version makes indexes reproducible and comparable.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "version": "{'name': 'docs-v3', 'embedding_model': …",
+              "key": "'name'",
+              "value": "'docs-v3'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "version": "data",
+              "key": "data",
+              "value": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "version",
+                "key"
+              ],
+              [
+                "key",
+                "value"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Versioning everything [D25.P5.S4].",
+            "at": "say11",
+            "caption": "It also makes onboarding easier, because new team members can see exactly.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "version": "{'name': 'docs-v3', 'embedding_model': …",
+              "key": "'embedding_model'",
+              "value": "'embed-large-2'"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "version": "ok",
+              "key": "ok",
+              "value": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "version",
+                "key"
               ],
               [
-                "proc",
-                "out"
+                "key",
+                "value"
               ]
             ]
           }
@@ -788,110 +1186,161 @@
       "codeHash": "77dfb0372d12bd93e37556685f557306d94c503db0dd0f2e157cba57189896db",
       "spec": {
         "template": "flow",
-        "title": "Practice time: freshness and migration — Execution Pipeline",
+        "title": "Practice time: freshness and migration",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "indexes",
+            "label": "indexes"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: fres...",
-            "tappable": true
+            "id": "model",
+            "label": "model"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "ix",
+            "label": "ix"
+          },
+          {
+            "id": "ready",
+            "label": "ready"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: freshness and migration.",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: fres... [D.Psix.Stwo].",
+            "caption": "Stale_docs(docs).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "indexes": {
+                "var": "indexes",
+                "line": 1,
+                "hit": 2
+              },
+              "model": {
+                "var": "model",
+                "line": 4,
+                "hit": 1
+              },
+              "ix": {
+                "var": "ix",
+                "line": 4,
+                "hit": 1
+              },
+              "ready": {
+                "var": "ready",
+                "line": 4,
+                "hit": 3
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "indexes": "data",
+              "model": "data",
+              "ix": "data",
+              "ready": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "indexes",
+                "model"
               ],
               [
-                "proc",
-                "out"
+                "model",
+                "ix"
+              ],
+              [
+                "ix",
+                "ready"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "The checks include fresh, updated, never-indexed and same-day documents.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "indexes": {
+                "var": "indexes",
+                "line": 3,
+                "hit": 1
+              },
+              "model": {
+                "var": "model",
+                "line": 4,
+                "hit": 2
+              },
+              "ix": {
+                "var": "ix",
+                "line": 4,
+                "hit": 2
+              },
+              "ready": {
+                "var": "ready",
+                "line": 5,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "indexes": "data",
+              "model": "data",
+              "ix": "data",
+              "ready": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "indexes",
+                "model"
+              ],
+              [
+                "model",
+                "ix"
+              ],
+              [
+                "ix",
+                "ready"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: freshness and migr.",
+            "at": "say10",
+            "caption": "If pick_index returns an index that is still building, check the status.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "indexes": {
+                "var": "indexes",
+                "line": 6,
+                "hit": 1
+              },
+              "model": {
+                "var": "model",
+                "line": 4,
+                "hit": 3
+              },
+              "ix": {
+                "var": "ix",
+                "line": 4,
+                "hit": 4
+              },
+              "ready": {
+                "var": "ready",
+                "line": 4,
+                "hit": 6
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "indexes": "ok",
+              "model": "ok",
+              "ix": "ok",
+              "ready": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "indexes",
+                "model"
               ],
               [
-                "proc",
-                "out"
+                "model",
+                "ix"
+              ],
+              [
+                "ix",
+                "ready"
               ]
             ]
           }
@@ -899,110 +1348,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: freshness and migration — Execution Pipeline",
+        "title": "Practice time: freshness and migration",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "indexes",
+            "label": "indexes"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: fres...",
-            "tappable": true
+            "id": "model",
+            "label": "model"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "ix",
+            "label": "ix"
+          },
+          {
+            "id": "ready",
+            "label": "ready"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: freshness and migration [D25.P6.S1].",
-            "values": {
-              "in": "Day 25 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: fres... [D25.P6.S2].",
+            "caption": "Stale_docs(docs).",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "indexes": "[{'name': 'docs-v2', 'model': 'embed-sm…",
+              "model": "'embed-small-1'",
+              "ix": "{'name': 'docs-v2', 'model': 'embed-sma…",
+              "ready": "['docs-v2']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "indexes": "data",
+              "model": "data",
+              "ix": "data",
+              "ready": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "indexes",
+                "model"
               ],
               [
-                "proc",
-                "out"
+                "model",
+                "ix"
+              ],
+              [
+                "ix",
+                "ready"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D25.P6.S3].",
+            "at": "say2",
+            "caption": "The checks include fresh, updated, never-indexed and same-day documents.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "indexes": "[{'name': 'docs-v2', 'model': 'embed-sm…",
+              "model": "'embed-small-1'",
+              "ix": "{'name': 'docs-v3', 'model': 'embed-lar…",
+              "ready": "['docs-v2']"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "indexes": "data",
+              "model": "data",
+              "ix": "data",
+              "ready": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "indexes",
+                "model"
+              ],
+              [
+                "model",
+                "ix"
+              ],
+              [
+                "ix",
+                "ready"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: freshness and migr.. [D25.P6.S4].",
+            "at": "say10",
+            "caption": "If pick_index returns an index that is still building, check the status.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "indexes": "[{'name': 'docs-v2', 'model': 'embed-sm…",
+              "model": "'embed-small-1'",
+              "ix": "{'name': 'docs-v2', 'model': 'embed-sma…",
+              "ready": "[]"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "indexes": "ok",
+              "model": "ok",
+              "ix": "ok",
+              "ready": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "indexes",
+                "model"
               ],
               [
-                "proc",
-                "out"
+                "model",
+                "ix"
+              ],
+              [
+                "ix",
+                "ready"
               ]
             ]
           }

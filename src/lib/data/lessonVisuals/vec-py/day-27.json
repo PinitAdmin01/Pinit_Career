@@ -2,141 +2,136 @@
   "schemaVersion": 1,
   "prefix": "vec-py",
   "day": 27,
-  "promptSha": "73ae715848a9cbd76d8a225b670f270f490331cf997b6840582ea689408b916e",
-  "model": "gpt-4o",
+  "promptSha": "40f8f16b2525e42c7f0b483d22d713d09de2863485546f1f4616ab814dbe7a68",
+  "model": "pinit-trace-verified-v2",
   "entries": [
     {
       "partTitle": "Why averages hide slow queries",
       "codeHash": "cf4745745956048fea78ddc94267a2476903b02a462416724ffb398966a324f2",
       "spec": {
-        "template": "table",
-        "title": "Tail latency distributions and percentile masking",
-        "columns": [
-          "lat",
-          "mean",
-          "ordered"
-        ],
+        "template": "cells",
+        "title": "Why averages hide slow queries",
         "steps": [
           {
             "at": "say1",
-            "caption": "Average latency can look fine while some users wait a long time.",
-            "rows": [
+            "caption": "The average latency can look fine while some users wait a long time.",
+            "items": {
+              "var": "lat",
+              "line": 1,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "lat"
-                  },
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "ordered"
-                  }
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  {
-                    "text": "lat"
-                  },
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "ordered"
-                  }
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Slowest percentiles called tail latency often decide user experience.",
-            "rows": [
+            "at": "say2",
+            "caption": "Percentiles describe the distribution.",
+            "items": {
+              "var": "lat",
+              "line": 3,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "lat"
-                  },
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "ordered"
-                  }
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Percentiles are also easy to explain to non-engineers.",
+            "items": {
+              "var": "lat",
+              "line": 5,
+              "hit": 1
+            },
+            "pointers": [
               {
-                "cells": [
-                  {
-                    "text": "lat"
-                  },
-                  {
-                    "text": "mean"
-                  },
-                  {
-                    "text": "ordered"
-                  }
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Tail latency distributions and percentile masking",
-        "columns": [
-          "lat",
-          "mean",
-          "ordered"
-        ],
+        "template": "cells",
+        "title": "Why averages hide slow queries",
         "steps": [
           {
             "at": "say1",
-            "caption": "Average latency can look fine while some users wait a long time.",
-            "rows": [
+            "caption": "The average latency can look fine while some users wait a long time.",
+            "items": [
+              "12",
+              "15",
+              "11",
+              "14",
+              "13",
+              "90",
+              "16",
+              "12",
+              "14",
+              "250"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "lat",
-                  "mean",
-                  "ordered"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "lat",
-                  "mean",
-                  "ordered"
-                ],
+                "name": "idx",
+                "index": 0,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "Slowest percentiles called tail latency often decide user experience.",
-            "rows": [
+            "at": "say2",
+            "caption": "Percentiles describe the distribution.",
+            "items": [
+              "12",
+              "15",
+              "11",
+              "14",
+              "13",
+              "90",
+              "16",
+              "12",
+              "14",
+              "250"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "lat",
-                  "mean",
-                  "ordered"
-                ],
+                "name": "idx",
+                "index": 1,
                 "tone": "data"
-              },
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Percentiles are also easy to explain to non-engineers.",
+            "items": [
+              "12",
+              "15",
+              "11",
+              "14",
+              "13",
+              "90",
+              "16",
+              "12",
+              "14",
+              "250"
+            ],
+            "pointers": [
               {
-                "cells": [
-                  "lat",
-                  "mean",
-                  "ordered"
-                ],
-                "tone": "ok"
+                "name": "idx",
+                "index": 2,
+                "tone": "data"
               }
             ]
           }
@@ -147,135 +142,277 @@
       "partTitle": "Computing percentiles",
       "codeHash": "6e3300cf09aaf777293aaaf3e6671867f2938c77adea271adef375a65e6d568e",
       "spec": {
-        "template": "table",
-        "title": "Nearest-rank percentile calculations and summary reporting",
-        "columns": [
-          "values",
-          "lat",
-          "values"
+        "template": "flow",
+        "title": "Computing percentiles",
+        "nodes": [
+          {
+            "id": "lat",
+            "label": "lat"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          },
+          {
+            "id": "values",
+            "label": "values"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Nearest rank calculation sorts values to extract precise threshold ranks.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "values"
-                  },
-                  {
-                    "text": "lat"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "The nearest-rank method sorts the values and picks the one at position.",
+            "values": {
+              "lat": {
+                "var": "lat",
+                "line": 7,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "values"
-                  },
-                  {
-                    "text": "lat"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
-                "tone": "data"
+              "p": {
+                "var": "p",
+                "line": 8,
+                "hit": 1
+              },
+              "values": {
+                "var": "values",
+                "line": 4,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 1
               }
+            },
+            "tones": {
+              "lat": "data",
+              "p": "data",
+              "values": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "lat",
+                "p"
+              ],
+              [
+                "p",
+                "values"
+              ],
+              [
+                "values",
+                "s"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Method returns an actual measured value that operators can explain easily.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "values"
-                  },
-                  {
-                    "text": "lat"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
-                "tone": "data"
+            "caption": "It always returns an actual measured value, which is easy to explain.",
+            "values": {
+              "lat": {
+                "var": "lat",
+                "line": 8,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "values"
-                  },
-                  {
-                    "text": "lat"
-                  },
-                  {
-                    "text": "values"
-                  }
-                ],
-                "tone": "ok"
+              "p": {
+                "var": "p",
+                "line": 4,
+                "hit": 1
+              },
+              "values": {
+                "var": "values",
+                "line": 5,
+                "hit": 1
+              },
+              "s": {
+                "var": "s",
+                "line": 5,
+                "hit": 1
               }
+            },
+            "tones": {
+              "lat": "data",
+              "p": "data",
+              "values": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "lat",
+                "p"
+              ],
+              [
+                "p",
+                "values"
+              ],
+              [
+                "values",
+                "s"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Changing the method silently can make a system look faster or slower.",
+            "values": {
+              "lat": {
+                "var": "lat",
+                "line": 9,
+                "hit": 1
+              },
+              "p": {
+                "var": "p",
+                "line": 5,
+                "hit": 1
+              },
+              "values": {
+                "var": "values",
+                "line": 4,
+                "hit": 2
+              },
+              "s": {
+                "var": "s",
+                "line": 4,
+                "hit": 2
+              }
+            },
+            "tones": {
+              "lat": "ok",
+              "p": "ok",
+              "values": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "lat",
+                "p"
+              ],
+              [
+                "p",
+                "values"
+              ],
+              [
+                "values",
+                "s"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Nearest-rank percentile calculations and summary reporting",
-        "columns": [
-          "values",
-          "lat",
-          "values"
+        "template": "flow",
+        "title": "Computing percentiles",
+        "nodes": [
+          {
+            "id": "lat",
+            "label": "lat"
+          },
+          {
+            "id": "p",
+            "label": "p"
+          },
+          {
+            "id": "values",
+            "label": "values"
+          },
+          {
+            "id": "s",
+            "label": "s"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Nearest rank calculation sorts values to extract precise threshold ranks.",
-            "rows": [
-              {
-                "cells": [
-                  "values",
-                  "lat",
-                  "values"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "values",
-                  "lat",
-                  "values"
-                ],
-                "tone": "data"
-              }
+            "caption": "The nearest-rank method sorts the values and picks the one at position.",
+            "values": {
+              "lat": "[12, 15, 11, 14, 13, 90, 16, 12, 14, 25…",
+              "p": "0",
+              "values": "[12, 15, 11, 14, 13, 90, 16, 12, 14, 25…",
+              "s": "[11, 12, 12, 13, 14, 14, 15, 16, 90, 25…"
+            },
+            "tones": {
+              "lat": "data",
+              "p": "data",
+              "values": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "lat",
+                "p"
+              ],
+              [
+                "p",
+                "values"
+              ],
+              [
+                "values",
+                "s"
+              ]
             ]
           },
           {
             "at": "say2",
-            "caption": "Method returns an actual measured value that operators can explain easily.",
-            "rows": [
-              {
-                "cells": [
-                  "values",
-                  "lat",
-                  "values"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "values",
-                  "lat",
-                  "values"
-                ],
-                "tone": "ok"
-              }
+            "caption": "It always returns an actual measured value, which is easy to explain.",
+            "values": {
+              "lat": "[12, 15, 11, 14, 13, 90, 16, 12, 14, 25…",
+              "p": "0",
+              "values": "[12, 15, 11, 14, 13, 90, 16, 12, 14, 25…",
+              "s": "[11, 12, 12, 13, 14, 14, 15, 16, 90, 25…"
+            },
+            "tones": {
+              "lat": "data",
+              "p": "data",
+              "values": "data",
+              "s": "data"
+            },
+            "arrows": [
+              [
+                "lat",
+                "p"
+              ],
+              [
+                "p",
+                "values"
+              ],
+              [
+                "values",
+                "s"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Changing the method silently can make a system look faster or slower.",
+            "values": {
+              "lat": "[12, 15, 11, 14, 13, 90, 16, 12, 14, 25…",
+              "p": "0",
+              "values": "[12, 15, 11, 14, 13, 90, 16, 12, 14, 25…",
+              "s": "[11, 12, 12, 13, 14, 14, 15, 16, 90, 25…"
+            },
+            "tones": {
+              "lat": "ok",
+              "p": "ok",
+              "values": "ok",
+              "s": "ok"
+            },
+            "arrows": [
+              [
+                "lat",
+                "p"
+              ],
+              [
+                "p",
+                "values"
+              ],
+              [
+                "values",
+                "s"
+              ]
             ]
           }
         ]
@@ -285,78 +422,104 @@
       "partTitle": "Embedding drift",
       "codeHash": "065fda696eaf7e059d81c171b10cd13a15615e6fadc7d570136d567638370b18",
       "spec": {
-        "template": "table",
-        "title": "Embedding distribution drift and baseline cosine comparison",
-        "columns": [
-          "baseline",
-          "current",
-          "baseline"
-        ],
+        "template": "bars",
+        "title": "Embedding drift",
         "steps": [
           {
             "at": "say1",
-            "caption": "Drift means incoming queries change over time across evolving topics.",
-            "rows": [
+            "caption": "Drift means the data or queries change over time.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "baseline"
-                  },
-                  {
-                    "text": "current"
-                  },
-                  {
-                    "text": "baseline"
-                  }
-                ],
-                "tone": "ok"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
               },
               {
-                "cells": [
-                  {
-                    "text": "baseline"
-                  },
-                  {
-                    "text": "current"
-                  },
-                  {
-                    "text": "baseline"
-                  }
-                ],
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 4,
+                  "hit": 2
+                },
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 7,
+                  "hit": 1
+                },
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "A simple drift signal compares mean embedding vectors against a baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Drift can hurt search quality silently, for example when queries about.",
+            "bars": [
               {
-                "cells": [
-                  {
-                    "text": "baseline"
-                  },
-                  {
-                    "text": "current"
-                  },
-                  {
-                    "text": "baseline"
-                  }
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
               },
               {
-                "cells": [
-                  {
-                    "text": "baseline"
-                  },
-                  {
-                    "text": "current"
-                  },
-                  {
-                    "text": "baseline"
-                  }
-                ],
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 4,
+                  "hit": 3
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 8,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Documents can drift too, for example when a new product line adds many.",
+            "bars": [
+              {
+                "label": "x",
+                "value": {
+                  "var": "x",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": {
+                  "var": "y",
+                  "line": 4,
+                  "hit": 4
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": {
+                  "var": "d",
+                  "line": 6,
+                  "hit": 2
+                },
                 "tone": "ok"
               }
             ]
@@ -364,54 +527,68 @@
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Embedding distribution drift and baseline cosine comparison",
-        "columns": [
-          "baseline",
-          "current",
-          "baseline"
-        ],
+        "template": "bars",
+        "title": "Embedding drift",
         "steps": [
           {
             "at": "say1",
-            "caption": "Drift means incoming queries change over time across evolving topics.",
-            "rows": [
+            "caption": "Drift means the data or queries change over time.",
+            "bars": [
               {
-                "cells": [
-                  "baseline",
-                  "current",
-                  "baseline"
-                ],
-                "tone": "ok"
+                "label": "x",
+                "value": 0.9666666666666667,
+                "tone": "data"
               },
               {
-                "cells": [
-                  "baseline",
-                  "current",
-                  "baseline"
-                ],
+                "label": "y",
+                "value": 0.975,
+                "tone": "data"
+              },
+              {
+                "label": "d",
+                "value": 3.8271659497102206e-7,
                 "tone": "data"
               }
             ]
           },
           {
-            "at": "say3",
-            "caption": "A simple drift signal compares mean embedding vectors against a baseline.",
-            "rows": [
+            "at": "say2",
+            "caption": "Drift can hurt search quality silently, for example when queries about.",
+            "bars": [
               {
-                "cells": [
-                  "baseline",
-                  "current",
-                  "baseline"
-                ],
-                "tone": "data"
+                "label": "x",
+                "value": 0.10000000000000002,
+                "tone": "ok"
               },
               {
-                "cells": [
-                  "baseline",
-                  "current",
-                  "baseline"
-                ],
+                "label": "y",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 3.8271659497102206e-7,
+                "tone": "ok"
+              }
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "Documents can drift too, for example when a new product line adds many.",
+            "bars": [
+              {
+                "label": "x",
+                "value": 0.10000000000000002,
+                "tone": "ok"
+              },
+              {
+                "label": "y",
+                "value": 0.1,
+                "tone": "ok"
+              },
+              {
+                "label": "d",
+                "value": 3.8271659497102206e-7,
                 "tone": "ok"
               }
             ]
@@ -423,135 +600,277 @@
       "partTitle": "Quality signals in production",
       "codeHash": "b6708d215834df3aa1b365a50bf0212957a7abbb714a2a7dee47b9766acd6dfe",
       "spec": {
-        "template": "table",
-        "title": "Production quality signals and indirect telemetry metrics",
-        "columns": [
-          "log",
-          "results",
-          "log"
+        "template": "flow",
+        "title": "Quality signals in production",
+        "nodes": [
+          {
+            "id": "log",
+            "label": "log"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "e",
+            "label": "e"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Live systems lack golden labels and rely on indirect signals in production.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "log"
-                  },
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "log"
-                  }
-                ],
-                "tone": "ok"
+            "caption": "Live systems lack golden labels for every query, so they rely on indirect.",
+            "values": {
+              "log": {
+                "var": "log",
+                "line": 1,
+                "hit": 2
               },
-              {
-                "cells": [
-                  {
-                    "text": "log"
-                  },
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "log"
-                  }
-                ],
-                "tone": "data"
+              "n": {
+                "var": "n",
+                "line": 5,
+                "hit": 1
+              },
+              ".0": {
+                "var": ".0",
+                "line": 6,
+                "hit": 1
+              },
+              "e": {
+                "var": "e",
+                "line": 6,
+                "hit": 1
               }
+            },
+            "tones": {
+              "log": "data",
+              "n": "data",
+              ".0": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "n"
+              ],
+              [
+                "n",
+                ".0"
+              ],
+              [
+                ".0",
+                "e"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Dashboards should show these signals next to latency and error telemetry.",
-            "rows": [
-              {
-                "cells": [
-                  {
-                    "text": "log"
-                  },
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "log"
-                  }
-                ],
-                "tone": "data"
+            "at": "say2",
+            "caption": "Zero-result rates, low top scores, quick rephrasing and users abandoning.",
+            "values": {
+              "log": {
+                "var": "log",
+                "line": 5,
+                "hit": 1
               },
-              {
-                "cells": [
-                  {
-                    "text": "log"
-                  },
-                  {
-                    "text": "results"
-                  },
-                  {
-                    "text": "log"
-                  }
-                ],
-                "tone": "ok"
+              "n": {
+                "var": "n",
+                "line": 6,
+                "hit": 6
+              },
+              ".0": {
+                "var": ".0",
+                "line": 6,
+                "hit": 2
+              },
+              "e": {
+                "var": "e",
+                "line": 6,
+                "hit": 2
               }
+            },
+            "tones": {
+              "log": "data",
+              "n": "data",
+              ".0": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "n"
+              ],
+              [
+                "n",
+                ".0"
+              ],
+              [
+                ".0",
+                "e"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "The best teams review these signals together every week and turn the worst.",
+            "values": {
+              "log": {
+                "var": "log",
+                "line": 6,
+                "hit": 6
+              },
+              "n": {
+                "var": "n",
+                "line": 7,
+                "hit": 6
+              },
+              ".0": {
+                "var": ".0",
+                "line": 6,
+                "hit": 3
+              },
+              "e": {
+                "var": "e",
+                "line": 6,
+                "hit": 3
+              }
+            },
+            "tones": {
+              "log": "ok",
+              "n": "ok",
+              ".0": "ok",
+              "e": "ok"
+            },
+            "arrows": [
+              [
+                "log",
+                "n"
+              ],
+              [
+                "n",
+                ".0"
+              ],
+              [
+                ".0",
+                "e"
+              ]
             ]
           }
         ]
       },
       "filled": {
-        "template": "table",
-        "title": "Production quality signals and indirect telemetry metrics",
-        "columns": [
-          "log",
-          "results",
-          "log"
+        "template": "flow",
+        "title": "Quality signals in production",
+        "nodes": [
+          {
+            "id": "log",
+            "label": "log"
+          },
+          {
+            "id": "n",
+            "label": "n"
+          },
+          {
+            "id": ".0",
+            "label": ".0"
+          },
+          {
+            "id": "e",
+            "label": "e"
+          }
         ],
         "steps": [
           {
             "at": "say1",
-            "caption": "Live systems lack golden labels and rely on indirect signals in production.",
-            "rows": [
-              {
-                "cells": [
-                  "log",
-                  "results",
-                  "log"
-                ],
-                "tone": "ok"
-              },
-              {
-                "cells": [
-                  "log",
-                  "results",
-                  "log"
-                ],
-                "tone": "data"
-              }
+            "caption": "Live systems lack golden labels for every query, so they rely on indirect.",
+            "values": {
+              "log": "[{'q': 'refund', 'results': 5, 'top': 0…",
+              "n": "4",
+              ".0": "{'__other__': 'list_iterator'}",
+              "e": "{'q': 'refund', 'results': 5, 'top': 0.…"
+            },
+            "tones": {
+              "log": "data",
+              "n": "data",
+              ".0": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "n"
+              ],
+              [
+                "n",
+                ".0"
+              ],
+              [
+                ".0",
+                "e"
+              ]
             ]
           },
           {
-            "at": "say7",
-            "caption": "Dashboards should show these signals next to latency and error telemetry.",
-            "rows": [
-              {
-                "cells": [
-                  "log",
-                  "results",
-                  "log"
-                ],
-                "tone": "data"
-              },
-              {
-                "cells": [
-                  "log",
-                  "results",
-                  "log"
-                ],
-                "tone": "ok"
-              }
+            "at": "say2",
+            "caption": "Zero-result rates, low top scores, quick rephrasing and users abandoning.",
+            "values": {
+              "log": "[{'q': 'refund', 'results': 5, 'top': 0…",
+              "n": "4",
+              ".0": "{'__other__': 'list_iterator'}",
+              "e": "{'q': 'wfh', 'results': 0, 'top': 0, 'r…"
+            },
+            "tones": {
+              "log": "data",
+              "n": "data",
+              ".0": "data",
+              "e": "data"
+            },
+            "arrows": [
+              [
+                "log",
+                "n"
+              ],
+              [
+                "n",
+                ".0"
+              ],
+              [
+                ".0",
+                "e"
+              ]
+            ]
+          },
+          {
+            "at": "say11",
+            "caption": "The best teams review these signals together every week and turn the worst.",
+            "values": {
+              "log": "[{'q': 'refund', 'results': 5, 'top': 0…",
+              "n": "4",
+              ".0": "{'__other__': 'list_iterator'}",
+              "e": "{'q': 'track order', 'results': 4, 'top…"
+            },
+            "tones": {
+              "log": "ok",
+              "n": "ok",
+              ".0": "ok",
+              "e": "ok"
+            },
+            "arrows": [
+              [
+                "log",
+                "n"
+              ],
+              [
+                "n",
+                ".0"
+              ],
+              [
+                ".0",
+                "e"
+              ]
             ]
           }
         ]
@@ -561,223 +880,217 @@
       "partTitle": "Alerts that help",
       "codeHash": "41c55f33eee4d745688d6730bc5e2db1efa496971dec7b0ec57654fa0ccd6885",
       "spec": {
-        "template": "flow",
-        "title": "Alerts that help — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Alerts that help",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Alerts that help",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Alerts that help [D.Pfive.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Alerts that help [D.Pfive.Stwo].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "An alert should fire when users are affected and someone can do something.",
+            "bars": [
+              {
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 2,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "streak",
+                "value": {
+                  "var": "streak",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "data"
+              },
+              {
+                "label": "minute",
+                "value": {
+                  "var": "minute",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Pfive.object-storage].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Alert on symptoms, such as p95 latency above the objective or error rates.",
+            "bars": [
+              {
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 3,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "streak",
+                "value": {
+                  "var": "streak",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "minute",
+                "value": {
+                  "var": "minute",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Alerts that help [D.Pfive.Sfour].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Good monitoring means problems are usually noticed by engineers before.",
+            "bars": [
+              {
+                "label": "limit",
+                "value": {
+                  "var": "limit",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "window",
+                "value": {
+                  "var": "window",
+                  "line": 4,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "streak",
+                "value": {
+                  "var": "streak",
+                  "line": 5,
+                  "hit": 1
+                },
+                "tone": "ok"
+              },
+              {
+                "label": "minute",
+                "value": {
+                  "var": "minute",
+                  "line": 6,
+                  "hit": 1
+                },
+                "tone": "ok"
+              }
             ]
           }
         ]
       },
       "filled": {
-        "template": "flow",
-        "title": "Alerts that help — Execution Pipeline",
-        "nodes": [
-          {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
-          },
-          {
-            "id": "proc",
-            "label": "2. Alerts that help",
-            "tappable": true
-          },
-          {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
-          }
-        ],
+        "template": "bars",
+        "title": "Alerts that help",
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Alerts that help [D27.P5.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Alerts that help [D27.P5.S2].",
-            "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "caption": "An alert should fire when users are affected and someone can do something.",
+            "bars": [
+              {
+                "label": "limit",
+                "value": 240,
+                "tone": "data"
+              },
+              {
+                "label": "window",
+                "value": 3,
+                "tone": "data"
+              },
+              {
+                "label": "streak",
+                "value": 0,
+                "tone": "data"
+              },
+              {
+                "label": "minute",
+                "value": 0,
+                "tone": "data"
+              }
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P5.S3].",
-            "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
-            },
-            "arrows": [
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say2",
+            "caption": "Alert on symptoms, such as p95 latency above the objective or error rates.",
+            "bars": [
+              {
+                "label": "limit",
+                "value": 240,
+                "tone": "ok"
+              },
+              {
+                "label": "window",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "streak",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "minute",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Alerts that help [D27.P5.S4].",
-            "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
-            },
-            "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ],
-              [
-                "proc",
-                "out"
-              ]
+            "at": "say11",
+            "caption": "Good monitoring means problems are usually noticed by engineers before.",
+            "bars": [
+              {
+                "label": "limit",
+                "value": 240,
+                "tone": "ok"
+              },
+              {
+                "label": "window",
+                "value": 3,
+                "tone": "ok"
+              },
+              {
+                "label": "streak",
+                "value": 0,
+                "tone": "ok"
+              },
+              {
+                "label": "minute",
+                "value": 0,
+                "tone": "ok"
+              }
             ]
           }
         ]
@@ -788,110 +1101,161 @@
       "codeHash": "5e372ae01e9d86b4c997a11797257518494a835b259c73a79922de824fd4db89",
       "spec": {
         "template": "flow",
-        "title": "Practice time: monitoring — Execution Pipeline",
+        "title": "Practice time: monitoring",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rng",
+            "label": "rng"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: moni...",
-            "tappable": true
+            "id": "day",
+            "label": "day"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "slow",
+            "label": "slow"
+          },
+          {
+            "id": "lat",
+            "label": "lat"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Initialize input state for Practice time: monitoring [D.Psix.Sone].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Execute core transformation in Practice time: moni... [D.Psix.Stwo].",
+            "caption": "Trace how practice updates percentile during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "rng": {
+                "var": "rng",
+                "line": 3,
+                "hit": 1
+              },
+              "day": {
+                "var": "day",
+                "line": 7,
+                "hit": 1
+              },
+              "slow": {
+                "var": "slow",
+                "line": 8,
+                "hit": 1
+              },
+              "lat": {
+                "var": "lat",
+                "line": 9,
+                "hit": 501
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "rng": "data",
+              "day": "data",
+              "slow": "data",
+              "lat": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "day"
               ],
               [
-                "proc",
-                "out"
+                "day",
+                "slow"
+              ],
+              [
+                "slow",
+                "lat"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Inspect concrete example output and invariants [D.Psix.object-storage].",
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "rng": {
+                "var": "rng",
+                "line": 4,
+                "hit": 1
+              },
+              "day": {
+                "var": "day",
+                "line": 8,
+                "hit": 1
+              },
+              "slow": {
+                "var": "slow",
+                "line": 9,
+                "hit": 1
+              },
+              "lat": {
+                "var": "lat",
+                "line": 10,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "rng": "data",
+              "day": "data",
+              "slow": "data",
+              "lat": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "rng",
+                "day"
+              ],
+              [
+                "day",
+                "slow"
+              ],
+              [
+                "slow",
+                "lat"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "End-to-end execution verified for Practice time: monitoring [D.Psix.Sfour].",
+            "at": "say10",
+            "caption": "Trace how your updates percentile during execution.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "rng": {
+                "var": "rng",
+                "line": 7,
+                "hit": 1
+              },
+              "day": {
+                "var": "day",
+                "line": 9,
+                "hit": 1
+              },
+              "slow": {
+                "var": "slow",
+                "line": 9,
+                "hit": 2
+              },
+              "lat": {
+                "var": "lat",
+                "line": 11,
+                "hit": 1
+              }
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "rng": "ok",
+              "day": "ok",
+              "slow": "ok",
+              "lat": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "day"
               ],
               [
-                "proc",
-                "out"
+                "day",
+                "slow"
+              ],
+              [
+                "slow",
+                "lat"
               ]
             ]
           }
@@ -899,110 +1263,113 @@
       },
       "filled": {
         "template": "flow",
-        "title": "Practice time: monitoring — Execution Pipeline",
+        "title": "Practice time: monitoring",
         "nodes": [
           {
-            "id": "in",
-            "label": "1. Input & State",
-            "tappable": true
+            "id": "rng",
+            "label": "rng"
           },
           {
-            "id": "proc",
-            "label": "2. Practice time: moni...",
-            "tappable": true
+            "id": "day",
+            "label": "day"
           },
           {
-            "id": "out",
-            "label": "3. Verified Output",
-            "tappable": true
+            "id": "slow",
+            "label": "slow"
+          },
+          {
+            "id": "lat",
+            "label": "lat"
           }
         ],
         "steps": [
           {
-            "at": "intro",
-            "caption": "Step 1: Initialize input state for Practice time: monitoring [D27.P6.S1].",
-            "values": {
-              "in": "Day 27 Input",
-              "proc": "Standby",
-              "out": "Pending"
-            },
-            "tones": {
-              "in": "data",
-              "proc": "idle",
-              "out": "idle"
-            },
-            "arrows": [
-              [
-                "in",
-                "proc"
-              ]
-            ]
-          },
-          {
             "at": "say1",
-            "caption": "Step 2: Execute core transformation in Practice time: moni... [D27.P6.S2].",
+            "caption": "Trace how practice updates percentile during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Processing...",
-              "out": "Pending"
+              "rng": "<Random>",
+              "day": "'Mon'",
+              "slow": "1",
+              "lat": "[25.910753174820478, 29.17096785892561,…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "data",
-              "out": "idle"
+              "rng": "data",
+              "day": "data",
+              "slow": "data",
+              "lat": "data"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "day"
               ],
               [
-                "proc",
-                "out"
+                "day",
+                "slow"
+              ],
+              [
+                "slow",
+                "lat"
               ]
             ]
           },
           {
-            "at": "example",
-            "caption": "Step 3: Inspect concrete example output and invariants [D27.P6.S3].",
+            "at": "say2",
+            "caption": "Trace how checks updates include during execution.",
             "values": {
-              "in": "Validated",
-              "proc": "Invariant OK",
-              "out": "Emitting"
+              "rng": "<Random>",
+              "day": "'Mon'",
+              "slow": "1",
+              "lat": "[25.910753174820478, 29.17096785892561,…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "data"
+              "rng": "data",
+              "day": "data",
+              "slow": "data",
+              "lat": "data"
             },
             "arrows": [
               [
-                "proc",
-                "out"
+                "rng",
+                "day"
+              ],
+              [
+                "day",
+                "slow"
+              ],
+              [
+                "slow",
+                "lat"
               ]
             ]
           },
           {
-            "at": "tryIt",
-            "caption": "Step 4: End-to-end execution verified for Practice time: monitoring [D27.P6.S4].",
+            "at": "say10",
+            "caption": "Trace how your updates percentile during execution.",
             "values": {
-              "in": "Committed",
-              "proc": "Verified",
-              "out": "Complete ✓"
+              "rng": "<Random>",
+              "day": "'Mon'",
+              "slow": "1",
+              "lat": "[25.910753174820478, 29.17096785892561,…"
             },
             "tones": {
-              "in": "ok",
-              "proc": "ok",
-              "out": "ok"
+              "rng": "ok",
+              "day": "ok",
+              "slow": "ok",
+              "lat": "ok"
             },
             "arrows": [
               [
-                "in",
-                "proc"
+                "rng",
+                "day"
               ],
               [
-                "proc",
-                "out"
+                "day",
+                "slow"
+              ],
+              [
+                "slow",
+                "lat"
               ]
             ]
           }
